@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 	$('ul.tabs li a:first').addClass('active');
 	$('.secciones article').hide();
 	$('.secciones article:first').show();
@@ -10,7 +10,12 @@ $(document).ready(function(){
 		search: true,
 		multiple: true
 	})
-	$('ul.tabs li a').click(function(){
+
+	dselect(document.querySelector('#idiomas'), {
+		search: true,
+		multiple: true
+	})
+	$('ul.tabs li a').click(function () {
 		$('ul.tabs li a').removeClass('active');
 		$(this).addClass('active');
 		$('.secciones article').hide();

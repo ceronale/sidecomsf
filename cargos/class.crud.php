@@ -71,12 +71,12 @@ class crud
 			$user = $_SESSION['user'];
 
 			$stmt2 = $this->conn->prepare("SELECT * FROM cargos WHERE LOWER(nombre)=:cargo AND id_departamento=:departamento AND categoria=:categoria AND id_empresa =:id_empresa");
-			$stmt2->execute(array(':categoria' => $categoria,':cargo' => $cargo2,':departamento' => $departamento,':id_empresa' => $user['id_empresa']));
+			$stmt2->execute(array(':categoria' => $categoria, ':cargo' => $cargo2, ':departamento' => $departamento, ':id_empresa' => $user['id_empresa']));
 			$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
 
 			if ($stmt2->rowCount() == 0) {
 
-				
+
 
 
 				$descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : "";
@@ -312,7 +312,7 @@ class crud
 			$stmt->bindParam(":id_realizado_por", $id_realizado_por);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->execute();
-			
+
 			$stmt = $this->conn->prepare("UPDATE cargos SET
 			puntaje = :puntaje,
 			modificado = :updated_at
@@ -577,7 +577,9 @@ class crud
 		$destrezaequipo,
 		$destrezasistema,
 		$destrezacomputacion,
-		$destrezaotro
+		$destrezaotro,
+		$experiencia,
+		$idiomas
 	) {
 		try {
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
@@ -673,7 +675,9 @@ class crud
 			destrezaequipo = :destrezaequipo,
 			destrezasistema = :destrezacomputacion,
 			destrezacomputacion = :destrezacomputacion,
-			destrezaotro = :destrezaotro
+			destrezaotro = :destrezaotro,
+			experiencia = :experiencia,
+			idiomas = :idiomas
             WHERE id_cargo = :id_cargo");
 
 			$stmt->bindParam(':organigrama', $organigrama);
@@ -769,6 +773,8 @@ class crud
 			$stmt->bindParam(":destrezasistema", $destrezasistema);
 			$stmt->bindParam(":destrezacomputacion", $destrezacomputacion);
 			$stmt->bindParam(":destrezaotro", $destrezaotro);
+			$stmt->bindParam(":experiencia", $experiencia);
+			$stmt->bindParam(":idiomas", $idiomas);
 			$stmt->execute();
 			return 2;
 		} catch (PDOException $e) {

@@ -398,10 +398,11 @@
 
         $relacionesInternas = isset($_POST['relacionesInternas']) ? $_POST['relacionesInternas'] : array();
         $relacionesExternas = isset($_POST['relacionesExternas']) ? $_POST['relacionesExternas'] : array();
+        $idiomas = isset($_POST['idiomas']) ? $_POST['idiomas'] : array();
 
         $relacionesInternasString = implode(", ", $relacionesInternas);
         $relacionesExternasString = implode(", ", $relacionesExternas);
-
+        $idiomasString = implode(", ", $idiomas);
 
 
         $ambientales = isset($_POST['radio_Ambz']) ? $_POST['radio_Ambz'] : '';
@@ -432,6 +433,7 @@
         $cargoDescripcion["especialidad_carrera"] =   $especialidad;
         $cargoDescripcion["especialidad_adicional"] =   $adicional;
         $cargoDescripcion["relacion_interna"] =   $relacionesInternasString;
+        $cargoDescripcion["idiomas"] =   $idiomasString;
         $cargoDescripcion["relacion_externa"] =   $relacionesExternasString;
         $cargoDescripcion["ambiental"] =   $ambientales[0];
         $cargoDescripcion["riesgo"] =   $riesgo[0];
@@ -827,7 +829,9 @@
                 $destrezaequipo,
                 $destrezasistema,
                 $destrezacomputacion,
-                $destrezaotro
+                $destrezaotro,
+                $experiencia[0],
+                $idiomasString
             );
             if ($result == 2) {
                 $sweetAlertCode =
@@ -897,13 +901,14 @@
         }
 
         function mostrarInputSiguientef() {
+
             var contenedorInputsx = document.getElementById("contenedor-inputs");
             for (let i = 0; i < 9; i++) {
                 // Crear el siguiente input y su correspondiente etiqueta
                 if (indexInputMostradox <= 11) {
                     var inputLabel = document.createElement("div");
                     inputLabel.classList.add("input-group", "mb-3");
-                    inputLabel.id = "input-label-" + indexInputMostradox;
+                    inputLabel.id = "input-labelx-" + indexInputMostradox;
 
                     var inputLabelPrepend = document.createElement("div");
                     inputLabelPrepend.classList.add("input-group-prepend");
@@ -915,11 +920,12 @@
                     inputLabelPrepend.appendChild(inputLabelSpan);
                     inputLabel.appendChild(inputLabelPrepend);
 
-                    var input = document.createElement("input");
-                    input.type = "text";
+                    var input = document.createElement("textarea");
                     input.id = "funcion" + indexInputMostradox;
                     input.name = "funcion" + indexInputMostradox;
                     input.classList.add("form-control");
+                    input.rows = 2;
+                    input.cols = 50;
 
                     if (indexInputMostradox == 2) {
                         var valorPredefinido2 = "<?php echo !empty($cargoDescripcion['funcion2']) ? $cargoDescripcion['funcion2'] : ''; ?>";
@@ -995,6 +1001,9 @@
                     document.getElementById("boton-agregar2").disabled = true;
                 }
             }
+            if (indexInputMostradox < 3) {
+                document.getElementById("eliminar2").hidden = true;
+            }
 
         }
 
@@ -1017,11 +1026,12 @@
                     actividadLabelPrepend.appendChild(actividadLabelSpan);
                     actividadLabel.appendChild(actividadLabelPrepend);
 
-                    var actividad = document.createElement("input");
-                    actividad.type = "text";
+                    var actividad = document.createElement("textarea");
                     actividad.id = "actividad" + indexActividadMostrado;
                     actividad.name = "actividad" + indexActividadMostrado;
                     actividad.classList.add("form-control");
+                    actividad.rows = "2";
+                    actividad.removeAttribute("type");
 
 
                     actividadLabel.appendChild(actividad);
@@ -1633,14 +1643,20 @@
                     indexActividadMostrado++;
                 }
 
+
                 // Desactivar el botón si se han mostrado todos los inputs
                 if (indexActividadMostrado == 16) {
                     document.getElementById("boton-agregar").disabled = true;
                 }
             }
+
+            if (indexActividadMostrado < 3) {
+                document.getElementById("eliminar-actividad").hidden = true;
+            }
         }
 
         function mostrarInputSiguientexf() {
+
             for (let i = 0; i < 5; i++) {
                 // Crear el siguiente input y su correspondiente etiqueta
                 if (indexInputMostradoz <= 10) {
@@ -1705,18 +1721,12 @@
 
                         switch (indexInputMostradoz) {
                             case 6:
-
                                 var valorcompetencia6 = "<?php echo !empty($cargoDescripcion['competencia6']) ? $cargoDescripcion['competencia6'] : ''; ?>";
                                 if (valorcompetencia6 == '') {
                                     break;
                                 }
-
                                 if (idx === valorcompetencia6) {
-                                    console.log("here");
-                                    console.log(idx);
-                                    console.log(valorcompetencia6);
                                     option.selected = true;
-
                                 }
                                 break;
                             case 7:
@@ -1770,6 +1780,9 @@
                 if (indexInputMostradoz == 11) {
                     document.getElementById("agregamos").disabled = true;
                 }
+            }
+            if (indexInputMostradoz < 7) {
+                document.getElementById("eliminar").hidden = true;
             }
         }
     </script>
@@ -1868,7 +1881,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">1</span>
                                 </div>
-                                <input type="text" value="<?php echo $cargoDescripcion["funcion1"]; ?>" id="funcion1" name="funcion1" class="form-control">
+                                <textarea id="funcion1" name="funcion1" class="form-control" rows="2" cols="50"><?php echo $cargoDescripcion["funcion1"]; ?></textarea>
                             </div>
 
 
@@ -1877,16 +1890,17 @@
                         <div id="contenedor-inputs">
                         </div>
                         <button id="boton-agregar2" class="btn btn-primary btn-md" type="button" onclick="mostrarInputSiguiente()">+ Agregar Campo</button>
+                        <button id="eliminar2" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimoTextarea()">- Eliminar Campo</button>
                         <script>
                             var contenedorInputsx = document.getElementById("contenedor-inputs");
 
                             function mostrarInputSiguiente() {
 
-                                // Crear el siguiente input y su correspondiente etiqueta
+                                // Crear el siguiente textarea y su correspondiente etiqueta
                                 if (indexInputMostradox <= 11) {
                                     var inputLabel = document.createElement("div");
                                     inputLabel.classList.add("input-group", "mb-3");
-                                    inputLabel.id = "input-label-" + indexInputMostradox;
+                                    inputLabel.id = "input-labelx-" + indexInputMostradox;
 
                                     var inputLabelPrepend = document.createElement("div");
                                     inputLabelPrepend.classList.add("input-group-prepend");
@@ -1898,11 +1912,12 @@
                                     inputLabelPrepend.appendChild(inputLabelSpan);
                                     inputLabel.appendChild(inputLabelPrepend);
 
-                                    var input = document.createElement("input");
-                                    input.type = "text";
+                                    var input = document.createElement("textarea");
                                     input.id = "funcion" + indexInputMostradox;
                                     input.name = "funcion" + indexInputMostradox;
                                     input.classList.add("form-control");
+                                    input.rows = 2;
+                                    input.cols = 50;
 
                                     if (indexInputMostradox == 2) {
                                         var valorPredefinido2 = "<?php echo !empty($cargoDescripcion['funcion2']) ? $cargoDescripcion['funcion2'] : ''; ?>";
@@ -1941,11 +1956,28 @@
 
                                     input.focus();
                                     indexInputMostradox++;
+                                    document.getElementById("eliminar2").hidden = false;
                                 }
 
                                 // Desactivar el botón si se han mostrado todos los inputs
                                 if (indexInputMostradox == 11) {
                                     document.getElementById("boton-agregar2").disabled = true;
+                                }
+                            }
+
+                            function eliminarUltimoTextarea() {
+                                if (indexInputMostradox > 1) {
+                                    var ultimoTextarea = document.getElementById("input-labelx-" + (indexInputMostradox - 1));
+                                    if (ultimoTextarea.parentNode === contenedorInputsx) {
+                                        contenedorInputsx.removeChild(ultimoTextarea);
+                                        indexInputMostradox--;
+                                        document.getElementById("boton-agregar2").disabled = false;
+                                        if (indexInputMostradox < 3) {
+                                            document.getElementById("eliminar2").hidden = true;
+                                        }
+                                    } else {
+                                        console.log("The child node is not a child of the parent node.");
+                                    }
                                 }
                             }
                         </script>
@@ -1960,7 +1992,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">1</span>
                                 </div>
-                                <input type="text" value="<?php echo $cargoDescripcion["actividad1"]; ?>" id="actividad1" name="actividad1" class="form-control">
+                                <textarea id="actividad1" name="actividad1" class="form-control" rows="2"><?php echo $cargoDescripcion["actividad1"]; ?></textarea>
                                 <div class="input-group-append">
                                     <select class="form-control" id="selectactividad1" name="selectactividad1">
                                         <option disabled selected value="">Frecuencia</option>
@@ -1988,9 +2020,6 @@
                                         <option value="8" <?php if ($cargoDescripcion["selectactividad1"] == "8") {
                                                                 echo "selected";
                                                             } ?>>Anual</option>
-                                        <option value="9" <?php if ($cargoDescripcion["selectactividad1"] == "9") {
-                                                                echo "selected";
-                                                            } ?>>Otra opción</option>
                                     </select>
                                 </div>
                             </div>
@@ -2000,13 +2029,17 @@
                         </div>
 
                         <button id="boton-agregar" class="btn btn-primary btn-md" type="button" onclick="mostrarSiguienteActividad()">+ Agregar Campo</button>
-
+                        <button id="eliminar-actividad" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimaActividad()">- Eliminar Campo</button>
                         <script>
                             var contenedorActividades = document.getElementById("contenedor-actividades");
 
                             function mostrarSiguienteActividad() {
+
+
                                 // Crear el siguiente input y su correspondiente etiqueta
                                 if (indexActividadMostrado <= 15) {
+
+                                    document.getElementById("eliminar-actividad").hidden = false;
                                     var actividadLabel = document.createElement("div");
                                     actividadLabel.classList.add("input-group", "mb-3");
                                     actividadLabel.id = "actividad-label-" + indexActividadMostrado;
@@ -2021,15 +2054,14 @@
                                     actividadLabelPrepend.appendChild(actividadLabelSpan);
                                     actividadLabel.appendChild(actividadLabelPrepend);
 
-                                    var actividad = document.createElement("input");
-                                    actividad.type = "text";
+                                    var actividad = document.createElement("textarea");
                                     actividad.id = "actividad" + indexActividadMostrado;
                                     actividad.name = "actividad" + indexActividadMostrado;
                                     actividad.classList.add("form-control");
-
+                                    actividad.rows = "2";
+                                    actividad.removeAttribute("type");
 
                                     actividadLabel.appendChild(actividad);
-
                                     var selectActividad = document.createElement("div");
                                     selectActividad.classList.add("input-group-append");
 
@@ -2469,7 +2501,7 @@
 
                                     } else if (indexActividadMostrado == 12) {
                                         var valorPredefinidoAct12 = "<?php echo !empty($cargoDescripcion['actividad12']) ? $cargoDescripcion['actividad12'] : ''; ?>";
-                                        actividad.value = valorPredefinidoAct13; // Establecemos el valor predefinido aquí
+                                        actividad.value = valorPredefinidoAct12; // Establecemos el valor predefinido aquí
 
                                         var valorPredefinidoSelectAct12 = "<?php echo !empty($cargoDescripcion['selectactividad12']) ? $cargoDescripcion['selectactividad12'] : ''; ?>";
 
@@ -2643,6 +2675,22 @@
                                     document.getElementById("boton-agregar").disabled = true;
                                 }
                             }
+
+                            function eliminarUltimaActividad() {
+                                if (indexActividadMostrado > 1) {
+                                    var ultimaActividad = document.getElementById("actividad-label-" + (indexActividadMostrado - 1));
+                                    if (ultimaActividad.parentNode === contenedorActividades) {
+                                        contenedorActividades.removeChild(ultimaActividad);
+                                        indexActividadMostrado--;
+                                        document.getElementById("boton-agregar").disabled = false;
+                                        if (indexActividadMostrado < 3) {
+                                            document.getElementById("eliminar-actividad").hidden = true;
+                                        }
+                                    } else {
+                                        console.log("The child node is not a child of the parent node.");
+                                    }
+                                }
+                            }
                         </script>
                     </div>
                 </article>
@@ -2766,7 +2814,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-check">
+                            <div class="form-check ">
                                 <div class="row">
                                     <div class="col">
                                         <div class="input-group">
@@ -2983,7 +3031,7 @@
 
                         </div>
 
-                        <div class="col-xs-12 col-md-6">
+                        <div class="col-xs-12 ml-5 col-md-5">
                             <label for="experiencia">Experiencia:</label>
                             <small></small>
                             <div class="form-check">
@@ -3013,7 +3061,31 @@
                                     <br />
                                 </div>
                             </div>
+                            </br>
+                            <label for="experiencia">¿Otro idioma?:</label>
+                            <small></small>
+                            <select class="form-select" name="idiomas[]" id="idiomas" multiple>
+                                <option disabled value="">Seleccione</option>
+                                <?php
+                                $opciones = array("Español", "Ingles", "Frances", "Aleman", "Mandarin", "Portugues");
+                                $idiomasArray = array_map('trim', explode(",", $cargoDescripcion["idiomas"]));
+
+                                foreach ($opciones as $opcion) {
+                                    $selected = "";
+                                    if (in_array($opcion, $idiomasArray)) {
+                                        $selected = "selected";
+                                    }
+                                    echo '<option value="' . $opcion . '" ' . $selected . '>' . $opcion . '</option>';
+                                }
+                                ?>
+                            </select>
+
+
+
+
+
                         </div>
+
                     </div>
                     <div class="row mt-3">
 
@@ -3289,7 +3361,7 @@
                                 }
                             </script>
                             <button id="agregamos" class="btn btn-primary btn-md" type="button" onclick="mostrarInputSiguientex()">+ Agregar Campo</button>
-
+                            <button id="eliminar" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimoInput()">- Eliminar Campo</button>
                             <script>
                                 var contenedorInputs = document.getElementById("contenedor-inputs2");
 
@@ -3326,13 +3398,9 @@
 
                                             switch (indexInputMostradoz) {
                                                 case 6:
-
                                                     var valorcompetencia6 = "<?php echo !empty($cargoDescripcion['competencia6']) ? $cargoDescripcion['competencia6'] : ''; ?>";
-
                                                     if (idx === valorcompetencia6) {
-
                                                         option.selected = true;
-
                                                     }
                                                     break;
                                                 case 7:
@@ -3371,9 +3439,30 @@
 
                                     }
 
+                                    if (indexInputMostradoz > 6) {
+                                        document.getElementById("eliminar").hidden = false;
+                                    }
+
                                     // Desactivar el botón si se han mostrado todos los inputs
                                     if (indexInputMostradoz == 11) {
                                         document.getElementById("agregamos").disabled = true;
+                                    }
+
+                                }
+
+                                function eliminarUltimoInput() {
+                                    if (indexInputMostradoz > 1) {
+                                        var ultimoInput = document.getElementById("input-label-" + (indexInputMostradoz - 1));
+                                        if (ultimoInput.parentNode === contenedorInputs) {
+                                            contenedorInputs.removeChild(ultimoInput);
+                                            indexInputMostradoz--;
+                                            document.getElementById("agregamos").disabled = false;
+                                            if (indexInputMostradoz < 7) {
+                                                document.getElementById("eliminar").hidden = true;
+                                            }
+                                        } else {
+                                            console.log("The child node is not a child of the parent node.");
+                                        }
                                     }
                                 }
                             </script>

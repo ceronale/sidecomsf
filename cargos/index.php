@@ -53,6 +53,33 @@ if (isset($_GET['val'])) {
     } else {
         $grados = $grados_taller;
     }
+
+    if (isset($_GET['inserteddes'])) {
+    ?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'La descripción de cargo se ha registrado con exito!',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        </script>
+    <?php
+    }
+    if (isset($_GET['faildes'])) {
+    ?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Error al registrar la descripción del cargo',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        </script>
+    <?php
+    }
     if (isset($_GET['inserted'])) {
     ?>
         <script>
@@ -138,22 +165,19 @@ if (isset($_GET['val'])) {
                     <th>Grado</th>
                     <th>Puntaje</th>
                     <th>Status</th>
-                    <?php if(isset($_GET['new']))
-                    { ?>
+                    <?php if (isset($_GET['new'])) { ?>
                         <th style="text-align: center;">Acción</th>
                     <?php } ?>
 
-                    <?php if(isset($_GET['des']))
-                    { ?>
+                    <?php if (isset($_GET['des'])) { ?>
                         <th style="text-align: center;">Descripción de Puesto/Cargo</th>
                     <?php } ?>
 
-                    <?php if(isset($_GET['val']))
-                    { ?>
-                        <th style="text-align: center;">Valoración de Puesto/Cargo</th> 
+                    <?php if (isset($_GET['val'])) { ?>
+                        <th style="text-align: center;">Valoración de Puesto/Cargo</th>
                     <?php } ?>
 
-                   
+
                 </tr>
             </thead>
             <tbody>
@@ -161,7 +185,7 @@ if (isset($_GET['val'])) {
                 $categoria = $_GET['ca'];
 
                 $cargos = $crud->dataview_cargos($categoria);
-                
+
                 if ($cargos != null) {
                     foreach ($cargos as $cargo) {
                 ?>

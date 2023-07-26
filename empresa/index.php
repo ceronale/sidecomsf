@@ -74,7 +74,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Empresa</span>
+                <span style="font-weight: bold; font-size: 25px">Empresa / Organismo / Organización / Entidad</span>
             </div>
         </div>
     </section>
@@ -428,23 +428,15 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                     <label>Seleccione el nivel de su empresa, según:</label>
                 </div>
             </div>
-            <div class="form-row ">
+            <div class="form-row justify-content-center">
                 <div class="col-12 col-sm-3">
-                    <label for="nivel-empresarial">Numero de trabajadores</label>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <label for="nivel-empresarial">Volumen de ventas/año</label>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <label for="nivel-empresarial">Valor de activos totales</label>
-                </div>
-                <div class="col-12 col-sm-3">
-                    <label for="nivel-empresarial">¿Desea utilizar otra moneda?</label>
+                    <div class="text-center">
+                        <label for="nivel-empresarial">Numero de trabajadores</label>
+                    </div>
                 </div>
             </div>
-            <div class="form-row ">
+            <div class="form-row justify-content-center">
                 <div class="col-12 col-sm-3">
-
                     <style>
                         option {
                             text-indent: 20px;
@@ -465,6 +457,37 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                         ?>
                     </select>
                 </div>
+            </div>
+            <div class="form-row justify-content-center mt-3">
+                <div class="col-12 col-sm-3">
+                    <label for="nivel-empresarial">¿Desea utilizar otra moneda?</label>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <div class="text-center">
+                        <label for="nivel-empresarial">Volumen de ventas/año</label>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <div class="text-center">
+                        <label for="nivel-empresarial">Valor de activos totales</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <div class="col-12 col-sm-3">
+                    <div class="col-12 col-sm-4">
+                        <select class="multisteps-form__input form-control" id="moneda2" name="moneda2" onchange="cambiarMoneda()">
+                            <?php foreach ($opciones as $opcion) { ?>
+                                <option value="<?php echo $opcion; ?>" <?php if ($moneda == $opcion) {
+                                                                            echo 'selected';
+                                                                        } ?>>
+                                    <?php echo $opcion; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                        <input type="hidden" id="moneda-seleccionada" name="moneda-seleccionada" value="<?php echo $moneda; ?>">
+                    </div>
+                </div>
                 <div class="col-12 col-sm-3">
 
                     <div class="input-group mb-3">
@@ -483,18 +506,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                         <input class="multisteps-form__input form-control" type="text" name="valor_activos" id="valor_activos" value="<?php echo $valor_activos; ?>">
                     </div>
                 </div>
-                <div class="col-12 col-sm-1">
-                    <select class="multisteps-form__input form-control" id="moneda2" name="moneda2" onchange="cambiarMoneda()">
-                        <?php foreach ($opciones as $opcion) { ?>
-                            <option value="<?php echo $opcion; ?>" <?php if ($moneda == $opcion) {
-                                                                        echo 'selected';
-                                                                    } ?>>
-                                <?php echo $opcion; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                    <input type="hidden" id="moneda-seleccionada" name="moneda-seleccionada" value="<?php echo $moneda; ?>">
-                </div>
+
                 <script>
                     function cambiarMoneda() {
                         var selectMoneda = document.getElementById("moneda2");
@@ -583,19 +595,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                 </div>
             </div>
 
-            <div class="form-row mt-3">
-                <div class="col-12 col-sm-6">
-                    <label for="escala_administrativo">Administrativa</label>
-                    <br />
-
-                </div>
-                <div class="col-12 col-sm-6">
-                    <label for="escala_planta">Planta - Taller - Fábrica</label>
-                    <br />
-
-                </div>
-            </div>
-            <div class="form-row">
+            <div class="form-row" hidden>
                 <div class="col-12 col-sm-6">
                     <div class="col-12 col-sm-2">
                         <select class="multisteps-form__input form-control" id="escala_administrativo" name="escala_administrativo" disabled>
@@ -711,6 +711,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                     </div>
                 </div>
             </div>
+            <label class="mt-3">Datos suministrados por:</label>
             <div class="form-row mt-3">
                 <div class="col-12 col-sm-3">
                     <label for="escala_administrativo">Nombre</label>

@@ -297,9 +297,9 @@
 
         $fecha_preparacion = isset($_POST['fecha_preparacion']) ? $_POST['fecha_preparacion'] : '';
         $revisado = isset($_POST['revisado']) ? $_POST['revisado'] : '';
-        $supervisor = isset($_POST['supervisor']) ? $_POST['funcion2'] : '';
-        $funcion2 = isset($_POST['funcion2']) ? $_POST['funcion2'] : '';
+        $supervisor = isset($_POST['supervisor']) ? $_POST['supervisor'] : '';
         $funcion1 = isset($_POST['funcion1']) ? $_POST['funcion1'] : '';
+        $funcion2 = isset($_POST['funcion2']) ? $_POST['funcion2'] : '';
         $funcion3 = isset($_POST['funcion3']) ? $_POST['funcion3'] : '';
         $funcion4 = isset($_POST['funcion4']) ? $_POST['funcion4'] : '';
         $funcion5 = isset($_POST['funcion5']) ? $_POST['funcion5'] : '';
@@ -420,11 +420,9 @@
         $cargoDescripcion["proposito"] =   $proposito;
         $cargoDescripcion["funciones"] =   $funciones;
 
-
-
-        $cargoDescripcion["presupuesto"] =   $presupuesto[0];
-        $cargoDescripcion["ingreso"] =   $ingreso[0];
-        $cargoDescripcion["gasto"] =   $gasto[0];
+        $cargoDescripcion["presupuesto"] = isset($presupuesto[0]) ? $presupuesto[0] : '';
+        $cargoDescripcion["ingreso"] = isset($ingreso[0]) ? $ingreso[0] : '';
+        $cargoDescripcion["gasto"] = isset($gasto[0]) ? $gasto[0] : '';
 
         $cargoDescripcion["empleados"] =   $empleados;
         $cargoDescripcion["obreros"] =   $obreros;
@@ -435,8 +433,8 @@
         $cargoDescripcion["relacion_interna"] =   $relacionesInternasString;
         $cargoDescripcion["idiomas"] =   $idiomasString;
         $cargoDescripcion["relacion_externa"] =   $relacionesExternasString;
-        $cargoDescripcion["ambiental"] =   $ambientales[0];
-        $cargoDescripcion["riesgo"] =   $riesgo[0];
+        $cargoDescripcion["ambiental"] =   isset($ambientales[0]) ? $ambientales[0] : '';
+        $cargoDescripcion["riesgo"] = isset($riesgo[0]) ? $riesgo[0] : '';
         $cargoDescripcion["comentarios_riesgo"] =   $comentarios;
         $cargoDescripcion["destrezas"] =   $destrezas;
 
@@ -734,6 +732,57 @@
                 break;
         }
 
+        if (empty($organigrama[0]) || $organigrama[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo nivel organizativo es obligatorio.', 'error');
+        } elseif (empty($proposito) || $proposito == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo breve descripción es obligatorio.', 'error');
+        } elseif (empty($funcion1) || $funcion1 == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'Es obligatorio al menos ingresar una función.', 'error');
+        } elseif (empty($presupuesto[0]) || $presupuesto[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo presupuesto es obligatorio.', 'error');
+        } elseif (empty($ingreso[0]) || $ingreso[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo ingreso es obligatorio.', 'error');
+        } elseif (empty($gasto[0]) || $gasto[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo gasto es obligatorio.', 'error');
+        } elseif (empty($empleados) || $empleados == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo empleados es obligatorio.', 'error');
+        } elseif (empty($obreros) || $obreros == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo obreros es obligatorio.', 'error');
+        } elseif (empty($experiencia[0]) || $experiencia[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo experiencia es obligatorio.', 'error');
+        } elseif (
+            empty($conocimiento1Valor) && empty($conocimiento2Valor) && empty($conocimiento3Valor) &&
+            empty($conocimiento4Valor) && empty($conocimiento5Valor) && empty($conocimiento6Valor) &&
+            empty($conocimiento7Valor)
+        ) {
+            $sweetAlertCode = showSweetAlert('Error', 'Debe llenar al menos uno de los campos de educación formal.', 'error');
+        } elseif (empty($adicional) || $adicional == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo conocimientos adicionales es obligatorio.', 'error');
+        } elseif (empty($competencia1) || $competencia1 == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo competencia 1 es obligatorio.', 'error');
+        } elseif (empty($competencia2) || $competencia2 == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo competencia 2 es obligatorio.', 'error');
+        } elseif (empty($competencia3) || $competencia3 == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo competencia 3 es obligatorio.', 'error');
+        } elseif (empty($competencia4) || $competencia4 == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo competencia 4 es obligatorio.', 'error');
+        } elseif (empty($competencia5) || $competencia5 == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo competencia 5 es obligatorio.', 'error');
+        } elseif (empty($ambiente[0]) || $ambiente[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo ambiente es obligatorio.', 'error');
+        } elseif (empty($instrumento[0]) || $instrumento[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo instrumento es obligatorio.', 'error');
+        } elseif (empty($manipulacion[0]) || $manipulacion[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo manipulación es obligatorio.', 'error');
+        } elseif (empty($traslado[0]) || $traslado[0] == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo traslado es obligatorio.', 'error');
+        } elseif (empty($fecha_preparacion) || $fecha_preparacion == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo fecha de preparación es obligatorio.', 'error');
+        } elseif (empty($revisado) || $revisado == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo Elaborado por Supervisor/jefe es obligatorio.', 'error');
+        } elseif (empty($supervisor) || $supervisor == "") {
+            $sweetAlertCode = showSweetAlert('Error', 'El campo Revisado por RRHH es obligatorio.', 'error');
+        }
 
 
         if (!$sweetAlertCode) {
@@ -844,6 +893,7 @@
 
 
     ?>
+
     <script>
         var indexInputMostradox = 2;
         var indexActividadMostrado = 2;
@@ -1837,7 +1887,7 @@
 
                     <div class="col-xs-12 mt-3">
 
-                        <label for="organigrama">Ubique el puesto/cargo en su nivel Organizativo:</label>
+                        <label for="organigrama">Ubique el puesto/cargo en su nivel organizativo:</label>
                         <div class="form-check">
                             <input type="radio" class="form-check-input" name="radio_Org[]" id="radio_Org1" value="1er Nivel: Dirección (Presidencia / VP / Gerencia General)" <?php if ($radioOrganigrama === 'radio_Org1') echo 'checked'; ?>>
                             <label class="form-check-label" for="radio_Org1">1er Nivel: Dirección (Presidencia / VP / Gerencia General)</label>
@@ -3669,8 +3719,108 @@
                     </div>
 
                     <div class="d-flex justify-content-center mt-5">
-                        <button class="btn btn-success btn-lg" type="submit" name="btn-send" title="Next"> Enviar </button>
+                        <button class="btn btn-success btn-lg" type="submit" name="btn-send" name="btn-send" title="Next"> Enviar </button>
                     </div>
+                    <script>
+                        // Manejar el evento click del botón
+                        document.getElementById('btn-send').addEventListener('click', function(e) {
+
+                            // Prevenir la acción por defecto del botón
+                            e.preventDefault();
+
+
+
+
+
+
+
+
+
+
+
+
+                            const organigrama = document.querySelector('input[name="radio_Org"]:checked');
+                            const presupuesto = document.getElementsByName('presupuesto[]');
+                            const ingreso = document.getElementsByName('ingreso[]');
+                            const gasto = document.getElementsByName('gasto[]');
+                            const empleados = document.getElementsByName('empleados');
+                            const obreros = document.getElementsByName('obreros');
+                            const experiencia = document.getElementsByName('experiencia[]');
+                            const conocimiento1Valor = document.getElementsByName('conocimiento1_valor');
+                            const conocimiento2Valor = document.getElementsByName('conocimiento2_valor');
+                            const conocimiento3Valor = document.getElementsByName('conocimiento3_valor');
+                            const conocimiento4Valor = document.getElementsByName('conocimiento4_valor');
+                            const conocimiento5Valor = document.getElementsByName('conocimiento5_valor');
+                            const conocimiento6Valor = document.getElementsByName('conocimiento6_valor');
+                            const conocimiento7Valor = document.getElementsByName('conocimiento7_valor');
+                            const adicional = document.getElementsByName('adicional');
+                            const competencia1 = document.getElementsByName('competencia1');
+                            const competencia2 = document.getElementsByName('competencia2');
+                            const competencia3 = document.getElementsByName('competencia3');
+                            const competencia4 = document.getElementsByName('competencia4');
+                            const competencia5 = document.getElementsByName('competencia5');
+                            const ambiente = document.getElementsByName('ambiente[]');
+                            const instrumento = document.getElementsByName('instrumento[]');
+                            const manipulacion = document.getElementsByName('manipulacion[]');
+                            const traslado = document.getElementsByName('traslado[]');
+                            const fecha_preparacion = document.getElementsByName('fecha_preparacion');
+                            const revisado = document.getElementsByName('revisado');
+                            const supervisor = document.getElementsByName('supervisor');
+
+                            if (!organigrama) {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo nivel organizativo es obligatorio.', 'error');
+                            } else if (proposito.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo breve descripción es obligatorio.', 'error');
+                            } else if (funcion1.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'Es obligatorio al menos ingresar una función.', 'error');
+                            } else if (presupuesto[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo presupuesto es obligatorio.', 'error');
+                            } else if (ingreso[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo ingreso es obligatorio.', 'error');
+                            } else if (gasto[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo gasto es obligatorio.', 'error');
+                            } else if (empleados.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo empleados es obligatorio.', 'error');
+                            } else if (obreros.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo obreros es obligatorio.', 'error');
+                            } else if (experiencia[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo experiencia es obligatorio.', 'error');
+                            } else if (
+                                conocimiento1Valor.value === '' && conocimiento2Valor.value === '' &&
+                                conocimiento3Valor.value === '' && conocimiento4Valor.value === '' &&
+                                conocimiento5Valor.value === '' && conocimiento6Valor.value === '' &&
+                                conocimiento7Valor.value === ''
+                            ) {
+                                const sweetAlertCode = showSweetAlert('Error', 'Debe llenar al menos uno de los campos de educación formal.', 'error');
+                            } else if (adicional.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo conocimientos adicionales es obligatorio.', 'error');
+                            } else if (competencia1.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo competencia 1 es obligatorio.', 'error');
+                            } else if (competencia2.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo competencia 2 es obligatorio.', 'error');
+                            } else if (competencia3.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo competencia 3 es obligatorio.', 'error');
+                            } else if (competencia4.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo competencia 4 es obligatorio.', 'error');
+                            } else if (competencia5.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo competencia 5 es obligatorio.', 'error');
+                            } else if (ambiente[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo ambiente es obligatorio.', 'error');
+                            } else if (instrumento[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo instrumento es obligatorio.', 'error');
+                            } else if (manipulacion[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo manipulación es obligatorio.', 'error');
+                            } else if (traslado[0].value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo traslado es obligatorio.', 'error');
+                            } else if (fecha_preparacion.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo fecha de preparación es obligatorio.', 'error');
+                            } else if (revisado.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo Elaborado por Supervisor/jefe es obligatorio.', 'error');
+                            } else if (supervisor.value === '') {
+                                const sweetAlertCode = showSweetAlert('Error', 'El campo Revisado por RRHH es obligatorio.', 'error');
+                            }
+                        });
+                    </script>
         </div>
         </article>
         </form>

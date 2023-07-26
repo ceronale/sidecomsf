@@ -105,7 +105,7 @@
                         <form action="saveempresa.php" method="post" id="form" class="multisteps-form__form">
                             <!-- single form panel -->
                             <div class="multisteps-form__panel  js-active" data-animation="scaleIn">
-                                <h3 class="multisteps-form__title">Registro de información de Empresa</h3>
+                                <h4 class="multisteps-form__title">Registro de información de Empresa / Organismo / Organización / Entidad</h4>
                                 <div class="multisteps-form__content">
                                     <div class="form-row mt-3">
                                         <div class="col-12 col-sm-6">
@@ -275,7 +275,7 @@
 
                             <!-- single form panel -->
                             <div class="multisteps-form__panel" data-animation="scaleIn">
-                                <h3 class="multisteps-form__title">Registro de información de Empresa</h3>
+                                <h4 class="multisteps-form__title">Registro de información de Empresa / Organismo / Organización / Entidad</h4>
                                 <div class="multisteps-form__content">
                                     <div class="form-row mt-3">
                                         <div class="col-12 col-sm-6">
@@ -598,7 +598,7 @@
 
                             <!-- single form panel -->
                             <div class="multisteps-form__panel" data-animation="scaleIn">
-                                <h3 class="multisteps-form__title">Persona que suministra la información</h3>
+                                <h4 class="multisteps-form__title">Persona que suministra la información</h4>
                                 <div class="multisteps-form__content">
                                     <div class="form-row mt-3">
                                         <div class="col-12 col-sm-6">

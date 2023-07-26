@@ -335,7 +335,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                     // Mostrar la ventana modal de sweetalert
                     Swal.fire({
                         title: '¿Estás seguro?',
-                        text: 'Esta acción no se puede deshacer',
+                        text: 'Esta acción modificará los grados de los cargos creados, en función del puntaje que tengan asignado',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',

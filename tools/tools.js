@@ -35,7 +35,6 @@ function validateNumericInputs(input, maxLength) {
 
 function showSweetAlert(mensaje, tipo) {
     let titulo, icono;
-    alert("ja")
     switch (tipo) {
         case 'success':
             titulo = '¡Éxito!';

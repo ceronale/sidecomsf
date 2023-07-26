@@ -4,17 +4,22 @@ include_once 'class.crud.php';
 $crud = new crud();
 
 if (isset($_POST['add'])) {
-    if ($crud->crear_glosario()) {
+    $aux = $crud->crear_glosario();
+    if ($aux == 2) {
         header("Location: ../glosario/?inserted");
+    } elseif ($aux == 1) {
+        header("Location: ../glosario/?same");
     } else {
         header("Location: ../glosario/?failure");
     }
 }
 
 if (isset($_POST['update'])) {
-
-    if ($crud->editar_glosario()) {
+    $aux = $crud->editar_glosario();
+    if ($aux == 2) {
         header("Location: ../glosario/?edited");
+    } elseif ($aux == 1) {
+        header("Location: ../glosario/?same");
     } else {
         header("Location: ../glosario/?failureedited");
     }

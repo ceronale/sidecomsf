@@ -162,14 +162,7 @@
                 <?php } ?>
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Status</th>
-                    <th>Acción</th>
-                </tr>
-            </tfoot>
+           
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

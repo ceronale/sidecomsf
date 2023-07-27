@@ -389,29 +389,6 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                     <?php } ?>
 
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Grado</th>
-                        <th>Puntaje</th>
-                        <th>Cargo</th>
-                        <th>Cargo Critico</th>
-                        <th>Cargo Supervisor</th>
-                        <th>Departamento</th>
-                        <th>Trabajador</th>
-                        <th>Género</th>
-                        <th>Nro de Identificación</th>
-                        <th>Fecha Ingreso</th>
-                        <th>Tiempo de Servicio</th>
-                        <th>Modalidad de <br> Trabajo</th>
-                        <th>Sueldo Base Mensual</th>
-                        <th>Ingreso Mensual</th>
-                        <th>Paquete Anual</th>
-                        <th>Factor Meses</th>
-                        <th>Otra Divisa</th>
-                        <th>Acción</th>
-                    </tr>
-                </tfoot>
             </table>
 
 
@@ -491,7 +468,7 @@ html += `
                 <br>`;
 
     Swal.fire({
-      title: "Escala Empresarial",
+      title: "Escala - Sistema de Puntos",
       html: html,
       width: '800px',
       showConfirmButton: false,

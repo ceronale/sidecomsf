@@ -154,13 +154,7 @@
                 <?php } ?>
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Status</th>
-                    <th>Acción</th>
-                </tr>
-            </tfoot>
+           
         </table>
 
 

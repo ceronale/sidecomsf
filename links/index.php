@@ -145,14 +145,6 @@
                     </tr>
                 <?php } ?>
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Título</th>
-                    <th>Website</th>
-                    <th>Status</th>
-                    <th>Acción</th>
-                </tr>
-            </tfoot>
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

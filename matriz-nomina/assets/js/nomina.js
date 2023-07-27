@@ -23,7 +23,7 @@ function crear_nomina(fecha_act) {
     Swal.fire({
         title: "Registro de Información",
         width: '700px',
-            html: `  <form id='create' action="save.php" method='post'>
+            html: `  <form id='create' action="save.php" method='post' onsubmit='return validardocumento(event)>
 
             <div class="row">
                 <div class="col-md-12" style="text-align: center !important;">
@@ -293,6 +293,8 @@ function crear_nomina(fecha_act) {
                                 </div>
                             </div>
                         </div>
+
+                        <div id="error" style="display: none; color: red;"></div>
 
                         <div class="form-group">
                             <div class="row">
@@ -1370,5 +1372,26 @@ function toggleFullscreen(elem) {
     }
   }
   
+
+  function validardocumento(event){
+    var documento = new Date(document.getElementById('documento').value);
+    $.post("data.php?doc", {
+        documento: documento
+    }, function(data) {
+        if(data.dato == 2)
+        {
+            var errorDiv = document.getElementById('error');
+            errorDiv.innerHTML = 'El Numero de Documento ya Existe.';
+            errorDiv.style.display = 'block';
+            event.preventDefault();
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    })
+
+  }
 
  

@@ -982,6 +982,23 @@ class crud
 		return $editRow;
 	}
 	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+	
+
+	public function validar_documento($documento)
+	{
+			$user = $_SESSION['user'];
+			$stmt2 = $this->conn->prepare("SELECT * FROM matriz_nomina WHERE documento=:documento AND id_empresa =:id_empresa");
+			$stmt2->execute(array(':documento' => $documento, ':id_empresa' => $user['id_empresa']));
+			$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
+			if ($stmt2->rowCount() == 0) {
+				return 1;
+			}
+			else
+			{
+				return 2;
+			}
+	}
 	
 }
 ?>

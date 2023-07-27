@@ -303,9 +303,9 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                                 if ($nomina['modelotrabajo'] == "P") {
                                     print "Presencial";
                                 }
-                                if ($nomina['modelotrabajo'] == "M") {
-                                    print "Mixto";
-                                }
+                                if ($nomina['modelotrabajo'] == "M") { ?>
+                                    <span style="font-weight: bold;  color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Modalidad Mixta:','Presencial: <?= $nomina['porcentajepresencial']; ?>% ;; Remoto (Home Office): <?= $nomina['porcentajeremoto']; ?>%')">Mixto</span>
+                                <?php }
                                 ?>
                         </td>
                         <td><?php print($nomina['sueldobase']); ?></td>

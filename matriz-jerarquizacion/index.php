@@ -1,6 +1,8 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php"; 
+$matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios de INGRESOS MENSUALES Y PAQUETE ANUAL, que usted registró en la MATRIZ DE NÓMINA. ;; 2.- Usted podrá CREAR UNA BANDA SALARIAL, anotando en el grado I el SUELDO o SALARIO MÍNIMO NACIONAL OFICIAL o SALARIO MÍNIMO según la política de su Organización. ;; 3.- Para los grados sucesivos, asigne un porcentaje para incrementar el salario en cada grado (hasta cubrir el mayor salario de su empresa) y otro porcentaje para los niveles Mínimo, Medio y Máximo. ;; 4.- A través del gráfico que se genere, podrá apreciar cuán distante esta el promedio de los salarios reales por grado, con respecto a la BANDA SALARIAL REFERENCIAL.";
+?>?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,7 +11,7 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Matriz de Jerarquización</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Jerarquización:','<?php echo $matriz_jerarquizacion; ?>')">Matriz de Jerarquización</span>
             </div>
         </div>
 
@@ -148,7 +150,7 @@
             <br>
             <div class='container' style="overflow: auto; max-height: 600px;">
                 <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-                    <thead>
+                    <thead style="position: sticky; top: 0; background-color: white;">
                         <tr>
 
                             <th>Grado</th>

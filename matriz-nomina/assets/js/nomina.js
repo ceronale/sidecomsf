@@ -425,7 +425,7 @@ function crear_nomina(fecha_act) {
                                             <label for="grado">Divisa:</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <select class="form-control" name="id_tipodivisa" id="id_tipodivisa"
+                                            <select class="form-control" name="id_tipodivisa" id="id_tipodivisa" onchange="validardivisa(this.value)"
                                                 title="Seleccione tipo de divisas">
                                                 <option value="0" selected disabled> ..... </option>
                                                 <option value="233">Dolares</option>
@@ -440,7 +440,7 @@ function crear_nomina(fecha_act) {
                                     <label for="monto_divisas">Monto en Divisas:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number' name="montodivisa" id="montodivisa" class='form-control'  required autocomplete="on">
+                                    <input type='number' name="montodivisa" id="montodivisa" class='form-control' readonly  required autocomplete="on">
                                 </div>
                                     </div>
                                 </div>
@@ -478,7 +478,8 @@ function crear_nomina(fecha_act) {
         $("#divisa").show("fast");
     } else {
         $("#divisa").hide("fast");
-        $("#montodivisa").val(0);
+        $("#montodivisa").val("");
+        $("#montodivisa").attr("readonly","readonly");
         $("#id_tipodivisa").val(0);
     }
 });
@@ -919,7 +920,7 @@ function crear_nomina(fecha_act) {
                                         <label for="grado">Divisa:</label>
                                     </div>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_tipodivisa" id="id_tipodivisa"
+                                    <select class="form-control" name="id_tipodivisa" id="id_tipodivisa" onchange="validardivisa(this.value)"
                                         title="Seleccione tipo de divisas">
                                         <option value="0" disabled ${idtipodivisa === "0" ? "selected" : ""}> ..... </option>
                                         <option value="233" ${idtipodivisa === "233" ? "selected" : ""}>Dolares</option>
@@ -934,7 +935,7 @@ function crear_nomina(fecha_act) {
                                 <label for="monto_divisas">Monto en Divisas:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type='number' name="montodivisa" id="montodivisa" value="` + monto_divisa + `" class='form-control'  required autocomplete="on">
+                                <input type='number' name="montodivisa" id="montodivisa" value="` + monto_divisa + `" class='form-control'  readonly autocomplete="on">
                             </div>
                                 </div>
                             </div>
@@ -1010,8 +1011,10 @@ function crear_nomina(fecha_act) {
         $("#divisa").show("fast");
     } else {
         $("#divisa").hide("fast");
-        $("#montodivisa").val(0);
+        $("#montodivisa").val("");
+        $("#montodivisa").attr("readonly","readonly");
         $("#id_tipodivisa").val(0);   
+        
     }
 });
 
@@ -1172,7 +1175,7 @@ function crear_nomina(fecha_act) {
             width: '500px',
                 html: `         <div class="card card-body" style="text-align: left; font-size: 20px">
                                     <p>
-                                    ` + info + `
+                                    ` + info.replace(/;/g, '<br>') + `
                                     </p>
                                 </div>
                             `,
@@ -1181,7 +1184,14 @@ function crear_nomina(fecha_act) {
        
     }
     
+    function validardivisa(tipo_divisa)
+    {
+        if(tipo_divisa != 0)
+        {
+            $("#montodivisa").removeAttr("readonly");
+        }
 
+    }
 
     function get_departamentos(id_categoria) 
     {

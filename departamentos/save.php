@@ -4,19 +4,28 @@ include_once 'class.crud.php';
 $crud = new crud();
 
 if (isset($_POST['add'])) {
-    if ($crud->crear_departamento()) {
-        header("Location: ../departamentos/?inserted&ca=" . $_GET['ca']);
+
+    $aux = $crud->crear_departamento();
+    if ($aux == 2) {
+        header("Location: ../departamentos/?ca=" . $_GET['ca'] . "&inserted");
+    } elseif ($aux == 1) {
+        header("Location: ../departamentos/?ca=" . $_GET['ca'] . "&failureSameDpto");
     } else {
-        header("Location: ../departamentos/?failure&ca=" . $_GET['ca']);
+        header("Location: ../departamentos/?ca=" . $_GET['ca'] . "&failure");
     }
+
+
 }
 
 if (isset($_POST['update'])) {
 
-    if ($crud->editar_departamento()) {
-        header("Location: ../departamentos/?edited&ca=" . $_GET['ca']);
+    $aux = $crud->editar_departamento();
+    if ($aux == 2) {
+        header("Location: ../departamentos/?ca=" . $_GET['ca'] . "&edited");
+    } elseif ($aux == 1) {
+        header("Location: ../departamentos/?ca=" . $_GET['ca'] . "&failureSameDpto");
     } else {
-        header("Location: ../departamentos/?failureedited&ca=" . $_GET['ca']);
+        header("Location: ../departamentos/?ca=" . $_GET['ca'] . "&failureedited");
     }
 }
 

@@ -15,10 +15,11 @@
             {
                 $categoria = "Planta - Taller - Fábrica";
             }
+            $departamento_info = " Para abreviar utilizamos el término Departamento, pero se deben registrar todas las unidades, Gerencias, Departamentos, Secciones, Vicepresidencias, Presidencia, etc.";
     ?>
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Departamentos: <?= $categoria; ?></span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Departamentos:','<?php echo $departamento_info; ?>')">Departamentos: <?= $categoria; ?></span>
             </div>
         </div>
 
@@ -81,6 +82,18 @@
         </script>
     <?php
     }
+    if (isset($_GET['failureSameDpto'])) { ?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Error al registrar el Departamento. Ya existe un Departamento registrado con ese nombre.',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        </script>
+    <?php
+    }
     ?>
 
     <script>
@@ -106,7 +119,7 @@
         <div class='clearfix'></div><br />
 
         <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <thead>
+            <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
                     <th>Departamento</th>
                     <th>Status</th>

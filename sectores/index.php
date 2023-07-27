@@ -97,7 +97,7 @@
         <div class='clearfix'></div><br />
 
         <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <thead>
+            <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
                     <th>Nombre</th>
                     <th>Descripcion</th>

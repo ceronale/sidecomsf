@@ -76,11 +76,11 @@ class crud
 			$stmt->bindparam(":updated_at",$updated_at);
 			$stmt->execute();
 
-			return true;
+			return 2;
 			}
 			else
 			{
-				return false;
+				return 1;
 			}
 		}
 		catch(PDOException $e)
@@ -101,7 +101,7 @@ class crud
 
 			$nombreold = (isset($_POST['nombreold']))?$_POST['nombreold']:"";  
 
-			if($nombre != $nombreold)
+			if(strtolower($nombre) != strtolower($nombreold))
 			{
 				$nombre2 =  strtolower($nombre); 
 				$stmt2 = $this->conn->prepare("SELECT * FROM departamentos WHERE LOWER(nombre)=:nombre AND id_empresa =:id_empresa AND categoria= :categoria");
@@ -125,11 +125,11 @@ class crud
 					$stmt->bindparam(":id",$id);
 					$stmt->execute();
 		
-					return true;
+					return 2;
 				}
 				else
 				{
-					return false;
+					return 1;
 				}
 			}
 			else
@@ -151,15 +151,6 @@ class crud
 		
 					return true;
 			}
-
-
-
-
-
-			
-
-			
-			
 		
 		}
 		catch(PDOException $e)

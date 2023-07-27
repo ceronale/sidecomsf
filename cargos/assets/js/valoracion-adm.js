@@ -220,7 +220,13 @@ function sumPuntaje(){
     document.getElementById("puntaje").value = total;
     document.getElementById("puntajetotal").innerText = total;
 
-    
+    $.post("buscar_grado.php?adm", {
+        puntaje: total
+    }, function(data) {
+        $("#grado").val(data.dato);
+        $("#gradototal").html(data.dato);
+    })
+
 }
 //
 
@@ -446,5 +452,16 @@ function checkRangos(num) {
                           `,
       showConfirmButton: true,
       })
+     
+  }
+
+  function validargrado(puntaje) 
+  {
+    $.post("buscar_grado.php?adm", {
+        puntaje: puntaje
+    }, function(data) {
+        $("#gradovalorado").val(data.dato);
+    })
+
      
   }

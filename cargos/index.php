@@ -131,7 +131,22 @@ if (isset($_GET['val'])) {
         </script>
     <?php
     }
+    if (isset($_GET['failureSameCargo'])) { ?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Error al registrar el cargo. Ya existe un cargo registrado con ese nombre.',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        </script>
+    <?php
+    }
+
+    
     ?>
+    
 
     <script>
         $(document).ready(function() {
@@ -148,7 +163,7 @@ if (isset($_GET['val'])) {
         <div class="row row-col-8">
             <?php if (isset($_GET['new'])) { ?>
                 <div class="col">
-                    <a href='#' onclick="crear_cargo(<?php echo htmlspecialchars(json_encode($departamentos)); ?>, <?php echo htmlspecialchars(json_encode($grados)); ?>,<?php echo ($categoriax); ?>)" class='btn btn-large btn-dark'> &nbsp;
+                    <a href='#' onclick="crear_cargo(<?php echo htmlspecialchars(json_encode($departamentos)); ?>,<?php echo ($categoriax); ?>)" class='btn btn-large btn-dark'> &nbsp;
                         + Agregar Puesto/Cargo</a>
                 </div>
 
@@ -158,26 +173,32 @@ if (isset($_GET['val'])) {
         <div class='clearfix'></div><br />
 
         <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <thead>
+           <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
-                    <th>Departamento</th>
+                <th>Departamento</th>
                     <th>Puesto/Cargo</th>
+                    <?php if(isset($_GET['val']))
+                    { ?>
                     <th>Grado</th>
                     <th>Puntaje</th>
+                    <?php } ?>
                     <th>Status</th>
-                    <?php if (isset($_GET['new'])) { ?>
+                    <?php if(isset($_GET['new']))
+                    { ?>
                         <th style="text-align: center;">Acción</th>
                     <?php } ?>
 
-                    <?php if (isset($_GET['des'])) { ?>
+                    <?php if(isset($_GET['des']))
+                    { ?>
                         <th style="text-align: center;">Descripción de Puesto/Cargo</th>
                     <?php } ?>
 
-                    <?php if (isset($_GET['val'])) { ?>
-                        <th style="text-align: center;">Valoración de Puesto/Cargo</th>
+                    <?php if(isset($_GET['val']))
+                    { ?>
+                        <th style="text-align: center;">Valoración de Puesto/Cargo</th> 
                     <?php } ?>
 
-
+                   
                 </tr>
             </thead>
             <tbody>
@@ -192,8 +213,11 @@ if (isset($_GET['val'])) {
                         <tr>
                             <td><?php print($cargo['nombre_departamento']); ?></td>
                             <td><?php print($cargo['nombre']); ?></td>
+                            <?php if(isset($_GET['val']))
+                            { ?>
                             <td><?php print($cargo['grado']); ?></td>
                             <td><?php print($cargo['puntaje']); ?></td>
+                            <?php } ?>
                             <td>
                                 <?php if ($cargo['status'] == "1") {
                                     print "Activo";
@@ -209,14 +233,10 @@ if (isset($_GET['val'])) {
                                     <a onclick="editar_cargo('<?php echo htmlspecialchars($cargo['id']); ?>',
                                 '<?php echo htmlspecialchars($cargo['nombre']); ?>',
                                 '<?php echo htmlspecialchars($cargo['id_departamento']); ?>',
-                                '<?php echo htmlspecialchars($cargo['grado']); ?>',
-                                '<?php echo htmlspecialchars($cargo['puntaje']); ?>',
                                 '<?php echo htmlspecialchars($cargo['categoria']); ?>',
                                 '<?php echo htmlspecialchars($cargo['status']); ?>',
                                 '<?php echo htmlspecialchars($cargo['descripcion']); ?>',
-                                '<?php echo addslashes(htmlspecialchars(json_encode($departamentos))); ?>',
-                                '<?php echo htmlspecialchars(json_encode($grados_administrativos)); ?>',
-                                '<?php echo htmlspecialchars(json_encode($grados_taller)); ?>')" title="Editar Cargo">
+                                '<?php echo addslashes(htmlspecialchars(json_encode($departamentos))); ?>')" title="Editar Cargo">
                                         <i class='fa fa-pencil' aria-hidden='true'></i></a>
 
                                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -268,8 +288,10 @@ if (isset($_GET['val'])) {
                         <td></td>
                         <td></td>
                         <td></td>
+                        <?php if (isset($_GET['val'])) { ?>
                         <td></td>
                         <td></td>
+                        <?php } ?>
                     </tr>
 
                 <?php } ?>
@@ -279,8 +301,10 @@ if (isset($_GET['val'])) {
                 <tr>
                     <th>Departamento</th>
                     <th>Puesto/Cargo</th>
+                    <?php if (isset($_GET['val'])) { ?>
                     <th>Grado</th>
                     <th>Puntaje</th>
+                    <?php } ?>
                     <th>Status</th>
                     <th>Descripción de puesto/cargo</th>
                 </tr>

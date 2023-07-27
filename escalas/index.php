@@ -103,7 +103,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Escalas empresariales</span>
+                <span style="font-weight: bold; font-size: 25px">Escala - Sistema de Puntos</span>
             </div>
         </div>
 

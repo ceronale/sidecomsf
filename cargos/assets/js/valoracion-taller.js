@@ -194,10 +194,13 @@ function sumPuntaje(){
   
     document.getElementById("puntaje").value = total;
     document.getElementById("puntajetotal").innerText = total;
-    document.getElementById("puntajetotal2").innerText = total;
-    document.getElementById("puntajetotal3").innerText = total;
-    document.getElementById("puntajetotal4").innerText = total;
-    document.getElementById("puntajetotal5").innerText = total;
+
+    $.post("buscar_grado.php?taller", {
+        puntaje: total
+    }, function(data) {
+        $("#grado").val(data.dato);
+        $("#gradototal").html(data.dato);
+    })
     
 }
 //
@@ -381,4 +384,15 @@ function checkRangos(num) {
       }
 
 
+  }
+
+  function validargrado(puntaje) 
+  {
+    $.post("buscar_grado.php?taller", {
+        puntaje: puntaje
+    }, function(data) {
+        $("#gradovalorado").val(data.dato);
+    })
+
+     
   }

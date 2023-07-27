@@ -64,19 +64,7 @@ function actualizarGradosEditar(categoria, admin, taller) {
    });
 }
 
-function crear_cargo(departamentos, grados, categoria) {
-
-   if (grados.length === 0) {
-    
-      Swal.fire({
-         icon: 'warning',
-         title: 'Advertencia',
-         text: 'Por favor, complete los grados antes de continuar.',
-         confirmButtonText: 'Aceptar'
-      });
-      return;
-   }
-
+function crear_cargo(departamentos, categoria) {
 
    let html = `
 <form id='crear_cargo' action="save.php?ca=${categoria}" method='post' style="text-align: center !important;">
@@ -141,11 +129,6 @@ function crear_cargo(departamentos, grados, categoria) {
             <input type='text' name='cargo' class='form-control' maxlength="255" required autocomplete="on">
          </div>
 
-         <div class="form-group">
-         <label for="puntaje" style="color: #3c8dbc;"  onclick="show_info_puntaje()" >Puntaje:</label>
-         <input type='number' name='puntaje' class='form-control' min="1" max="1000"  onchange="actualizarSelect2(this.value)">
-      </div>
-         
 
          <div class="form-group">
             <label for="status">Status:</label>
@@ -168,16 +151,6 @@ function crear_cargo(departamentos, grados, categoria) {
    html += `</select>
          </div>
 
-    
-         
-<div class="form-group">
-    <label for="grado">Grados:</label>
-    <select class="form-select" name="grado" id="grado"  disabled>
-        <option disabled selected value="">Selecciona una opción</option>
-        ${grados.map(option => `<option value="${option["grado"]}" data-valor="${String(option["grado"])}" data-minimo="${option["minimo"]}" data-maximo="${option["maximo"]}">${option['grado']}</option>`).join('\n')}
-    </select>
-    
-</div>
 
       </div>
    </div>
@@ -208,19 +181,11 @@ function crear_cargo(departamentos, grados, categoria) {
    });
 };
 
-function editar_cargo(id, nombre, id_departamento, grado, puntaje, categoria, status, descripcion, departamentos, admin, taller) {
+function editar_cargo(id, nombre, id_departamento, categoria, status, descripcion, departamentos) {
    departamentos = JSON.parse(departamentos);
-   let grados = [];
-   if (categoria == 1) {
-      grados = admin;
-   } else if (categoria == 2) {
-      grados = taller;
-   }
-   grados = JSON.parse(grados);
 
    let html = `
 <form id='crear_cargo' action="save.php?ca=${categoria}" method='post' style="text-align: center !important;">
- <input type="hidden" name="grado-oculto2" id="grado-oculto2" value="${grado}">
 <input class="hidden" id="cargo_info" name="cargo_info" value="0">
 
 <div class="hidden" id="info_cargo">
@@ -279,10 +244,6 @@ function editar_cargo(id, nombre, id_departamento, grado, puntaje, categoria, st
       </div>
         
 
-<div class="form-group">
-  <label for="puntaje" style="color: #3c8dbc;">Puntaje:</label>
-  <input type='number' name='puntaje' class='form-control' min="1" max="1000" value="${puntaje}" onchange="actualizarSelect(this.value)">
-</div>
          <div class="form-group">
             <label for="status">Status:</label>
             <select class="form-select" id="status" name="status" required>
@@ -299,7 +260,7 @@ function editar_cargo(id, nombre, id_departamento, grado, puntaje, categoria, st
          <option disabled selected value="">Selecciona una opción</option>`;
 departamentos.forEach(function (departamento) {
 let selected = "";
-if (departamento["id"] === id_departamento) {
+if (departamento["id"] == id_departamento) {
    selected = "selected";
 }
 html += `<option value="${departamento["id"]}" ${selected}>${departamento["nombre"]}</option>`;
@@ -307,19 +268,7 @@ html += `<option value="${departamento["id"]}" ${selected}>${departamento["nombr
 html += `</select>
    </div>
  
-         <div class="form-group">
-            <label for="grado2">Grados:</label>
-<select class="form-select" name="grado2" required id="grado2" disabled>
-  <option disabled value="">Selecciona una opción</option>
-  ${grados.map(option => {
-      if (option["grado"] === grado) {
-         return `<option value="${option["grado"]}" data-minimo="${option["minimo"]}" data-maximo="${option["maximo"]}" selected>${option["grado"]}</option>`;
-      } else {
-         return `<option value="${option["grado"]}" data-minimo="${option["minimo"]}" data-maximo="${option["maximo"]}">${option["grado"]}</option>`;
-      }
-   }).join('\n')}
-</select>
-         </div>
+         
          
       </div>
    </div>

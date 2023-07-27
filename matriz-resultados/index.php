@@ -1,6 +1,7 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php"; 
+$matriz_resultados = "1.- Combina ambas Matrices (de Nómina y Jerarquización). ;; 2.- Compara cada uno de los datos de la matriz de nómina (Ingreso mensual y Paquete anual), con Mínimo, Medio y Máximo. ;; 3.- Se totalizan los ingresos mensual y paquete, para luego compararlo con el Presupuesto, debe arrojar un saldo igual, positivo o negativo.";?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,7 +10,7 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Matriz de Resultados</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Resultados:','<?php echo $matriz_resultados; ?>')">Matriz de Resultados</span>
             </div>
         </div>
 
@@ -396,7 +397,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
         <br>
     <div class='container' style="overflow: auto; max-height: 600px;">
         <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <thead>
+            <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
                     
                     <th>Grado</th>
@@ -485,7 +486,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
 </div>
 <?php include_once('../layouts/footer.php'); ?>
 
-<script src="assets/js/nomina.js"></script>
+<script src="assets/js/resultados.js"></script>
 
 <script>
 $(document).ready(function() {

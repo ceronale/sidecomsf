@@ -80,25 +80,21 @@ class crud
 
 
 				$descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : "";
-				$puntaje = isset($_POST['puntaje']) ? $_POST['puntaje'] : "";
-				$grado = isset($_POST['grado-oculto']) ? $_POST['grado-oculto'] : "";
 				$status = isset($_POST['status']) ? $_POST['status'] : "";
 				$created_at = date("Y-m-d H:i:s", strtotime('now'));
 				$updated_at = date("Y-m-d H:i:s", strtotime('now'));
 
 
 				$stmt = $this->conn->prepare("INSERT INTO cargos 
-            (id_empresa, nombre, descripcion, id_departamento, categoria, puntaje, grado, creacion, modificado, status)
+            (id_empresa, nombre, descripcion, id_departamento, categoria, creacion, modificado, status)
             VALUES
-            (:id_empresa, :nombre, :descripcion, :id_departamento, :categoria, :puntaje, :grado, :created_at, :updated_at, :status)");
+            (:id_empresa, :nombre, :descripcion, :id_departamento, :categoria, :created_at, :updated_at, :status)");
 
 				$stmt->bindParam(":id_empresa", $user['id_empresa']);
 				$stmt->bindParam(":nombre", $cargo);
 				$stmt->bindParam(":categoria", $categoria);
 				$stmt->bindParam(":descripcion", $descripcion);
 				$stmt->bindParam(":id_departamento", $departamento);
-				$stmt->bindParam(":puntaje", $puntaje);
-				$stmt->bindParam(":grado", $grado);
 				$stmt->bindParam(":status", $status);
 				$stmt->bindParam(":created_at", $created_at);
 				$stmt->bindParam(":updated_at", $updated_at);
@@ -119,12 +115,10 @@ class crud
 				}
 
 				$stmt2 = $this->conn->prepare("INSERT INTO " . $tabla . "
-            ( id_grado, puntaje, id_cargo, id_departamento, status, creacion)
+            ( id_cargo, id_departamento, status, creacion)
             VALUES
-            ( :grado, :puntaje, :id_cargo, :departamento, :status, :creacion)");
+            ( :id_cargo, :departamento, :status, :creacion)");
 
-				$stmt2->bindParam(":grado", $grado);
-				$stmt2->bindParam(":puntaje", $puntaje);
 				$stmt2->bindParam(":id_cargo", $last_id);
 				$stmt2->bindParam(":departamento", $departamento);
 				$stmt2->bindParam(":status", $status);
@@ -146,6 +140,11 @@ class crud
 
 				return 2;
 			}
+			else
+			{
+				return 1;
+			}
+			
 		} catch (PDOException $e) {
 			throw new Exception('Error al crear el cargo: ' . $e->getMessage());
 			return 0;
@@ -169,13 +168,11 @@ class crud
 			$id = isset($_POST['id']) ? $_POST['id'] : "";
 
 			$descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : "";
-			$puntaje = isset($_POST['puntaje']) ? $_POST['puntaje'] : "";
-			$grado = isset($_POST['grado-oculto2']) ? $_POST['grado-oculto2'] : "";
 			$status = isset($_POST['status']) ? $_POST['status'] : "";
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
 			$user = $_SESSION['user'];
 
-			if ($cargo != $cargoold || $departamento != $departamentoold) {
+			if (strtolower($cargo) != strtolower($cargoold) || $departamento != $departamentoold) {
 				$cargo2 =  strtolower($cargo);
 
 				$stmt2 = $this->conn->prepare("SELECT * FROM cargos WHERE LOWER(nombre)=:cargo AND id_departamento=:departamento AND categoria=:categoria AND id_empresa = :id_empresa");
@@ -187,8 +184,6 @@ class crud
 				nombre = :cargo,
 				descripcion = :descripcion,
 				id_departamento = :departamento,
-				puntaje = :puntaje,
-				grado = :grado,
 				modificado = :updated_at,
 				status = :status
 				WHERE id = :id");
@@ -196,8 +191,6 @@ class crud
 					$stmt->bindParam(":cargo", $cargo);
 					$stmt->bindParam(":descripcion", $descripcion);
 					$stmt->bindParam(":departamento", $departamento);
-					$stmt->bindParam(":puntaje", $puntaje);
-					$stmt->bindParam(":grado", $grado);
 					$stmt->bindParam(":status", $status);
 					$stmt->bindParam(":updated_at", $updated_at);
 					$stmt->bindParam(":id", $id);
@@ -206,15 +199,13 @@ class crud
 
 					return 2;
 				} else {
-					return false;
+					return 1;
 				}
 			} else {
 				$stmt = $this->conn->prepare("UPDATE cargos SET
 				nombre = :cargo,
 				descripcion = :descripcion,
 				id_departamento = :departamento,
-				puntaje = :puntaje,
-				grado = :grado,
 				modificado = :updated_at,
 				status = :status
 				WHERE id = :id");
@@ -222,8 +213,6 @@ class crud
 				$stmt->bindParam(":cargo", $cargo);
 				$stmt->bindParam(":descripcion", $descripcion);
 				$stmt->bindParam(":departamento", $departamento);
-				$stmt->bindParam(":puntaje", $puntaje);
-				$stmt->bindParam(":grado", $grado);
 				$stmt->bindParam(":status", $status);
 				$stmt->bindParam(":updated_at", $updated_at);
 				$stmt->bindParam(":id", $id);
@@ -257,6 +246,7 @@ class crud
 		try {
 
 			$puntaje = isset($_POST['puntaje']) ? $_POST['puntaje'] : "";
+			$grado = isset($_POST['grado']) ? $_POST['grado'] : "";
 			$educacion = isset($_POST['educacion']) ? $_POST['educacion'] : "";
 			$experiencia = isset($_POST['experiencia']) ? $_POST['experiencia'] : "";
 			$problemas = isset($_POST['problemas']) ? $_POST['problemas'] : "";
@@ -272,6 +262,7 @@ class crud
 			$ambiental = isset($_POST['ambiental']) ? $_POST['ambiental'] : "";
 			$riesgo = isset($_POST['riesgo']) ? $_POST['riesgo'] : "";
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
+			$formatodetallado = 1;
 			$id_realizado_por = $_SESSION['user_session'];
 
 			$stmt = $this->conn->prepare("UPDATE valoracioncargosadmon SET
@@ -290,6 +281,7 @@ class crud
 			ambiental = :ambiental,
 			riesgo = :riesgo,
 			puntaje = :puntaje,
+			grado = :grado,
 			id_realizado_por = :id_realizado_por,
 			modificado = :updated_at
 			WHERE id_cargo = :id_cargo");
@@ -309,16 +301,46 @@ class crud
 			$stmt->bindParam(":ambiental", $ambiental);
 			$stmt->bindParam(":riesgo", $riesgo);
 			$stmt->bindParam(":puntaje", $puntaje);
+			$stmt->bindParam(":grado", $grado);
 			$stmt->bindParam(":id_realizado_por", $id_realizado_por);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->execute();
 
 			$stmt = $this->conn->prepare("UPDATE cargos SET
 			puntaje = :puntaje,
+			formatodetallado = :formatodetallado,
 			modificado = :updated_at
 			WHERE id = :id_cargo");
 			$stmt->bindParam(":id_cargo", $id_cargo);
 			$stmt->bindParam(":puntaje", $puntaje);
+			$stmt->bindParam(":formatodetallado", $formatodetallado);
+			$stmt->bindParam(":updated_at", $updated_at);
+			$stmt->execute();
+
+			return true;
+		} catch (PDOException $ex) {
+			$stat[0] = false;
+			$stat[1] = $ex->getMessage();
+			return $stat;
+		}
+	}
+
+	public function editar_valoracion_adm_direct($id_cargo)
+	{
+		try {
+
+			$puntaje = isset($_POST['puntajevalorado']) ? $_POST['puntajevalorado'] : "";
+			$grado = isset($_POST['gradovalorado']) ? $_POST['gradovalorado'] : "";	
+			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
+			
+			$stmt = $this->conn->prepare("UPDATE cargos SET
+			puntaje = :puntaje,
+			grado = :grado,
+			modificado = :updated_at
+			WHERE id = :id_cargo");
+			$stmt->bindParam(":id_cargo", $id_cargo);
+			$stmt->bindParam(":puntaje", $puntaje);
+			$stmt->bindParam(":grado", $grado);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->execute();
 
@@ -335,6 +357,7 @@ class crud
 		try {
 
 			$puntaje = isset($_POST['puntaje']) ? $_POST['puntaje'] : "";
+			$grado = isset($_POST['grado']) ? $_POST['grado'] : "";
 			$educacion = isset($_POST['educacion']) ? $_POST['educacion'] : "";
 			$experiencia = isset($_POST['experiencia']) ? $_POST['experiencia'] : "";
 			$problemas = isset($_POST['problemas']) ? $_POST['problemas'] : "";
@@ -349,6 +372,7 @@ class crud
 			$riesgo = isset($_POST['riesgo']) ? $_POST['riesgo'] : "";
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
 			$id_realizado_por = $_SESSION['user_session'];
+			$formatodetallado = 1;
 
 			$stmt = $this->conn->prepare("UPDATE valoracioncargostaller SET
 			educacion = :educacion,
@@ -364,6 +388,7 @@ class crud
 			ambiental = :ambiental,
 			riesgo = :riesgo,
 			puntaje = :puntaje,
+			grado = :grado,
 			id_realizado_por = :id_realizado_por,
 			modificado = :updated_at
 			WHERE id_cargo = :id_cargo");
@@ -381,16 +406,48 @@ class crud
 			$stmt->bindParam(":ambiental", $ambiental);
 			$stmt->bindParam(":riesgo", $riesgo);
 			$stmt->bindParam(":puntaje", $puntaje);
+			$stmt->bindParam(":grado", $grado);
 			$stmt->bindParam(":id_realizado_por", $id_realizado_por);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->execute();
 
 			$stmt = $this->conn->prepare("UPDATE cargos SET
 			puntaje = :puntaje,
+			grado = :grado,
+			formatodetallado = :formatodetallado,
 			modificado = :updated_at
 			WHERE id = :id_cargo");
 			$stmt->bindParam(":id_cargo", $id_cargo);
 			$stmt->bindParam(":puntaje", $puntaje);
+			$stmt->bindParam(":grado", $grado);
+			$stmt->bindParam(":formatodetallado", $formatodetallado);
+			$stmt->bindParam(":updated_at", $updated_at);
+			$stmt->execute();
+
+			return true;
+		} catch (PDOException $ex) {
+			$stat[0] = false;
+			$stat[1] = $ex->getMessage();
+			return $stat;
+		}
+	}
+
+	public function editar_valoracion_taller_direct($id_cargo)
+	{
+		try {
+
+			$puntaje = isset($_POST['puntajevalorado']) ? $_POST['puntajevalorado'] : "";
+			$grado = isset($_POST['gradovalorado']) ? $_POST['gradovalorado'] : "";	
+			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
+			
+			$stmt = $this->conn->prepare("UPDATE cargos SET
+			puntaje = :puntaje,
+			grado = :grado,
+			modificado = :updated_at
+			WHERE id = :id_cargo");
+			$stmt->bindParam(":id_cargo", $id_cargo);
+			$stmt->bindParam(":puntaje", $puntaje);
+			$stmt->bindParam(":grado", $grado);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->execute();
 
@@ -926,13 +983,23 @@ class crud
 		}
 	}
 
-
+//BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
+public function get_formato_cargo($id_cargo)
+{
+	$stmt = $this->conn->prepare("SELECT formatodetallado
+	FROM cargos 
+	WHERE id=:id_cargo");
+	$stmt->execute(array(":id_cargo" => $id_cargo));
+	$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+	return $editRow;
+}
+//FIN BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
 
 
 	//BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
 	public function get_valoracion_adm($id_cargo)
 	{
-		$stmt = $this->conn->prepare("SELECT vca.*, c.nombre as nombrecargo, d.nombre as nombredepartamento
+		$stmt = $this->conn->prepare("SELECT vca.*, c.nombre as nombrecargo, d.nombre as nombredepartamento, c.grado as gradocargo
 		FROM valoracioncargosadmon vca
 		INNER JOIN cargos c ON c.id = vca.id_cargo
 		INNER JOIN departamentos d ON d.id = vca.id_departamento
@@ -946,7 +1013,7 @@ class crud
 	//BUSCAR VALORACION DE CARGO TALLER POR ID DE CARGO
 	public function get_valoracion_taller($id_cargo)
 	{
-		$stmt = $this->conn->prepare("SELECT vct.*, c.nombre as nombrecargo, d.nombre as nombredepartamento
+		$stmt = $this->conn->prepare("SELECT vct.*, c.nombre as nombrecargo, d.nombre as nombredepartamento, c.grado as gradocargo
 		FROM valoracioncargostaller vct
 		INNER JOIN cargos c ON c.id = vct.id_cargo
 		INNER JOIN departamentos d ON d.id = vct.id_departamento
@@ -981,4 +1048,46 @@ class crud
 			return false;
 		}
 	}
+
+	//BUSCAR GRADO ADM POR PUNTAJE
+    public function get_grado_x_puntaje_adm($puntaje)
+	{
+		$user = $_SESSION['user'];
+		$id_escala = "";
+		$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
+		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
+		$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+		if ($stmt2->rowCount() == 1) {
+		$id_escala = $userRow['id_escala_administrativo'];
+
+		$stmt = $this->conn->prepare("SELECT grado FROM tipo_escala_empresarial WHERE tipo_empresa = :id_escala AND minimo <= :puntaje 
+		AND maximo >= :puntaje AND categoria = 1");
+		$stmt->execute(array(":id_escala"=>$id_escala,":puntaje"=>$puntaje));
+		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+		}
+	}
+	//FIN GRADO ADM POR PUNTAJE
+
+	//BUSCAR GRADO TALLER POR PUNTAJE
+    public function get_grado_x_puntaje_taller($puntaje)
+	{
+		$user = $_SESSION['user'];
+		$id_escala = "";
+		$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
+		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
+		$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+		if ($stmt2->rowCount() == 1) {
+		$id_escala = $userRow['id_escala_planta'];
+
+		$stmt = $this->conn->prepare("SELECT grado FROM tipo_escala_empresarial WHERE tipo_empresa = :id_escala AND minimo <= :puntaje 
+		AND maximo >= :puntaje AND categoria = 2");
+		$stmt->execute(array(":id_escala"=>$id_escala,":puntaje"=>$puntaje));
+		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+		}
+	}
+	//FIN GRADO TALLER POR PUNTAJE
 }

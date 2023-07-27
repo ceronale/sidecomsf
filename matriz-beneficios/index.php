@@ -156,7 +156,7 @@
 
                 <div id="tabla-container" class="mt-3">
                     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-                        <thead>
+                        <thead style="position: sticky; top: 0; background-color: white;">
                             <tr>
                                 <th>Tipo</th>
                                 <th>Beneficios</th>

@@ -74,7 +74,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Empresa / Organismo / Organización / Entidad</span>
+                <span style="font-weight: bold; font-size: 25px">Empresa / Organismo / Entidad</span>
             </div>
         </div>
     </section>

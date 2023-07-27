@@ -513,7 +513,7 @@
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Descripción cargo (taller)</span>
+                <span style="font-weight: bold; font-size: 25px">Descripción Puesto/Cargo (Planta - Taller - Fábrica)</span>
                 <br>
                 <span style="font-weight: bold; font-size: 25px">Cargo: <?php echo $nombre; ?> - Departamento: <?php echo $departamento; ?> </span>
             </div>

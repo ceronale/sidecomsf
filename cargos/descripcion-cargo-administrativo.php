@@ -1238,7 +1238,7 @@
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Descripción de puesto/cargo (administrativo)</span>
+                <span style="font-weight: bold; font-size: 25px">Descripción de Puesto/Cargo (Administrativo)</span>
                 <br>
                 <span style="font-weight: bold; font-size: 25px">Cargo: <?php echo $nombre; ?> - Departamento: <?php echo $departamento; ?> - Empresa/Institución: <?php echo $empresa; ?> </span>
             </div>

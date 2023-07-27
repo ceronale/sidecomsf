@@ -190,12 +190,12 @@ if (isset($_GET['val'])) {
 
                     <?php if(isset($_GET['des']))
                     { ?>
-                        <th style="text-align: center;">Descripción de Puesto/Cargo</th>
+                        <th style="text-align: center;">Formato de Descripción</th>
                     <?php } ?>
 
                     <?php if(isset($_GET['val']))
                     { ?>
-                        <th style="text-align: center;">Valoración de Puesto/Cargo</th> 
+                        <th style="text-align: center;">Formato de Valoración</th> 
                     <?php } ?>
 
                    
@@ -250,12 +250,12 @@ if (isset($_GET['val'])) {
 
                                     <?php if ($_GET['ca'] == 1) { ?>
                                         <a href="valoracion-adm?idc=<?= $cargo['id']; ?>&ca=<?= $cargo['categoria']; ?>" title="Valorar Cargo">
-                                            <i class="fa fa-balance-scale" aria-hidden="true" style="color:black"></i></a>
+                                            <i class="fa fa-list-ol" aria-hidden="true" style="color:black"></i></a>
                                     <?php  } ?>
 
                                     <?php if ($_GET['ca'] == 2) { ?>
                                         <a href="valoracion-taller?idc=<?= $cargo['id']; ?>&ca=<?= $cargo['categoria']; ?>" title="Valorar Cargo">
-                                            <i class="fa fa-balance-scale" aria-hidden="true" style="color:black"></i></a>
+                                            <i class="fa fa-list-ol" aria-hidden="true" style="color:black"></i></a>
 
                                 <?php }
                                 } ?>

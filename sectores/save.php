@@ -4,19 +4,24 @@ include_once 'class.crud.php';
 $crud = new crud();
 
 if (isset($_POST['add'])) {
-    if ($crud->crear_sector()) {
+    $aux = $crud->crear_sector();
+    if ($aux == 2) {
         header("Location: ../sectores/?inserted");
+    } elseif ($aux == 1) {
+        header("Location: ../sectores/?same");
     } else {
         header("Location: ../sectores/?failure");
     }
 }
 
-if (isset($_POST['update'])) {
 
-    if ($crud->editar_sector()) {
+if (isset($_POST['update'])) {
+    $aux = $crud->editar_sector();
+    if ($aux == 2) {
         header("Location: ../sectores/?edited");
+    } elseif ($aux == 1) {
+        header("Location: ../sectores/?same");
     } else {
-        echo "ano";
         header("Location: ../sectores/?failureedited");
     }
 }

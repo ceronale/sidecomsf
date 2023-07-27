@@ -21,6 +21,20 @@
     include_once 'class.crud.php';
     $crud = new crud();
 
+
+    if (isset($_GET['same'])) {
+    ?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'El nombre ya existe en la base de datos',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        </script>
+    <?php
+    }
     if (isset($_GET['inserted'])) {
     ?>
         <script>

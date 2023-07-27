@@ -1255,9 +1255,9 @@
         <li><a href="#tab2"><span class="fa fa-group"></span><span class="tab-text">Descripción</span></a></li>
         <li><a href="#tab3"><span class="fa fa-briefcase"></span><span class="tab-text">Responsabilidades</span></a></li>
         <li><a href="#tab4"><span class="fa fa-bookmark"></span><span class="tab-text">Conocimientos</span></a></li>
-        <li><a href="#tab5"><span class="fa fa-superpowers"></span><span class="tab-text">Relaciones</span></a></li>
-        <li><a href="#tab6"><span class="fa fa-window-restore "></span><span class="tab-text">Condiciones de trabajo</span></a></li>
-        <li><a href="#tab7"><span class="fa fa-arrows-h"></span><span class="tab-text">Competencias</span></a></li>
+        <li><a href="#tab5"><span class="fa fa-arrows-h"></span><span class="tab-text">Competencias</span></a></li>
+        <li><a href="#tab6"><span class="fa fa-superpowers"></span><span class="tab-text">Relaciones</span></a></li>
+        <li><a href="#tab7"><span class="fa fa-window-restore "></span><span class="tab-text">Condiciones de trabajo</span></a></li>
         <li><a href="#tab8"><span class="fa fa-exclamation-circle"></span><span class="tab-text">Riesgos</span></a></li>
     </ul>
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -2514,7 +2514,7 @@
                             <select class="form-select" name="idiomas[]" id="idiomas" multiple>
                                 <option disabled value="">Seleccione</option>
                                 <?php
-                                $opciones = array("Español", "Ingles", "Frances", "Aleman", "Mandarin", "Portugues");
+                                $opciones = array("Español", "Ingles", "Francés", "Alemán", "Mandarin", "Portugues", "Ruso", "Persa");
                                 $idiomasArray = array_map('trim', explode(",", $cargoDescripcion["idiomas"]));
 
                                 foreach ($opciones as $opcion) {
@@ -2546,7 +2546,7 @@
 
                 </article>
 
-                <article id="tab5">
+                <article id="tab6">
                     <div class="row mt-3">
                         <label>
                             <h4>Relaciones</h4>
@@ -2595,7 +2595,7 @@
                     </div>
                 </article>
 
-                <article id="tab6">
+                <article id="tab7">
                     <div class="row mt-3">
                         <label>
                             <h4>Condiciones de trabajo</h4>
@@ -2644,7 +2644,7 @@
                     </div>
                 </article>
 
-                <article id="tab7">
+                <article id="tab5">
                     <div class="row mt-3">
                         <label>
                             <h4>Competencias</h4>

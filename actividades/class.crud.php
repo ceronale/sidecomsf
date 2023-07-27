@@ -39,10 +39,23 @@ class crud
 	public function crear_actividad()
 	{
 		try {
+
 			$nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
 			$status = (isset($_POST['status'])) ? $_POST['status'] : "";
 			$created_at = date("Y-m-d H:i:s", strtotime('now'));
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
+
+
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM tipo_sector_empresa WHERE nombre = :nombre");
+			$stmt_check->bindparam(":nombre", $nombre);
+			$stmt_check->execute();
+			$count = $stmt_check->fetchColumn();
+
+			if ($count > 0) {
+				// Ya existe un registro con el mismo término, retornar falso
+				return 1;
+			}
+
 
 			$stmt = $this->conn->prepare("INSERT INTO tipo_sector_empresa(nombre,status,creacion,modificado) 
 			VALUES(:nombre,:status,:created_at,:updated_at)");
@@ -52,10 +65,11 @@ class crud
 			$stmt->bindparam(":updated_at", $updated_at);
 			$stmt->execute();
 
-			return true;
+			return 2;
 		} catch (PDOException $e) {
+
 			echo $e->getMessage();
-			return false;
+			return 3;
 		}
 	}
 	//FIN FUNCION PARA CREAR UN DEPARTAMENTOS EN LA BD
@@ -69,6 +83,19 @@ class crud
 			$status = (isset($_POST['status'])) ? $_POST['status'] : "";
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
 
+			$nombre2 = strtolower($nombre);
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM tipo_sector_empresa WHERE LOWER(nombre) = :nombre AND id != :id");
+			$stmt_check->bindparam(":nombre", $nombre2);
+			$stmt_check->bindparam(":id", $id);
+			$stmt_check->execute();
+			$count = $stmt_check->fetchColumn();
+
+			if ($count > 0) {
+				// Ya existe un registro con el mismo término y diferente ID, retornar falso
+				return 1;
+			}
+
+
 			$stmt = $this->conn->prepare("UPDATE tipo_sector_empresa SET 
 			nombre=:nombre, 
 			status=:status, 
@@ -80,19 +107,19 @@ class crud
 			$stmt->bindparam(":id", $id);
 			$stmt->execute();
 
-			return true;
+			return 2;
 		} catch (PDOException $e) {
 			echo $e->getMessage();
-			return false;
+			return 3;
 		}
 	}
 	//FIN FUNCION PARA EDITAR UN DEPARTAMENTO EN LA BD
 
 	//FUNCION PARA ELIMINAR UN DEPARTAMENTO DE LA BD 
-	public function eliminar_actividad()
+	public function eliminar_actividad($id)
 	{
 		try {
-			$id = (isset($_POST['id'])) ? $_POST['id'] : "";
+
 
 			$stmt = $this->conn->prepare("DELETE FROM tipo_sector_empresa WHERE id=:id");
 			$stmt->bindparam(":id", $id);

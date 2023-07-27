@@ -1258,7 +1258,7 @@
         <li><a href="#tab5"><span class="fa fa-superpowers"></span><span class="tab-text">Relaciones</span></a></li>
         <li><a href="#tab6"><span class="fa fa-window-restore "></span><span class="tab-text">Condiciones de trabajo</span></a></li>
         <li><a href="#tab7"><span class="fa fa-arrows-h"></span><span class="tab-text">Competencias</span></a></li>
-        <li><a href="#tab8"><span class="fa fa-exclamation-circle"></span><span class="tab-text">Riegos</span></a></li>
+        <li><a href="#tab8"><span class="fa fa-exclamation-circle"></span><span class="tab-text">Riesgos</span></a></li>
     </ul>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/descripcion-cargo.js"></script>

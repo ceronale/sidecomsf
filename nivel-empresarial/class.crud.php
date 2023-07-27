@@ -62,6 +62,23 @@ class crud
 				return 0;
 			}
 
+
+
+
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM nivel_organizativo WHERE id_empresa = :id_empresa AND nombre = :nombre");
+			$stmt_check->bindparam(":id_empresa", $user['id_empresa']);
+			$stmt_check->bindparam(":nombre", $nombre);
+			$stmt_check->execute();
+			$count = $stmt_check->fetchColumn();
+
+			if ($count > 0) {
+				// Ya existe un registro con el mismo término, retornar falso
+				return 1;
+			}
+
+
+
+
 			$stmt = $this->conn->prepare("INSERT INTO nivel_organizativo(id_empresa,nombre,status,orden,creacion,modificacion) 
         VALUES(:id_empresa,:nombre,:status,:orden,:created_at,:updated_at)");
 			$stmt->bindparam(":id_empresa", $user['id_empresa']);
@@ -104,6 +121,24 @@ class crud
 			if ($result) {
 				// El valor de $orden ya existe en la tabla para otros registros de la id_empresa actual
 				return 0;
+			}
+
+
+
+
+			$user = $_SESSION['user'];
+
+			$nombre2 = strtolower($nombre);
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM glosario WHERE id_empresa = :id_empresa AND LOWER(nombre) = :nombre AND id != :id");
+			$stmt_check->bindparam(":id_empresa", $user['id_empresa']);
+			$stmt_check->bindparam(":nombre", $nombre2);
+			$stmt_check->bindparam(":id", $id);
+			$stmt_check->execute();
+			$count = $stmt_check->fetchColumn();
+
+			if ($count > 0) {
+				// Ya existe un registro con el mismo término y diferente ID, retornar falso
+				return 1;
 			}
 
 			$stmt = $this->conn->prepare("UPDATE nivel_organizativo SET 

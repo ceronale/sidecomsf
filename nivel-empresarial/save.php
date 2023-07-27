@@ -7,12 +7,19 @@ if (isset($_POST['add'])) {
     $result = $crud->crear_nivelempresarial();
     if ($result == 2) {
         header("Location: ../nivel-empresarial/?inserted");
+    } elseif ($result == 1) {
+        header("Location: ../nivel-empresarial/?same");
     } else if ($result == 0) {
         header("Location: ../nivel-empresarial/?duplicate");
     } else {
         header("Location: ../nivel-empresarial/?failure");
     }
 }
+
+
+
+
+
 
 if (isset($_POST['update'])) {
     $result = $crud->editar_nivelempresarial();
@@ -21,6 +28,8 @@ if (isset($_POST['update'])) {
         header("Location: ../nivel-empresarial/?edited");
     } else if ($result == 0) {
         header("Location: ../nivel-empresarial/?duplicate");
+    } elseif ($result == 1) {
+        header("Location: ../nivel-empresarial/?same");
     } else {
         header("Location: ../nivel-empresarial/?failureedited");
     }

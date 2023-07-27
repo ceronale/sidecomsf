@@ -42,6 +42,18 @@ class crud
 			$nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
 			$status = (isset($_POST['status'])) ? $_POST['status'] : "";
 
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM productos_servicios WHERE  nombre = :nombre");
+
+			$stmt_check->bindparam(":nombre", $nombre);
+			$stmt_check->execute();
+			$count = $stmt_check->fetchColumn();
+
+			if ($count > 0) {
+				// Ya existe un registro con el mismo término, retornar falso
+				return 1;
+			}
+
+
 
 			$stmt = $this->conn->prepare("INSERT INTO productos_servicios(nombre,status) 
 			VALUES(:nombre,:status)");
@@ -50,10 +62,10 @@ class crud
 
 			$stmt->execute();
 
-			return true;
+			return 2;
 		} catch (PDOException $e) {
 			echo $e->getMessage();
-			return false;
+			return 3;
 		}
 	}
 	//FIN FUNCION PARA CREAR UN DEPARTAMENTOS EN LA BD
@@ -67,17 +79,30 @@ class crud
 			$status = (isset($_POST['status'])) ? $_POST['status'] : "";
 
 
+			$nombre2 = strtolower($nombre);
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM productos_servicios WHERE  LOWER(nombre) = :nombre AND id != :id");
+
+			$stmt_check->bindparam(":nombre", $nombre2);
+			$stmt_check->bindparam(":id", $id);
+			$stmt_check->execute();
+			$count = $stmt_check->fetchColumn();
+
+			if ($count > 0) {
+				// Ya existe un registro con el mismo término y diferente ID, retornar falso
+				return 1;
+			}
+
+
 			$stmt = $this->conn->prepare("UPDATE productos_servicios SET nombre=:nombre, status=:status WHERE id=:id");
 			$stmt->bindParam(":nombre", $nombre);
 			$stmt->bindParam(":status", $status);
 			$stmt->bindParam(":id", $id);
 			$stmt->execute();
 
-			return true;
+			return 2;
 		} catch (PDOException $e) {
-			throw $e;
 			echo $e->getMessage();
-			return false;
+			return 3;
 		}
 	}
 	//FIN FUNCION PARA EDITAR UN DEPARTAMENTO EN LA BD

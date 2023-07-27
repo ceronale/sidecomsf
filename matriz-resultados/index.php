@@ -404,11 +404,11 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     <th>Grado</th>
                     <th>Puesto/Cargo</th>
                     <th>Trabajador</th>
-                    <th>Ingreso Mensual</th>
+                    <th style="border-left: solid 2px #A8A8A8">Ingreso Mensual</th>
                     <th style="text-align: center">Real <br> vs <br>  Minimo</th>
                     <th style="text-align: center">Real <br> vs <br>  Medio</th>
                     <th style="text-align: center">Real <br> vs <br>  Máximo</th>
-                    <th>Paquete Anual</th>
+                    <th style="border-left: solid 2px #A8A8A8">Paquete Anual</th>
                     <th style="text-align: center">Real <br> vs <br>  Minimo</th>
                     <th style="text-align: center">Real <br> vs <br>  Medio</th>
                     <th style="text-align: center">Real <br> vs <br>  Máximo</th>
@@ -428,13 +428,13 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     <td><?php print($resultado['nombrecargo']); ?></td>
                     <td><?php print($resultado['nombretrabajador']); ?></td>
                     
-                    <td><?php print($resultado['sueldobase']); ?></td>
+                    <td style="border-left: solid 2px #A8A8A8"><?php print($resultado['sueldobase']); ?></td>
                     <td><?php print($resultado['realvsminimo']); ?></td>
                   
                     <td><?php print($resultado['realvsmedio']); ?></td>
 
                     <td><?php print($resultado['realvsmaximo']); ?></td>
-                    <td><?php print($resultado['paqueteanual']); ?></td>
+                    <td style="border-left: solid 2px #A8A8A8"> <?php print($resultado['paqueteanual']); ?></td>
                     <td><?php print($resultado['realvsminimoanual']); ?></td>
                     <td><?php print($resultado['realvsmedioanual']); ?></td>
                     <td><?php print($resultado['realvsmaximoanual']); ?></td>

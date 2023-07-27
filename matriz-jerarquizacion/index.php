@@ -156,11 +156,11 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <th>Grado</th>
                             <th>Mín</th>
                             <th>Máx</th>
-                            <th>Promedio Puntaje</th>
+                            <th style="border-left: solid 2px #A8A8A8">Promedio Puntaje</th>
                             <th>Promedio Ingreso Mensual</th>
                             <th>Promedio Paquete Anual</th>
                             <th>Promedio Factor Anual</th>
-                            <th>Mínimo</th>
+                            <th style="border-left: solid 2px #A8A8A8">Mínimo</th>
                             <th>Medio</th>
                             <th>Máximo</th>
 
@@ -232,13 +232,13 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <td><?php print($jerarquizacion['minimo']); ?></td>
                             <td><?php print($jerarquizacion['maximo']); ?></td>
 
-                            <td><?php print($jerarquizacion['promediopuntaje']); ?></td>
+                            <td style="border-left: solid 2px #A8A8A8"><?php print($jerarquizacion['promediopuntaje']); ?></td>
 
                             <td><?php print($jerarquizacion['promediosueldomensual']); ?></td>
 
                             <td><?php print($jerarquizacion['promediopaqueteanual']); ?></td>
                             <td><?php print($jerarquizacion['promediofactor']); ?></td>
-                            <td><?php print($minimo); ?></td>
+                            <td style="border-left: solid 2px #A8A8A8"><?php print($minimo); ?></td>
                             <td><?php print($medio); ?></td>
                             <td><?php print($maximo); ?></td>
 

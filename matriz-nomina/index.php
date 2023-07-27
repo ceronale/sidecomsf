@@ -44,7 +44,7 @@ function tiempoTranscurridoFechas($fecha1)
     return $tiempo;
 }
             
-$matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisar la estructura de los puestos/cargos valorados vs. Ingresos reales (Sueldos o Salarios mensuales y paquete anual); además visualizar en un gráfico, el orden o jerarquía tal como se presentan en la valoración.";
+$matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisar la estructura de los puestos/cargos valorados e Ingresos reales (Sueldos o Salarios mensuales y paquete anual) además visualizar en un gráfico, el orden o jerarquía tal como se presentan en la valoración.";
             ?>
 
 
@@ -55,7 +55,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc;" onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina</span>
             </div>
         </div>
 
@@ -73,7 +73,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
     Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'La Nueva Nómina se ha registrado con exito!',
+        title: 'Éxito!',
         showConfirmButton: false,
         timer: 3000
     })
@@ -99,7 +99,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
     Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'La Nómina se ha editado con exito!',
+        title: 'Éxito!',
         showConfirmButton: false,
         timer: 3000
     })

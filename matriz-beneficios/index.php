@@ -24,10 +24,6 @@
     $periodos = $crud->getPeriodos();
     $beneficios = $crud->getBeneficios();
 
-
-
-
-
     if (isset($_POST['btn-send'])) {
         $id_pe = strip_tags($_POST['mi-select']);
         $niveles_beneficios = $crud->getNivelBeneficios($id_pe);
@@ -51,7 +47,6 @@
             unset($niveles_beneficios["max_id_periodo"]);
         }
     }
-
 
     if (isset($_GET['inserted'])) {
     ?>

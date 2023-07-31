@@ -428,16 +428,16 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     <td><?php print($resultado['nombrecargo']); ?></td>
                     <td><?php print($resultado['nombretrabajador']); ?></td>
                     
-                    <td style="border-left: solid 2px #A8A8A8"><?php print($resultado['sueldobase']); ?></td>
-                    <td><?php print($resultado['realvsminimo']); ?></td>
+                    <td style="border-left: solid 2px #A8A8A8"><?= number_format($resultado['sueldobase'],2,',','.');  ?></td>
+                    <td><?= number_format($resultado['realvsminimo'],2,',','.');  ?></td>
                   
-                    <td><?php print($resultado['realvsmedio']); ?></td>
+                    <td><?= number_format($resultado['realvsmedio'],2,',','.');  ?></td>
 
-                    <td><?php print($resultado['realvsmaximo']); ?></td>
-                    <td style="border-left: solid 2px #A8A8A8"> <?php print($resultado['paqueteanual']); ?></td>
-                    <td><?php print($resultado['realvsminimoanual']); ?></td>
-                    <td><?php print($resultado['realvsmedioanual']); ?></td>
-                    <td><?php print($resultado['realvsmaximoanual']); ?></td>
+                    <td><?= number_format($resultado['realvsmaximo'],2,',','.');  ?></td>
+                    <td style="border-left: solid 2px #A8A8A8"> <?= number_format($resultado['paqueteanual'],2,',','.');  ?></td>
+                    <td><?= number_format($resultado['realvsminimoanual'],2,',','.');  ?></td>
+                    <td><?= number_format($resultado['realvsmedioanual'],2,',','.');  ?></td>
+                    <td><?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?></td>
 
                    
                 </tr>
@@ -475,6 +475,22 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
 <script src="assets/js/resultados.js"></script>
 
 <script>
+
+$('input.number').keyup(function(event) {
+    // skip for arrow keys
+    if(event.which >= 37 && event.which <= 40){
+      event.preventDefault();
+    }
+  
+    $(this).val(function(index, value) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/([0-9])([0-9]{2})$/, '$1,$2')  
+        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".")
+      ;
+    });
+});
+
 $(document).ready(function() {
     $(".hidden").hide();
 

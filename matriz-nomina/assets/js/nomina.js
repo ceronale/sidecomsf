@@ -19,7 +19,7 @@ function eliminar_nomina(id,nombretrabajador) {
   })
 }
 
-function crear_nomina(fecha_act) {
+function crear_nomina(fecha_act,fecha_act2) {
     Swal.fire({
         title: "Registro de Información",
         width: '700px',
@@ -321,14 +321,14 @@ function crear_nomina(fecha_act) {
                                             <label for="fecha_ingreso">Fecha de Ingreso</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type='date' onchange="calculartiemposervicio(this.value);" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
+                                            <input type='date' onchange="calculartiemposervicio(this.value);" min="1900-01-01"  max="${fecha_act2}" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <input type='text' readonly name="fecha_act" id="fecha_act" value="` + fecha_act + `" class='form-control' readonly required autocomplete="on">
+                                            <input type='text' readonly name="fecha_act" id="fecha_act" value="` + fecha_act + `"  class='form-control' readonly required autocomplete="on">
                                         </div>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@ function crear_nomina(fecha_act) {
                                     <label for="sueldo_base_mensual">Sueldo Base Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number'  name='sueldo_base_mensual' id='sueldo_base_mensual' class='form-control' required autocomplete="on">
+                                    <input type='text'  name='sueldo_base_mensual' id='sueldo_base_mensual' class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -363,7 +363,7 @@ function crear_nomina(fecha_act) {
                                     <label for="total_ingreso_mensual">Total Ingreso Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number'  name='total_ingreso_mensual' id='total_ingreso_mensual' onchange="calcularfactor()" class='form-control' required autocomplete="on">
+                                    <input type='text' name='total_ingreso_mensual' id='total_ingreso_mensual' onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -374,7 +374,7 @@ function crear_nomina(fecha_act) {
                                     <label for="total_paquete_anual">Total Paquete Anual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number' name='total_paquete_anual' id='total_paquete_anual' onchange="calcularfactor()" class='form-control' required autocomplete="on">
+                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual' onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -442,7 +442,7 @@ function crear_nomina(fecha_act) {
                                     <label for="monto_divisas">Monto en Divisas:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number' name="montodivisa" id="montodivisa" class='form-control' readonly  required autocomplete="on">
+                                    <input type='text' name="montodivisa" id="montodivisa" class='form-control number' readonly  required autocomplete="on">
                                 </div>
                                     </div>
                                 </div>
@@ -488,7 +488,20 @@ function crear_nomina(fecha_act) {
 });
 
 
- 
+$('input.number').keyup(function(event) {
+    // skip for arrow keys
+    if(event.which >= 37 && event.which <= 40){
+      event.preventDefault();
+    }
+  
+    $(this).val(function(index, value) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/([0-9])([0-9]{2})$/, '$1,$2')  
+        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".")
+      ;
+    });
+  });
 
     };
 
@@ -519,7 +532,8 @@ function crear_nomina(fecha_act) {
                                 factormeses,
                                 monto_divisa,
                                 idtipodivisa,
-                                fecha_act) {
+                                fecha_act,
+                                fecha_act2) {
     Swal.fire({
         title: "Registro de Información",
         width: '700px',
@@ -820,7 +834,7 @@ function crear_nomina(fecha_act) {
                                             <label for="fecha_ingreso">Fecha de Ingreso</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type='date' value="` + fechaingreso + `" onchange="calculartiemposervicio(this.value);" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
+                                            <input type='date' value="` + fechaingreso + `" min="1900-01-01"  max="${fecha_act2}" onchange="calculartiemposervicio(this.value);" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
                                         </div>
                                     </div>
                                 </div>
@@ -851,7 +865,7 @@ function crear_nomina(fecha_act) {
                                     <label for="sueldo_base_mensual">Sueldo Base Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number' name='sueldo_base_mensual' id='sueldo_base_mensual' value="` + sueldobase + `" class='form-control' required autocomplete="on">
+                                    <input type='text' name='sueldo_base_mensual' id='sueldo_base_mensual' value="` + sueldobase + `" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -862,7 +876,7 @@ function crear_nomina(fecha_act) {
                                     <label for="total_ingreso_mensual">Total Ingreso Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number'  name='total_ingreso_mensual' id='total_ingreso_mensual' value="` + sueldo_mensual + `" onchange="calcularfactor()" class='form-control' required autocomplete="on">
+                                    <input type='text'  name='total_ingreso_mensual' id='total_ingreso_mensual' value="` + sueldo_mensual + `" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -873,7 +887,7 @@ function crear_nomina(fecha_act) {
                                     <label for="total_paquete_anual">Total Paquete Anual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='number' name='total_paquete_anual' id='total_paquete_anual' value="` + paquete_anual + `" onchange="calcularfactor()" class='form-control' required autocomplete="on">
+                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual' value="` + paquete_anual + `" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -942,7 +956,7 @@ function crear_nomina(fecha_act) {
                                 <label for="monto_divisas">Monto en Divisas:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type='number' name="montodivisa" id="montodivisa" value="` + monto_divisa + `" class='form-control'  readonly autocomplete="on">
+                                <input type='text' name="montodivisa" id="montodivisa" value="` + monto_divisa + `" class='form-control number'  readonly autocomplete="on">
                             </div>
                                 </div>
                             </div>
@@ -1025,6 +1039,21 @@ function crear_nomina(fecha_act) {
     }
 });
 
+
+$('input.number').keyup(function(event) {
+    // skip for arrow keys
+    if(event.which >= 37 && event.which <= 40){
+      event.preventDefault();
+    }
+  
+    $(this).val(function(index, value) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/([0-9])([0-9]{2})$/, '$1,$2')  
+        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".")
+      ;
+    });
+  });
 
 
 });
@@ -1295,23 +1324,7 @@ function crear_nomina(fecha_act) {
 
     function calculartiemposervicio(fecha_ingreso)
     {
-     // Crear un objeto Date con la fecha y hora actual
-const fechaActual = new Date();
-
-// Obtener los componentes de la fecha
-const dia = fechaActual.getDate().toString().padStart(2, '0');
-const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0');
-const anio = fechaActual.getFullYear();
-
-// Crear una cadena de texto con la fecha actual en el formato deseado
-const fechaActualFormato = `${anio}-${mes}-${dia}`;
-
-        if (fecha_ingreso > fechaActualFormato)
-        {
-            document.getElementById("fecha_ingreso").value = fechaActualFormato;
-            fecha_ingreso = fechaActualFormato;
-        }
-
+    
         $.post("data.php?fecin", {
             fecha_ingreso: fecha_ingreso
         }, function(data) {
@@ -1333,7 +1346,7 @@ const fechaActualFormato = `${anio}-${mes}-${dia}`;
 
         if (parseFloat(sldm) > 0) {
 
-        let factor = (pqta / sldm).toFixed(2);
+        let factor = parseFloat(pqta / sldm).toFixed(2);
         factor = factor.replace(".", ",");
         // document.getElementById("resultado").innerHTML = factor; //(pqta / sldm).toFixed(2);
         document.getElementById("factor_meses").value = factor; //(pqta / sldm).toFixed(2);
@@ -1439,4 +1452,4 @@ function toggleFullscreen(elem) {
     }
   }
 
- 
+

@@ -210,6 +210,9 @@ class crud
 			$paqueteanual =  (isset($_POST['total_paquete_anual']))?$_POST['total_paquete_anual']:""; 
 			$factor = (isset($_POST['factor_meses']))?$_POST['factor_meses']:""; 
 
+			
+
+
 			if ($_POST['pagoDivisas']!=null)
 			{
 				$id_tipodivisa = (isset($_POST['id_tipodivisa']))?$_POST['id_tipodivisa']:""; 
@@ -221,6 +224,11 @@ class crud
 				$montodivisa = 0; 
 			}			
 			$status = "1";
+
+			$sueldo_base = str_replace(".","",$sueldo_base);
+			$sueldomensual =  str_replace(".","",$sueldomensual);
+			$paqueteanual = str_replace(".","",$paqueteanual);
+			$montodivisa =  str_replace(".","",$montodivisa);
 
             $created_at= date("Y-m-d H:i:s", strtotime('now'));
             $updated_at = date("Y-m-d H:i:s", strtotime('now'));  
@@ -315,6 +323,11 @@ class crud
 				$montodivisa = 0; 
 			}			
 		
+			$sueldo_base = str_replace(".","",$sueldo_base);
+			$sueldomensual =  str_replace(".","",$sueldomensual);
+			$paqueteanual = str_replace(".","",$paqueteanual);
+			$montodivisa =  str_replace(".","",$montodivisa);
+
             $updated_at = date("Y-m-d H:i:s", strtotime('now'));  
 
 			$stmt=$this->conn->prepare("UPDATE matriz_nomina SET 

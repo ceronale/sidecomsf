@@ -94,19 +94,19 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
             <div class="row" id="formcss">
                 <div class="col-sm-3 form-group">
                     <label for="ingreso_minimo">Ingreso Minimo</label>
-                    <input type="number" class="form-control input-sm" id="ingreso_minimo"
+                    <input type="text" class="form-control input-sm number" id="ingreso_minimo"
                         placeholder="Indique el Ingreso Minimo" required title="Indique el Ingreso Minimo" />
                 </div>
                 <div class="col-sm-3 form-group">
                     <label for="incremento_grados">% Incremento en Grados</label>
-                    <input type="number" class="form-control input-sm" id="incremento_grados"
+                    <input type="text" class="form-control input-sm number" id="incremento_grados"
                         placeholder="% Incremento en Grados" title="% Incremento en Grados" />
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="incremento_min_med_max">% Incremento en Mín, Med, Máx</label>
                     <div class="row">
                         <div class="col-md-8">
-                            <input type="number" class="form-control input-sm" id="incremento_min_med_max"
+                            <input type="text" class="form-control input-sm number" id="incremento_min_med_max"
                                 placeholder="% Incremento en Mín, Med, Máx" title="% Incremento en Mín, Med, Máx" />
                         </div>
 
@@ -156,8 +156,8 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <th>Grado</th>
                             <th>Mín</th>
                             <th>Máx</th>
-                            <th style="border-left: solid 2px #A8A8A8">Promedio Puntaje</th>
-                            <th>Promedio Ingreso Mensual</th>
+                            <th>Promedio Puntaje</th>
+                            <th style="border-left: solid 2px #A8A8A8">Promedio Ingreso Mensual</th>
                             <th>Promedio Paquete Anual</th>
                             <th>Promedio Factor Anual</th>
                             <th style="border-left: solid 2px #A8A8A8">Mínimo</th>
@@ -232,15 +232,15 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <td><?php print($jerarquizacion['minimo']); ?></td>
                             <td><?php print($jerarquizacion['maximo']); ?></td>
 
-                            <td style="border-left: solid 2px #A8A8A8"><?php print($jerarquizacion['promediopuntaje']); ?></td>
+                            <td><?php print($jerarquizacion['promediopuntaje']); ?></td>
 
-                            <td><?php print($jerarquizacion['promediosueldomensual']); ?></td>
+                            <td style="border-left: solid 2px #A8A8A8"><?= number_format($jerarquizacion['promediosueldomensual'],2,',','.');  ?></td>
 
-                            <td><?php print($jerarquizacion['promediopaqueteanual']); ?></td>
-                            <td><?php print($jerarquizacion['promediofactor']); ?></td>
-                            <td style="border-left: solid 2px #A8A8A8"><?php print($minimo); ?></td>
-                            <td><?php print($medio); ?></td>
-                            <td><?php print($maximo); ?></td>
+                            <td><?= number_format($jerarquizacion['promediopaqueteanual'],2,',','.'); ?></td>
+                            <td><?= number_format($jerarquizacion['promediofactor'],2,',','.'); ?></td>
+                            <td style="border-left: solid 2px #A8A8A8"><?= number_format($minimo,2,',','.'); ?></td>
+                            <td><?= number_format($medio,2,',','.');  ?></td>
+                            <td><?= number_format($maximo,2,',','.');  ?></td>
 
 
                         </tr>
@@ -278,6 +278,22 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     <script src="assets/js/jerarquizacion.js"></script>
 
     <script>
+
+$('input.number').keyup(function(event) {
+    // skip for arrow keys
+    if(event.which >= 37 && event.which <= 40){
+      event.preventDefault();
+    }
+  
+    $(this).val(function(index, value) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/([0-9])([0-9]{2})$/, '$1,$2')  
+        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".")
+      ;
+    });
+  });
+
     $(document).ready(function() {
         $(".hidden").hide();
 
@@ -314,6 +330,10 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
         var ig = $("#incremento_grados").val();
         var immm = $("#incremento_min_med_max").val();
 
+        im = im.replace(".", "");
+        ig = ig.replace(".", "");
+        immm = immm.replace(".", "");
+        
         ig = ig / 100;
         immm = immm / 100;
 

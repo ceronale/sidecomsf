@@ -511,10 +511,12 @@ class crud
 	//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
     public function get_sum_empleados($categoria)
 	{
+		$user = $_SESSION['user'];
 		$stmt = $this->conn->prepare("SELECT COUNT(*) as conteo
 		FROM matriz_nomina mn 
 		INNER JOIN cargos c ON c.id = mn.id_cargo
-		WHERE categoria=:categoria");
+		WHERE categoria=:categoria
+		AND  mn.id_empresa = " . $user['id_empresa']);
 		$stmt->execute(array(":categoria"=>$categoria));
 		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
 		return $editRow;

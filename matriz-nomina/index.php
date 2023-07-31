@@ -217,7 +217,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
 
         <div class="row">
             <div class="col-sm-2 form-group">
-            <a href='#' onclick="crear_nomina('<?php echo date('d/m/Y', strtotime('now')); ?>')"
+            <a href='#' onclick="crear_nomina('<?php echo date('d/m/Y', strtotime('now')); ?>','<?php echo date('Y-m-d', strtotime('now')); ?>')"
                     class='btn btn-large btn-dark'> &nbsp;
                     <img src="../assets/img/icons/nuevo-blanco.png" style="color: white !important;" height="20"
                         width="20" alt="Nuevo"> Nuevo</a>
@@ -246,8 +246,8 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                         <th>Puesto/Cargo</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Cargo Crítico:','<?php echo $cargo_critico; ?>')">Cargo <br> Crítico</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Cargo Supervisor:','<?php echo $cargo_supervisor; ?>')">Cargo <br> Supervisor</th>
-                        <th style="border-left: solid 2px #A8A8A8">Departamento</th>
-                        <th>Trabajador</th>
+                        <th >Departamento</th>
+                        <th style="border-left: solid 2px #A8A8A8">Trabajador</th>
                         <th>Género</th>
                         <th>Nro de Identificación</th> 
                         <th>Fecha Ingreso</th>
@@ -285,8 +285,8 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                                     print "No";
                                 }
                                 ?></td>
-                        <td style="border-left: solid 2px #A8A8A8;"><?php print($nomina['nombredepartamento']); ?></td>
-                        <td><?php print($nomina['nombretrabajador']); ?></td>
+                        <td><?php print($nomina['nombredepartamento']); ?></td>
+                        <td style="border-left: solid 2px #A8A8A8"> <?php print($nomina['nombretrabajador']); ?></td>
                         <td><?php if ($nomina['mngenero'] == "M") {
                                     print "Masculino";
                                 } else {
@@ -308,9 +308,9 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                                 <?php }
                                 ?>
                         </td>
-                        <td style="border-left: solid 2px #A8A8A8"><?php print($nomina['sueldobase']); ?></td>
-                        <td><?php print($nomina['sueldo_mensual']); ?></td>
-                        <td><?php print($nomina['paquete_anual']); ?></td>
+                        <td style="border-left: solid 2px #A8A8A8"><?= number_format($nomina['sueldobase'],2,',','.'); ?></td>
+                        <td><?= number_format($nomina['sueldo_mensual'],2,',','.'); ?></td>
+                        <td><?= number_format($nomina['paquete_anual'],2,',','.'); ?></td>
                         <td><?php print($nomina['factormeses']); ?></td>
                         <td><?php if($nomina['idtipodivisa'] == 233)
                             { ?>
@@ -344,13 +344,14 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                                 '<?php print($nomina['mngenero']); ?>',
                                 '<?php echo $nomina['fechaingreso']; ?>',
                                 '<?php echo tiempoTranscurridoFechas($nomina['fechaingreso']); ?>',
-                                '<?php print($nomina['sueldobase']); ?>',
-                                '<?php print($nomina['sueldo_mensual']); ?>',
-                                '<?php print($nomina['paquete_anual']); ?>',
-                                '<?php print($nomina['factormeses']); ?>',
-                                '<?php print($nomina['monto_divisa']); ?>',
+                                '<?= number_format($nomina['sueldobase'],2,',','.'); ?>',
+                                '<?= number_format($nomina['sueldo_mensual'],2,',','.'); ?>',
+                                '<?= number_format($nomina['paquete_anual'],2,',','.'); ?>',
+                                '<?= ($nomina['factormeses']); ?>',
+                                '<?= number_format($nomina['monto_divisa'],2,',','.'); ?>',
                                 '<?php print($nomina['idtipodivisa']); ?>',
-                                '<?php echo date('d/m/Y', strtotime('now')); ?>')">
+                                '<?php echo date('d/m/Y', strtotime('now')); ?>',
+                                '<?php echo date('Y-m-d', strtotime('now')); ?>')">
                                 <i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
 

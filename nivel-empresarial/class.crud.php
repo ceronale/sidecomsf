@@ -91,8 +91,7 @@ class crud
 
 			return 2;
 		} catch (PDOException $e) {
-			throw $e;
-			echo $e->getMessage();
+
 			return false;
 		}
 	}
@@ -103,6 +102,7 @@ class crud
 	{
 		try {
 
+			$user = $_SESSION['user'];
 			$id = (isset($_POST['id'])) ? $_POST['id'] : "";
 			$nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : "";
 			$status = (isset($_POST['status'])) ? $_POST['status'] : "";
@@ -119,6 +119,7 @@ class crud
 			$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 			if ($result) {
+
 				// El valor de $orden ya existe en la tabla para otros registros de la id_empresa actual
 				return 0;
 			}
@@ -126,10 +127,9 @@ class crud
 
 
 
-			$user = $_SESSION['user'];
 
 			$nombre2 = strtolower($nombre);
-			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM glosario WHERE id_empresa = :id_empresa AND LOWER(nombre) = :nombre AND id != :id");
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM nivel_organizativo WHERE id_empresa = :id_empresa AND LOWER(nombre) = :nombre AND id != :id");
 			$stmt_check->bindparam(":id_empresa", $user['id_empresa']);
 			$stmt_check->bindparam(":nombre", $nombre2);
 			$stmt_check->bindparam(":id", $id);

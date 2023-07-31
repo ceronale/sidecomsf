@@ -100,13 +100,11 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Escala - Sistema de Puntos</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Escala - Sistema de Puntos:','Sistema de Puntos: Seleccione la escala según los niveles del Organigrama. Solo para el personal como: Secretarias, Auxiliares, Asistentes, Analistas, Almacenistas, Supervisores, Jefes, Gerentes, Directores, Vicepresidentes Administrativos y Supervisores de Planta, Industria o Taller.')">Escala - Sistema de Puntos</span>
             </div>
         </div>
-
     </section>
     <!-- Content Header (Page header) -->
 
@@ -224,7 +222,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                                 Swal.fire({
                                     title: 'Escala #' + selectedOption.value,
                                     text: 'Has seleccionado ' + selectedOption.value,
-                                    html: '<p>Estos son los grados de la escala seleccionada:</p>' + tableHTML,
+                                    html: '<p>Estos son los grados y puntaje de la escala seleccionada:</p>' + tableHTML,
                                     icon: 'information',
                                     confirmButtonText: 'Aceptar',
                                     confirmButtonColor: '#3085d6'
@@ -285,7 +283,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                                 Swal.fire({
                                     title: 'Escala #' + selectedOption.value,
                                     text: 'Has seleccionado ' + selectedOption.value,
-                                    html: '<p>Estos son los grados de la escala seleccionada:</p>' + tableHTML,
+                                    html: '<p>Estos son los grados y puntaje de la escala seleccionada:</p>' + tableHTML,
                                     icon: 'information',
                                     confirmButtonText: 'Aceptar',
                                     confirmButtonColor: '#3085d6'
@@ -335,7 +333,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                     // Mostrar la ventana modal de sweetalert
                     Swal.fire({
                         title: '¿Estás seguro?',
-                        text: 'Esta acción modificará los grados de los cargos creados, en función del puntaje que tengan asignado',
+                        text: '',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',

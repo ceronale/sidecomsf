@@ -206,7 +206,7 @@ class crud
 	public function getNivelEmpresarial()
 	{
 		$user = $_SESSION['user'];
-		$query = "SELECT * FROM nivel_organizativo WHERE id_empresa = " . $user['id_empresa'];
+		$query = "SELECT * FROM nivel_organizativo WHERE id_empresa = " . $user['id_empresa'] . " ORDER BY orden ASC";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
 
@@ -292,10 +292,6 @@ class crud
 			$stmt->bindParam(':id_pe', $id_pe);
 
 			$stmt->execute(); // Ejecutar la consulta
-
-			// Mensaje de depuración
-			error_log('La función insertNivelBeneficio() se ejecutó correctamente.');
-
 			return 2;
 		} catch (PDOException $e) {
 			return 3;
@@ -321,7 +317,6 @@ class crud
 	{
 		$id_beneficio = trim($id_beneficio);
 		$id_beneficio = intval($id_beneficio);
-		var_dump($id_beneficio, $id_periodo);
 		$query = "SELECT * FROM calculos_beneficios WHERE id_beneficio = :id_beneficio AND id_periodo = :id_periodo";
 		$stmt = $this->conn->prepare($query);
 		$stmt->bindValue(':id_beneficio', $id_beneficio);
@@ -333,5 +328,36 @@ class crud
 			$data[] = $row;
 		}
 		return $data;
+	}
+
+	public function getCalculoBeneficioPorEmpresa($id_empresa)
+	{
+		$user = $_SESSION['user'];
+
+		$query = "SELECT cb.* 
+              FROM calculos_beneficios cb 
+              JOIN periodos p ON cb.id_periodo = p.id 
+              WHERE p.id_empresa = :id_empresa";
+		$stmt = $this->conn->prepare($query);
+		$stmt->bindValue(':id_empresa', $user['id_empresa']);
+		$stmt->execute();
+		$data = array();
+
+		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+
+	public function eliminar_beneficio($id, $idp)
+	{
+
+		var_dump($id, $idp);
+		$stmt2 = $this->conn->prepare("DELETE FROM beneficios_nivel_organizativo WHERE id_beneficios=:id AND id_periodo = :idp ");
+		$stmt2->bindparam(":id", $id);
+		$stmt2->bindparam(":idp", $idp);
+		$stmt2->execute();
+
+		return true;
 	}
 }

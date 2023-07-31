@@ -371,7 +371,7 @@
                     input.id = "funcion" + indexInputMostradox;
                     input.name = "funcion" + indexInputMostradox;
                     input.classList.add("form-control");
-                    input.rows = 2;
+                    input.rows = 1;
                     input.cols = 50;
 
                     if (indexInputMostradox == 2) {
@@ -1238,9 +1238,13 @@
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
+
+
                 <span style="font-weight: bold; font-size: 25px">Descripción de Puesto/Cargo (Administrativo)</span>
                 <br>
-                <span style="font-weight: bold; font-size: 25px">Cargo: <?php echo $nombre; ?> - Departamento: <?php echo $departamento; ?> - Empresa/Institución: <?php echo $empresa; ?> </span>
+                <span style="font-size: 18px">Departamento: <?php echo $departamento; ?></span>
+                <br>
+                <span style="font-size: 18px">Cargo: <?php echo $nombre; ?></span>
             </div>
         </div>
     </section>
@@ -1312,7 +1316,7 @@
                     <div class="form-group">
                         <label for="proposito">Breve descripción del puesto/cargo:</label>
                         <small>Se refiere al objetivo principal, que hace y para qué lo hace.</small>
-                        <textarea class="form-control" id="proposito" name="proposito" rows="5"><?php echo $cargoDescripcion["proposito"]; ?></textarea>
+                        <textarea class="form-control" id="proposito" name="proposito" rows="2"><?php echo $cargoDescripcion["proposito"]; ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="funciones">Funciones:</label>
@@ -1328,7 +1332,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">1</span>
                                 </div>
-                                <textarea id="funcion1" name="funcion1" class="form-control" rows="2" cols="50"><?php echo $cargoDescripcion["funcion1"]; ?></textarea>
+                                <textarea id="funcion1" name="funcion1" class="form-control" rows="1" cols="50"><?php echo $cargoDescripcion["funcion1"]; ?></textarea>
                             </div>
 
 
@@ -1363,7 +1367,7 @@
                                     input.id = "funcion" + indexInputMostradox;
                                     input.name = "funcion" + indexInputMostradox;
                                     input.classList.add("form-control");
-                                    input.rows = 2;
+                                    input.rows = 1;
                                     input.cols = 50;
 
                                     if (indexInputMostradox == 2) {
@@ -1433,13 +1437,13 @@
                     </div>
                     <div class="form-group">
                         <label for="actividades">Actividades:</label>
-                        <small>Indique el conjunto de tareas y operaciones que se deben realizar en el cargo para el logro de las funciones anteriormente señaladas (Ubíquese en lo que se debe hacer en un día normal de su trabajo).</small>
+                        <small>Indique el conjunto de tareas/actividades que se deben realizar en el puesto/cargo para el logro de las funciones anteriormente señalada.</small>
                         <div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">1</span>
                                 </div>
-                                <textarea id="actividad1" name="actividad1" class="form-control" rows="2"><?php echo $cargoDescripcion["actividad1"]; ?></textarea>
+                                <textarea id="actividad1" name="actividad1" class="form-control" rows="1"><?php echo $cargoDescripcion["actividad1"]; ?></textarea>
                                 <div class="input-group-append">
                                     <select class="form-control" id="selectactividad1" name="selectactividad1">
                                         <option disabled selected value="">Frecuencia</option>
@@ -2526,11 +2530,6 @@
                                 }
                                 ?>
                             </select>
-
-
-
-
-
                         </div>
 
                     </div>
@@ -2647,7 +2646,8 @@
                 <article id="tab5">
                     <div class="row mt-3">
                         <label>
-                            <h4>Competencias</h4>
+
+                            <h4 style="color: #3c8dbc;" onclick="info_tabla('Matriz de Nómina:','Texto preguntar Sr.Luis')">Competencias</h4>
                             <small>Seleccione de 5 a 10 competencias principales, requeridas por el puesto/cargo</small>
                         </label>
                         <div class="col-xs-12 col-md-6">

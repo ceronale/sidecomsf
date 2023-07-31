@@ -643,7 +643,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                                 Swal.fire({
                                     title: 'Escala #' + selectedOption.value,
                                     text: 'Has seleccionado ' + selectedOption.value,
-                                    html: '<p>Estos son los grados de la escala seleccionada:</p>' + tableHTML,
+                                    html: '<p>Estos son los grados y puntaje de la escala seleccionada:</p>' + tableHTML,
                                     icon: 'information',
                                     confirmButtonText: 'Aceptar',
                                     confirmButtonColor: '#3085d6'
@@ -701,7 +701,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                                 Swal.fire({
                                     title: 'Escala #' + selectedOption.value,
                                     text: 'Has seleccionado ' + selectedOption.value,
-                                    html: '<p>Estos son los grados de la escala seleccionada:</p>' + tableHTML,
+                                    html: '<p>Estos son los grados y puntaje de la escala seleccionada:</p>' + tableHTML,
                                     icon: 'information',
                                     confirmButtonText: 'Aceptar',
                                     confirmButtonColor: '#3085d6'

@@ -109,14 +109,20 @@
     </script>
 
     <div class='container' style="overflow: auto; max-height: 600px;">
-
-        <div class="row row-col-8">
-            <div class="col">
-                <a href='#' onclick="crear_nivelempresarial()" class='btn btn-large btn-dark'> &nbsp;
-                    + Nuevo nivel empresarial</a>
+        <div class="row">
+            <div class="col-sm">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href='#' onclick="crear_nivelempresarial()" class='btn btn-large btn-dark'> &nbsp;
+                        + Nuevo nivel empresarial</a>
+                    <a href="/sidecoms/matriz-beneficios/" class="btn btn-large btn-dark">Matriz Beneficios</a>
+                </div>
             </div>
 
+            <div class="col-sm">
+
+            </div>
         </div>
+
 
         <div class='clearfix'></div><br />
 

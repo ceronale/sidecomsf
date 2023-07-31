@@ -360,4 +360,22 @@ class crud
 
 		return true;
 	}
+	public function get_nombre_moneda()
+	{
+		$user = $_SESSION['user'];
+		extract($this->get_datos_empresa($user['id_empresa']));
+
+		$stmt = $this->conn->prepare("SELECT * FROM paises WHERE id=:id_pais");
+		$stmt->execute(array(":id_pais" => $id_pais));
+		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+
+	public function get_datos_empresa($id_empresa)
+	{
+		$stmt = $this->conn->prepare("SELECT *, nombre as nombre_empresa FROM empresas WHERE id=:id_empresa");
+		$stmt->execute(array(":id_empresa" => $id_empresa));
+		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
 }

@@ -23,7 +23,7 @@
     $niveles = $crud->getNivelEmpresarial();
     $periodos = $crud->getPeriodos();
     $beneficios = $crud->getBeneficios();
-
+    extract($crud->get_nombre_moneda());
     if (isset($_POST['btn-send'])) {
         $id_pe = strip_tags($_POST['mi-select']);
         $niveles_beneficios = $crud->getNivelBeneficios($id_pe);
@@ -155,6 +155,7 @@
                         </select>
                         <button type="submit" name="btn-send" id="btn-send" style="display: none;"></button>
                     </form>
+
                     <script>
                         // Detectar el cambio en el select
                         $('#periodos').on('change', function() {
@@ -164,9 +165,10 @@
                         });
                     </script>
                 </div>
-                <div class="col-sm">
-
+                <div class="col-sm-8 form-group" style="text-align: right;">
+                    <span style="font-size: 12px; color:red">(MONTOS EXPRESADOS EN <?= strtoupper($nombre_moneda) ?>)</span>
                 </div>
+
             </div>
 
         </div>

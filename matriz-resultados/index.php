@@ -1,8 +1,9 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; 
-$matriz_resultados = "1.- Combina ambas Matrices (de Nómina y Jerarquización). ;; 2.- Compara cada uno de los datos de la matriz de nómina (Ingreso mensual y Paquete anual), con Mínimo, Medio y Máximo. ;; 3.- Se totalizan los ingresos mensual y paquete, para luego compararlo con el Presupuesto, debe arrojar un saldo igual, positivo o negativo.";?>
-
+$matriz_resultados = "1.- Combina ambas Matrices (de Nómina y Jerarquización). ;; 2.- Compara cada uno de los datos de la matriz de nómina (Ingreso mensual y Paquete anual), con Mínimo, Medio y Máximo. ;; 3.- Se totalizan los ingresos mensual y paquete, para luego compararlo con el Presupuesto, debe arrojar un saldo igual, positivo o negativo.";
+$indicadores = "Característica específica, observable y medible que permite ser usada para mostrar los cambios y progresos de la información hacia el logro de los resultados previstos o planificados.";
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -124,7 +125,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <h4><i class="fa fa-tachometer" aria-hidden="true"></i><a href="javascript:void"
-                                        onclick="myIndicador();" class="alert-link"><em> Indicadores:</em><span
+                                        onclick="myIndicador();" class="alert-link"><span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Indicadores:','<?= $indicadores; ?>')"> Indicadores:</em><span
                                             id="loader2"></span></a>
                                 </h4>
                             </div>
@@ -403,11 +404,11 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     <th>Grado</th>
                     <th>Puesto/Cargo</th>
                     <th>Trabajador</th>
-                    <th>Ingreso Mensual</th>
+                    <th style="border-left: solid 2px #A8A8A8">Ingreso Mensual</th>
                     <th style="text-align: center">Real <br> vs <br>  Minimo</th>
                     <th style="text-align: center">Real <br> vs <br>  Medio</th>
                     <th style="text-align: center">Real <br> vs <br>  Máximo</th>
-                    <th>Paquete Anual</th>
+                    <th style="border-left: solid 2px #A8A8A8">Paquete Anual</th>
                     <th style="text-align: center">Real <br> vs <br>  Minimo</th>
                     <th style="text-align: center">Real <br> vs <br>  Medio</th>
                     <th style="text-align: center">Real <br> vs <br>  Máximo</th>
@@ -427,13 +428,13 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     <td><?php print($resultado['nombrecargo']); ?></td>
                     <td><?php print($resultado['nombretrabajador']); ?></td>
                     
-                    <td><?php print($resultado['sueldobase']); ?></td>
+                    <td style="border-left: solid 2px #A8A8A8"><?php print($resultado['sueldobase']); ?></td>
                     <td><?php print($resultado['realvsminimo']); ?></td>
                   
                     <td><?php print($resultado['realvsmedio']); ?></td>
 
                     <td><?php print($resultado['realvsmaximo']); ?></td>
-                    <td><?php print($resultado['paqueteanual']); ?></td>
+                    <td style="border-left: solid 2px #A8A8A8"> <?php print($resultado['paqueteanual']); ?></td>
                     <td><?php print($resultado['realvsminimoanual']); ?></td>
                     <td><?php print($resultado['realvsmedioanual']); ?></td>
                     <td><?php print($resultado['realvsmaximoanual']); ?></td>
@@ -462,21 +463,6 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                 <?php } ?>
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Grado</th>
-                    <th>Puesto/Cargo</th>
-                    <th>Trabajador</th>
-                    <th>Ingreso Mensual</th>
-                    <th>Real vs Minimo</th>
-                    <th>Real vs Medio</th>
-                    <th>Real vs Máximo</th>
-                    <th>Paquete Anual</th>
-                    <th>Real vs Minimo</th>
-                    <th>Real vs Medio</th>
-                    <th>Real vs Máximo</th>
-                </tr>
-            </tfoot>
         </table>
 
 
@@ -718,7 +704,7 @@ html += `
                 <br>`;
 
     Swal.fire({
-      title: "Escala Empresarial",
+      title: "Escala - Sistema de Puntos",
       html: html,
       width: '800px',
       showConfirmButton: false,

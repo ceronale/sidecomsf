@@ -143,6 +143,17 @@ if(isset($_GET['fecin'])){
 
 }
 
+if(isset($_GET['doc'])){
+    $documento = (isset($_POST['documento']))?$_POST['documento']:"";
+   
+    
+    $validacion = $crud->validar_documento($documento);
+    $dato = $validacion;
+
+    header("Content-Type: application/json");
+    echo json_encode(array("dato" => $dato));
+}
+
 /*
 if(isset($_GET['idprod'])){
     $id_alm_dist = (isset($_POST['id_alm_dist']))?$_POST['id_alm_dist']:"";

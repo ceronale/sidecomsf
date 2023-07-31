@@ -44,7 +44,7 @@ function tiempoTranscurridoFechas($fecha1)
     return $tiempo;
 }
             
-$matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisar la estructura de los puestos/cargos valorados vs. Ingresos reales (Sueldos o Salarios mensuales y paquete anual); además visualizar en un gráfico, el orden o jerarquía tal como se presentan en la valoración.";
+$matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisar la estructura de los puestos/cargos valorados e Ingresos reales (Sueldos o Salarios mensuales y paquete anual) además visualizar en un gráfico, el orden o jerarquía tal como se presentan en la valoración.";
             ?>
 
 
@@ -55,7 +55,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc;" onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina</span>
             </div>
         </div>
 
@@ -73,7 +73,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
     Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'La Nueva Nómina se ha registrado con exito!',
+        title: 'Éxito!',
         showConfirmButton: false,
         timer: 3000
     })
@@ -99,7 +99,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
     Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'La Nómina se ha editado con exito!',
+        title: 'Éxito!',
         showConfirmButton: false,
         timer: 3000
     })
@@ -122,7 +122,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
 <?php 
 
 $info_sueldo_base_mensual = "Es la porción del sueldo o salario mensual que sirve de base para el cálculos de los aumentos por meritos ó desempeño.";
-$info_ingreso_mensual = "Incluye todos los sueldos o salarios, bonos, gratificaciones, fondo de ahorro, ayuda despensa, bono alimentación, transporte y otros pagos (ingresos bruto), que perciba el trabajador en forma regular y permanente.";
+$info_ingreso_mensual = "Incluye todos los sueldos o salarios, bonos, gratificaciones, fondo de ahorro, ayuda despensa, bono alimentación, transporte, comisión sobre ventas y otros pagos (ingresos bruto), que perciba el trabajador en forma regular y permanente.";
 $info_paquete_anual = "Incluye toda remuneración que percibe el trabajador anualmente tales como: Doce meses del ingreso mensual, bono vacacional, utilidades, bono de fin de año, aguinaldos, bonos especiales, bonos por desempeño o productividad, entre otros pagos.";
 $info_factor_meses = "Es un indicador que señala los meses (y fracción) contenidos en el PAQUETE ANUAL (resulta de dividir el paquete anual entre el ingreso mensual).";
 $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos trabajadores en moneda extranjera. (PAGO MENSUAL)";
@@ -246,19 +246,19 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                         <th>Puesto/Cargo</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Cargo Crítico:','<?php echo $cargo_critico; ?>')">Cargo <br> Crítico</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Cargo Supervisor:','<?php echo $cargo_supervisor; ?>')">Cargo <br> Supervisor</th>
-                        <th>Departamento</th>
+                        <th style="border-left: solid 2px #A8A8A8">Departamento</th>
                         <th>Trabajador</th>
                         <th>Género</th>
                         <th>Nro de Identificación</th> 
                         <th>Fecha Ingreso</th>
                         <th>Tiempo de Servicio</th>
                         <th>Modalidad de <br> Trabajo</th>
-                        <th style="color: #3c8dbc;" onclick="info_tabla('Sueldo Base Mensual:','<?php echo $info_sueldo_base_mensual; ?>')">Sueldo Base <br> Mensual</th>
+                        <th style="color: #3c8dbc; border-left: solid 2px #A8A8A8;" onclick="info_tabla('Sueldo Base Mensual:','<?php echo $info_sueldo_base_mensual; ?>')">Sueldo Base <br> Mensual</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Ingreso Mensual:','<?php echo $info_ingreso_mensual; ?>')">Ingreso <br> Mensual</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Paquete Anual:','<?php echo $info_paquete_anual; ?>')">Paquete <br> Anual</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Factor:','<?php echo $info_factor_meses; ?>')">Factor <br> Meses</th>
                         <th style="color: #3c8dbc;" onclick="info_tabla('Otra Divisa:','<?php echo $info_otras_divisas; ?>')">Otra <br> Divisa</th>
-                        <th>Acción</th>
+                        <th style="border-left: solid 2px #A8A8A8">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -285,7 +285,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                                     print "No";
                                 }
                                 ?></td>
-                        <td><?php print($nomina['nombredepartamento']); ?></td>
+                        <td style="border-left: solid 2px #A8A8A8;"><?php print($nomina['nombredepartamento']); ?></td>
                         <td><?php print($nomina['nombretrabajador']); ?></td>
                         <td><?php if ($nomina['mngenero'] == "M") {
                                     print "Masculino";
@@ -297,7 +297,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                         <td><?php print($nomina['mndocumento']); ?></td>
                         <td><?php print( date("d/m/Y", strtotime($nomina['fechaingreso']))); ?></td>
                         <td><?php echo tiempoTranscurridoFechas($nomina['fechaingreso']); ?> </td>
-                        <td><?php if ($nomina['modelotrabajo'] == "R") {
+                        <td ><?php if ($nomina['modelotrabajo'] == "R") {
                                     print "Remoto (Home Office)";
                                 }  
                                 if ($nomina['modelotrabajo'] == "P") {
@@ -308,7 +308,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                                 <?php }
                                 ?>
                         </td>
-                        <td><?php print($nomina['sueldobase']); ?></td>
+                        <td style="border-left: solid 2px #A8A8A8"><?php print($nomina['sueldobase']); ?></td>
                         <td><?php print($nomina['sueldo_mensual']); ?></td>
                         <td><?php print($nomina['paquete_anual']); ?></td>
                         <td><?php print($nomina['factormeses']); ?></td>
@@ -324,7 +324,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                        print($nomina['monto_divisa']); ?></td>
 
                         <?php $funcioncargo = str_replace("\n", " " ,$nomina['funcioncargo']);   ?>
-                        <td style="text-align: center">
+                        <td style="text-align: center; border-left: solid 2px #A8A8A8">
                             <a onclick="editar_nomina('<?php print($nomina['id_nomina']); ?>',
                                 '<?php print($nomina['categoriadepartamento']); ?>',
                                 '<?php print($nomina['iddepartamento']); ?>',
@@ -389,29 +389,6 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                     <?php } ?>
 
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Grado</th>
-                        <th>Puntaje</th>
-                        <th>Cargo</th>
-                        <th>Cargo Critico</th>
-                        <th>Cargo Supervisor</th>
-                        <th>Departamento</th>
-                        <th>Trabajador</th>
-                        <th>Género</th>
-                        <th>Nro de Identificación</th>
-                        <th>Fecha Ingreso</th>
-                        <th>Tiempo de Servicio</th>
-                        <th>Modalidad de <br> Trabajo</th>
-                        <th>Sueldo Base Mensual</th>
-                        <th>Ingreso Mensual</th>
-                        <th>Paquete Anual</th>
-                        <th>Factor Meses</th>
-                        <th>Otra Divisa</th>
-                        <th>Acción</th>
-                    </tr>
-                </tfoot>
             </table>
 
 
@@ -491,7 +468,7 @@ html += `
                 <br>`;
 
     Swal.fire({
-      title: "Escala Empresarial",
+      title: "Escala - Sistema de Puntos",
       html: html,
       width: '800px',
       showConfirmButton: false,

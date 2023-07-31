@@ -130,13 +130,7 @@
                 <?php } ?>
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Término</th>
-                    <th>Descripción</th>
-                    <th>Status</th>
-                </tr>
-            </tfoot>
+           
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

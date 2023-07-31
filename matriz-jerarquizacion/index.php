@@ -2,7 +2,8 @@
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; 
 $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios de INGRESOS MENSUALES Y PAQUETE ANUAL, que usted registró en la MATRIZ DE NÓMINA. ;; 2.- Usted podrá CREAR UNA BANDA SALARIAL, anotando en el grado I el SUELDO o SALARIO MÍNIMO NACIONAL OFICIAL o SALARIO MÍNIMO según la política de su Organización. ;; 3.- Para los grados sucesivos, asigne un porcentaje para incrementar el salario en cada grado (hasta cubrir el mayor salario de su empresa) y otro porcentaje para los niveles Mínimo, Medio y Máximo. ;; 4.- A través del gráfico que se genere, podrá apreciar cuán distante esta el promedio de los salarios reales por grado, con respecto a la BANDA SALARIAL REFERENCIAL.";
-?>?>
+
+?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -52,9 +53,8 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                 </div>
                 <div class="col-sm-3 form-group">
                     <select class="form-control input-sm" id="cboAsignaciones">
-                        <option value="" selected disabled>-- Seleccione --</option>
-                        <option value="1">Sueldo Base Mensual</option>
-                        <option value="2">Ingreso Total Mensual</option>
+                        <option value="" selected disabled>-- Seleccione --</option>    
+                        <option value="2">Ingreso Mensual</option>
                         <option value="3">Paquete Anual</option>
                     </select>
                 </div>
@@ -156,12 +156,11 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <th>Grado</th>
                             <th>Mín</th>
                             <th>Máx</th>
-                            <th>Promedio Puntaje</th>
+                            <th style="border-left: solid 2px #A8A8A8">Promedio Puntaje</th>
                             <th>Promedio Ingreso Mensual</th>
-                            <th>Promedio Ingreso Total Mensual</th>
                             <th>Promedio Paquete Anual</th>
                             <th>Promedio Factor Anual</th>
-                            <th>Mínimo</th>
+                            <th style="border-left: solid 2px #A8A8A8">Mínimo</th>
                             <th>Medio</th>
                             <th>Máximo</th>
 
@@ -233,14 +232,13 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <td><?php print($jerarquizacion['minimo']); ?></td>
                             <td><?php print($jerarquizacion['maximo']); ?></td>
 
-                            <td><?php print($jerarquizacion['promediopuntaje']); ?></td>
-                            <td><?php print($jerarquizacion['promediosueldobase']); ?></td>
+                            <td style="border-left: solid 2px #A8A8A8"><?php print($jerarquizacion['promediopuntaje']); ?></td>
 
                             <td><?php print($jerarquizacion['promediosueldomensual']); ?></td>
 
                             <td><?php print($jerarquizacion['promediopaqueteanual']); ?></td>
                             <td><?php print($jerarquizacion['promediofactor']); ?></td>
-                            <td><?php print($minimo); ?></td>
+                            <td style="border-left: solid 2px #A8A8A8"><?php print($minimo); ?></td>
                             <td><?php print($medio); ?></td>
                             <td><?php print($maximo); ?></td>
 
@@ -261,28 +259,13 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
+
 
                         </tr>
 
                         <?php } ?>
 
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Grado</th>
-                            <th>Mín</th>
-                            <th>Máx</th>
-                            <th>Promedio Puntaje</th>
-                            <th>Promedio Ingreso Mensual</th>
-                            <th>Promedio Ingreso Total Mensual</th>
-                            <th>Promedio Paquete Anual</th>
-                            <th>Promedio Factor Anual</th>
-                            <th>Mínimo</th>
-                            <th>Medio</th>
-                            <th>Máximo</th>
-                        </tr>
-                    </tfoot>
                 </table>
 
 
@@ -411,7 +394,7 @@ html += `
                 <br>`;
 
     Swal.fire({
-      title: "Escala Empresarial",
+      title: "Escala - Sistema de Puntos",
       html: html,
       width: '800px',
       showConfirmButton: false,

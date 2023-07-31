@@ -289,10 +289,12 @@ function crear_nomina(fecha_act) {
                                     <label for="documento">Número de Identidad</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type='text' name='documento' class='form-control' required autocomplete="on">
+                                    <input type='text' name='documento' id='documento' onkeyup="validardocumento()" class='form-control' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
+
+                        <div id="error" style="display: none; color: red;"><br><br></div>
 
                         <div class="form-group">
                             <div class="row">
@@ -786,10 +788,15 @@ function crear_nomina(fecha_act) {
                                     <label for="documento">Número de Identidad</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type='text' name='documento' value="` + mndocumento + `" class='form-control' required autocomplete="on">
+                                    <input type='text' name='documento' id='documento' onkeyup="validardocumentoeditar()" value="` + mndocumento + `" class='form-control' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
+
+                        <div id="error" style="display: none; color: red;"><br><br></div>
+
+                        <input type='hidden' name='documentoold' id='documentoold' value="` + mndocumento + `" class='form-control' required autocomplete="on">
+
                                   
                         <div class="form-group">
                             <div class="row">
@@ -1370,5 +1377,66 @@ function toggleFullscreen(elem) {
     }
   }
   
+
+  function validardocumento(){
+    var documento = document.getElementById('documento').value;
+    const add = document.getElementById('add');
+    
+    $.post("data.php?doc", {
+        documento: documento
+    }, function(data) {
+        if(data.dato == 2)
+        {
+            var errorDiv = document.getElementById('error');
+            errorDiv.innerHTML = 'El Número de Documento ya Existe.';
+            errorDiv.style.display = 'block';
+            add.disabled = true;
+        }
+        else
+        {
+            add.disabled = false; 
+            var errorDiv = document.getElementById('error');
+            errorDiv.innerHTML = '';
+            errorDiv.style.display = 'none';
+        }
+    });
+
+  }
+
+
+  function validardocumentoeditar(){
+    var documento = document.getElementById('documento').value;
+    var documentoold = document.getElementById('documentoold').value;
+    const update = document.getElementById('update');
+    
+    if(documento != documentoold)
+    {
+    $.post("data.php?doc", {
+        documento: documento
+    }, function(data) {
+        if(data.dato == 2)
+        {
+            var errorDiv = document.getElementById('error');
+            errorDiv.innerHTML = 'El Número de Documento ya Existe.';
+            errorDiv.style.display = 'block';
+            update.disabled = true;
+        }
+        else
+        {
+            update.disabled = false; 
+            var errorDiv = document.getElementById('error');
+            errorDiv.innerHTML = '';
+            errorDiv.style.display = 'none';
+        }
+    });
+    }
+    else
+    {
+        update.disabled = false; 
+        var errorDiv = document.getElementById('error');
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none'; 
+    }
+  }
 
  

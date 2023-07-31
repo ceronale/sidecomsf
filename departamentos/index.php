@@ -170,14 +170,7 @@
                 <?php } ?>
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Departamento</th>
-                    <th>Status</th>
-                    <th>Fecha de Creación</th>
-                    <th>Acción</th>
-                </tr>
-            </tfoot>
+            
         </table>
 
 

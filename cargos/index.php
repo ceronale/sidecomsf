@@ -297,18 +297,7 @@ if (isset($_GET['val'])) {
                 <?php } ?>
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Departamento</th>
-                    <th>Puesto/Cargo</th>
-                    <?php if (isset($_GET['val'])) { ?>
-                    <th>Grado</th>
-                    <th>Puntaje</th>
-                    <?php } ?>
-                    <th>Status</th>
-                    <th>Descripción de puesto/cargo</th>
-                </tr>
-            </tfoot>
+            
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

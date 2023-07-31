@@ -9,7 +9,7 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Matriz de beneficios</span>
+                <span style="font-weight: bold; font-size: 25px; ">Matriz de beneficios</span>
             </div>
         </div>
 

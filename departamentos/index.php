@@ -7,16 +7,14 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
 
-    <?php if($_GET['ca'] == 1)
-            {
-                $categoria = "Administrativos";
-            }
-            if($_GET['ca'] == 2)
-            {
-                $categoria = "Planta - Taller - Fábrica";
-            }
-            $departamento_info = " Para abreviar utilizamos el término Departamento, pero se deben registrar todas las unidades, Gerencias, Departamentos, Secciones, Vicepresidencias, Presidencia, etc.";
-    ?>
+        <?php if ($_GET['ca'] == 1) {
+            $categoria = "Administrativos";
+        }
+        if ($_GET['ca'] == 2) {
+            $categoria = "Planta - Taller - Fábrica";
+        }
+        $departamento_info = " Para abreviar utilizamos el término Departamento, pero se deben registrar todas las unidades, Gerencias, Departamentos, Secciones, Vicepresidencias, Presidencia, etc.";
+        ?>
         <div class="card text-left">
             <div class="card-header">
                 <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Departamentos:','<?php echo $departamento_info; ?>')">Departamentos: <?= $categoria; ?></span>
@@ -87,7 +85,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al registrar el Departamento. Ya existe un Departamento registrado con ese nombre.',
+                title: 'Departamento repetido',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -142,7 +140,7 @@
                                 }
                                 ?></td>
                             <td><?php print(date("d/m/Y", strtotime($departamento['creacion']))); ?></td>
-            
+
 
                             <td style="text-align: center">
                                 <a onclick="editar_departamento('<?php print($departamento['id']) ?>','<?php print($departamento['nombre']) ?>','<?php print($departamento['id_categoria']) ?>','<?php print($departamento['status']) ?>')">
@@ -163,14 +161,14 @@
                         <td></td>
                         <td></td>
                         <td></td>
-             
+
 
                     </tr>
 
                 <?php } ?>
 
             </tbody>
-            
+
         </table>
 
 
@@ -183,9 +181,9 @@
 
     <script>
         function crear_departamento(categoria) {
-        Swal.fire({
-        title: "Nuevo Departamento",
-        html: ` <form id='crear_departamento' action="save.php?ca=${categoria}" method='post'>
+            Swal.fire({
+                title: "Nuevo Departamento",
+                html: ` <form id='crear_departamento' action="save.php?ca=${categoria}" method='post'>
             <div class="row">
                 <div class="col-md-12">
 
@@ -197,7 +195,7 @@
                                 <input type='text' name='nombre' class='form-control' required autocomplete="on">
                             </div>
                         </div>
-                        <input type='hidden' name='categoria' value="`+categoria+`" class='form-control' required autocomplete="on">
+                        <input type='hidden' name='categoria' value="` + categoria + `" class='form-control' required autocomplete="on">
                     </div>
                 
 
@@ -213,14 +211,14 @@
                 </div>
 
         </form>`,
-        showConfirmButton: false,
-        })
+                showConfirmButton: false,
+            })
         };
 
-        function editar_departamento(id,nombre,id_categoria,status) {
-        Swal.fire({
-        title: "Editar Departamento",
-        html: ` <form id='editar_departamento' action="save.php?ca=${id_categoria}" method='post' style="text-align: center !important;">
+        function editar_departamento(id, nombre, id_categoria, status) {
+            Swal.fire({
+                title: "Editar Departamento",
+                html: ` <form id='editar_departamento' action="save.php?ca=${id_categoria}" method='post' style="text-align: center !important;">
             <div class="row">
                 <div class="col-md-12">
 
@@ -231,7 +229,7 @@
                         <div class="col-8">
                             <div class="form-group">
                                 <label for="nombre">Departamento</label>
-                                <input type='text' name='nombre' value="`+nombre+`" class='form-control' required autocomplete="on">
+                                <input type='text' name='nombre' value="` + nombre + `" class='form-control' required autocomplete="on">
                             </div>
 
                         </div>
@@ -251,9 +249,9 @@
                     </div>
 
                     <div class="form-group">
-                        <input type='hidden' name='id' class='form-control' value="`+id+`" required autocomplete="on">
-                        <input type='hidden' name='nombreold' value="`+nombre+`" class='form-control' required autocomplete="on">
-                        <input type='hidden' name='categoria' class='form-control' value="`+id_categoria+`" required autocomplete="on">
+                        <input type='hidden' name='id' class='form-control' value="` + id + `" required autocomplete="on">
+                        <input type='hidden' name='nombreold' value="` + nombre + `" class='form-control' required autocomplete="on">
+                        <input type='hidden' name='categoria' class='form-control' value="` + id_categoria + `" required autocomplete="on">
 
                     </div>
 
@@ -269,8 +267,7 @@
                 </div>
 
         </form>`,
-        showConfirmButton: false,
-        })
+                showConfirmButton: false,
+            })
         };
-        </script>
- 
+    </script>

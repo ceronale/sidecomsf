@@ -1341,7 +1341,7 @@
                         <div id="contenedor-inputs">
                         </div>
                         <button id="boton-agregar2" class="btn btn-primary btn-md" type="button" onclick="mostrarInputSiguiente()">+ Agregar Campo</button>
-                        <button id="eliminar2" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimoTextarea()">- Eliminar Campo</button>
+                        <button id="eliminar2" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimoTextarea()">- Cerrar campo</button>
                         <script>
                             var contenedorInputsx = document.getElementById("contenedor-inputs");
 
@@ -1480,7 +1480,7 @@
                         </div>
 
                         <button id="boton-agregar" class="btn btn-primary btn-md" type="button" onclick="mostrarSiguienteActividad()">+ Agregar Campo</button>
-                        <button id="eliminar-actividad" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimaActividad()">- Eliminar Campo</button>
+                        <button id="eliminar-actividad" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimaActividad()">- Cerrar campo</button>
                         <script>
                             var contenedorActividades = document.getElementById("contenedor-actividades");
 
@@ -2518,7 +2518,7 @@
                             <select class="form-select" name="idiomas[]" id="idiomas" multiple>
                                 <option disabled value="">Seleccione</option>
                                 <?php
-                                $opciones = array("Español", "Ingles", "Francés", "Alemán", "Mandarin", "Portugues", "Ruso", "Persa");
+                                $opciones = array("Español", "Inglés", "Francés", "Alemán", "Mandarín", "Portugués", "Ruso", "Persa");
                                 $idiomasArray = array_map('trim', explode(",", $cargoDescripcion["idiomas"]));
 
                                 foreach ($opciones as $opcion) {
@@ -2808,7 +2808,7 @@
                                 }
                             </script>
                             <button id="agregamos" class="btn btn-primary btn-md" type="button" onclick="mostrarInputSiguientex()">+ Agregar Campo</button>
-                            <button id="eliminar" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimoInput()">- Eliminar Campo</button>
+                            <button id="eliminar" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimoInput()">- Cerrar campo</button>
                             <script>
                                 var contenedorInputs = document.getElementById("contenedor-inputs2");
 

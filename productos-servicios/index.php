@@ -26,7 +26,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'El nombre ya existe en la base de datos',
+                title: 'Producto/servicio repetido',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -154,7 +154,7 @@
                 <?php } ?>
 
             </tbody>
-           
+
         </table>
 
 

@@ -136,7 +136,7 @@ if (isset($_GET['val'])) {
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al registrar el cargo. Ya existe un cargo registrado con ese nombre.',
+                title: 'Puesto/Cargo repetido',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -144,9 +144,9 @@ if (isset($_GET['val'])) {
     <?php
     }
 
-    
+
     ?>
-    
+
 
     <script>
         $(document).ready(function() {
@@ -173,32 +173,28 @@ if (isset($_GET['val'])) {
         <div class='clearfix'></div><br />
 
         <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-           <thead style="position: sticky; top: 0; background-color: white;">
+            <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
-                <th>Departamento</th>
+                    <th>Departamento</th>
                     <th>Puesto/Cargo</th>
-                    <?php if(isset($_GET['val']))
-                    { ?>
-                    <th>Grado</th>
-                    <th>Puntaje</th>
+                    <?php if (isset($_GET['val'])) { ?>
+                        <th>Grado</th>
+                        <th>Puntaje</th>
                     <?php } ?>
                     <th>Status</th>
-                    <?php if(isset($_GET['new']))
-                    { ?>
+                    <?php if (isset($_GET['new'])) { ?>
                         <th style="text-align: center;">Acción</th>
                     <?php } ?>
 
-                    <?php if(isset($_GET['des']))
-                    { ?>
+                    <?php if (isset($_GET['des'])) { ?>
                         <th style="text-align: center;">Formato de Descripción</th>
                     <?php } ?>
 
-                    <?php if(isset($_GET['val']))
-                    { ?>
-                        <th style="text-align: center;">Formato de Valoración</th> 
+                    <?php if (isset($_GET['val'])) { ?>
+                        <th style="text-align: center;">Formato de Valoración</th>
                     <?php } ?>
 
-                   
+
                 </tr>
             </thead>
             <tbody>
@@ -213,10 +209,9 @@ if (isset($_GET['val'])) {
                         <tr>
                             <td><?php print($cargo['nombre_departamento']); ?></td>
                             <td><?php print($cargo['nombre']); ?></td>
-                            <?php if(isset($_GET['val']))
-                            { ?>
-                            <td><?php print($cargo['grado']); ?></td>
-                            <td><?php print($cargo['puntaje']); ?></td>
+                            <?php if (isset($_GET['val'])) { ?>
+                                <td><?php print($cargo['grado']); ?></td>
+                                <td><?php print($cargo['puntaje']); ?></td>
                             <?php } ?>
                             <td>
                                 <?php if ($cargo['status'] == "1") {
@@ -289,15 +284,15 @@ if (isset($_GET['val'])) {
                         <td></td>
                         <td></td>
                         <?php if (isset($_GET['val'])) { ?>
-                        <td></td>
-                        <td></td>
+                            <td></td>
+                            <td></td>
                         <?php } ?>
                     </tr>
 
                 <?php } ?>
 
             </tbody>
-            
+
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

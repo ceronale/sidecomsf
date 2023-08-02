@@ -191,7 +191,7 @@ class crud
 	public function getBeneficios()
 	{
 		$user = $_SESSION['user'];
-		$query = "SELECT * FROM beneficios WHERE id_empresa = " . $user['id_empresa'];
+		$query = "SELECT * FROM beneficios WHERE id_empresa = " . $user['id_empresa'] . " ORDER BY tipo_pago ASC";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
 
@@ -222,7 +222,7 @@ class crud
 	public function getPeriodos()
 	{
 		$user = $_SESSION['user'];
-		$query = "SELECT * FROM periodos WHERE id_empresa = " . $user['id_empresa'];
+		$query = "SELECT *, DATE_FORMAT(fecha_inicio, '%d-%m-%Y') AS fecha_inicio_formato, DATE_FORMAT(fecha_fin, '%d-%m-%Y') AS fecha_fin_formato FROM periodos WHERE id_empresa = " . $user['id_empresa'];
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
 

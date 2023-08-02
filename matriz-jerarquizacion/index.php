@@ -12,7 +12,9 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Jerarquización:','<?php echo $matriz_jerarquizacion; ?>')">Matriz de Jerarquización</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
+                    onclick="info_tabla('Matriz de Jerarquización:','<?php echo $matriz_jerarquizacion; ?>')">Matriz de
+                    Jerarquización</span>
             </div>
         </div>
 
@@ -23,7 +25,25 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
 
     include_once 'class.crud.php';
     $crud = new crud();  
- $categoria = $_GET['ca'];
+    $user = $_SESSION['user'];
+    
+ extract($crud->get_calculosminperpasos($user['id_empresa']));	
+
+ if($sueldomin < 1)
+ {
+     extract($crud->get_sueldomin($user['id_empresa'],$categoria,$asignacion));	
+     $ingreso_minimo = floatval($minasignacion);
+     $incremento_grados = 0.50;
+     $incremento_min_med_max = 0.90;
+     
+ }
+ else
+ {
+     $ingreso_minimo = $sueldomin;
+     $incremento_grados = (floatval($porcentaje_grados) / 100);
+     $incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
+ }
+
 
 ?>
     <script>
@@ -41,37 +61,36 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     <div class="container">
         <!-- Main content -->
         <section class="content">
+            <form id='create' action="save.php?ca=<?= $categoria; ?>" method='post'>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <select name="cboCategoria" id="cboCategoria" name="cboCategoria" class="form-control input-sm"
+                            onchange="redirectcategoria(this.value)">
+                            <option value="1" <?php if($categoria == 1){echo "selected";} ?>>Administrativo</option>
+                            <option value="2" <?php if($categoria == 2){echo "selected";} ?>>Plata - Taller - Fábrica
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <select class="form-control input-sm" id="cboAsignaciones" name="cboAsignaciones">
+                            <option value="" selected disabled>-- Seleccione --</option>
+                            <option value="2" <?php if($asignacion == 2){echo "selected";} ?>>Ingreso Mensual</option>
+                            <option value="3" <?php if($asignacion == 3){echo "selected";} ?>>Paquete Anual</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <button type="button" class="btn btn-success btn-block btn-sm" title="Generar gráfica"
+                            id="btn-gengraph" onclick="showGraph('<?= $sueldomin; ?>',
+                        '<?= floatval('0.'.$porcentaje_grados); ?>',
+                        '<?= floatval('0.'.$porcentaje_pasos); ?>')">Generar
+                            Gráfica</button>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <button type="button" class="btn btn-danger btn-block btn-sm" title="Mostrar/Ocultar gráfica"
+                            id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar/Ocultar Gráfica</button>
+                    </div>
 
-            <div class="row">
-                <div class="col-sm-3 form-group">
-                    <select name="cboCategoria" id="cboCategoria" class="form-control input-sm"
-                        onchange="redirectcategoria(this.value)">
-                        <option value="1" <?php if($categoria == 1){echo "selected";} ?>>Administrativo</option>
-                        <option value="2" <?php if($categoria == 2){echo "selected";} ?>>Plata - Taller - Fábrica
-                        </option>
-                    </select>
                 </div>
-                <div class="col-sm-3 form-group">
-                    <select class="form-control input-sm" id="cboAsignaciones">
-                        <option value="" selected disabled>-- Seleccione --</option>    
-                        <option value="2">Ingreso Mensual</option>
-                        <option value="3">Paquete Anual</option>
-                    </select>
-                </div>
-                <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-success btn-block btn-sm" title="Generar gráfica"
-                        id="btn-gengraph" 
-                        onclick="showGraph('<?php if(isset($_GET['im'])){ echo $_GET['im']; } else {echo '0';} ?>',
-                        '<?php if(isset($_GET['ig'])){ echo $_GET['ig']; } else {echo '0';} ?>',
-                        '<?php if(isset($_GET['immm'])){ echo $_GET['immm']; } else {echo '0';} ?>')">Generar Gráfica</button>
-                </div>
-
-                <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-danger btn-block btn-sm" title="Mostrar/Ocultar gráfica"
-                        id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar/Ocultar Gráfica</button>
-                </div>
-
-            </div>
 
 
 
@@ -94,39 +113,36 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
             <div class="row" id="formcss">
                 <div class="col-sm-3 form-group">
                     <label for="ingreso_minimo">Ingreso Minimo</label>
-                    <input type="text" class="form-control input-sm number" id="ingreso_minimo"
-                        placeholder="Indique el Ingreso Minimo" required title="Indique el Ingreso Minimo" />
+                    <input type="text" class="form-control input-sm number" id="ingreso_minimo" name="ingreso_minimo"
+                        placeholder="Indique el Ingreso Minimo" value="<?=  $ingreso_minimo;  ?>" required title="Indique el Ingreso Minimo" />
                 </div>
                 <div class="col-sm-3 form-group">
                     <label for="incremento_grados">% Incremento en Grados</label>
-                    <input type="text" class="form-control input-sm number" id="incremento_grados"
-                        placeholder="% Incremento en Grados" title="% Incremento en Grados" />
+                    <input type="number" class="form-control input-sm" id="incremento_grados" name="incremento_grados"
+                        placeholder="% Incremento en Grados" value="<?=  ($incremento_grados * 100);  ?>" title="% Incremento en Grados" />
                 </div>
                 <div class="col-sm-4 form-group">
                     <label for="incremento_min_med_max">% Incremento en Mín, Med, Máx</label>
                     <div class="row">
                         <div class="col-md-8">
-                            <input type="text" class="form-control input-sm number" id="incremento_min_med_max"
-                                placeholder="% Incremento en Mín, Med, Máx" title="% Incremento en Mín, Med, Máx" />
+                            <input type="number" class="form-control input-sm" id="incremento_min_med_max" name="incremento_min_med_max"
+                                placeholder="% Incremento en Mín, Med, Máx"  value="<?=  ($incremento_min_med_max * 100);  ?>" title="% Incremento en Mín, Med, Máx" />
                         </div>
 
-                    <div class="col-md-4 ">
-      
-                    <button type="button" class="btn btn-success btn-block btn-sm" title="Generar Banda"
-                        id="btn-banda" onclick="generar_banda(<?= $categoria ?>)">Generar Banda</button>
-                </div>
+                        <div class="col-md-4 ">
+
+                            <button type="submit" class="btn btn-success btn-block btn-sm" title="Generar Banda"
+                                id="btn-banda" name="btn-banda">Generar Banda</button>
+                        </div>
 
                     </div>
 
                 </div>
-
-                
-
             </div>
-
+            </form>
             <?php
                 extract($crud->get_nombre_moneda()); 
-                $user = $_SESSION['user'];
+ 
                 $escalas = $crud->dataview_escalas($categoria);
                 extract($crud->get_datos_empresa($user['id_empresa']));	
                 extract($crud->get_sum_empleados($categoria));	
@@ -135,17 +151,20 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                 
         ?>
 
-        <div class="row">
-            <div class="col-sm-1 form-group">
-                        <button type="button" class="btn btn-info btn-block btn-sm" title="Ver Escala Empresarial"
-                            id="ver_escala" onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')">Ver Escala</button>
-            </div>
+            <div class="row">
+                <div class="col-sm-1 form-group">
+                    <button type="button" class="btn btn-info btn-block btn-sm" title="Ver Escala Empresarial"
+                        id="ver_escala"
+                        onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')">Ver
+                        Escala</button>
+                </div>
 
-            <div class="col-sm-10 form-group" style="text-align: right;">
-                <span style="font-size: 12px; color:red">(MONTOS EXPRESADOS EN <?=strtoupper($nombre_moneda)?>)</span>
+                <div class="col-sm-10 form-group" style="text-align: right;">
+                    <span style="font-size: 12px; color:red">(MONTOS EXPRESADOS EN
+                        <?=strtoupper($nombre_moneda)?>)</span>
+                </div>
             </div>
-        </div>
-        <br>
+            <br>
 
             <br>
             <div class='container' style="overflow: auto; max-height: 600px;">
@@ -178,33 +197,8 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                     $jerarquizacions = $crud->dataview_taller(); 
                 }
                
-                if(isset($_GET['im']))
-                {
-                    $ingreso_minimo = $_GET['im'];
-                }
-                else
-                {
-                    $ingreso_minimo = 150000;
-                }
-
-                if(isset($_GET['ig']))
-                {
-                    $incremento_grados = $_GET['ig'];
-                }
-                else
-                {
-                    $incremento_grados = 0.50;
-                }
-
-                if(isset($_GET['immm']))
-                {
-                    $incremento_min_med_max = $_GET['immm'];
-                }
-                else
-                {
-                    $incremento_min_med_max = 0.90;
-                }
-               
+      
+             
                 $contador = 1;
                 if ($jerarquizacions != null) {
                     foreach ($jerarquizacions as $jerarquizacion) {
@@ -232,9 +226,9 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <td><?php print($jerarquizacion['minimo']); ?></td>
                             <td><?php print($jerarquizacion['maximo']); ?></td>
 
-                            <td><?php print($jerarquizacion['promediopuntaje']); ?></td>
-
-                            <td style="border-left: solid 2px #A8A8A8"><?= number_format($jerarquizacion['promediosueldomensual'],2,',','.');  ?></td>
+                            <td><?= number_format($jerarquizacion['promediopuntaje'],2,',','.');  ?></td>
+                            <td style="border-left: solid 2px #A8A8A8">
+                                <?= number_format($jerarquizacion['promediosueldomensual'],2,',','.');  ?></td>
 
                             <td><?= number_format($jerarquizacion['promediopaqueteanual'],2,',','.'); ?></td>
                             <td><?= number_format($jerarquizacion['promediofactor'],2,',','.'); ?></td>
@@ -278,21 +272,19 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     <script src="assets/js/jerarquizacion.js"></script>
 
     <script>
+    $('input.number').keyup(function(event) {
+        // skip for arrow keys
+        if (event.which >= 37 && event.which <= 40) {
+            event.preventDefault();
+        }
 
-$('input.number').keyup(function(event) {
-    // skip for arrow keys
-    if(event.which >= 37 && event.which <= 40){
-      event.preventDefault();
-    }
-  
-    $(this).val(function(index, value) {
-      return value
-        .replace(/\D/g, "")
-        .replace(/([0-9])([0-9]{2})$/, '$1,$2')  
-        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".")
-      ;
+        $(this).val(function(index, value) {
+            return value
+                .replace(/\D/g, "")
+                .replace(/([0-9])([0-9]{2})$/, '$1,$2')
+                .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+        });
     });
-  });
 
     $(document).ready(function() {
         $(".hidden").hide();
@@ -321,7 +313,7 @@ $('input.number').keyup(function(event) {
     }
 
     function redirectcategoria(categoria) {
-        window.location.href = "../matriz-jerarquizacion/?ca=" + categoria;
+        window.location.href = "../matriz-jerarquizacion/save?gca&ca=" + categoria;
     }
 
     function generar_banda(categoria) {
@@ -333,41 +325,33 @@ $('input.number').keyup(function(event) {
         im = im.replace(".", "");
         ig = ig.replace(".", "");
         immm = immm.replace(".", "");
-        
+
         ig = ig / 100;
         immm = immm / 100;
 
-        if(im == "")
-        {
+        if (im == "") {
 
-        }
-        else if(ig == "")
-        {
+        } else if (ig == "") {
 
-        } 
-        else if(immm == "")
-        {
+        } else if (immm == "") {
 
+        } else {
+            window.location.href = "../matriz-jerarquizacion/?ca=" + categoria + "&im=" + im + "&ig=" + ig + "&immm=" +
+                immm;
         }
-        else
-        {
-            window.location.href = "../matriz-jerarquizacion/?ca=" + categoria+ "&im=" + im + "&ig=" + ig + "&immm=" + immm;
-        }
-       
+
     }
 
 
-    function ver_escala(escalas, nombre_empresa,categoria,conteo,nombre_nivel,minimo_nivel,maximo_nivel) {
-    var catego= "";
-    if(categoria == 1)
-    {
-        catego = "Administrativo";
-    }
-    if(categoria == 2)
-    {
-        catego = "Planta - Taller - Fábrica";
-    }
-    var html= `   <span class="text-center"><span class="glyphicon glyphicon-check"></span> Clasificación de Empresas en base al N° de trabajadores</span><br>
+    function ver_escala(escalas, nombre_empresa, categoria, conteo, nombre_nivel, minimo_nivel, maximo_nivel) {
+        var catego = "";
+        if (categoria == 1) {
+            catego = "Administrativo";
+        }
+        if (categoria == 2) {
+            catego = "Planta - Taller - Fábrica";
+        }
+        var html = `   <span class="text-center"><span class="glyphicon glyphicon-check"></span> Clasificación de Empresas en base al N° de trabajadores</span><br>
                     <span class="text-center">(cifras aproximadas)</span><br>
                     <br>
                     <br>
@@ -385,9 +369,9 @@ $('input.number').keyup(function(event) {
     `;
 
 
-    console.log(escalas);
-   
-    html += `<table id="escalas" class="table table-striped dt-responsive nowrap" style="width:100%">
+        console.log(escalas);
+
+        html += `<table id="escalas" class="table table-striped dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>Grado</th>
@@ -397,15 +381,15 @@ $('input.number').keyup(function(event) {
                     </thead>
                     <tbody> 
                         `;
-                        escalas.forEach(function (escalas) {
-html += `<tr>
+        escalas.forEach(function(escalas) {
+            html += `<tr>
             <td style="text-align: center;"> ${escalas["grado"]} </td>
             <td> ${escalas["minimo"]} </td>
             <td> ${escalas["maximo"]} </td>
             </tr>`;
-});
+        });
 
-html += `            
+        html += `            
                        
                     </tbody>
                    
@@ -413,26 +397,30 @@ html += `
                 <br>
                 <br>`;
 
-    Swal.fire({
-      title: "Escala - Sistema de Puntos",
-      html: html,
-      width: '800px',
-      showConfirmButton: false,
-   });
-   $(document).ready(function() {
-        $('#escalas').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-            },
+        Swal.fire({
+            title: "Escala - Sistema de Puntos",
+            html: html,
+            width: '800px',
+            showConfirmButton: false,
         });
-    });
+        $(document).ready(function() {
+            $('#escalas').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                order: [
+                    [1, 'asc']
+                ],
+            });
+        });
 
 
     }
 
-    function showGraph(im,ig,immm) {
+    function showGraph(im, ig, immm) {
 
 
+       
         const toggleButton = document.getElementById('toggle-grafica');
         const graficaContainer = document.getElementById('chart-container');
         if (graficaContainer.style.display === 'none') {
@@ -442,24 +430,28 @@ html += `
         }
 
 
-     
+
         let categoria = $("#cboCategoria").val();
         let asignacion = $("#cboAsignaciones").val(); //
         var categ = "";
         var titulo = "";
         var tipo_asign = "";
 
-        if (($("#cboAsignaciones").val()) === '1') {
+        if (($("#cboAsignaciones").val()) === '2') {
             tipo_asign = "INGRESO MENSUAL"
         }
-        if (($("#cboAsignaciones").val()) === '2') {
-            tipo_asign = "INGRESO TOTAL MENSUAL"
-        }
+
         if (($("#cboAsignaciones").val()) === '3') {
             tipo_asign = "PAQUETE ANUAL"
         }
 
-        titulo = "RECTA DE REGRESIÓN LINEAL - " + categ + " - " + tipo_asign;
+        if (($("#cboCategoria").val()) === '1') {
+            categ = "ADMINISTRATIVO";
+        } else {
+            categ = "PLANTA - TALLER - FÁBRICA";
+        }
+
+        titulo = "BANDA SALARIAL - " + categ + " - " + tipo_asign;
 
 
 
@@ -470,555 +462,510 @@ html += `
         }, function(data) {
             console.log(data);
 
-            
+
             for (var i in data) {
                 sueldominimo = data[i].sueldominimo;
                 sminimo = data[i].sminimo;
                 tipoempresa = data[i].tipoempresa;
 
-                if(tipoempresa >= 2)
-                {
-                    promediosueldogradoII =  data[i].promediosueldogradoII;
+                if (tipoempresa >= 2) {
+                    promediosueldogradoII = data[i].promediosueldogradoII;
                 }
-                if(tipoempresa >= 3)
-                {
-                    promediosueldogradoIII =  data[i].promediosueldogradoIII;
+                if (tipoempresa >= 3) {
+                    promediosueldogradoIII = data[i].promediosueldogradoIII;
                 }
-                if(tipoempresa >= 4)
-                {
-                    promediosueldogradoIV =  data[i].promediosueldogradoIV;
+                if (tipoempresa >= 4) {
+                    promediosueldogradoIV = data[i].promediosueldogradoIV;
                 }
-                if(tipoempresa >= 5)
-                {
-                    promediosueldogradoV =  data[i].promediosueldogradoV;
+                if (tipoempresa >= 5) {
+                    promediosueldogradoV = data[i].promediosueldogradoV;
                 }
-                if(tipoempresa >= 6)
-                {
-                    promediosueldogradoVI =  data[i].promediosueldogradoVI; 
+                if (tipoempresa >= 6) {
+                    promediosueldogradoVI = data[i].promediosueldogradoVI;
                 }
-                if(tipoempresa >= 7)
-                {
-                    promediosueldogradoVII =  data[i].promediosueldogradoVII;
+                if (tipoempresa >= 7) {
+                    promediosueldogradoVII = data[i].promediosueldogradoVII;
                 }
-                if(tipoempresa >= 8)
-                {
-                    promediosueldogradoVIII =  data[i].promediosueldogradoVIII;
+                if (tipoempresa >= 8) {
+                    promediosueldogradoVIII = data[i].promediosueldogradoVIII;
                 }
-                if(tipoempresa >= 9)
-                {
-                    promediosueldogradoIX =  data[i].promediosueldogradoIX;
+                if (tipoempresa >= 9) {
+                    promediosueldogradoIX = data[i].promediosueldogradoIX;
                 }
-                if(tipoempresa >= 10)
-                {
-                    promediosueldogradoX =  data[i].promediosueldogradoX;
+                if (tipoempresa >= 10) {
+                    promediosueldogradoX = data[i].promediosueldogradoX;
                 }
-                if(tipoempresa >= 11)
-                {
-                    promediosueldogradoXI =  data[i].promediosueldogradoXI;
+                if (tipoempresa >= 11) {
+                    promediosueldogradoXI = data[i].promediosueldogradoXI;
                 }
-                if(tipoempresa >= 12)
-                {
-                    promediosueldogradoXII =  data[i].promediosueldogradoXII;
+                if (tipoempresa >= 12) {
+                    promediosueldogradoXII = data[i].promediosueldogradoXII;
                 }
-                if(tipoempresa >= 13)
-                {
-                    promediosueldogradoXIII =  data[i].promediosueldogradoXIII;
+                if (tipoempresa >= 13) {
+                    promediosueldogradoXIII = data[i].promediosueldogradoXIII;
                 }
-                if(tipoempresa >= 14)
-                {
-                    promediosueldogradoXIV =  data[i].promediosueldogradoXIV; 
+                if (tipoempresa >= 14) {
+                    promediosueldogradoXIV = data[i].promediosueldogradoXIV;
                 }
-                if(tipoempresa >= 15)
-                {
-                    promediosueldogradoXV =  data[i].promediosueldogradoXV;  
+                if (tipoempresa >= 15) {
+                    promediosueldogradoXV = data[i].promediosueldogradoXV;
                 }
             }
             const minimo = [];
 
-        if (im == 0)
-        {
-            im = sueldominimo;
-        }
+            if (im == 0) {
+                im = sueldominimo;
+            }
 
-        if (ig == 0)
-        {
-            ig = ig;
-        }
+            if (ig == 0) {
+                ig = ig;
+            }
 
-        if (immm == 0)
-        {
-            immm = immm;
-        }
+            if (immm == 0) {
+                immm = immm;
+            }
 
 
             minimo.push({
-            x: 'I',
-            y: im
-        });
+                x: 'I',
+                y: im
+            });
 
             const medio = [];
             var sueldomedio = parseFloat(parseFloat(im) + (im * immm));
 
             medio.push({
-            x: 'I',
-            y: sueldomedio
-        });
+                x: 'I',
+                y: sueldomedio
+            });
 
             const maximo = [];
             var sueldomaximo = parseFloat(parseFloat(sueldomedio) + (sueldomedio * immm));
 
             maximo.push({
-            x: 'I',
-            y: sueldomaximo
-        });
+                x: 'I',
+                y: sueldomaximo
+            });
 
             const promedio = [];
 
-           
 
 
-             if(tipoempresa >= 2)
-                {
-                    promedio.push({
+
+            if (tipoempresa >= 2) {
+                promedio.push({
                     x: 'II',
                     y: promediosueldogradoII
                 });
-                }
-                if(tipoempresa >= 3)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 3) {
+                promedio.push({
                     x: 'III',
                     y: promediosueldogradoIII
                 });
-                }
-                if(tipoempresa >= 4)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 4) {
+                promedio.push({
                     x: 'IV',
                     y: promediosueldogradoIV
                 });
-                }
-                if(tipoempresa >= 5)
-                {                   
-                    promedio.push({
+            }
+            if (tipoempresa >= 5) {
+                promedio.push({
                     x: 'V',
                     y: promediosueldogradoV
                 });
-                }
-                if(tipoempresa >= 6)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 6) {
+                promedio.push({
                     x: 'VI',
                     y: promediosueldogradoVI
                 });
-                }
-                if(tipoempresa >= 7)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 7) {
+                promedio.push({
                     x: 'VII',
                     y: promediosueldogradoVII
                 });
-                }
-                if(tipoempresa >= 8)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 8) {
+                promedio.push({
                     x: 'VIII',
                     y: promediosueldogradoVIII
                 });
-                }
-                if(tipoempresa >= 9)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 9) {
+                promedio.push({
                     x: 'IX',
                     y: promediosueldogradoIX
                 });
-                }
-                if(tipoempresa >= 10)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 10) {
+                promedio.push({
                     x: 'X',
                     y: promediosueldogradoX
                 });
-                }
-                if(tipoempresa >= 11)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 11) {
+                promedio.push({
                     x: 'XI',
                     y: promediosueldogradoXI
                 });
-                }
-                if(tipoempresa >= 12)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 12) {
+                promedio.push({
                     x: 'XII',
                     y: promediosueldogradoXII
                 });
-                }
-                if(tipoempresa >= 13)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 13) {
+                promedio.push({
                     x: 'XIII',
                     y: promediosueldogradoXIII
                 });
-                }
-                if(tipoempresa >= 14)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 14) {
+                promedio.push({
                     x: 'XIV',
                     y: promediosueldogradoXIV
                 });
-                }
-                if(tipoempresa >= 15)
-                {
-                    promedio.push({
+            }
+            if (tipoempresa >= 15) {
+                promedio.push({
                     x: 'XV',
                     y: promediosueldogradoXV
                 });
-                }
-
-
-        if(tipoempresa >= 2)
-        {
-           
-            sueldominimo = parseFloat(parseFloat(im) + parseFloat(im * ig));
-            
-            minimo.push({
-            x: 'II',
-            y: sueldominimo
-        });
-
-            sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'II',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'II',
-            y: sueldomaximo
-        });
-
-        }
-
-        if(tipoempresa >= 3)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'III',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'III',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'III',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 4)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'IV',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'IV',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'IV',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 5)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'V',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'V',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'V',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 6)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'VI',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'VI',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'VI',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 7)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'VII',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'VII',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'VII',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 8)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'VIII',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'VIII',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'VIII',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 9)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'IX',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'IX',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'IX',
-            y: sueldomaximo
-        }); 
-        }
-
-        if(tipoempresa >= 10)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'X',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'X',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'X',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 11)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'XI',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'XI',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'XI',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 12)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'XII',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'XII',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'XII',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 13)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'XIII',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'XIII',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'XIII',
-            y: sueldomaximo
-        }); 
-        }
-
-        if(tipoempresa >= 14)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'XIV',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'XIV',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'XIV',
-            y: sueldomaximo
-        });
-        }
-
-        if(tipoempresa >= 15)
-        {
-            sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
-            
-            minimo.push({
-            x: 'XV',
-            y: sueldominimo
-        });
-
-        sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
-
-            medio.push({
-            x: 'XV',
-            y: sueldomedio
-        });
-
-        sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
-
-            maximo.push({
-            x: 'XV',
-            y: sueldomaximo
-        }); 
-        }
-           
-
-        console.log(minimo);
-        console.log(medio);
-        console.log(maximo);
+            }
+
+
+            if (tipoempresa >= 2) {
+
+                sueldominimo = parseFloat(parseFloat(im) + parseFloat(im * ig));
+
+                minimo.push({
+                    x: 'II',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'II',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'II',
+                    y: sueldomaximo
+                });
+
+            }
+
+            if (tipoempresa >= 3) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'III',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'III',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'III',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 4) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'IV',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'IV',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'IV',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 5) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'V',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'V',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'V',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 6) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'VI',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'VI',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'VI',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 7) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'VII',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'VII',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'VII',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 8) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'VIII',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'VIII',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'VIII',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 9) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'IX',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'IX',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'IX',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 10) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'X',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'X',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'X',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 11) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'XI',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'XI',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'XI',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 12) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'XII',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'XII',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'XII',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 13) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'XIII',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'XIII',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'XIII',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 14) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'XIV',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'XIV',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'XIV',
+                    y: sueldomaximo
+                });
+            }
+
+            if (tipoempresa >= 15) {
+                sueldominimo = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * ig));
+
+                minimo.push({
+                    x: 'XV',
+                    y: sueldominimo
+                });
+
+                sueldomedio = parseFloat(parseFloat(sueldominimo) + parseFloat(sueldominimo * immm));
+
+                medio.push({
+                    x: 'XV',
+                    y: sueldomedio
+                });
+
+                sueldomaximo = parseFloat(parseFloat(sueldomedio) + parseFloat(sueldomedio * immm));
+
+                maximo.push({
+                    x: 'XV',
+                    y: sueldomaximo
+                });
+            }
+
+
+            console.log(minimo);
+            console.log(medio);
+            console.log(maximo);
 
             var graphTarget = document.getElementById('graphCanvas').getContext('2d');
 
@@ -1081,7 +1028,7 @@ html += `
                             text: titulo
 
                         },
-                        
+
                     },
                     scales: {
                         x: {
@@ -1110,3 +1057,13 @@ html += `
 
     }
     </script>
+
+<?php 
+if(isset($_GET['ban'])){
+
+    echo "<script> showGraph('". $sueldomin. "',
+    '" . floatval('0.'.$porcentaje_grados) . "',
+    '" . floatval('0.'.$porcentaje_pasos) . "'); </script>";
+
+}
+?>

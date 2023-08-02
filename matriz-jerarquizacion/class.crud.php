@@ -20,6 +20,76 @@ class crud
 		return $stmt;
 	}
 
+		//FUNCION PARA EDITAR UN DEPARTAMENTO EN LA BD
+		public function editar_banda()
+		{
+			try
+			{
+				$user = $_SESSION['user'];
+				$id_empresa = $user['id_empresa'];
+				$categoria =(isset($_POST['cboCategoria']))?$_POST['cboCategoria']:""; 
+				$sueldomin = (isset($_POST['ingreso_minimo']))?$_POST['ingreso_minimo']:""; 
+				$porcentaje_grados = (isset($_POST['incremento_grados']))?$_POST['incremento_grados']:""; 
+				$porcentaje_pasos = (isset($_POST['incremento_min_med_max']))?$_POST['incremento_min_med_max']:""; 
+				$asignacion = (isset($_POST['cboAsignaciones']))?$_POST['cboAsignaciones']:""; 
+				$updated_at = date("Y-m-d H:i:s", strtotime('now'));  
+				
+				$sueldomin = str_replace(".","",$sueldomin);
+
+	
+				$stmt=$this->conn->prepare("UPDATE matriz_jerarquizacion SET 
+					categoria=:categoria,
+					sueldomin=:sueldomin, 
+					porcentaje_grados=:porcentaje_grados,  
+					porcentaje_pasos=:porcentaje_pasos, 
+					asignacion=:asignacion, 
+					modificado=:updated_at
+					WHERE id_empresa=:id_empresa");
+				$stmt->bindparam(":categoria",$categoria);
+				$stmt->bindparam(":sueldomin",$sueldomin);
+				$stmt->bindparam(":porcentaje_grados",$porcentaje_grados);
+				$stmt->bindparam(":porcentaje_pasos",$porcentaje_pasos);
+				$stmt->bindparam(":asignacion",$asignacion);
+				$stmt->bindparam(":updated_at",$updated_at);
+				$stmt->bindparam(":id_empresa",$id_empresa);
+				$stmt->execute();
+	
+				return true;	
+			}
+			catch(PDOException $e)
+			{
+				echo $e->getMessage();	
+				return false;
+			}
+		}
+		//FIN FUNCION PARA EDITAR UN DEPARTAMENTO EN LA BD
+
+		//FUNCION PARA EDITAR UN DEPARTAMENTO EN LA BD
+		public function editar_categoria()
+		{
+			try
+			{
+				$user = $_SESSION['user'];
+				$id_empresa = $user['id_empresa'];
+				$categoria = $_GET['ca']; 
+	
+				$stmt=$this->conn->prepare("UPDATE matriz_jerarquizacion SET 
+					categoria=:categoria
+					WHERE id_empresa=:id_empresa");
+				$stmt->bindparam(":categoria",$categoria);
+				$stmt->bindparam(":id_empresa",$id_empresa);
+				$stmt->execute();
+	
+				return true;	
+			}
+			catch(PDOException $e)
+			{
+				echo $e->getMessage();	
+				return false;
+			}
+		}
+		//FIN FUNCION PARA EDITAR UN DEPARTAMENTO EN LA BD
+
 	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
     public function dataview_resultados($categoria)
     {
@@ -295,10 +365,6 @@ class crud
 
 		$user = $_SESSION['user'];
 
-		if($asignacion == 1)
-		{
-			$campo = "mn.sueldo_base";
-		}
 		if($asignacion == 2)
 		{
 			$campo = "mn.sueldomensual";
@@ -440,6 +506,7 @@ class crud
 			INNER JOIN empresas e ON e.id = c.id_empresa
 			WHERE c.categoria = ".$categoria."
 			and c.id_empresa = ".$user['id_empresa'];
+
 			$stmt = $this->conn->prepare($query);
 			$stmt->execute();
 			
@@ -637,6 +704,40 @@ class crud
 		return $editRow;
 	}
 	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+	public function get_calculosminperpasos($id_empresa)
+	{
+		$stmt = $this->conn->prepare("SELECT *
+		FROM matriz_jerarquizacion
+		WHERE id_empresa=:id_empresa");
+		$stmt->execute(array(":id_empresa"=>$id_empresa));
+		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+	public function get_sueldomin($id_empresa,$categoria,$asign)
+	{
+		if($asign == 2)
+		{
+			$asignacion = "sueldomensual";
+		}
+		if($asign == 3)
+		{
+			$asignacion = "paqueteanual";
+		}
+		$stmt = $this->conn->prepare("SELECT (MIN(".$asignacion.") - (MIN(".$asignacion.") * 0.2)) as minasignacion
+		FROM matriz_nomina mn
+		INNER JOIN cargos c ON c.id = mn.id_cargo
+		WHERE mn.id_empresa=:id_empresa 
+		AND c.categoria = :categoria");
+		$stmt->execute(array(":id_empresa"=>$id_empresa,":categoria"=>$categoria));
+		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+
 
 }
 ?>

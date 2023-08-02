@@ -7,9 +7,19 @@ if (isset($_POST['btn-banda'])) {
 
     $categoria = $_GET['ca'];
     if ($crud->editar_banda()) {
-        header("Location: ../matriz-jerarquizacion/?ca=" . $categoria . "&ban");
+        header("Location: ../matriz-jerarquizacion/?ban");
     } else {
-        header("Location: ../matriz-jerarquizacion/?ca=" . $categoria . "failureban");
+        header("Location: ../matriz-jerarquizacion/?failureban");
+    }
+}
+
+if (isset($_GET['gca'])) {
+
+    $categoria = $_GET['ca'];
+    if ($crud->editar_categoria()) {
+        header("Location: ../matriz-jerarquizacion/");
+    } else {
+        header("Location: ../matriz-jerarquizacion/");
     }
 }
 

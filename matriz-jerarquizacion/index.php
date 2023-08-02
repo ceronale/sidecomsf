@@ -26,8 +26,24 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     include_once 'class.crud.php';
     $crud = new crud();  
     $user = $_SESSION['user'];
- 
+    
  extract($crud->get_calculosminperpasos($user['id_empresa']));	
+
+ if($sueldomin < 1)
+ {
+     extract($crud->get_sueldomin($user['id_empresa'],$categoria,$asignacion));	
+     $ingreso_minimo = floatval($minasignacion);
+     $incremento_grados = 0.50;
+     $incremento_min_med_max = 0.90;
+     
+ }
+ else
+ {
+     $ingreso_minimo = $sueldomin;
+     $incremento_grados = (floatval($porcentaje_grados) / 100);
+     $incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
+ }
+
 
 ?>
     <script>
@@ -45,37 +61,36 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     <div class="container">
         <!-- Main content -->
         <section class="content">
-        <form id='create' action="save.php?ca=<?= $categoria; ?>" method='post'>
-            <div class="row">
-                <div class="col-sm-3 form-group">
-                    <select name="cboCategoria" id="cboCategoria" class="form-control input-sm"
-                        onchange="redirectcategoria(this.value)">
-                        <option value="1" <?php if($categoria == 1){echo "selected";} ?>>Administrativo</option>
-                        <option value="2" <?php if($categoria == 2){echo "selected";} ?>>Plata - Taller - Fábrica
-                        </option>
-                    </select>
-                </div>
-                <div class="col-sm-3 form-group">
-                    <select class="form-control input-sm" id="cboAsignaciones">
-                        <option value="" selected disabled>-- Seleccione --</option>
-                        <option value="2">Ingreso Mensual</option>
-                        <option value="3">Paquete Anual</option>
-                    </select>
-                </div>
-                <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-success btn-block btn-sm" title="Generar gráfica"
-                        id="btn-gengraph" onclick="showGraph('<?php if(isset($_GET['im'])){ echo $_GET['im']; } else {echo '0';} ?>',
-                        '<?php if(isset($_GET['ig'])){ echo $_GET['ig']; } else {echo '0';} ?>',
-                        '<?php if(isset($_GET['immm'])){ echo $_GET['immm']; } else {echo '0';} ?>')">Generar
-                        Gráfica</button>
-                </div>
+            <form id='create' action="save.php?ca=<?= $categoria; ?>" method='post'>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <select name="cboCategoria" id="cboCategoria" name="cboCategoria" class="form-control input-sm"
+                            onchange="redirectcategoria(this.value)">
+                            <option value="1" <?php if($categoria == 1){echo "selected";} ?>>Administrativo</option>
+                            <option value="2" <?php if($categoria == 2){echo "selected";} ?>>Plata - Taller - Fábrica
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <select class="form-control input-sm" id="cboAsignaciones" name="cboAsignaciones">
+                            <option value="" selected disabled>-- Seleccione --</option>
+                            <option value="2" <?php if($asignacion == 2){echo "selected";} ?>>Ingreso Mensual</option>
+                            <option value="3" <?php if($asignacion == 3){echo "selected";} ?>>Paquete Anual</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <button type="button" class="btn btn-success btn-block btn-sm" title="Generar gráfica"
+                            id="btn-gengraph" onclick="showGraph('<?= $sueldomin; ?>',
+                        '<?= floatval('0.'.$porcentaje_grados); ?>',
+                        '<?= floatval('0.'.$porcentaje_pasos); ?>')">Generar
+                            Gráfica</button>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <button type="button" class="btn btn-danger btn-block btn-sm" title="Mostrar/Ocultar gráfica"
+                            id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar/Ocultar Gráfica</button>
+                    </div>
 
-                <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-danger btn-block btn-sm" title="Mostrar/Ocultar gráfica"
-                        id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar/Ocultar Gráfica</button>
                 </div>
-
-            </div>
 
 
 
@@ -94,36 +109,36 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     <div class="container">
         <!-- Main content -->
         <section class="content">
-            
-                <div class="row" id="formcss">
-                    <div class="col-sm-3 form-group">
-                        <label for="ingreso_minimo">Ingreso Minimo</label>
-                        <input type="text" class="form-control input-sm number" id="ingreso_minimo"
-                            placeholder="Indique el Ingreso Minimo" required title="Indique el Ingreso Minimo" />
-                    </div>
-                    <div class="col-sm-3 form-group">
-                        <label for="incremento_grados">% Incremento en Grados</label>
-                        <input type="number" class="form-control input-sm" id="incremento_grados"
-                            placeholder="% Incremento en Grados" title="% Incremento en Grados" />
-                    </div>
-                    <div class="col-sm-4 form-group">
-                        <label for="incremento_min_med_max">% Incremento en Mín, Med, Máx</label>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <input type="number" class="form-control input-sm" id="incremento_min_med_max"
-                                    placeholder="% Incremento en Mín, Med, Máx" title="% Incremento en Mín, Med, Máx" />
-                            </div>
 
-                            <div class="col-md-4 ">
+            <div class="row" id="formcss">
+                <div class="col-sm-3 form-group">
+                    <label for="ingreso_minimo">Ingreso Minimo</label>
+                    <input type="text" class="form-control input-sm number" id="ingreso_minimo" name="ingreso_minimo"
+                        placeholder="Indique el Ingreso Minimo" value="<?=  $ingreso_minimo;  ?>" required title="Indique el Ingreso Minimo" />
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label for="incremento_grados">% Incremento en Grados</label>
+                    <input type="number" class="form-control input-sm" id="incremento_grados" name="incremento_grados"
+                        placeholder="% Incremento en Grados" value="<?=  ($incremento_grados * 100);  ?>" title="% Incremento en Grados" />
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label for="incremento_min_med_max">% Incremento en Mín, Med, Máx</label>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="number" class="form-control input-sm" id="incremento_min_med_max" name="incremento_min_med_max"
+                                placeholder="% Incremento en Mín, Med, Máx"  value="<?=  ($incremento_min_med_max * 100);  ?>" title="% Incremento en Mín, Med, Máx" />
+                        </div>
 
-                                <button type="submit" class="btn btn-success btn-block btn-sm" title="Generar Banda"
-                                    id="btn-banda" name="btn-banda">Generar Banda</button>
-                            </div>
+                        <div class="col-md-4 ">
 
+                            <button type="submit" class="btn btn-success btn-block btn-sm" title="Generar Banda"
+                                id="btn-banda" name="btn-banda">Generar Banda</button>
                         </div>
 
                     </div>
+
                 </div>
+            </div>
             </form>
             <?php
                 extract($crud->get_nombre_moneda()); 
@@ -182,46 +197,8 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                     $jerarquizacions = $crud->dataview_taller(); 
                 }
                
-
-              
-                
-                $ingreso_minimo = $sueldomin;
-                $incremento_grados = $porcentaje_grados;
-                $incremento_min_med_max = $porcentaje_pasos;
-
-
-                if($ingreso_minimo < 1)
-                {
-                    
-                }
-
-                if(isset($_GET['im']))
-                {
-                    $ingreso_minimo = $_GET['im'];
-                }
-                else
-                {
-                    $ingreso_minimo = 150000;
-                }
-
-                if(isset($_GET['ig']))
-                {
-                    $incremento_grados = $_GET['ig'];
-                }
-                else
-                {
-                    $incremento_grados = 0.50;
-                }
-
-                if(isset($_GET['immm']))
-                {
-                    $incremento_min_med_max = $_GET['immm'];
-                }
-                else
-                {
-                    $incremento_min_med_max = 0.90;
-                }
-               
+      
+             
                 $contador = 1;
                 if ($jerarquizacions != null) {
                     foreach ($jerarquizacions as $jerarquizacion) {
@@ -249,8 +226,7 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <td><?php print($jerarquizacion['minimo']); ?></td>
                             <td><?php print($jerarquizacion['maximo']); ?></td>
 
-                            <td><?php print($jerarquizacion['promediopuntaje']); ?></td>
-
+                            <td><?= number_format($jerarquizacion['promediopuntaje'],2,',','.');  ?></td>
                             <td style="border-left: solid 2px #A8A8A8">
                                 <?= number_format($jerarquizacion['promediosueldomensual'],2,',','.');  ?></td>
 
@@ -337,7 +313,7 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     }
 
     function redirectcategoria(categoria) {
-        window.location.href = "../matriz-jerarquizacion/?ca=" + categoria;
+        window.location.href = "../matriz-jerarquizacion/save?gca&ca=" + categoria;
     }
 
     function generar_banda(categoria) {
@@ -444,6 +420,7 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
     function showGraph(im, ig, immm) {
 
 
+       
         const toggleButton = document.getElementById('toggle-grafica');
         const graficaContainer = document.getElementById('chart-container');
         if (graficaContainer.style.display === 'none') {
@@ -460,12 +437,10 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
         var titulo = "";
         var tipo_asign = "";
 
-        if (($("#cboAsignaciones").val()) === '1') {
+        if (($("#cboAsignaciones").val()) === '2') {
             tipo_asign = "INGRESO MENSUAL"
         }
-        if (($("#cboAsignaciones").val()) === '2') {
-            tipo_asign = "INGRESO TOTAL MENSUAL"
-        }
+
         if (($("#cboAsignaciones").val()) === '3') {
             tipo_asign = "PAQUETE ANUAL"
         }
@@ -1082,3 +1057,13 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
 
     }
     </script>
+
+<?php 
+if(isset($_GET['ban'])){
+
+    echo "<script> showGraph('". $sueldomin. "',
+    '" . floatval('0.'.$porcentaje_grados) . "',
+    '" . floatval('0.'.$porcentaje_pasos) . "'); </script>";
+
+}
+?>

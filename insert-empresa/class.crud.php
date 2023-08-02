@@ -277,7 +277,7 @@ ORDER BY tipo_empresa ASC;");
 			$stmt5->bindValue(':sueldomin', 0); // Establece un valor para la columna 'status'
 			$stmt5->bindValue(':porcentaje_grados', 0); // Establece un valor para la columna 'status'
 			$stmt5->bindValue(':porcentaje_pasos', 0); // Establece un valor para la columna 'status'
-			$stmt5->bindValue(':asignacion', 1); // Establece un valor para la columna 'status'
+			$stmt5->bindValue(':asignacion', 2); // Establece un valor para la columna 'status'
 			$stmt5->bindValue(':creacion', date("Y-m-d H:i:s", strtotime('now'))); // Establece un valor para la columna 'creacion'
 			$stmt5->bindValue(':modificado', date("Y-m-d H:i:s", strtotime('now'))); // Establece un valor para la columna 'creacion'
 			$stmt5->execute();

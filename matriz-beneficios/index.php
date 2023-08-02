@@ -1,7 +1,7 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
-
+<link rel="stylesheet" href="assets/css/style.css">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,7 +9,7 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; ">Matriz de beneficios</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de beneficios:','Representa la erogación de la empresa u organización para los trabajadores por concepto de beneficios legales o contractuales, relacionados con la calidad de vida y la protección laboral, pagados en dinero o especie por períodos determinados, sin incidencia en prestaciones sociales como vacaciones, utilidades, entre otras.')">Matriz de beneficios</span>
             </div>
         </div>
 
@@ -131,11 +131,9 @@
         <div>
             <div class="row">
                 <div class="col-sm">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href='#' onclick="crear_periodo()" class='btn btn-large btn-dark'>+ Agregar periodo</a>
-                        <a href="/sidecoms/beneficios" class="btn btn-large btn-dark">Beneficios</a>
-                        <a href="/sidecoms/nivel-empresarial" class="btn btn-large btn-dark">Nivel empresarial</a>
-                    </div>
+                    <a href="#" onclick="crear_periodo()" class="btn btn-primary btn3d">+ Agregar periodo</a>
+                    <a href="/sidecoms/beneficios" class="btn btn-primary btn3d">Beneficios</a>
+                    <a href="/sidecoms/nivel-empresarial" class="btn btn-primary btn3d">Nivel empresarial</a>
                 </div>
 
                 <div class="col-sm">
@@ -150,7 +148,7 @@
                             <?php foreach ($periodos as $periodo) { ?>
                                 <option value="<?php echo $periodo['id']; ?>" <?php if ($periodo['id'] == $id_pe) {
                                                                                     echo 'selected';
-                                                                                } ?>><?php echo $periodo['nombre'] . ' (' . $periodo['fecha_inicio'] . ' - ' . $periodo['fecha_fin'] . ')'; ?></option>
+                                                                                } ?>><?php echo $periodo['nombre'] . ' (' . $periodo['fecha_inicio_formato'] . ' - ' . $periodo['fecha_fin_formato'] . ')'; ?></option>
                             <?php } ?>
                         </select>
                         <button type="submit" name="btn-send" id="btn-send" style="display: none;"></button>
@@ -203,7 +201,7 @@
                                     }
                                 }
                                 ?>
-                                <th>Calculos</th>
+                                <th>Cálculos </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -227,9 +225,6 @@
                                             <td><input type="checkbox" name="niveles_beneficios[]" value="1" data-beneficio="<?php echo $beneficio['id']; ?>" data-nivel="<?php echo $nivel['id']; ?>" <?php echo $checked; ?>></td>
                                         <?php } ?>
                                         <td style="text-align: center">
-                                            <a onclick="editar_calculos(<?php echo htmlspecialchars(json_encode($idx)); ?>,<?php print($beneficio['id']) ?>)">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
 
                                             <a onclick="eliminar_beneficio('<?php print($beneficio['id']) ?>','<?php print($beneficio['nombre']) ?>','<?php print($id_pe) ?>')">
                                                 <i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -237,9 +232,7 @@
                                         </td>
                                     </tr>
                                 <?php } ?>
-                                <tr>
-                                    <td colspan="9" style="text-align: center;">Mensaje después de los beneficios fijos</td>
-                                </tr>
+
                             <?php } else { ?>
                                 <tr>
                                     <td colspan="9">No hay registros</td>
@@ -300,7 +293,7 @@
                                     }
                                 }
                                 ?>
-                                <th>Calculos</th>
+                                <th>Cálculos </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -320,9 +313,10 @@
                                 <th>Monto del pago</th>
                                 <th>Nro de trabajdores</th>
                                 <th>Frecuencia de pago</th>
-                                <th>Total Anual</th>
-                                <th>Presupuesto Anual</th>
+                                <th>Total</th>
+                                <th>Presupuesto</th>
                                 <th>Diferencia</th>
+                                <th>Calculo</th>
                             </tr>
                         </thead>
 
@@ -343,13 +337,16 @@
                             // Separar los beneficios en ocasionales y fijos
                             $beneficios_ocasionales = array();
                             $beneficios_fijos = array();
-                            foreach ($beneficios as $beneficio) {
-                                if ($beneficio['tipo_pago'] == 'Ocasional') {
-                                    $beneficios_ocasionales[] = $beneficio;
-                                } else {
-                                    $beneficios_fijos[] = $beneficio;
+                            if ($beneficios) {
+                                foreach ($beneficios as $beneficio) {
+                                    if ($beneficio['tipo_pago'] == 'Ocasional') {
+                                        $beneficios_ocasionales[] = $beneficio;
+                                    } else {
+                                        $beneficios_fijos[] = $beneficio;
+                                    }
                                 }
                             }
+
 
 
 
@@ -370,55 +367,62 @@
                                         $cantidad_trabajadores = isset($calculox[0]['cantidad_trabajadores']) ? $calculox[0]['cantidad_trabajadores'] : '';
                                         $frecuencia = isset($calculox[0]['frecuencia']) ? $calculox[0]['frecuencia'] : '';
                                         $presupuesto = isset($calculox[0]['presupuesto']) ? $calculox[0]['presupuesto'] : '';
-
-                                        // Validar que los valores numéricos sean válidos
-                                        if (is_numeric($monto) && is_numeric($cantidad_trabajadores) && is_numeric($frecuencia) && is_numeric($presupuesto)) {
-                                            // Calcular los valores necesarios
-                                            $total = $monto * $cantidad_trabajadores * $frecuencia;
-                                            $total_fijos += $total;
-                                            $diferencia = $total - $presupuesto;
-                                            $total_presupuesto += $presupuesto;
-                                            $total_diferencia += $diferencia;
+                                    } else {
+                                        $monto = 0;
+                                        $cantidad_trabajadores = 0;
+                                        $frecuencia = 0;
+                                        $presupuesto = 0;
+                                    }
+                                    // Validar que los valores numéricos sean válidos
+                                    if (is_numeric($monto) && is_numeric($cantidad_trabajadores) && is_numeric($frecuencia) && is_numeric($presupuesto)) {
+                                        // Calcular los valores necesarios
+                                        $total = $monto * $cantidad_trabajadores * $frecuencia;
+                                        $total_fijos += $total;
+                                        $diferencia = $total - $presupuesto;
+                                        $total_presupuesto += $presupuesto;
+                                        $total_diferencia += $diferencia;
                             ?>
-                                            <tr>
-                                                <td><?php echo $beneficio['tipo_pago']; ?></td>
-                                                <td><?php echo $beneficio['nombre']; ?></td>
+                                        <tr>
+                                            <td><?php echo $beneficio['tipo_pago']; ?></td>
+                                            <td><?php echo $beneficio['nombre']; ?></td>
 
-                                                <?php
-                                                $niveles_lista = '';
-                                                foreach ($niveles as $nivel) {
-                                                    $checked = '';
-                                                    foreach ($niveles_beneficios as $nb) {
-                                                        if ($nb['id_beneficios'] == $beneficio['id'] && $nb['id_nivel_organizativo'] == $nivel['id']) {
-                                                            $checked = 'checked';
-                                                            break;
-                                                        }
-                                                    }
-                                                    if ($checked == 'checked') {
-                                                        $niveles_lista .= '<li>' . $nivel['nombre'] . '</li>';
+                                            <?php
+                                            $niveles_lista = '';
+                                            foreach ($niveles as $nivel) {
+                                                $checked = '';
+                                                foreach ($niveles_beneficios as $nb) {
+                                                    if ($nb['id_beneficios'] == $beneficio['id'] && $nb['id_nivel_organizativo'] == $nivel['id']) {
+                                                        $checked = 'checked';
+                                                        break;
                                                     }
                                                 }
-                                                ?>
-                                                <td>
-                                                    <?php if (!empty($niveles_lista)) { ?>
-                                                        <ul style="overflow-y: scroll; max-height: 65px;">
-                                                            <?php echo $niveles_lista; ?>
-                                                        </ul>
-                                                    <?php } ?>
-                                                </td>
+                                                if ($checked == 'checked') {
+                                                    $niveles_lista .= '<li>' . $nivel['nombre'] . '</li>';
+                                                }
+                                            }
+                                            ?>
+                                            <td>
+                                                <?php if (!empty($niveles_lista)) { ?>
+                                                    <ul style="overflow-y: scroll; max-height: 65px;">
+                                                        <?php echo $niveles_lista; ?>
+                                                    </ul>
+                                                <?php } ?>
+                                            </td>
 
-                                                <td><?php echo $monto; ?></td>
-                                                <td><?php echo $cantidad_trabajadores; ?></td>
-                                                <td><?php echo $frecuencia; ?></td>
-                                                <td><?php echo $total; ?></td>
-                                                <td><?php echo $presupuesto; ?></td>
-                                                <td><?php echo $diferencia; ?></td>
-                                            </tr>
+                                            <td><?php echo $monto; ?></td>
+                                            <td><?php echo $cantidad_trabajadores; ?></td>
+                                            <td><?php echo $frecuencia; ?></td>
+                                            <td><?php echo $total; ?></td>
+                                            <td><?php echo $presupuesto; ?></td>
+                                            <td><?php echo $diferencia; ?></td>
+                                            <td style="text-align: center">
+                                                <a onclick="editar_calculos(<?php echo htmlspecialchars(json_encode($calculox)); ?>, '<?php print($beneficio['id']) ?>', '<?php print($beneficio['tipo_pago']) ?>', '<?php print($beneficio['nombre']) ?>')">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                        </tr>
                                 <?php
-                                        } else {
-                                            // Alguno de los valores no es numérico
-                                            echo '<tr><td colspan="9">Los valores de cálculo no son válidos</td></tr>';
-                                        }
+
                                     } else {
                                         // $calculox está vacío
 
@@ -455,58 +459,66 @@
                                         $cantidad_trabajadores = isset($calculox[0]['cantidad_trabajadores']) ? $calculox[0]['cantidad_trabajadores'] : '';
                                         $frecuencia = isset($calculox[0]['frecuencia']) ? $calculox[0]['frecuencia'] : '';
                                         $presupuesto = isset($calculox[0]['presupuesto']) ? $calculox[0]['presupuesto'] : '';
-
-                                        // Validar que los valores numéricos sean válidos
-                                        if (is_numeric($monto) && is_numeric($cantidad_trabajadores) && is_numeric($frecuencia) && is_numeric($presupuesto)) {
-                                            // Calcular los valores necesarios
-                                            $total = $monto * $cantidad_trabajadores * $frecuencia;
-                                            $total_ocasionales += $total;
-                                            $diferencia = $total - $presupuesto;
-                                            $total_presupuesto_ocasionales += $presupuesto;
-                                            $total_diferencia_ocasionales += $diferencia;
+                                    } else {
+                                        $monto = 0;
+                                        $cantidad_trabajadores = 0;
+                                        $frecuencia = 0;
+                                        $presupuesto = 0;
+                                    }
+                                    // Validar que los valores numéricos sean válidos
+                                    if (is_numeric($monto) && is_numeric($cantidad_trabajadores) && is_numeric($frecuencia) && is_numeric($presupuesto)) {
+                                        // Calcular los valores necesarios
+                                        $total = $monto * $cantidad_trabajadores * $frecuencia;
+                                        $total_ocasionales += $total;
+                                        $diferencia = $total - $presupuesto;
+                                        $total_presupuesto_ocasionales += $presupuesto;
+                                        $total_diferencia_ocasionales += $diferencia;
                                 ?>
-                                            <tr>
-                                                <td><?php echo $beneficio['tipo_pago']; ?></td>
-                                                <td><?php echo $beneficio['nombre']; ?></td>
+                                        <tr>
+                                            <td><?php echo $beneficio['tipo_pago']; ?></td>
+                                            <td><?php echo $beneficio['nombre']; ?></td>
 
-                                                <?php
-                                                $niveles_lista = '';
-                                                foreach ($niveles as $nivel) {
-                                                    $checked = '';
-                                                    foreach ($niveles_beneficios as $nb) {
-                                                        if ($nb['id_beneficios'] == $beneficio['id'] && $nb['id_nivel_organizativo'] == $nivel['id']) {
-                                                            $checked = 'checked';
-                                                            break;
-                                                        }
-                                                    }
-                                                    if ($checked == 'checked') {
-                                                        $niveles_lista .= '<li>' . $nivel['nombre'] . '</li>';
+                                            <?php
+                                            $niveles_lista = '';
+                                            foreach ($niveles as $nivel) {
+                                                $checked = '';
+                                                foreach ($niveles_beneficios as $nb) {
+                                                    if ($nb['id_beneficios'] == $beneficio['id'] && $nb['id_nivel_organizativo'] == $nivel['id']) {
+                                                        $checked = 'checked';
+                                                        break;
                                                     }
                                                 }
-                                                ?>
-                                                <td>
-                                                    <?php if (!empty($niveles_lista)) { ?>
-                                                        <ul style="overflow-y: scroll; max-height: 65px;">
-                                                            <?php echo $niveles_lista; ?>
-                                                        </ul>
-                                                    <?php } ?>
-                                                </td>
+                                                if ($checked == 'checked') {
+                                                    $niveles_lista .= '<li>' . $nivel['nombre'] . '</li>';
+                                                }
+                                            }
+                                            ?>
+                                            <td>
+                                                <?php if (!empty($niveles_lista)) { ?>
+                                                    <ul style="overflow-y: scroll; max-height: 65px;">
+                                                        <?php echo $niveles_lista; ?>
+                                                    </ul>
+                                                <?php } ?>
+                                            </td>
 
-                                                <td><?php echo $monto; ?></td>
-                                                <td><?php echo $cantidad_trabajadores; ?></td>
-                                                <td><?php echo $frecuencia; ?></td>
-                                                <td><?php echo $total; ?></td>
-                                                <td><?php echo $presupuesto; ?></td>
-                                                <td><?php echo $diferencia; ?></td>
-                                            </tr>
+                                            <td><?php echo $monto; ?></td>
+                                            <td><?php echo $cantidad_trabajadores; ?></td>
+                                            <td><?php echo $frecuencia; ?></td>
+                                            <td><?php echo $total; ?></td>
+                                            <td><?php echo $presupuesto; ?></td>
+                                            <td><?php echo $diferencia; ?></td>
+
+                                            <td style="text-align: center">
+                                                <a onclick="editar_calculos(<?php echo htmlspecialchars(json_encode($calculox)); ?>, '<?php print($beneficio['id']) ?>', '<?php print($beneficio['tipo_pago']) ?>', '<?php print($beneficio['nombre']) ?>')">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                        </tr>
+
                                 <?php
-                                        } else {
-                                            // Alguno de los valores no es numérico
-                                            echo '<tr><td colspan="9">Los valores de cálculo no son válidos</td></tr>';
-                                        }
                                     } else {
-                                        // $calculox está vacío
-
+                                        // Alguno de los valores no es numérico
+                                        echo '<tr><td colspan="9">Los valores de cálculo no son válidos</td></tr>';
                                     }
                                 }
                             }
@@ -545,9 +557,10 @@
                                 <th>Monto del pago</th>
                                 <th>Nro de trabajdores</th>
                                 <th>Frecuencia de pago</th>
-                                <th>Total Anual</th>
-                                <th>Presupuesto Anual</th>
+                                <th>Total</th>
+                                <th>Presupuesto</th>
                                 <th>Diferencia</th>
+                                <th>Calculo</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -576,7 +589,7 @@
                 $('.nav-tabs a').on('shown.bs.tab', function(event) {
                     var currentTab = $(event.target).attr('href');
                     localStorage.setItem('lastTab', currentTab);
-                    location.reload(); // recargar la página
+                    window.location.href = '../matriz-beneficios?idp=' + <?php echo $id_pe ?>;
                 });
             });
         </script>
@@ -666,10 +679,16 @@
             document.querySelector('input[name="diferencia"]').value = diferencia.toFixed(2);
         }
 
-        function editar_calculos(calculob, id) {
-            console.log(calculob);
+        function editar_calculos(calculob, id, tipo, nombre) {
             var html = `
-            
+    <label style="display: flex; align-items: center; margin-bottom: 10px;">
+      <span style="font-weight: bold; margin-right: 5px;">Tipo de pago:</span>
+      <span >${tipo}</span>
+    </label>
+    <label style="display: flex; align-items: center; margin-bottom: 10px;">
+      <span style="font-weight: bold; margin-right: 5px;">Beneficio:</span>
+      <span >${nombre}</span>
+    </label>
         <form id='editar_periodo' action="save.php" method='post' style="text-align: center !important;">
             <div class="row">
                 <div class="col-md-12">
@@ -682,6 +701,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
@@ -702,7 +722,7 @@
                         <div class="col-12">
                             <div class="form-group">
                             <br/>
-                                <label for="total">Total Anual</label>
+                                <label for="total">Total</label>
                                
                             </div>
                         </div>
@@ -710,7 +730,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="nombre">Presupuesto Anual</label>
+                                <label for="nombre">Presupuesto</label>
 <input type='text' name='presupuesto' value="` + (calculob && calculob.length > 0 ? calculob[0].presupuesto : '') + `" class='form-control' required autocomplete="on'>
                             </div>
                         </div>
@@ -797,7 +817,7 @@
 
             // Show the form using SweetAlert2
             Swal.fire({
-                title: "Calculos",
+                title: "Cálculos",
                 html: html,
                 showConfirmButton: false,
                 didRender: () => {

@@ -54,7 +54,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'El periodo se ha registrado con exito!',
+                title: 'El período se ha registrado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -66,7 +66,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al registrar el periodo!',
+                title: 'Error al registrar el período!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -80,7 +80,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'El periodo se ha editado con exito!',
+                title: 'El período se ha editado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -92,7 +92,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al editar el periodo!',
+                title: 'Error al editar el período!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -131,7 +131,7 @@
         <div>
             <div class="row">
                 <div class="col-sm">
-                    <a href="#" onclick="crear_periodo()" class="btn btn-primary btn3d">+ Agregar periodo</a>
+                    <a href="#" onclick="crear_periodo()" class="btn btn-primary btn3d">+ Agregar período</a>
                     <a href="/sidecoms/beneficios" class="btn btn-primary btn3d">Beneficios</a>
                     <a href="/sidecoms/nivel-empresarial" class="btn btn-primary btn3d">Nivel empresarial</a>
                 </div>
@@ -302,6 +302,27 @@
 
             </div>
             <div id="tab2" class="tab-pane fade">
+                <style>
+                    /* Estilo por defecto */
+                    .blue-text {
+                        color: blue;
+                    }
+
+                    /* Estilo para valores negativos que sobreescribe el estilo anterior */
+                    .red-text {
+                        color: red;
+                    }
+
+                    /* Estilo más específico para los campos <td> con clase .blue-text */
+                    td.blue-text {
+                        color: blue !important;
+                    }
+
+                    /* Estilo más específico para los campos <td> con clase .red-text */
+                    td.red-text {
+                        color: red !important;
+                    }
+                </style>
 
                 <div id="tabla-container" class="mt-3">
                     <table id="example2" class="table table-striped dt-responsive nowrap" style="width:100%">
@@ -378,7 +399,8 @@
                                         // Calcular los valores necesarios
                                         $total = $monto * $cantidad_trabajadores * $frecuencia;
                                         $total_fijos += $total;
-                                        $diferencia = $total - $presupuesto;
+                                        $diferencia = $presupuesto - $total;
+                                        $styleClass = ($diferencia >= 0) ? 'blue-text' : 'red-text';
                                         $total_presupuesto += $presupuesto;
                                         $total_diferencia += $diferencia;
                             ?>
@@ -409,12 +431,12 @@
                                                 <?php } ?>
                                             </td>
 
-                                            <td><?php echo $monto; ?></td>
+                                            <td><?php echo number_format($monto, 2, ',', '.'); ?></td>
                                             <td><?php echo $cantidad_trabajadores; ?></td>
                                             <td><?php echo $frecuencia; ?></td>
-                                            <td><?php echo $total; ?></td>
-                                            <td><?php echo $presupuesto; ?></td>
-                                            <td><?php echo $diferencia; ?></td>
+                                            <td><?php echo number_format($total, 2, ',', '.'); ?></td>
+                                            <td><?php echo number_format($presupuesto, 2, ',', '.'); ?></td>
+                                            <td class="<?php echo $styleClass; ?>"><?php echo number_format($diferencia, 2, ',', '.'); ?></td>
                                             <td style="text-align: center">
                                                 <a onclick="editar_calculos(<?php echo htmlspecialchars(json_encode($calculox)); ?>, '<?php print($beneficio['id']) ?>', '<?php print($beneficio['tipo_pago']) ?>', '<?php print($beneficio['nombre']) ?>')">
                                                     <i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -435,9 +457,9 @@
                                 ?>
                                 <tr>
                                     <td colspan="6" style="text-align: right;"><strong>S U B - T O T A L E S: </strong></td>
-                                    <td><strong><?php echo $total_fijos; ?></strong></td>
-                                    <td><strong><?php echo $total_presupuesto; ?></strong></td>
-                                    <td><strong><?php echo $total_diferencia; ?></strong></td>
+                                    <td><strong><?php echo number_format($total_fijos, 2, ',', '.'); ?></strong></td>
+                                    <td><strong><?php echo number_format($total_presupuesto, 2, ',', '.'); ?></strong></td>
+                                    <td><strong><?php echo number_format($total_diferencia, 2, ',', '.'); ?></strong></td>
                                 </tr>
                                 <?php
                             }
@@ -470,7 +492,8 @@
                                         // Calcular los valores necesarios
                                         $total = $monto * $cantidad_trabajadores * $frecuencia;
                                         $total_ocasionales += $total;
-                                        $diferencia = $total - $presupuesto;
+                                        $diferencia = $presupuesto - $total;
+                                        $styleClass = ($diferencia >= 0) ? 'blue-text' : 'red-text';
                                         $total_presupuesto_ocasionales += $presupuesto;
                                         $total_diferencia_ocasionales += $diferencia;
                                 ?>
@@ -501,12 +524,16 @@
                                                 <?php } ?>
                                             </td>
 
-                                            <td><?php echo $monto; ?></td>
+                                            <td><?php echo number_format($monto, 2, ',', '.'); ?></td>
                                             <td><?php echo $cantidad_trabajadores; ?></td>
                                             <td><?php echo $frecuencia; ?></td>
-                                            <td><?php echo $total; ?></td>
-                                            <td><?php echo $presupuesto; ?></td>
-                                            <td><?php echo $diferencia; ?></td>
+                                            <td><?php echo number_format($total, 2, ',', '.'); ?></td>
+                                            <td><?php echo number_format($presupuesto, 2, ',', '.'); ?></td>
+
+
+
+
+                                            <td class="<?php echo $styleClass; ?>"><?php echo number_format($diferencia, 2, ',', '.'); ?></td>
 
                                             <td style="text-align: center">
                                                 <a onclick="editar_calculos(<?php echo htmlspecialchars(json_encode($calculox)); ?>, '<?php print($beneficio['id']) ?>', '<?php print($beneficio['tipo_pago']) ?>', '<?php print($beneficio['nombre']) ?>')">
@@ -528,9 +555,9 @@
                                 ?>
                                 <tr>
                                     <td colspan="6" style="text-align: right;"><strong>S U B - T O T A L E S: </strong></td>
-                                    <td><strong><?php echo $total_ocasionales; ?></strong></td>
-                                    <td><strong><?php echo $total_presupuesto_ocasionales; ?></strong></td>
-                                    <td><strong><?php echo $total_diferencia_ocasionales; ?></strong></td>
+                                    <td><strong><?php echo number_format($total_ocasionales, 2, ',', '.'); ?></strong></td>
+                                    <td><strong><?php echo number_format($total_presupuesto_ocasionales, 2, ',', '.'); ?></strong></td>
+                                    <td><strong><?php echo number_format($total_diferencia_ocasionales, 2, ',', '.'); ?></strong></td>
                                 </tr>
                             <?php
                             }
@@ -538,9 +565,9 @@
                             ?>
                                 <tr>
                                     <td colspan="6" style="text-align: right;"><strong> T O T A L - G E N E R A L: </strong></td>
-                                    <td><strong><?php echo $total_ocasionales + $total_fijos; ?></strong></td>
-                                    <td><strong><?php echo $total_presupuesto_ocasionales + $total_presupuesto; ?></strong></td>
-                                    <td><strong><?php echo $total_diferencia_ocasionales + $total_diferencia; ?></strong></td>
+                                    <td><strong><?php echo number_format($total_ocasionales + $total_fijos, 2, ',', '.'); ?></strong></td>
+                                    <td><strong><?php echo number_format($total_presupuesto_ocasionales + $total_presupuesto, 2, ',', '.'); ?></strong></td>
+                                    <td><strong><?php echo number_format($total_diferencia_ocasionales + $total_diferencia, 2, ',', '.'); ?></strong></td>
                                 </tr>
                             <?php
                             }
@@ -654,12 +681,7 @@
             return true;
         }
 
-        // Define the input fields outside the function
-        const montoInput = document.createElement('input');
-        const frecuenciaInput = document.createElement('input');
-        const cantidadInput = document.createElement('input');
-        const totalInput = document.createElement('input');
-        const diferenciaInput = document.createElement('input');
+
 
         function updateTotal() {
             // Get the values of monto and cantidad
@@ -668,7 +690,7 @@
             const frecuencia = parseFloat(frecuenciaInput.value) || 0;
 
             // Multiply the values and set the result in the total input field
-            totalInput.value = (monto * cantidad * frecuencia).toFixed(2);
+            totalInput.value = formatNumber(monto * cantidad * frecuencia);
             updateDiferencia();
         }
 
@@ -676,8 +698,40 @@
             const presupuesto = parseFloat(document.querySelector('input[name="presupuesto"]').value) || 0;
             const total = parseFloat(totalInput.value) || 0;
             const diferencia = presupuesto - total;
-            document.querySelector('input[name="diferencia"]').value = diferencia.toFixed(2);
+
+            // Set the result in the diferencia input field
+            document.querySelector('input[name="diferencia"]').value = formatNumber(diferencia);
+
+            // Update the style based on the sign of the diferencia value
+            const diferenciaInput = document.querySelector('input[name="diferencia"]');
+            diferenciaInput.style.color = diferencia >= 0 ? 'blue' : 'red';
         }
+
+
+        function formatNumber(number) {
+            // Primero, convierte el número a un valor numérico
+            const numericValue = parseFloat(number);
+
+            // Si no es un número válido, retorna el valor vacío
+            if (isNaN(numericValue)) {
+                return '';
+            }
+
+            // Formatear el número con las comas y puntos adecuados
+            const formattedNumber = numericValue.toLocaleString('es', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            });
+
+
+            return formattedNumber;
+        }
+
+        const montoInput = document.createElement('input');
+        const frecuenciaInput = document.createElement('input');
+        const cantidadInput = document.createElement('input');
+        const totalInput = document.createElement('input');
+        const diferenciaInput = document.createElement('input');
 
         function editar_calculos(calculob, id, tipo, nombre) {
             var html = `
@@ -690,13 +744,61 @@
       <span >${nombre}</span>
     </label>
         <form id='editar_periodo' action="save.php" method='post' style="text-align: center !important;">
+        
+        <input class="hidden" id="monto_info" name="monto_info" value="0">
+
+        <div class="hidden" id="info_monto">
+            <div class="card card-body" style="text-align: justify; font-size: 14px">
+                <p>
+                    <em><strong>
+                    texto monto
+                    </em><br> 
+                </p>
+            </div>
+        </div>
+                <input class="hidden" id="cantidad_info" name="cantidad_info" value="0">
+
+        <div class="hidden" id="info_cantidad">
+            <div class="card card-body" style="text-align: justify; font-size: 14px">
+                <p>
+                    <em><strong>
+                   texto cantidad
+                    </em><br> 
+                </p>
+            </div>
+        </div>
+        
+        <input class="hidden" id="frecuencia_info" name="frecuencia_info" value="0">
+
+        <div class="hidden" id="info_frecuencia">
+            <div class="card card-body" style="text-align: justify; font-size: 14px">
+                <p>
+                    <em><strong>
+Se indica el número de veces en que se efectúa el pago.
+
+Ejemplo:
+
+Si el pago es mensual: 12
+
+Si el pago es bimestral: 06
+
+Si el pago es trimestral: 04
+
+Si el pago es cuatrismestral: 03
+
+Si el pago es semestral: 02
+                    </em><br> 
+                </p>
+            </div>
+        </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <br>
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="monto">Monto del Pago</label>
+                                <label style="color: #3c8dbc;"  onclick="show_info_monto()"  for="monto">Monto del Pago</label>
                               
                             </div>
                         </div>
@@ -705,7 +807,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="nombre">Cantidad de Trabajadores</label>
+                                <label style="color: #3c8dbc;"  onclick="show_info_cantidad()"  for="nombre">Cantidad de Trabajadores</label>
                                 
                             </div>
                         </div>
@@ -713,7 +815,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="frecuencia">Frecuencia del Pago</label>
+                                <label style="color: #3c8dbc;"  onclick="show_info_frecuencia()" for="frecuencia">Frecuencia del Pago</label>
                                
                             </div>
                         </div>
@@ -731,7 +833,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="nombre">Presupuesto</label>
-<input type='text' name='presupuesto' value="` + (calculob && calculob.length > 0 ? calculob[0].presupuesto : '') + `" class='form-control' required autocomplete="on'>
+                               <input type='text' name='presupuesto' value="` + (calculob && calculob.length > 0 ? calculob[0].presupuesto : '') + `" class='form-control' required autocomplete="on">
                             </div>
                         </div>
                     </div>
@@ -764,23 +866,33 @@
         </form>
     `;
 
+
+
             // Set the input fields' attributes
             montoInput.setAttribute('name', 'monto');
             if (calculob && calculob.length > 0) {
-                montoInput.setAttribute('value', calculob[0].monto);
+                montoInput.value = calculob[0].monto;
+
             } else {
-                montoInput.setAttribute('value', '');
+                montoInput.value = "";
             }
             montoInput.setAttribute('class', 'form-control');
             montoInput.setAttribute('required', '');
             montoInput.setAttribute('autocomplete', 'on');
             montoInput.addEventListener("input", updateTotal);
-
+            /*
+            montoInput.addEventListener('blur', function() {
+                usToEuCurrencyFormat(montoInput);
+            });
+            montoInput.addEventListener('focus', function() {
+                borrarComaYDespues(montoInput);
+            });
+            */
             cantidadInput.setAttribute('name', 'cantidad');
             if (calculob && calculob.length > 0) {
-                cantidadInput.setAttribute('value', calculob[0].cantidad_trabajadores);
+                cantidadInput.value = calculob[0].cantidad_trabajadores;
             } else {
-                cantidadInput.setAttribute('value', '');
+                cantidadInput.value = "";
             }
             cantidadInput.setAttribute('class', 'form-control');
             cantidadInput.setAttribute('required', '');
@@ -789,9 +901,9 @@
 
             frecuenciaInput.setAttribute('name', 'frecuencia');
             if (calculob && calculob.length > 0) {
-                frecuenciaInput.setAttribute('value', calculob[0].frecuencia);
+                frecuenciaInput.value = calculob[0].frecuencia;
             } else {
-                frecuenciaInput.setAttribute('value', '');
+                frecuenciaInput.value = "";
             }
             frecuenciaInput.setAttribute('class', 'form-control');
             frecuenciaInput.setAttribute('required', '');
@@ -843,5 +955,86 @@
                     updateTotal();
                 },
             });
+            $(document).ready(function() {
+                $(".hidden").hide();
+            });
+        }
+
+        function usToEuCurrencyFormat(inputElement) {
+            const num = inputElement.value;
+            const formattedNumber = formatNumber(num);
+            inputElement.value = formattedNumber;
+        }
+
+        function borrarComaYDespues(inputElement) {
+            const valor = inputElement.value;
+            const posicionComa = valor.indexOf(',');
+            if (posicionComa !== -1) {
+                const valorSinComa = valor.slice(0, posicionComa);
+                const numeroSinPuntos = valorSinComa.replace(/\./g, '');
+                inputElement.value = numeroSinPuntos;
+
+            }
+        }
+
+        function show_info_monto() {
+            monto_info = document.getElementById("monto_info").value;
+            cantidad_info = document.getElementById("cantidad_info").value;
+            frecuencia_info = document.getElementById("frecuencia_info").value;
+
+
+            if (monto_info == 0) {
+                $("#info_monto").show("fast");
+                $("#info_cantidad").hide();
+                $("#info_frecuencia").hide();
+                document.getElementById("cantidad_info").value = 0;
+                document.getElementById("frecuencia_info").value = 0;
+                document.getElementById("monto_info").value = 1;
+            }
+            if (monto_info == 1) {
+                $("#info_monto").hide();
+                document.getElementById("monto_info").value = 0;
+            }
+        }
+
+        function show_info_cantidad() {
+            monto_info = document.getElementById("monto_info").value;
+            cantidad_info = document.getElementById("cantidad_info").value;
+            frecuencia_info = document.getElementById("frecuencia_info").value;
+
+
+            if (cantidad_info == 0) {
+                $("#info_monto").hide();
+                $("#info_cantidad").show("fast");
+                $("#info_frecuencia").hide();
+                document.getElementById("cantidad_info").value = 1;
+                document.getElementById("frecuencia_info").value = 0;
+                document.getElementById("monto_info").value = 0;
+            }
+            if (cantidad_info == 1) {
+                $("#info_cantidad").hide();
+                document.getElementById("cantidad_info").value = 0;
+            }
+        }
+
+        function show_info_frecuencia() {
+            monto_info = document.getElementById("monto_info").value;
+            cantidad_info = document.getElementById("cantidad_info").value;
+            frecuencia_info = document.getElementById("frecuencia_info").value;
+
+
+            if (frecuencia_info == 0) {
+                $("#info_monto").hide();
+                $("#info_cantidad").hide();
+                $("#info_frecuencia").show("fast");
+
+                document.getElementById("cantidad_info").value = 0;
+                document.getElementById("frecuencia_info").value = 1;
+                document.getElementById("monto_info").value = 0;
+            }
+            if (frecuencia_info == 1) {
+                $("#info_frecuencia").hide();
+                document.getElementById("frecuencia_info").value = 0;
+            }
         }
     </script>

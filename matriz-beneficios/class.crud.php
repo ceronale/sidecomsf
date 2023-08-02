@@ -74,7 +74,6 @@ class crud
 	public function crear_calculo()
 	{
 		try {
-
 			$monto = (isset($_POST['monto'])) ? $_POST['monto'] : "";
 			$cantidad_trabajadores = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : "";
 			$frecuencia = (isset($_POST['frecuencia'])) ? $_POST['frecuencia'] : "";
@@ -82,53 +81,45 @@ class crud
 			$id_beneficio = (isset($_POST['id_beneficio'])) ? $_POST['id_beneficio'] : "";
 			$id_periodo = (isset($_POST['id_periodo'])) ? $_POST['id_periodo'] : "";
 
-
-
-			$stmt = $this->conn->prepare("INSERT INTO calculos_beneficios(id_beneficio, id_periodo, monto, cantidad_trabajadores, frecuencia, presupuesto) 
-	VALUES (:id_beneficio, :id_periodo, :monto, :cantidad_trabajadores, :frecuencia, :presupuesto)");
+			// Check if the entry already exists based on 'id_beneficio' and 'id_periodo'
+			$stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM calculos_beneficios 
+                                      WHERE id_beneficio = :id_beneficio AND id_periodo = :id_periodo");
 			$stmt->bindparam(":id_beneficio", $id_beneficio);
 			$stmt->bindparam(":id_periodo", $id_periodo);
-			$stmt->bindparam(":monto", $monto);
-			$stmt->bindparam(":cantidad_trabajadores", $cantidad_trabajadores);
-			$stmt->bindparam(":frecuencia", $frecuencia);
-			$stmt->bindparam(":presupuesto", $presupuesto);
-
 			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			return true;
-		} catch (PDOException $e) {
-			echo $e->getMessage();
-			return false;
-		}
-	}
-	public function crear_calculox()
-	{
-		try {
-			$monto = (isset($_POST['monto'])) ? $_POST['monto'] : "";
-			$cantidad_trabajadores = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : "";
-			$frecuencia = (isset($_POST['frecuencia'])) ? $_POST['frecuencia'] : "";
-			$presupuesto = (isset($_POST['presupuesto'])) ? $_POST['presupuesto'] : "";
-			$id_beneficio = (isset($_POST['id_beneficio'])) ? $_POST['id_beneficio'] : "";
-			$id_periodo = (isset($_POST['id_periodo'])) ? $_POST['id_periodo'] : "";
+			if ($row['count'] > 0) {
+				// Entry already exists, perform an update
+				$stmt = $this->conn->prepare("UPDATE calculos_beneficios 
+                                        SET monto = :monto, cantidad_trabajadores = :cantidad_trabajadores, frecuencia = :frecuencia, presupuesto = :presupuesto 
+                                        WHERE id_beneficio = :id_beneficio AND id_periodo = :id_periodo");
+			} else {
+				// Entry does not exist, perform an insert
+				$stmt = $this->conn->prepare("INSERT INTO calculos_beneficios(id_beneficio, id_periodo, monto, cantidad_trabajadores, frecuencia, presupuesto) 
+                                        VALUES (:id_beneficio, :id_periodo, :monto, :cantidad_trabajadores, :frecuencia, :presupuesto)");
+			}
 
-
-			$stmt = $this->conn->prepare("UPDATE calculos_beneficios 
-	SET monto = :monto, cantidad_trabajadores = :cantidad_trabajadores, frecuencia = :frecuencia, presupuesto = :presupuesto 
-	WHERE id_beneficio = :id_beneficio AND id_periodo = :id_periodo");
 			$stmt->bindparam(":monto", $monto);
 			$stmt->bindparam(":cantidad_trabajadores", $cantidad_trabajadores);
 			$stmt->bindparam(":frecuencia", $frecuencia);
 			$stmt->bindparam(":presupuesto", $presupuesto);
 			$stmt->bindparam(":id_beneficio", $id_beneficio);
 			$stmt->bindparam(":id_periodo", $id_periodo);
-			$stmt->execute();
 
-			return true;
+			if ($stmt->execute()) {
+				return true;
+			} else {
+				echo $stmt->errorInfo(); // Display error message or handle error accordingly
+				return false;
+			}
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 			return false;
 		}
 	}
+
+
 	public function editar_departamento()
 	{
 		try {

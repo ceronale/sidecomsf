@@ -308,11 +308,13 @@ class crud
 
 			$stmt = $this->conn->prepare("UPDATE cargos SET
 			puntaje = :puntaje,
+			grado = :grado,
 			formatodetallado = :formatodetallado,
 			modificado = :updated_at
 			WHERE id = :id_cargo");
 			$stmt->bindParam(":id_cargo", $id_cargo);
 			$stmt->bindParam(":puntaje", $puntaje);
+			$stmt->bindParam(":grado", $grado);
 			$stmt->bindParam(":formatodetallado", $formatodetallado);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->execute();

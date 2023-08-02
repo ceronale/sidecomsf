@@ -178,6 +178,14 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                     $jerarquizacions = $crud->dataview_taller(); 
                 }
                
+
+                extract($crud->get_calculosminperpasos($user['id_empresa']));	
+                
+                $ingreso_minimo = $sueldomin;
+                $incremento_grados = $porcentaje_grados;
+                $incremento_min_med_max = $porcentaje_pasos;
+
+
                 if(isset($_GET['im']))
                 {
                     $ingreso_minimo = $_GET['im'];
@@ -424,6 +432,7 @@ html += `
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
             },
+            order: [[1,'asc']],
         });
     });
 
@@ -459,7 +468,13 @@ html += `
             tipo_asign = "PAQUETE ANUAL"
         }
 
-        titulo = "RECTA DE REGRESIÓN LINEAL - " + categ + " - " + tipo_asign;
+        if (($("#cboCategoria").val()) === '1') {
+        categ = "ADMINISTRATIVO";
+    } else {
+        categ = "PLANTA - TALLER - FÁBRICA";
+    }
+
+        titulo = "BANDA SALARIAL - " + categ + " - " + tipo_asign;
 
 
 

@@ -638,5 +638,16 @@ class crud
 	}
 	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
 
+	public function get_calculosminperpasos($id_empresa)
+	{
+		$stmt = $this->conn->prepare("SELECT *
+		FROM matriz_jerarquizacion
+		WHERE id_empresa=:id_empresa");
+		$stmt->execute(array(":id_empresa"=>$id_empresa));
+		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
 }
 ?>

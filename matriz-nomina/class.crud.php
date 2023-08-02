@@ -93,8 +93,9 @@ class crud
 			}
 
 		$query = "SELECT grado, minimo, maximo FROM tipo_escala_empresarial 
-		WHERE categoria = ". $categoria. "
-		AND tipo_empresa = " . $id_escala;
+		WHERE categoria = ". $categoria . "
+		AND tipo_empresa = " . $id_escala ."
+		ORDER BY minimo ASC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 

@@ -103,7 +103,7 @@
         <div class="row row-col-8">
             <div class="col">
                 <a href='#' onclick="crear_sector()" class='btn btn-large btn-dark'> &nbsp;
-                    + Nuevo Sector</a>
+                    + Agregar Sector</a>
             </div>
 
         </div>
@@ -162,7 +162,7 @@
                 <?php } ?>
 
             </tbody>
-           
+
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

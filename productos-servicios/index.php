@@ -101,7 +101,7 @@
         <div class="row row-col-8">
             <div class="col">
                 <a href='#' onclick="crear_producto()" class='btn btn-large btn-dark'> &nbsp;
-                    + Nuevo Producto/Servicio</a>
+                    + Agregar Producto/Servicio</a>
             </div>
 
         </div>

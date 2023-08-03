@@ -174,7 +174,7 @@
     <script>
         function crear_actividad() {
             Swal.fire({
-                title: "+ Nueva Actvidad",
+                title: "+ Agregar Actividad",
                 html: ` <form id='crear_actvidad' action="save.php" method='post'>
             <div class="row">
                 <div class="col-md-12">

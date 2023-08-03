@@ -74,7 +74,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Empresa / Organismo / Entidad</span>
+                <span style="font-weight: bold; font-size: 25px">Perfil Empresa / Organismo / Entidad</span>
             </div>
         </div>
     </section>
@@ -168,10 +168,11 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
             echo "Error al registrar la empresa: " . $e->getMessage();
         }
         if ($result == 2) {
-            $sweetAlertCode = showSweetAlert('Exito', 'La empresa se ha editado correctamente', 'success', 'Aceptar');
+
             $currentURL = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
             $currentURL .= "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
             $basePath = dirname($currentURL);
+            $sweetAlertCode = showSweetAlert('Exito', 'La empresa se ha editado correctamente', 'success', 'Aceptar', '/empresa');
         } else {
             $sweetAlertCode = showSweetAlert('Error', 'Se ha generado un error a la hora de editar la empresa', 'error');
             echo '<script>
@@ -263,6 +264,11 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
 
                             // Guardar el valor de la moneda seleccionada en una variable
                             var monedaSeleccionada = selectMoneda.value;
+
+                            span2.textContent = countryMoneda;
+                            span3.textContent = countryMoneda;
+                            var monedaInput = document.getElementById("moneda-seleccionada");
+                            monedaInput.value = countryMoneda;
                         } else {
                             // Seleccionar EUR o USD automáticamente
                             if (countryMoneda === "EUR") {
@@ -271,6 +277,10 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                                 selectMoneda.options[1].selected = true;
                             }
                             var monedaSeleccionada = selectMoneda.value;
+                            span2.textContent = countryMoneda;
+                            span3.textContent = countryMoneda;
+                            var monedaInput = document.getElementById("moneda-seleccionada");
+                            monedaInput.value = countryMoneda;
                         }
                     }
                 </script>

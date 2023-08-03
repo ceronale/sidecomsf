@@ -39,6 +39,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
             },
+            'iDisplayLength': 50,
         });
 
 

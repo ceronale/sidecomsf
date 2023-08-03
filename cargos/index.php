@@ -161,15 +161,7 @@ if (isset($_GET['val'])) {
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },
-            });
-        });
-
-        $(document).ready(function() {
-            $('#valoracion').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-                },
-                'iDisplayLength': 50
+                'iDisplayLength': 50,
             });
         });
     </script>
@@ -188,16 +180,7 @@ if (isset($_GET['val'])) {
 
         <div class='clearfix'></div><br />
 
-        <?php 
-        if(isset($_GET['val'])){ ?>
-            <table id="valoracion" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <?php  }
-        else
-        { ?>
             <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <?php  }
-        ?>
-       
             <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
                     <th>Departamento</th>

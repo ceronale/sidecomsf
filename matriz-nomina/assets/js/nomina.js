@@ -1414,21 +1414,23 @@ function toggleFullscreen(elem) {
   }
 
 
-
   function validarsueldobase(){
 
     var sueldobase = document.getElementById('sueldo_base_mensual').value;
     var sueldomensual = document.getElementById('total_ingreso_mensual').value;
     var paqueteanual = document.getElementById('total_paquete_anual').value;
 
-    sueldobase = sueldobase.replace("/./g","");
-    sueldomensual = sueldomensual.replace("/./g","");
-    paqueteanual = paqueteanual.replace("/./g","");
+    sueldobase = sueldobase.toString();
+    sueldomensual = sueldomensual.toString();
+    paqueteanual = paqueteanual.toString();
+    
+    sueldobase = sueldobase.replaceAll(".","");
+    sueldomensual = sueldomensual.replaceAll(".","");
+    paqueteanual = paqueteanual.replaceAll(".","");
 
     const add = document.getElementById('add');
 
-
-    if(sueldobase > sueldomensual || sueldobase > paqueteanual)
+    if(parseFloat(sueldobase) > parseFloat(sueldomensual) || parseFloat(sueldobase) > parseFloat(paqueteanual))
     {
         var errorDiv = document.getElementById('errorsueldos');
         errorDiv.innerHTML = 'El sueldo base no puede ser mayor al sueldo mensual o al paquete anual.';
@@ -1442,6 +1444,74 @@ function toggleFullscreen(elem) {
         errorDiv.innerHTML = '';
         errorDiv.style.display = 'none';
     }
+
+    if(parseFloat(sueldomensual) == 0 || sueldomensual.toString() == "")
+    {
+        add.disabled = false; 
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
+    }
+
+    if(parseFloat(paqueteanual) == 0 || paqueteanual.toString() == "")
+    {
+        add.disabled = false; 
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
+    }
+
+
+  }
+
+
+  function validarsueldobaseeditar(){
+
+    var sueldobase = document.getElementById('sueldo_base_mensual').value;
+    var sueldomensual = document.getElementById('total_ingreso_mensual').value;
+    var paqueteanual = document.getElementById('total_paquete_anual').value;
+
+    sueldobase = sueldobase.toString();
+    sueldomensual = sueldomensual.toString();
+    paqueteanual = paqueteanual.toString();
+    
+    sueldobase = sueldobase.replaceAll(".","");
+    sueldomensual = sueldomensual.replaceAll(".","");
+    paqueteanual = paqueteanual.replaceAll(".","");
+
+    const update = document.getElementById('update');
+
+    if(parseFloat(sueldobase) > parseFloat(sueldomensual) || parseFloat(sueldobase) > parseFloat(paqueteanual))
+    {
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = 'El sueldo base no puede ser mayor al sueldo mensual o al paquete anual.';
+        errorDiv.style.display = 'block';
+        update.disabled = true;
+    }
+    else
+    {
+        update.disabled = false; 
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
+    }
+
+    if(parseFloat(sueldomensual) == 0 || sueldomensual.toString() == "")
+    {
+        update.disabled = false; 
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
+    }
+
+    if(parseFloat(paqueteanual) == 0 || paqueteanual.toString() == "")
+    {
+        update.disabled = false; 
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
+    }
+
 
   }
 

@@ -135,6 +135,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
             },
+            'iDisplayLength': 50,
         });
     });
     </script>
@@ -550,9 +551,6 @@ if (graficaContainer.style.display === 'none') {
     }
 
     titulo = "RECTA DE REGRESIÓN LINEAL - " + categ + " - " + tipo_asign;
-
-
-   
 
     $.post("datos_grafica.php", {
         categoria: categoria,

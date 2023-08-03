@@ -342,9 +342,7 @@ class crud
 
 	public function eliminar_beneficio($id, $idp)
 	{
-
-		var_dump($id, $idp);
-		$stmt2 = $this->conn->prepare("DELETE FROM beneficios_nivel_organizativo WHERE id_beneficios=:id AND id_periodo = :idp ");
+		$stmt2 = $this->conn->prepare("DELETE FROM beneficios_nivel_organizativo WHERE id_beneficios=:id AND id_periodo = :idp");
 		$stmt2->bindparam(":id", $id);
 		$stmt2->bindparam(":idp", $idp);
 		$stmt2->execute();

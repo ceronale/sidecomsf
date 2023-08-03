@@ -2604,7 +2604,9 @@
 
                             <div class="form-check">
                                 <div class="form-check">
+
                                     <input class="form-check-input radio-inline" type="radio" name="radio_Ambz[]" id="radio_Ambz1" value="Condiciones normales de oficina" <?php if ($radioAmbientales === 'radio_Ambz1') echo ' checked'; ?>> Condiciones normales de oficina.
+
                                     <br />
                                 </div>
                                 <div class="form-check">
@@ -2622,17 +2624,27 @@
                             <label for="riesgos">Riesgos:</label>
 
                             <div class="form-check">
-                                <div class="form-check">
-                                    <input class="form-check-input radio-inline" type="radio" name="radio_Rie[]" id="radio_Rie1" value="Minimas posibilidades de exposicion a accidentes de trabajo o enfermedades profesionales" <?php if ($radioRiesgos === 'radio_Rie1') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Rie1">Mínimas posibilidades de exposición a accidentes de trabajo o enfermedades profesionales.</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input radio-inline" type="radio" name="radio_Rie[]" id="radio_Rie2" value="Medianas posibilidades de exposicion a accidentes de trabajo o enfermedades profesionales" <?php if ($radioRiesgos === 'radio_Rie2') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Rie2">Medianas posibilidades de exposición a accidentes de trabajo o enfermedades profesionales.</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input radio-inline" type="radio" name="radio_Rie[]" id="radio_Rie3" value="Grandes posibilidades de exposicion a accidentes de trabajo o enfermedades profesionales" <?php if ($radioRiesgos === 'radio_Rie3') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Rie3">Grandes posibilidades de exposición a accidentes de trabajo o enfermedades profesionales.</label>
+                                <div class="frb-group">
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input radio-inline" type="radio" name="radio_Rie[]" id="radio_Rie1" value="Minimas posibilidades de exposicion a accidentes de trabajo o enfermedades profesionales" <?php if ($radioRiesgos === 'radio_Rie1') echo ' checked'; ?>>
+                                        <label for="radio_Rie1">
+                                            <span class="frb-title">Mínimas posibilidades de exposición a accidentes de trabajo o enfermedades profesionales.</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input radio-inline" type="radio" name="radio_Rie[]" id="radio_Rie2" value="Medianas posibilidades de exposicion a accidentes de trabajo o enfermedades profesionales" <?php if ($radioRiesgos === 'radio_Rie2') echo ' checked'; ?>>
+                                        <label for="radio_Rie2">
+                                            <span class="frb-title">Medianas posibilidades de exposición a accidentes de trabajo o enfermedades profesionales.</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input radio-inline" type="radio" name="radio_Rie[]" id="radio_Rie3" value="Grandes posibilidades de exposicion a accidentes de trabajo o enfermedades profesionales" <?php if ($radioRiesgos === 'radio_Rie3') echo ' checked'; ?>>
+                                        <label for="radio_Rie3">
+                                            <span class="frb-title">Grandes posibilidades de exposición a accidentes de trabajo o enfermedades profesionales.</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php";
+$sectores = "no tengo el texto"; ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,7 +10,8 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Sectores</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
+                    onclick="info_tabla('Sectores:','<?php echo $sectores; ?>')">Sectores</span>
             </div>
         </div>
 
@@ -94,6 +96,7 @@
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },
+                'iDisplayLength': 50,
             });
         });
     </script>
@@ -172,7 +175,7 @@
     <script>
         function crear_sector() {
             Swal.fire({
-                title: "Nuevo Sector",
+                title: "Agregar Sector",
                 html: ` <form id='crear_sector' action="save.php" method='post'>
             <div class="row">
                 <div class="col-md-12">

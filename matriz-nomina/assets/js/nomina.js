@@ -352,7 +352,7 @@ function crear_nomina(fecha_act,fecha_act2) {
                                     <label for="sueldo_base_mensual">Sueldo Base Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text'  name='sueldo_base_mensual' id='sueldo_base_mensual' class='form-control number' required autocomplete="on">
+                                    <input type='text'  name='sueldo_base_mensual' id='sueldo_base_mensual'  onkeyup="validarsueldobase()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -363,7 +363,7 @@ function crear_nomina(fecha_act,fecha_act2) {
                                     <label for="total_ingreso_mensual">Total Ingreso Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text' name='total_ingreso_mensual' id='total_ingreso_mensual' onchange="calcularfactor()" class='form-control number' required autocomplete="on">
+                                    <input type='text' name='total_ingreso_mensual' id='total_ingreso_mensual'  onkeyup="validarsueldobase()" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -374,10 +374,12 @@ function crear_nomina(fecha_act,fecha_act2) {
                                     <label for="total_paquete_anual">Total Paquete Anual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual' onchange="calcularfactor()" class='form-control number' required autocomplete="on">
+                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual'  onkeyup="validarsueldobase()" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
+
+                        <div id="errorsueldos" style="display: none; color: red;"><br><br></div>
 
                         <div class="form-group">
                             <div class="row">
@@ -438,8 +440,8 @@ function crear_nomina(fecha_act,fecha_act2) {
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
-                                    <div class="col-md-8" style="text-align: right !important;">
-                                    <label for="monto_divisas">Monto en Divisas:</label>
+                                    <div class="col-md-7" style="text-align: right !important;">
+                                    <label for="monto_divisas">Monto Mensual en Divisas:</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type='text' name="montodivisa" id="montodivisa" class='form-control number' readonly  required autocomplete="on">
@@ -953,7 +955,7 @@ $('input.number').keyup(function(event) {
                             <div class="col-md-6">
                                 <div class="row">
                                 <div class="col-md-8" style="text-align: right !important;">
-                                <label for="monto_divisas">Monto en Divisas:</label>
+                                <label for="monto_divisas">Monto Mensual en Divisas:</label>
                             </div>
                             <div class="col-md-4">
                                 <input type='text' name="montodivisa" id="montodivisa" value="` + monto_divisa + `" class='form-control number'  readonly autocomplete="on">
@@ -962,11 +964,6 @@ $('input.number').keyup(function(event) {
                             </div>
                         </div>
                     </div> 
-
-
-                        
-                          
-                       
 
                         <input type='hidden' name="id_nomina" id="id_nomina" value="` + id_nomina + `" class='form-control' readonly required autocomplete="on">
   
@@ -1413,6 +1410,38 @@ function toggleFullscreen(elem) {
             errorDiv.style.display = 'none';
         }
     });
+
+  }
+
+
+
+  function validarsueldobase(){
+
+    var sueldobase = document.getElementById('sueldo_base_mensual').value;
+    var sueldomensual = document.getElementById('total_ingreso_mensual').value;
+    var paqueteanual = document.getElementById('total_paquete_anual').value;
+
+    sueldobase = sueldobase.replace("/./g","");
+    sueldomensual = sueldomensual.replace("/./g","");
+    paqueteanual = paqueteanual.replace("/./g","");
+
+    const add = document.getElementById('add');
+
+
+    if(sueldobase > sueldomensual || sueldobase > paqueteanual)
+    {
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = 'El sueldo base no puede ser mayor al sueldo mensual o al paquete anual.';
+        errorDiv.style.display = 'block';
+        add.disabled = true;
+    }
+    else
+    {
+        add.disabled = false; 
+        var errorDiv = document.getElementById('errorsueldos');
+        errorDiv.innerHTML = '';
+        errorDiv.style.display = 'none';
+    }
 
   }
 

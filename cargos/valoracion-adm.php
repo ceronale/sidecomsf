@@ -48,6 +48,25 @@ $formatodirect = "";
             <form id="form-valoracion-adm"
                 action="save.php?va&idc=<?php echo $_GET['idc']; ?>&ca=<?php echo $_GET['ca']; ?>" method="POST">
 
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-1">
+                            
+                        </div>   
+              
+                        <div class="col-md-5" >
+                            <h4>Puesto/Cargo: <?php echo $nombrecargo ?> </h4>
+                        </div>
+
+                        <div class="col-md-6">
+                             <h4>Departamento: <?php echo $nombredepartamento ?></span> </h4>
+                        </div>                 
+
+                    </div>
+                </div>
+
+                                    <br>
+
                 <span style="font-weight: bold; font-size: 20px;"> Si posee los cargos valorados en escala de uno (1) a
                     mil (1000) puntos, puede agregarlo (el grado
                     aparecerá automáticamente), de lo contrario, valore sus cargos en el formato detallado.</span>
@@ -63,7 +82,7 @@ $formatodirect = "";
                             </div>
                             <div class="col-md-6">
                                 <input type='text' name="puntajevalorado" id="puntajevalorado"
-                                    onchange="validargrado(this.value)" class='form-control' required autocomplete="on">
+                                    onchange="validargrado(this.value)" value="<?= $puntaje; ?>" class='form-control' required autocomplete="on">
                             </div>
                         </div>
                     </div>
@@ -73,7 +92,7 @@ $formatodirect = "";
                                 <label for="gradovalorado">Grado:</label>
                             </div>
                             <div class="col-md-6">
-                                <input type='text' name="gradovalorado" id="gradovalorado" class='form-control' readonly
+                                <input type='text' name="gradovalorado" id="gradovalorado" value="<?= $gradocargo; ?>" class='form-control' readonly
                                     required autocomplete="on">
                             </div>
                         </div>

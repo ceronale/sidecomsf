@@ -1,6 +1,8 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php"; 
+$actividad = "Conjunto de Tareas organizadas entre sí, que permiten llevar a cabo un fin específico bien sea a una Persona, Organización, Entidad o Empresa."
+?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,7 +11,9 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Actvidades</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
+                    onclick="info_tabla('Actividades:','<?php echo $actividad; ?>')">Actividades</span>
+         
             </div>
         </div>
 
@@ -101,7 +105,7 @@
         <div class="row row-col-8">
             <div class="col">
                 <a href='#' onclick="crear_actividad()" class='btn btn-large btn-dark'> &nbsp;
-                    Nueva Activdad</a>
+                    Agregar Activdad</a>
             </div>
 
         </div>

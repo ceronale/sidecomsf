@@ -44,7 +44,19 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
      $incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
  }
 
-
+ if (isset($_GET['ban'])) {
+    ?>
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Banda Generada!',
+        showConfirmButton: false,
+        timer: 3000
+    })
+    </script>
+    <?php
+    }
 ?>
     <script>
     $(document).ready(function() {

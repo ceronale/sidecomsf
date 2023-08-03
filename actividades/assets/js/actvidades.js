@@ -1,6 +1,6 @@
 function eliminar_actividad(id, actividad) {
     Swal.fire({
-        title: '¿Seguro que desea eliminar la actividad: ' + actividad + '?',
+        title: '¿Seguro que desea eliminar la actividad ' + actividad + '?',
         text: "Esta acción no se puede revertir",
         icon: 'warning',
         showCancelButton: true,
@@ -17,4 +17,20 @@ function eliminar_actividad(id, actividad) {
             window.location.href = 'save?deleteid=' + id
         }
     })
+}
+
+function info_tabla(title,info) 
+{
+    Swal.fire({
+        title: title,
+        width: '500px',
+            html: `         <div class="card card-body" style="text-align: left; font-size: 20px">
+                                <p>
+                                ` + info.replace(/;/g, '<br>') + `
+                                </p>
+                            </div>
+                        `,
+    showConfirmButton: true,
+    })
+   
 }

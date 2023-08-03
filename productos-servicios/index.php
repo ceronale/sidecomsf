@@ -1,6 +1,7 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php"; 
+$producto = "no tengo el texto"?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,7 +10,8 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Productos/Servicios</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
+                    onclick="info_tabla('Productos/Servicios:','<?php echo $producto; ?>')">Productos/Servicios</span>
             </div>
         </div>
 
@@ -168,7 +170,7 @@
     <script>
         function crear_producto() {
             Swal.fire({
-                title: "Nueva Producto/Servicio",
+                title: "Agregar Producto/Servicio",
                 html: ` <form id='crear_producto' action="save.php" method='post'>
             <div class="row">
                 <div class="col-md-12">

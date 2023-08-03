@@ -5,9 +5,12 @@
 if (isset($_GET['ca'])) {
     if ($_GET['ca'] == 1) {
         $categ = "Puestos/Cargos: Administrativos";
+        $info = "Un <strong>Cargo</strong> es un conjunto de funciones, tareas y operaciones específicas representativas, relacionadas con la actividad laboral, cuyo ejercicio conlleva responsabilidades, conocimientos y habilidades para su desempeño.;; Un <strong>Puesto</strong> Se refiere a la ubicación física de un determinado Cargo dentro de la jerarquía y dentro del espacio físico donde se desempeña la persona. Con el avance de la tecnología, los puestos de trabajo no tienen en muchos casos, espacio físico, el trabajo es realizado en forma virtual, en cualquier espacio físico, a cualquier hora y en cualquier lugar o ciudad. En la práctica, hemos observado que empresas privadas consideran el Puesto como sinónimo de Cargo, aunque técnicamente no es lo mismo.";
     } else {
         $categ = "Puestos/Cargos: Planta - Taller - Fábrica";
+        $info = "Un <strong>Cargo</strong> es un conjunto de funciones, tareas y operaciones específicas representativas, relacionadas con la actividad laboral, cuyo ejercicio conlleva responsabilidades, conocimientos y habilidades para su desempeño.;; Un <strong>Puesto</strong> Se refiere a la ubicación física de un determinado Cargo dentro de la jerarquía y dentro del espacio físico donde se desempeña la persona. Con el avance de la tecnología, los puestos de trabajo no tienen en muchos casos, espacio físico, el trabajo es realizado en forma virtual, en cualquier espacio físico, a cualquier hora y en cualquier lugar o ciudad. En la práctica, hemos observado que empresas privadas consideran el Puesto como sinónimo de Cargo, aunque técnicamente no es lo mismo. ;; No incluyen supervisores o cualquier otra actividad administrativa aunque laboren en planta, industria o taller.";
     }
+    
 }
 
 if (isset($_GET['des'])) {
@@ -16,6 +19,7 @@ if (isset($_GET['des'])) {
     } else {
         $categ = "Descripción de Puestos/Cargos: Planta - Taller - Fábrica";
     }
+    $info = "Es un documento donde se registra formalmente el propósito, las funciones, tareas y requisitos de cada cargo en una empresa u organización; es además fuente de información para la selección, capacitación, incentivos, seguridad ocupacional y administración de los sueldos.";
 }
 
 if (isset($_GET['val'])) {
@@ -24,6 +28,7 @@ if (isset($_GET['val'])) {
     } else {
         $categ = "Valoración de Puestos/Cargos: Planta - Taller - Fábrica";
     }
+    $info = "La valoración permite establecer una jerarquía, si comparamos cada cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. ;<strong>A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
 }
 
 ?>
@@ -33,7 +38,9 @@ if (isset($_GET['val'])) {
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px"><?php echo $categ; ?></span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
+                    onclick="info_tabla('<?= $categ; ?>:','<?php echo $info; ?>')"><?= $categ; ?></span>
+           
             </div>
         </div>
     </section>
@@ -156,6 +163,15 @@ if (isset($_GET['val'])) {
                 },
             });
         });
+
+        $(document).ready(function() {
+            $('#valoracion').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                'iDisplayLength': 50
+            });
+        });
     </script>
 
     <div class='container' style="overflow: auto; max-height: 600px;">
@@ -172,7 +188,16 @@ if (isset($_GET['val'])) {
 
         <div class='clearfix'></div><br />
 
-        <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
+        <?php 
+        if(isset($_GET['val'])){ ?>
+            <table id="valoracion" class="table table-striped dt-responsive nowrap" style="width:100%">
+            <?php  }
+        else
+        { ?>
+            <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
+            <?php  }
+        ?>
+       
             <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
                     <th>Departamento</th>

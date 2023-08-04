@@ -321,7 +321,7 @@ function crear_nomina(fecha_act,fecha_act2) {
                                             <label for="fecha_ingreso">Fecha de Ingreso</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type='date' onchange="calculartiemposervicio(this.value);" min="1900-01-01"  max="${fecha_act2}" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
+                                            <input type='date'  onblur="calculartiemposervicio(this.value);" min="1900-01-01"  max="${fecha_act2}" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
                                         </div>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@ function crear_nomina(fecha_act,fecha_act2) {
                                     <label for="sueldo_base_mensual">Sueldo Base Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text'  name='sueldo_base_mensual' id='sueldo_base_mensual'  onkeyup="validarsueldobase()" class='form-control number' required autocomplete="on">
+                                    <input type='text'  name='sueldo_base_mensual' id='sueldo_base_mensual'  onchange="validarsueldobase()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -363,7 +363,7 @@ function crear_nomina(fecha_act,fecha_act2) {
                                     <label for="total_ingreso_mensual">Total Ingreso Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text' name='total_ingreso_mensual' id='total_ingreso_mensual'  onkeyup="validarsueldobase()" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
+                                    <input type='text' name='total_ingreso_mensual' id='total_ingreso_mensual' onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -374,12 +374,10 @@ function crear_nomina(fecha_act,fecha_act2) {
                                     <label for="total_paquete_anual">Total Paquete Anual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual'  onkeyup="validarsueldobase()" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
+                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual' onchange="calcularfactor()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
-
-                        <div id="errorsueldos" style="display: none; color: red;"><br><br></div>
 
                         <div class="form-group">
                             <div class="row">
@@ -391,6 +389,8 @@ function crear_nomina(fecha_act,fecha_act2) {
                                 </div>
                             </div>
                         </div>
+
+                        <div id="errorsueldos" style="display: none; color: red;"><br><br></div>
 
                         <div class="form-group">
                             <div class="row">
@@ -836,7 +836,7 @@ $('input.number').keyup(function(event) {
                                             <label for="fecha_ingreso">Fecha de Ingreso</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type='date' value="` + fechaingreso + `" min="1900-01-01"  max="${fecha_act2}" onchange="calculartiemposervicio(this.value);" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
+                                            <input type='date' value="` + fechaingreso + `" min="1900-01-01"  max="${fecha_act2}" onblur="calculartiemposervicio(this.value)" name="fecha_ingreso" id="fecha_ingreso" class='form-control'  required autocomplete="on">
                                         </div>
                                     </div>
                                 </div>
@@ -867,7 +867,7 @@ $('input.number').keyup(function(event) {
                                     <label for="sueldo_base_mensual">Sueldo Base Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text' name='sueldo_base_mensual' id='sueldo_base_mensual' value="` + sueldobase + `" class='form-control number' required autocomplete="on">
+                                    <input type='text' name='sueldo_base_mensual' id='sueldo_base_mensual' value="` + sueldobase + `" onchange="validarsueldobaseeditar()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -878,7 +878,7 @@ $('input.number').keyup(function(event) {
                                     <label for="total_ingreso_mensual">Total Ingreso Mensual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text'  name='total_ingreso_mensual' id='total_ingreso_mensual' value="` + sueldo_mensual + `" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
+                                    <input type='text'  name='total_ingreso_mensual' id='total_ingreso_mensual' value="` + sueldo_mensual + `" onchange="calcularfactoreditar()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -889,7 +889,7 @@ $('input.number').keyup(function(event) {
                                     <label for="total_paquete_anual">Total Paquete Anual:</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual' value="` + paquete_anual + `" onchange="calcularfactor()" class='form-control number' required autocomplete="on">
+                                    <input type='text' name='total_paquete_anual' id='total_paquete_anual' value="` + paquete_anual + `" onchange="calcularfactoreditar()" class='form-control number' required autocomplete="on">
                                 </div>
                             </div>
                         </div>
@@ -904,6 +904,8 @@ $('input.number').keyup(function(event) {
                                 </div>
                             </div>
                         </div>
+
+                        <div id="errorsueldos" style="display: none; color: red;"><br><br></div>
 
                         <div class="form-group">
                             <div class="row">
@@ -1319,9 +1321,34 @@ $('input.number').keyup(function(event) {
           
     }
 
+
+
     function calculartiemposervicio(fecha_ingreso)
     {
     
+            // Crear un objeto Date con la fecha y hora actual
+        const fechaActual = new Date();
+
+        // Obtener los componentes de la fecha
+        const dia = fechaActual.getDate().toString().padStart(2, '0');
+        const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0');
+        const anio = fechaActual.getFullYear();
+
+        // Crear una cadena de texto con la fecha actual en el formato deseado
+        const fechaActualFormato = `${anio}-${mes}-${dia}`;
+
+        if (fecha_ingreso > fechaActualFormato)
+        {
+            document.getElementById("fecha_ingreso").value = fechaActualFormato;
+            fecha_ingreso = fechaActualFormato;
+        }
+
+        if (fecha_ingreso < "1900-01-01")
+        {
+            document.getElementById("fecha_ingreso").value = fechaActualFormato;
+            fecha_ingreso = fechaActualFormato;;
+        }
+
         $.post("data.php?fecin", {
             fecha_ingreso: fecha_ingreso
         }, function(data) {
@@ -1352,6 +1379,35 @@ $('input.number').keyup(function(event) {
         factor = "0,00";
         }
     //$("#txtFactor").val(factor);
+
+    validarsueldobase();
+
+    }
+
+
+    function calcularfactoreditar()
+    {
+        let txtIngresoM = $("#total_ingreso_mensual").val();
+        let txtPaqueteA = $("#total_paquete_anual").val();
+        let sldm = txtIngresoM.replace(".", "")
+        sldm = sldm.replace(",", ".")
+      
+        let pqta = txtPaqueteA.replace(".", "");
+        pqta = pqta.replace(",", ".");
+
+        if (parseFloat(sldm) > 0) {
+
+        let factor = parseFloat(pqta / sldm).toFixed(2);
+        factor = factor.replace(".", ",");
+        // document.getElementById("resultado").innerHTML = factor; //(pqta / sldm).toFixed(2);
+        document.getElementById("factor_meses").value = factor; //(pqta / sldm).toFixed(2);
+        //factor = replaceAll(factor, ".", ",");
+        } else {
+        factor = "0,00";
+        }
+    //$("#txtFactor").val(factor);
+
+    validarsueldobaseeditar();
 
     }
 

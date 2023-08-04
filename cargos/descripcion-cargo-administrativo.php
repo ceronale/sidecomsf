@@ -1133,11 +1133,6 @@
                             break;
                         }
                     }
-
-
-
-
-
                     var inputLabel = document.createElement("div");
                     inputLabel.classList.add("input-group", "mb-3");
                     inputLabel.id = "input-label-" + indexInputMostradoz;
@@ -1286,29 +1281,40 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12 mt-3">
+                    <div class="col-6 mt-3 pr-3">
 
                         <label for="organigrama">Ubique el puesto/cargo en su nivel organizativo:</label>
-                        <div class="form-check">
+                        <div class="frb frb-primary">
                             <input type="radio" class="form-check-input" name="radio_Org[]" id="radio_Org1" value="1er Nivel: Dirección (Presidencia / VP / Gerencia General)" <?php if ($radioOrganigrama === 'radio_Org1') echo 'checked'; ?>>
-                            <label class="form-check-label" for="radio_Org1">1er Nivel: Dirección (Presidencia / VP / Gerencia General)</label>
+                            <label for="radio_Org1">
+                                <span class="frb-title">1er Nivel: Dirección (Presidencia / VP / Gerencia General)</span>
+                            </label>
                         </div>
-                        <div class="form-check">
+                        <div class="frb frb-primary">
                             <input type="radio" class="form-check-input" name="radio_Org[]" id="radio_Org2" value="2do Nivel: Gerencia" <?php if ($radioOrganigrama === 'radio_Org2') echo 'checked'; ?>>
-                            <label class="form-check-label" for="radio_Org2">2do Nivel: Gerencia</label>
+                            <label for="radio_Org2">
+                                <span class="frb-title">2do Nivel: Gerencia</span>
+                            </label>
                         </div>
-                        <div class="form-check">
+                        <div class="frb frb-primary">
                             <input type="radio" class="form-check-input" name="radio_Org[]" id="radio_Org3" value="3er Nivel: Jefetura/Departamentos" <?php if ($radioOrganigrama === 'radio_Org3') echo 'checked'; ?>>
-                            <label class="form-check-label" for="radio_Org3">3er Nivel: Jefetura/Departamentos</label>
+                            <label for="radio_Org3">
+                                <span class="frb-title">3er Nivel: Jefetura/Departamentos</span>
+                            </label>
                         </div>
-                        <div class="form-check">
+                        <div class="frb frb-primary">
                             <input type="radio" class="form-check-input" name="radio_Org[]" id="radio_Org4" value="4to Nivel: Unidades Secciones" <?php if ($radioOrganigrama === 'radio_Org4') echo 'checked'; ?>>
-                            <label class="form-check-label" for="radio_Org4">4to Nivel: Unidades Secciones</label>
+                            <label for="radio_Org4">
+                                <span class="frb-title">4to Nivel: Unidades Secciones</span>
+                            </label>
                         </div>
-                        <div class="form-check">
+                        <div class="frb frb-primary">
                             <input type="radio" class="form-check-input" name="radio_Org[]" id="radio_Org5" value="5to Nivel: Personal Administrativo Operativo" <?php if ($radioOrganigrama === 'radio_Org5') echo 'checked'; ?>>
-                            <label class="form-check-label" for="radio_Org5">5to Nivel: Personal Administrativo Operativo</label>
+                            <label for="radio_Org5">
+                                <span class="frb-title">5to Nivel: Personal Administrativo Operativo</span>
+                            </label>
                         </div>
+
                     </div>
                 </article>
 
@@ -2156,22 +2162,42 @@
                                 <label for="selectPresupuesto">Presupuesto: </label>
                             </p>
                             <div class="form-check">
+                                <div class="form-check-inline">
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto1" value="Directa" <?php if ($radioPesupuesto === 'radio_Ppto1') echo ' checked'; ?>>
 
-                                <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto1" value="Directa" <?php if ($radioPesupuesto === 'radio_Ppto1') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ppto1">Directa</label>
+                                        <label for="radio_Ppto1">
+                                            <span class="frb-title">Directa</span>
+                                        </label>
+                                    </div>
+
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto2" value="Parcial" <?php if ($radioPesupuesto === 'radio_Ppto2') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ppto2">Parcial</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto2" value="Parcial" <?php if ($radioPesupuesto === 'radio_Ppto2') echo ' checked'; ?>>
+
+                                        <label for="radio_Ppto2">
+                                            <span class="frb-title">Parcial</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto3" value="Seguimiento y Control" <?php if ($radioPesupuesto === 'radio_Ppto3') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ppto3">Seguimiento y Control</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto3" value="Seguimiento y Control" <?php if ($radioPesupuesto === 'radio_Ppto3') echo ' checked'; ?>>
+
+                                        <label for="radio_Ppto3">
+                                            <span class="frb-title">Seguimiento y Control</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto4" value="No tiene impacto significativo" <?php if ($radioPesupuesto === 'radio_Ppto4') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ppto4">No tiene impacto significativo</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ppto[]" id="radio_Ppto4" value="No tiene impacto significativo" <?php if ($radioPesupuesto === 'radio_Ppto4') echo ' checked'; ?>>
+
+                                        <label for="radio_Ppto4">
+                                            <span class="frb-title">No tiene impacto significativo</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2182,21 +2208,48 @@
                             </p>
                             <div class="form-check">
 
+
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr1" value="Directa" <?php if ($radioIngreso === 'radio_Ingr1') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ingr1">Directa</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr1" value="Directa" <?php if ($radioIngreso === 'radio_Ingr1') echo ' checked'; ?>>
+                                        <label for="radio_Ingr1">
+                                            <span class="frb-title">Directa</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr2" value="Parcial" <?php if ($radioIngreso === 'radio_Ingr2') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ingr2">Parcial</label>
+
+
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr2" value="Parcial" <?php if ($radioIngreso === 'radio_Ingr2') echo ' checked'; ?>>
+
+                                        <label for="radio_Ingr2">
+                                            <span class="frb-title">Parcial</span>
+                                        </label>
+                                    </div>
+
+
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr3" value="Seguimiento y Control" <?php if ($radioIngreso === 'radio_Ingr3') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ingr3">Seguimiento y Control</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr3" value="Seguimiento y Control" <?php if ($radioIngreso === 'radio_Ingr3') echo ' checked'; ?>>
+
+                                        <label for="radio_Ingr3">
+                                            <span class="frb-title">Seguimiento y Control</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr4" value="No tiene impacto significativo" <?php if ($radioIngreso === 'radio_Ingr4') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Ingr4">No tiene impacto significativo</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Ingr[]" id="radio_Ingr4" value="No tiene impacto significativo" <?php if ($radioIngreso === 'radio_Ingr4') echo ' checked'; ?>>
+
+                                        <label for="radio_Ingr4">
+                                            <span class="frb-title">No tiene impacto significativo</span>
+                                        </label>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -2209,20 +2262,44 @@
                             <div class="form-check">
 
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto1" value="Directa" <?php if ($radioGasto === 'radio_Gasto1') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Gasto1">Directa</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto1" value="Directa" <?php if ($radioGasto === 'radio_Gasto1') echo ' checked'; ?>>
+
+                                        <label for="radio_Gasto1">
+                                            <span class="frb-title">Directa</span>
+                                        </label>
+                                    </div>
+
+
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto2" value="Parcial" <?php if ($radioGasto === 'radio_Gasto2') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Gasto2">Parcial</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto2" value="Parcial" <?php if ($radioGasto === 'radio_Gasto2') echo ' checked'; ?>>
+
+                                        <label for="radio_Gasto2">
+                                            <span class="frb-title">Parcial</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto3" value="Seguimiento y Control" <?php if ($radioGasto === 'radio_Gasto3') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Gasto3">Seguimiento y Control</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto3" value="Seguimiento y Control" <?php if ($radioGasto === 'radio_Gasto3') echo ' checked'; ?>>
+
+                                        <label for="radio_Gasto3">
+                                            <span class="frb-title">Seguimiento y Control</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto4" value="No tiene impacto significativo" <?php if ($radioGasto === 'radio_Gasto4') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Gasto4">No tiene impacto significativo</label>
+                                    <div class="frb frb-primary">
+                                        <input class="form-check-input ml-4" type="radio" name="radio_Gasto[]" id="radio_Gasto4" value="No tiene impacto significativo" <?php if ($radioGasto === 'radio_Gasto4') echo ' checked'; ?>>
+
+                                        <label for="radio_Gasto4">
+                                            <span class="frb-title">No tiene impacto significativo</span>
+                                        </label>
+                                    </div>
+
+
                                 </div>
                             </div>
                             <div class="error" id="gastosErr"></div>
@@ -2486,30 +2563,40 @@
                             <label for="experiencia">Experiencia:</label>
                             <small></small>
                             <div class="form-check">
-                                <div class="form-check">
+
+                                <div class="frb frb-primary">
                                     <input class="form-check-input radio-inline" type="radio" name="radio_Exp[]" id="radio_Exp1" value="Menos de un (1) año" <?php if ($radioExperiencia === 'radio_Exp1') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Exp1">Menos de un (1) año</label>
-                                    <br />
+                                    <label for="radio_Exp1">
+                                        <span class="frb-title">Menos de un (1) año</span>
+                                    </label>
                                 </div>
-                                <div class="form-check">
+
+                                <div class="frb frb-primary">
                                     <input class="form-check-input radio-inline" type="radio" name="radio_Exp[]" id="radio_Exp2" value="De un (1) a cinco (5) años" <?php if ($radioExperiencia === 'radio_Exp2') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Exp2">De un (1) a cinco (5) años</label>
-                                    <br />
+                                    <label for="radio_Exp2">
+                                        <span class="frb-title">De un (1) a cinco (5) años</span>
+                                    </label>
                                 </div>
-                                <div class="form-check">
+
+                                <div class="frb frb-primary">
                                     <input class="form-check-input radio-inline" type="radio" name="radio_Exp[]" id="radio_Exp3" value="De cinco (5) a diez (10) años" <?php if ($radioExperiencia === 'radio_Exp3') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Exp3">De cinco (5) a diez (10) años</label>
-                                    <br />
+                                    <label for="radio_Exp3">
+                                        <span class="frb-title">De cinco (5) a diez (10) años</span>
+                                    </label>
                                 </div>
-                                <div class="form-check">
+
+                                <div class="frb frb-primary">
                                     <input class="form-check-input radio-inline" type="radio" name="radio_Exp[]" id="radio_Exp4" value="De diez (10) a quince (15) años" <?php if ($radioExperiencia === 'radio_Exp4') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Exp4">De diez (10) a quince (15) años</label>
-                                    <br />
+                                    <label for="radio_Exp4">
+                                        <span class="frb-title">De diez (10) a quince (15) años</span>
+                                    </label>
                                 </div>
-                                <div class="form-check">
+
+                                <div class="frb frb-primary">
                                     <input class="form-check-input radio-inline" type="radio" name="radio_Exp[]" id="radio_Exp5" value="Más de quince (15) años" <?php if ($radioExperiencia === 'radio_Exp5') echo ' checked'; ?>>
-                                    <label class="form-check-label" for="radio_Exp5">Más de quince (15) años</label>
-                                    <br />
+                                    <label for="radio_Exp5">
+                                        <span class="frb-title">Más de quince (15) años</span>
+                                    </label>
                                 </div>
                             </div>
                             </br>
@@ -2603,26 +2690,34 @@
                             <label for="condicionesAmbientales">Ambientales:</label>
 
                             <div class="form-check">
-                                <div class="form-check">
 
-                                    <input class="form-check-input radio-inline" type="radio" name="radio_Ambz[]" id="radio_Ambz1" value="Condiciones normales de oficina" <?php if ($radioAmbientales === 'radio_Ambz1') echo ' checked'; ?>> Condiciones normales de oficina.
+                                <div class="frb frb-primary">
+                                    <input class="form-check-input radio-inline" type="radio" name="radio_Ambz[]" id="radio_Ambz1" value="Condiciones normales de oficina" <?php if ($radioAmbientales === 'radio_Ambz1') echo ' checked'; ?>>
+                                    <label for="radio_Ambz1">
+                                        <span class="frb-title">Condiciones normales de oficina.</span>
+                                    </label>
+                                </div>
 
-                                    <br />
+                                <div class="frb frb-primary">
+                                    <input class="form-check-input radio-inline" type="radio" name="radio_Ambz[]" id="radio_Ambz2" value="Condiciones normales de un ambiente externo (Calle, Trafico, Ruido, etc.)" <?php if ($radioAmbientales === 'radio_Ambz2') echo ' checked'; ?>>
+                                    <label for="radio_Ambz2">
+                                        <span class="frb-title">Condiciones normales de un ambiente externo (Calle, Tráfico, Ruido, etc.).</span>
+                                    </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input radio-inline" type="radio" name="radio_Ambz[]" id="radio_Ambz2" value="Condiciones normales de un ambiente externo (Calle, Trafico, Ruido, etc.)" <?php if ($radioAmbientales === 'radio_Ambz2') echo ' checked'; ?>> Condiciones normales de un ambiente externo (Calle, Tráfico, Ruido, etc.).
-                                    <br />
+
+                                <div class="frb frb-primary">
+                                    <input class="form-check-input radio-inline" type="radio" name="radio_Ambz[]" id="radio_Ambz3" value="Condiciones tipicas de un ambiente de Planta / Fabrica / Taller" <?php if ($radioAmbientales === 'radio_Ambz3') echo ' checked'; ?>>
+                                    <label for="radio_Ambz3">
+                                        <span class="frb-title">Condiciones típicas de un ambiente de Planta / Fábrica / Taller.</span>
+                                    </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input radio-inline" type="radio" name="radio_Ambz[]" id="radio_Ambz3" value="Condiciones tipicas de un ambiente de Planta / Fabrica / Taller" <?php if ($radioAmbientales === 'radio_Ambz3') echo ' checked'; ?>> Condiciones típicas de un ambiente de Planta / Fábrica / Taller.
-                                    <br />
-                                </div>
+
+
                                 <div class="error" id="expertoErr"></div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <label for="riesgos">Riesgos:</label>
-
                             <div class="form-check">
                                 <div class="frb-group">
                                     <div class="frb frb-primary">
@@ -2668,10 +2763,20 @@
                                     <span class="input-group-text">1</span>
                                 </div>
                                 <select id="competencia1" name="competencia1" class="form-control">
+
+
+                                    <?php
+                                    $selectedDefault = "";
+                                    if (empty($cargoDescripcion["competencia1"])) {
+                                        $selectedDefault = "selected";
+                                    }
+                                    ?>
+                                    <option disabled value="" <?php echo $selectedDefault; ?>>Seleccione</option>
                                     <?php
 
                                     if ($competencias) {
                                         foreach ($competencias as $country) {
+
                                             $countryName = $country['nombre'];
                                             $countryId = $country['id'];
                                             $des = $country['descripcion'];
@@ -2692,6 +2797,13 @@
                                 </div>
                                 <select id="competencia2" name="competencia2" class="form-control">
                                     <?php
+                                    $selectedDefault = "";
+                                    if (empty($cargoDescripcion["competencia2"])) {
+                                        $selectedDefault = "selected";
+                                    }
+                                    ?>
+                                    <option disabled value="" <?php echo $selectedDefault; ?>>Seleccione</option>
+                                    <?php
                                     if ($competencias) {
                                         foreach ($competencias as $country) {
                                             $countryName = $country['nombre'];
@@ -2706,6 +2818,8 @@
                                     }
                                     ?>
                                 </select>
+
+
                             </div>
 
                             <div class="input-group mb-3">
@@ -2713,6 +2827,13 @@
                                     <span class="input-group-text">3</span>
                                 </div>
                                 <select id="competencia3" name="competencia3" class="form-control">
+                                    <?php
+                                    $selectedDefault = "";
+                                    if (empty($cargoDescripcion["competencia3"])) {
+                                        $selectedDefault = "selected";
+                                    }
+                                    ?>
+                                    <option disabled value="" <?php echo $selectedDefault; ?>>Seleccione</option>
                                     <?php
 
                                     if ($competencias) {
@@ -2737,6 +2858,13 @@
                                 </div>
                                 <select id="competencia4" name="competencia4" class="form-control">
                                     <?php
+                                    $selectedDefault = "";
+                                    if (empty($cargoDescripcion["competencia4"])) {
+                                        $selectedDefault = "selected";
+                                    }
+                                    ?>
+                                    <option disabled value="" <?php echo $selectedDefault; ?>>Seleccione</option>
+                                    <?php
 
                                     if ($competencias) {
                                         foreach ($competencias as $country) {
@@ -2759,6 +2887,13 @@
                                     <span class="input-group-text">5</span>
                                 </div>
                                 <select id="competencia5" name="competencia5" class="form-control">
+                                    <?php
+                                    $selectedDefault = "";
+                                    if (empty($cargoDescripcion["competencia5"])) {
+                                        $selectedDefault = "selected";
+                                    }
+                                    ?>
+                                    <option disabled value="" <?php echo $selectedDefault; ?>>Seleccione</option>
                                     <?php
 
                                     if ($competencias) {
@@ -2806,7 +2941,7 @@
                                         var selectedOption = this.options[this.selectedIndex];
                                         var des = selectedOption.dataset.max;
                                         var nombre = selectedOption.dataset.nombre;
-                                        let tableHTML = `<h1>${des}</h1>`;
+                                        let tableHTML = `<p>${des}</p>`;
 
                                         Swal.fire({
                                             title: nombre,
@@ -2845,7 +2980,12 @@
                                         select.id = "competencia" + indexInputMostradoz;
                                         select.name = "competencia" + indexInputMostradoz;
                                         select.classList.add("form-control");
-
+                                        var option0 = document.createElement("option");
+                                        option0.value = "";
+                                        option0.text = "Seleccione";
+                                        option0.disabled = true;
+                                        option0.selected = true;
+                                        select.appendChild(option0);
                                         // Agregar las opciones del array al select
                                         <?php foreach ($competencias as $country) { ?>
                                             var option = document.createElement("option");
@@ -2954,33 +3094,54 @@
                         <h4>Riesgos</h4>
                     </label>
                     <div class="row mt-2">
-                        <div class="col-md-6">
+                        <div class="col-md-6 pr-3">
                             <label for="organigrama">Especificar ambiente de trabajo</label>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Amb[]" id="radio_Amb1" value="Oficina" <?php if ($radioAmbanigrama === 'radio_Amb1') echo 'checked'; ?> onclick="desbloquearCampo()">
-                                <label class="form-check-label" for="radio_Amb1">Oficina</label>
+                                <label for="radio_Amb1">
+                                    <span class="frb-title">Oficina</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Amb[]" id="radio_Amb2" value="Taller" <?php if ($radioAmbanigrama === 'radio_Amb2') echo 'checked'; ?> onclick="desbloquearCampo()">
-                                <label class="form-check-label" for="radio_Amb2">Taller</label>
+                                <label for="radio_Amb2">
+                                    <span class="frb-title">Taller</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Amb[]" id="radio_Amb3" value="Al aire libre" <?php if ($radioAmbanigrama === 'radio_Amb3') echo 'checked'; ?> onclick="desbloquearCampo()">
-                                <label class="form-check-label" for="radio_Amb3">Al aire libre</label>
+                                <label for="radio_Amb3">
+                                    <span class="frb-title">Al aire libre</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Amb[]" id="radio_Amb4" value="Movil (motorizados o choferes)" <?php if ($radioAmbanigrama === 'radio_Amb4') echo 'checked'; ?> onclick="desbloquearCampo()">
-                                <label class="form-check-label" for="radio_Amb4">Movil (motorizados o choferes)</label>
+                                <label for="radio_Amb4">
+                                    <span class="frb-title">Movil (motorizados o choferes)</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Amb[]" id="radio_Amb5" value="Ninguno" <?php if ($radioAmbanigrama === 'radio_Amb5') echo 'checked'; ?> onclick="desbloquearCampo()">
-                                <label class="form-check-label" for="radio_Amb5">Ninguno</label>
+                                <label for="radio_Amb5">
+                                    <span class="frb-title">Ninguno</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Amb[]" id="radio_Amb6" value="Otro" <?php if ($radioAmbanigrama === 'radio_Amb6') echo 'checked'; ?> onclick="desbloquearCampo()">
-                                <label class="form-check-label" for="radio_Amb6">Otro</label>
-                                <input type="text" value="<?php echo $cargoDescripcion["otroambiente"]; ?>" id="otroambiente" name="otroambiente" class="form-control" disabled>
+                                <label for="radio_Amb6">
+                                    <span class="frb-title">Otro</span>
+                                </label>
                             </div>
+
+                            <input type="text" value="<?php echo $cargoDescripcion["otroambiente"]; ?>" id="otroambiente" name="otroambiente" class="form-control pr-3" style="max-width: 97%;" disabled>
 
                             <script>
                                 function desbloquearCampo() {
@@ -2995,28 +3156,49 @@
                             </script>
                         </div>
                         <div class="col-md-6">
+
+
+
                             <label for="organigrama">Instrumento que utiliza para realizar su trabajo</label>
-                            <div class="form-check">
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Ins[]" id="radio_Ins1" value="Computador" <?php if ($radioInsanigrama === 'radio_Ins1') echo 'checked'; ?> onclick="desbloquearCampo2()">
-                                <label class="form-check-label" for="radio_Ins1">Computador</label>
+                                <label for="radio_Ins1">
+                                    <span class="frb-title">Computador</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Ins[]" id="radio_Ins2" value="Herramientas" <?php if ($radioInsanigrama === 'radio_Ins2') echo 'checked'; ?> onclick="desbloquearCampo2()">
-                                <label class="form-check-label" for="radio_Ins2">Herramientas</label>
+                                <label for="radio_Ins2">
+                                    <span class="frb-title">Herramientas</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Ins[]" id="radio_Ins3" value="Vehiculo" <?php if ($radioInsanigrama === 'radio_Ins3') echo 'checked'; ?> onclick="desbloquearCampo2()">
-                                <label class="form-check-label" for="radio_Ins3">Vehiculo</label>
+                                <label for="radio_Ins3">
+                                    <span class="frb-title">Vehiculo</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Ins[]" id="radio_Ins4" value="Ninguno" <?php if ($radioInsanigrama === 'radio_Ins4') echo 'checked'; ?> onclick="desbloquearCampo2()">
-                                <label class="form-check-label" for="radio_Ins4">Ninguno</label>
+                                <label for="radio_Ins4">
+                                    <span class="frb-title">Ninguno</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Ins[]" id="radio_Ins5" value="Otro" <?php if ($radioInsanigrama === 'radio_Ins5') echo 'checked'; ?> onclick="desbloquearCampo2()">
-                                <label class="form-check-label" for="radio_Ins5">Otro</label>
-                                <input type="text" value="<?php echo $cargoDescripcion["otroinstrumento"]; ?>" id="otroinstrumento" name="otroinstrumento" class="form-control" disabled>
+                                <label for="radio_Ins5">
+                                    <span class="frb-title">Otro</span>
+                                </label>
+                                <input type="text" value="<?php echo $cargoDescripcion["otroinstrumento"]; ?>" id="otroinstrumento" name="otroinstrumento" class="form-control pr-3" disabled>
+
                             </div>
+
+
+
 
                             <script>
                                 function desbloquearCampo2() {
@@ -3031,30 +3213,54 @@
                             </script>
                         </div>
                     </div>
-                    <div class="row mt-2">
+                    <div class="row mt-5">
                         <div class="col-md-6">
                             <label for="organigrama">Describa si para realizar el trabajo requiere la manipulacion de:</label>
-                            <div class="form-check">
+
+
+
+
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Man[]" id="radio_Man1" value="Quimicos" <?php if ($radioMananigrama === 'radio_Man1') echo 'checked'; ?> onclick="desbloquearCampo3()">
-                                <label class="form-check-label" for="radio_Man1">Quimicos</label>
+                                <label for="radio_Man1">
+                                    <span class="frb-title">Quimicos</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Man[]" id="radio_Man2" value="Biologicos" <?php if ($radioMananigrama === 'radio_Man2') echo 'checked'; ?> onclick="desbloquearCampo3()">
-                                <label class="form-check-label" for="radio_Man2">Biologicos</label>
+                                <label for="radio_Man2">
+                                    <span class="frb-title">Biologicos</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Man[]" id="radio_Man3" value="Inflamable" <?php if ($radioMananigrama === 'radio_Man3') echo 'checked'; ?> onclick="desbloquearCampo3()">
-                                <label class="form-check-label" for="radio_Man3">Inflamable</label>
+                                <label for="radio_Man3">
+                                    <span class="frb-title">Inflamable</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Man[]" id="radio_Man4" value="Ninguno" <?php if ($radioMananigrama === 'radio_Man4') echo 'checked'; ?> onclick="desbloquearCampo3()">
-                                <label class="form-check-label" for="radio_Man4">Ninguno</label>
+                                <label for="radio_Man4">
+                                    <span class="frb-title">Ninguno</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Man[]" id="radio_Man5" value="Otro" <?php if ($radioMananigrama === 'radio_Man5') echo 'checked'; ?> onclick="desbloquearCampo3()">
-                                <label class="form-check-label" for="radio_Man5">Otro</label>
-                                <input type="text" value="<?php echo $cargoDescripcion["otromanipulacion"]; ?>" id="otromanipulacion" name="otromanipulacion" class="form-control" disabled>
+                                <label for="radio_Man5">
+                                    <span class="frb-title">Otro</span>
+                                </label>
                             </div>
+
+                            <input type="text" value="<?php echo $cargoDescripcion["otromanipulacion"]; ?>" id="otromanipulacion" name="otromanipulacion" class="form-control" style="max-width: 97%;" disabled>
+
 
                             <script>
                                 function desbloquearCampo3() {
@@ -3071,27 +3277,46 @@
 
                         <div class="col-md-6">
                             <label for="organigrama">Describa si para desmpeñar su trabajo requiere la realización de traslados:</label>
-                            <div class="form-check">
+
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras1" value="Areos" <?php if ($radioTrasanigrama === 'radio_Tras1') echo 'checked'; ?> onclick="desbloquearCampo4()">
-                                <label class="form-check-label" for="radio_Tras1">Areos</label>
+                                <label for="radio_Tras1">
+                                    <span class="frb-title">Areos</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras2" value="Terrestres" <?php if ($radioTrasanigrama === 'radio_Tras2') echo 'checked'; ?> onclick="desbloquearCampo4()">
-                                <label class="form-check-label" for="radio_Tras2">Terrestres</label>
+                                <label for="radio_Tras2">
+                                    <span class="frb-title">Terrestres</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras3" value="Maritimo" <?php if ($radioTrasanigrama === 'radio_Tras3') echo 'checked'; ?> onclick="desbloquearCampo4()">
-                                <label class="form-check-label" for="radio_Tras3">Maritimo</label>
+                                <label for="radio_Tras3">
+                                    <span class="frb-title">Maritimo</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras4" value="Ninguno" <?php if ($radioTrasanigrama === 'radio_Tras4') echo 'checked'; ?> onclick="desbloquearCampo4()">
-                                <label class="form-check-label" for="radio_Tras4">Ninguno</label>
+                                <label for="radio_Tras4">
+                                    <span class="frb-title">Ninguno</span>
+                                </label>
                             </div>
-                            <div class="form-check">
+
+                            <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras5" value="Otro" <?php if ($radioTrasanigrama === 'radio_Tras5') echo 'checked'; ?> onclick="desbloquearCampo4()">
-                                <label class="form-check-label" for="radio_Tras5">Otro</label>
-                                <input type="text" value="<?php echo $cargoDescripcion["otrotraslado"]; ?>" id="otrotraslado" name="otrotraslado" class="form-control" disabled>
+
+                                <label for="radio_Tras5">
+                                    <span class="frb-title">Otro</span>
+                                </label>
                             </div>
+                            <input type="text" value="<?php echo $cargoDescripcion["otrotraslado"]; ?>" id="otrotraslado" name="otrotraslado" class="form-control" disabled>
+
+
 
                             <script>
                                 function desbloquearCampo4() {
@@ -3136,20 +3361,6 @@
                             // Prevenir la acción por defecto del botón
                             e.preventDefault();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             var activdadError = false;
                             var activdadErrorMsj = "";
 
@@ -3170,13 +3381,6 @@
                                     }
                                 }
                             }
-
-
-
-
-
-
-
 
                             const organigrama = document.querySelectorAll('input[name="radio_Org[]"]:checked');
                             const presupuesto = document.querySelectorAll('input[name="radio_Ppto[]"]:checked');

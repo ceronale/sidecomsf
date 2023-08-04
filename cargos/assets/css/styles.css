@@ -85,15 +85,17 @@ ul.tabs li a .tab-text {
   font-family: FontAwesome;
   content: "\f096";
   position: absolute;
-  top: 50%;
+  top: 45%;
   margin-top: -11px;
   left: 15px;
-  font-size: 22px;
+  left: 15px;
+  font-size: 20px;
 }
 
 .frb input[type="radio"]:checked ~ label:before,
 .frb input[type="checkbox"]:checked ~ label:before {
   content: "\f046";
+  margin-bottom: 25px;
 }
 
 .frb input[type="radio"] ~ label,

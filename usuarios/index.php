@@ -5,15 +5,18 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+
+
     <section class="content-header">
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Usuarios</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Usuarios:','El administrador , atendiendo a la política de la organización, puede permitir acceso a Funcionarios, Ejecutivos, Gerentes altos y medio o Supervisores; con el objeto de que registren información para alimentar la base de datos; Ejm. Descripciones de Puesto/Cargo, Valoración de Puesto/Cargo (luego validado por un comité) y cualquier otra información requerida.')">Usuarios</span>
             </div>
         </div>
 
     </section>
+
     <!-- Content Header (Page header) -->
 
     <?php
@@ -178,7 +181,7 @@
                 <?php } ?>
 
             </tbody>
-            
+
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

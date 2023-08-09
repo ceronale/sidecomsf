@@ -5,14 +5,14 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
 
+
+    <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Links de interes</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Links de interes','Permite conectar videos (url) o grabaciones relacionadas con el campo laboral, para presentaciones, cursos, inducción u otros fines didácticos.')">Links de interes</span>
             </div>
         </div>
-
     </section>
     <!-- Content Header (Page header) -->
 
@@ -137,7 +137,7 @@
     <script>
         function crear_link() {
             Swal.fire({
-                title: "Nuevo Link",
+                title: "Agregar Link",
                 html: ` <form id='crear_link' action="save.php" method='post'>
             <div class="row">
                 <div class="col-md-12">

@@ -197,7 +197,7 @@ DOMstrings.stepsForm.addEventListener('click', e => {
   let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(activePanel);
 
   // Comprobar si estamos en la pantalla final
-  if (activePanelNum === 2) {
+  if (activePanelNum === 3) {
     // Realizar acciones específicas de la pantalla final
     if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
       activePanelNum--;
@@ -223,7 +223,7 @@ DOMstrings.stepsForm.addEventListener('click', e => {
       activePanelNum++;
     }
 
-    if (activePanelNum <= 2) {
+    if (activePanelNum <= 3) {
       setActiveStep(activePanelNum);
       setActivePanel(activePanelNum);
 
@@ -320,8 +320,9 @@ function validarCampos(activePanelNum) {
     var sector = document.getElementById('sector').value;
     var actividad = document.getElementById('actividad').value;
     var opcionPersonalizada = document.getElementById('opcionPersonalizada').value;
+    var opcionPersonalizada2 = document.getElementById('opcionPersonalizada2').value;
     var productosServicios = document.getElementById('productos-servicios').value;
-    console.log(productosServicios);
+
 
 
     if (tipoEmpresa === '') {
@@ -343,10 +344,29 @@ function validarCampos(activePanelNum) {
     }
 
   }
-
-
-
   if (activePanelNum === 2) {
+
+    var mision = document.getElementById('mision').value;
+    var vision = document.getElementById('vision').value;
+    var valores = document.getElementById('valores').value;
+
+
+    if (mision === '') {
+      showSweetAlert('Por favor, ingresa la misión', 'error');
+      return false;
+    }
+    if (vision === '') {
+      showSweetAlert('Por favor, ingresa la visión', 'error');
+      return false;
+    }
+    if (valores === '') {
+      showSweetAlert('Por favor, ingresa los valores', 'error');
+      return false;
+    }
+  }
+
+
+  if (activePanelNum === 3) {
 
     var nombrerh = document.getElementById('nombrerh').value;
     var emailrh = document.getElementById('emailrh').value;
@@ -369,9 +389,6 @@ function validarCampos(activePanelNum) {
       showSweetAlert('Por favor, ingresa el puesto del responsable de recursos humanos', 'error');
       return false;
     }
-
-
-
   }
 
   return true; // Si todas las validaciones pasan, retorna true
@@ -394,7 +411,7 @@ function validarCamposForGroup(activePanelNum) {
   }
 
   if (activePanelNum === 1) {
-    const grupo2Campos = ['tipo-empresa', 'sector', 'actividad', 'productos-servicios', 'nivel-empresarial'];
+    const grupo2Campos = ['tipo-empresa', 'sector', 'nivel-empresarial'];
 
     for (let campo of grupo2Campos) {
       const valor = document.getElementById(campo).value;
@@ -404,18 +421,33 @@ function validarCamposForGroup(activePanelNum) {
         return false;
       }
     }
+
+    var actividad = document.getElementById('actividad').value;
+    var opcionPersonalizada = document.getElementById('opcionPersonalizada').value;
+    var opcionPersonalizada2 = document.getElementById('opcionPersonalizada2').value;
+    var productosServicios = document.getElementById('productos-servicios').value;
+
+    if (actividad === '' && opcionPersonalizada === '') {
+      showSweetAlert(`Por favor, ingresa todos los campos de la segunda sección`, 'error');
+      return false;
+    }
+    if (productosServicios === '' && opcionPersonalizada2 === '') {
+      showSweetAlert(`Por favor, ingresa todos los campos de la segunda sección`, 'error');
+      return false;
+    }
+
   }
 
 
 
   if (activePanelNum === 2) {
-    const grupo4Campos = ['nombrerh', 'emailrh', 'telefonorh', 'puestorh'];
+    const grupo4Campos = ['mision', 'vision', 'valores'];
 
     for (let campo of grupo4Campos) {
       const valor = document.getElementById(campo).value;
 
       if (valor === '') {
-        showSweetAlert(`Por favor, ingresa todos los campos de la cuarta sección`, 'error');
+        showSweetAlert(`Por favor, ingresa todos los campos de la tercera sección`, 'error');
         return false;
       }
     }

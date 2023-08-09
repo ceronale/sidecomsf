@@ -102,7 +102,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Escala - Sistema de Puntos:','Sistema de Puntos: Seleccione la escala según los niveles del Organigrama. Solo para el personal como: Secretarias, Auxiliares, Asistentes, Analistas, Almacenistas, Supervisores, Jefes, Gerentes, Directores, Vicepresidentes Administrativos y Supervisores de Planta, Industria o Taller.')">Escala - Sistema de Puntos</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Escala - Sistema de Puntos:','Sistema de Puntos: Seleccione la escala según los niveles del Organigrama. Administrativo: Solo para el personal como: Secretarias, Auxiliares, Asistentes, Analistas, Almacenistas, Supervisores, Jefes, Gerentes, Directores, Vicepresidentes Administrativos y Supervisores de Planta, Industria o Taller. Solo registrar Puestos/Cargos técnicos – operativos, artesanos, NO supervisorio o de Dirección (estos son registrados y valorados en el segmento Administrativo)')">Escala - Sistema de Puntos</span>
             </div>
         </div>
     </section>
@@ -154,21 +154,21 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
         <form action="saveesacalas.php" method="post" id="form">
             <div class="form-row mt-3 mb-3">
                 <div class="col-12 col-sm-6">
-                    <label for="escala_administrativo">Administrativa</label>
+                    <label for="escala_administrativo" style="font-size: 1.1em;">Administrativa</label>
                     <br />
-                    <small>Seleccione la escala según los niveles del Organigrama.
+                    <small style="font-size: 1em;">Seleccione la escala según los niveles del Organigrama.
                         Solo para el personal como: Secretarias, Auxiliares, Asistentes, Analistas, Almacenistas, Supervisores, Jefes, Gerentes, Directores, Vicepresidentes Administrativos y Administrativos de Planta, Industria o Taller.
                     </small>
                 </div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-6" style="font-size: 1.1em;">
                     <label for="escala_planta">Planta - Taller - Fábrica</label>
                     <br />
-                    <small>Seleccione la escala según los niveles del Organigrama.
-                        Solo para personal Operativo. Ejm.: Mecánico, Electricista, Tornero, Plomero, etc. No incluya puestos/cargos de supervición
+                    <small style="font-size: 1em;">Seleccione la escala según los niveles del Organigrama.
+                        Solo para personal Operativo. Ejm.: Mecánico, Electricista, Tornero, Plomero, etc. No incluya puestos/cargos de supervisión
                     </small>
                 </div>
             </div>
-            <div class="form-row">
+            <div class=" form-row">
                 <div class="col-12 col-sm-6">
                     <div class="col-12 col-sm-3">
                         <select class="multisteps-form__input form-control" id="escala_administrativo" name="escala_administrativo">

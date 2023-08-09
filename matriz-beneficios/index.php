@@ -135,7 +135,7 @@
                 <div class="col-sm">
                     <a href="#" onclick="crear_periodo()" class="btn btn-primary btn3d">+ Agregar período</a>
                     <a href="/sidecoms/beneficios" class="btn btn-primary btn3d">Beneficios</a>
-                    <a href="/sidecoms/nivel-empresarial" class="btn btn-primary btn3d">Nivel empresarial</a>
+                    <a href="/sidecoms/nivel-empresarial" class="btn btn-primary btn3d">Nivel de aplicación de beneficios</a>
                 </div>
 
                 <div class="col-sm">
@@ -175,10 +175,10 @@
         <div class='clearfix'></div><br />
         <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tab1">Asignación de Beneficios</a>
+                <a class="nav-link active" data-toggle="tab" href="#tab1" style="font-weight: bold; font-size: 1.2em;">Asignación de Beneficios</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2">Cálculos - Resultados</a>
+                <a class="nav-link" data-toggle="tab" href="#tab2" style="font-weight: bold; font-size: 1.2em;">Cálculos - Resultados</a>
             </li>
         </ul>
 
@@ -203,7 +203,7 @@
                                     }
                                 }
                                 ?>
-                                <th>Cálculos </th>
+                                <th>Eliminar </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -295,7 +295,7 @@
                                     }
                                 }
                                 ?>
-                                <th>Cálculos </th>
+                                <th>Eliminar </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -339,7 +339,7 @@
                                 <th>Total</th>
                                 <th>Presupuesto</th>
                                 <th>Diferencia</th>
-                                <th>Calculo</th>
+                                <th>Cálculos</th>
                             </tr>
                         </thead>
 
@@ -589,7 +589,7 @@
                                 <th>Total</th>
                                 <th>Presupuesto</th>
                                 <th>Diferencia</th>
-                                <th>Calculo</th>
+                                <th>Cálculos</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -752,8 +752,8 @@
         <div class="hidden" id="info_monto">
             <div class="card card-body" style="text-align: justify; font-size: 14px">
                 <p>
-                    <em><strong>
-                    texto monto
+                    <em>
+                    Cada beneficio tiene un costo para la empresa, por lo tanto, debe ser reflejado (costo por unidad, sea cual sea la medida).
                     </em><br> 
                 </p>
             </div>
@@ -763,8 +763,8 @@
         <div class="hidden" id="info_cantidad">
             <div class="card card-body" style="text-align: justify; font-size: 14px">
                 <p>
-                    <em><strong>
-                   texto cantidad
+                    <em>
+                   Debe reflejar el total de trabajadores que reciben el beneficio.
                     </em><br> 
                 </p>
             </div>
@@ -775,21 +775,16 @@
         <div class="hidden" id="info_frecuencia">
             <div class="card card-body" style="text-align: justify; font-size: 14px">
                 <p>
-                    <em><strong>
-Se indica el número de veces en que se efectúa el pago.
+                 <em>Se indica el número de veces en que se efectúa el pago.</em><br>
+<ul>
+    <li>Si el pago es diario: 365</li>
+    <li>Si el pago es mensual: 12</li>
+    <li>Si el pago es bimestral: 06</li>
+    <li>Si el pago es trimestral: 04</li>
+    <li>Si el pago es cuatrimestral: 03</li>
+    <li>Si el pago es semestral: 02</li>
+</ul>
 
-Ejemplo:
-
-Si el pago es mensual: 12
-
-Si el pago es bimestral: 06
-
-Si el pago es trimestral: 04
-
-Si el pago es cuatrismestral: 03
-
-Si el pago es semestral: 02
-                    </em><br> 
                 </p>
             </div>
         </div>

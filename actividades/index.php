@@ -1,7 +1,7 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; 
-$actividad = "Conjunto de Tareas organizadas entre sí, que permiten llevar a cabo un fin específico bien sea a una Persona, Organización, Entidad o Empresa."
+<?php include_once "../layouts/menu.php";
+$actividad = "Es la declaración del empresario sobre los productos y servicios que comercializa (bien o servicio destinado a satisfacer una necesidad o deseo)."
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -11,9 +11,8 @@ $actividad = "Conjunto de Tareas organizadas entre sí, que permiten llevar a ca
 
         <div class="card text-left">
             <div class="card-header">
-            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
-                    onclick="info_tabla('Actividades:','<?php echo $actividad; ?>')">Actividades</span>
-         
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Actividades:','<?php echo $actividad; ?>')">Actividades</span>
+
             </div>
         </div>
 

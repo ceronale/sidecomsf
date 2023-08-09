@@ -1,6 +1,6 @@
-function eliminar_nivelempresarial(id, nivel) {
+function eliminar_competencia(id, competencia) {
     Swal.fire({
-        title: '¿Seguro que desea eliminar el Nivel de aplicación de beneficios: ' + nivel + '?',
+        title: '¿Seguro que desea eliminar la competencia: ' + competencia + '?',
         text: "Esta acción no se puede revertir",
         icon: 'warning',
         showCancelButton: true,
@@ -11,7 +11,7 @@ function eliminar_nivelempresarial(id, nivel) {
         if (result.isConfirmed) {
             Swal.fire(
                 'Eliminado!',
-                'El Nivel de aplicación de beneficios ha sido eliminado',
+                'La competencia ha sido eliminado',
                 'success'
             )
             window.location.href = 'save?deleteid=' + id
@@ -24,11 +24,11 @@ function info_tabla(title, info) {
         title: title,
         width: '500px',
         html: `         <div class="card card-body" style="text-align: left; font-size: 20px">
-                                  <p>
-                                  ` + info.replace(/;/g, '<br>') + `
-                                  </p>
-                              </div>
-                          `,
+                                <p>
+                                ` + info.replace(/;/g, '<br>') + `
+                                </p>
+                            </div>
+                        `,
         showConfirmButton: true,
     })
 

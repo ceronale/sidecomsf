@@ -18,6 +18,8 @@
     $departamentos = $crud->get_departamentos(1);
     $relacionesExternasx = $crud->get_relaciones_externas();
     $competencias = $crud->get_competencias();
+    $getEmpresa = $crud->get_empresa();
+
 
 
     if (isset($_GET['id'])) {
@@ -2328,9 +2330,7 @@
                     </div>
                 </article>
                 <article id="tab4">
-                    <label>
-                        <h4>Conocimientos</h4>
-                    </label>
+
                     <div class="row">
                         <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
                             <div class="row">
@@ -2634,14 +2634,24 @@
 
                 <article id="tab6">
                     <div class="row mt-3">
-                        <label>
-                            <h4>Relaciones</h4>
-                        </label>
                         <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
                             <label for="relacionesInternas">Relaciones internas: </label>
                             <small>
                                 Con qué otras unidades/departamentos de la organización mantiene relaciones frecuentes para el logro de los resultados de su puesto/cargo. Cliente Interno.
                             </small>
+
+
+
+                        </div>
+                        <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
+                            <label for="relacionesExternas">Relaciones externas: </label>
+                            <small>
+                                Con qué instituciones, organismos, empresas y personas externas a la organización debe mantener relaciones frecuentes para el logro de los resultados en su puesto/cargo. Cliente Externo
+                            </small>
+
+
+                        </div>
+                        <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
                             <select class="form-select" name="relacionesInternas[]" id="relacionesInternas" multiple>
                                 <option disabled value="">Seleccione</option>
                                 <?php
@@ -2655,15 +2665,8 @@
                                 }
                                 ?>
                             </select>
-
-
                         </div>
                         <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
-                            <label for="relacionesExternas">Relaciones externas: </label>
-                            <small>
-                                Con qué instituciones, organismos, empresas y personas externas a la organización debe mantener relaciones frecuentes para el logro de los resultados en su puesto/cargo. Cliente Externo
-                            </small>
-
                             <select class="form-select" name="relacionesExternas[]" id="relacionesExternas" multiple>
                                 <option disabled selected value="">Seleccione</option>
                                 <?php
@@ -2683,9 +2686,7 @@
 
                 <article id="tab7">
                     <div class="row mt-3">
-                        <label>
-                            <h4>Condiciones de trabajo</h4>
-                        </label>
+
                         <div class="col-xs-12 col-md-6">
                             <label for="condicionesAmbientales">Ambientales:</label>
 
@@ -2750,12 +2751,32 @@
                     </div>
                 </article>
 
+
                 <article id="tab5">
                     <div class="row mt-3">
+                        <div class="col-xs-12 col-md-6  ">
+                            <label for="competencias" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Competencias:','“Es una característica propia de un individuo que está directamente relacionada a un estándar de efectividad y/o a un desempeño superior en un trabajo o situación. Son comportamientos observables en la realidad cotidiana del trabajo y en situaciones de evaluación; son un rasgo de unión entre las características individuales y las cualidades requeridas para el desempeño en una empresa”. (Martha Alicia Alles, 2001).')"> Competencias: </label>
+                            <small>Seleccione de 5 a 10 competencias principales, requeridas por el puesto/cargo</small>
+                            <small>Antes de iniciar la selección de las competencias requeridas por el Puesto/Cargo, es necesario tomar en cuenta la Misión, Visión y Valores de la Organización.</small>
+                            <div class=" col-6 mt-3 mb-3">
+                                <label for="destrezas" class="mr-3" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Misión:','<?php echo $getEmpresa['mision']; ?>')"> Misión </label>
+                                <label for="destrezas" class="mr-3" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Visión:','<?php echo $getEmpresa['vision']; ?>')"> Visión </label>
+                                <label for="destrezas" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Valores:','<?php echo $getEmpresa['valores']; ?>')"> Valores </label>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <label for="destrezas" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Destrezas:','Capacidad aprendida que tiene una persona para realizar una actividad de manera ágil, rápida y eficiente, generalmente vinculada con el cuerpo u oficios manuales.')"> Destrezas: </label>
+                            <small>
+                                Mencione las principales destrezas necesarias para el correcto desempeño del puesto/cargo.</small>
+                        </div>
+                    </div>
+                    <div class="row ">
                         <label>
 
-                            <h4 style="color: #3c8dbc;" onclick="info_tabla('Matriz de Nómina:','Texto preguntar Sr.Luis')">Competencias</h4>
-                            <small>Seleccione de 5 a 10 competencias principales, requeridas por el puesto/cargo</small>
+
+
                         </label>
                         <div class="col-xs-12 col-md-6">
                             <div class="input-group mb-3">
@@ -3066,13 +3087,7 @@
                                 }
                             </script>
                         </div>
-                        <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
-                            <label for="destrezas"> Destrezas: </label>
-                            <small>
-                                Mencione las principales destrezas necesarias para el correcto desempeño del puesto/cargo, entendiéndose por estas, el grado de pericia en el manejo u operación de:
-                                instrumentos, equipos, sistemas, computación:
-                            </small>
-                            <br><br />
+                        <div class="col-xs-12 col-md-6">
                             <label for="destrezainstrumento"> Instrumento: </label>
                             <input type="text" value="<?php echo $cargoDescripcion["destrezainstrumento"]; ?>" id="destrezainstrumento" name="destrezainstrumento" class="form-control">
                             <label for="destrezaequipo"> Equipo: </label>
@@ -3090,9 +3105,7 @@
 
                 </article>
                 <article id="tab8">
-                    <label>
-                        <h4>Riesgos</h4>
-                    </label>
+
                     <div class="row mt-2">
                         <div class="col-md-6 pr-3">
                             <label for="organigrama">Especificar ambiente de trabajo</label>

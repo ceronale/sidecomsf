@@ -197,7 +197,10 @@ ORDER BY tipo_empresa ASC;");
 		$nombrerh,
 		$puestorh,
 		$emailrh,
-		$telefonorh
+		$telefonorh,
+		$mision,
+		$vision,
+		$valores
 	) {
 		try {
 
@@ -206,12 +209,12 @@ ORDER BY tipo_empresa ASC;");
 				"INSERT INTO empresas (
         nombre, codigo_tributario, direccion, id_pais, ciudad, estado, 
         telefonos, zipcode, actividad, id_tipoempresa, id_sector,
-         nivel_empresarial, productos_servicios, volumen_ventas, valor_activos, moneda, nombrerh, puestorh, emailrh, telefonorh
+         nivel_empresarial, productos_servicios, volumen_ventas, valor_activos, moneda, nombrerh, puestorh, emailrh, telefonorh, mision, vision, valores
     )
     VALUES (
         :nombre, :codigo_tributario, :direccion, :id_pais, :ciudad, :estado, 
         :telefonos, :zipcode, :actividad, :id_tipoempresa, :id_sector, 
-        :nivel_empresarial, :productos_servicios, :volumen_ventas, :valor_activos,:moneda, :nombrerh, :puestorh, :emailrh, :telefonorh
+        :nivel_empresarial, :productos_servicios, :volumen_ventas, :valor_activos,:moneda, :nombrerh, :puestorh, :emailrh, :telefonorh, :mision, :vision, :valores
     )"
 			);
 
@@ -238,7 +241,9 @@ ORDER BY tipo_empresa ASC;");
 			$stmt->bindParam(':puestorh', $puestorh);
 			$stmt->bindParam(':emailrh', $emailrh);
 			$stmt->bindParam(':telefonorh', $telefonorh);
-
+			$stmt->bindParam(':mision', $mision);
+			$stmt->bindParam(':vision', $vision);
+			$stmt->bindParam(':valores', $valores);
 
 			$stmt->execute();
 

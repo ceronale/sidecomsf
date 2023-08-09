@@ -1,16 +1,20 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
-<link rel="stylesheet" href="assets/css/style.css">
+<?php include_once "../layouts/menu.php";
+$sectores = ""; ?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+
     <section class="content-header">
+
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Beneficios','Debe registrar todos los beneficios socio-económicos legales y/o contractuales que se otorgan a los trabajadores.')">Beneficios</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Competencias','<?php echo $sectores; ?>')">Competencias</span>
             </div>
         </div>
+
     </section>
     <!-- Content Header (Page header) -->
 
@@ -18,13 +22,15 @@
 
     include_once 'class.crud.php';
     $crud = new crud();
+
+
     if (isset($_GET['same'])) {
     ?>
         <script>
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Beneficio repetido',
+                title: 'El nombre ya existe en la base de datos',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -37,7 +43,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'El beneficio se ha registrado con exito!',
+                title: 'La competencia se ha registrado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -49,7 +55,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al registrar el beneficio!',
+                title: 'Error al registrar la competencia!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -63,7 +69,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'El beneficio se ha editado con exito!',
+                title: 'La competencia se ha editado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -75,7 +81,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al editar el beneficio!',
+                title: 'Error al editar la competencia!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -96,18 +102,13 @@
     </script>
 
     <div class='container' style="overflow: auto; max-height: 600px;">
-        <div class="row">
-            <div class="col-sm">
 
-                <a href='#' onclick="crear_beneficio()" class="btn btn-primary btn3d"> &nbsp;
-                    + Nuevo Beneficio</a>
-                <a href="/sidecoms/matriz-beneficios/" class="btn btn-primary btn3d"> Matriz Beneficios</a>
-
+        <div class="row row-col-8">
+            <div class="col">
+                <a href='#' onclick="crear_competencia()" class='btn btn-large btn-dark'> &nbsp;
+                    + Agregar competencia</a>
             </div>
 
-            <div class="col-sm">
-
-            </div>
         </div>
 
         <div class='clearfix'></div><br />
@@ -116,21 +117,21 @@
             <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
                     <th>Nombre</th>
-                    <th>Tipo pago</th>
+                    <th>Descripcion</th>
                     <th>Status</th>
                     <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $beneficios = $crud->dataview_beneficio();
-                if ($beneficios != null) {
-                    foreach ($beneficios as $beneficio) {
+                $competencias = $crud->dataview_competencia();
+                if ($competencias != null) {
+                    foreach ($competencias as $competencia) {
                 ?>
                         <tr>
-                            <td><?php print($beneficio['nombre']); ?></td>
-                            <td><?php print($beneficio['tipo_pago']); ?></td>
-                            <td><?php if ($beneficio['status'] == "1") {
+                            <td><?php print($competencia['nombre']); ?></td>
+                            <td style="white-space: normal;"><?php print($competencia['descripcion']); ?></td>
+                            <td><?php if ($competencia['status'] == "1") {
                                     print "Activo";
                                 } else {
                                     print "Inactivo";
@@ -139,11 +140,11 @@
 
 
                             <td style="text-align: center">
-                                <a onclick="editar_beneficio('<?php print($beneficio['id']) ?>','<?php print($beneficio['nombre']) ?>','<?php print($beneficio['tipo_pago']) ?>','<?php print($beneficio['status']) ?>')">
+                                <a onclick="editar_competencia('<?php print($competencia['id']) ?>','<?php print($competencia['nombre']) ?>','<?php print($competencia['descripcion']) ?>','<?php print($competencia['status']) ?>')">
                                     <i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
 
-                                <a onclick="eliminar_beneficio('<?php print($beneficio['id']) ?>','<?php print($beneficio['nombre']) ?>')">
+                                <a onclick="eliminar_competencia('<?php print($competencia['id']) ?>','<?php print($competencia['nombre']) ?>')">
                                     <i class="fa fa-trash" aria-hidden="true"></i></a>
 
                             </td>
@@ -169,40 +170,24 @@
     </div>
     <?php include_once('../layouts/footer.php'); ?>
 
-    <script src="assets/js/beneficios.js"></script>
+    <script src="assets/js/competencias.js"></script>
 
     <script>
-        function crear_beneficio() {
+        function crear_competencia() {
             Swal.fire({
-                title: "Nuevo Beneficio",
-                html: ` <form id='crear_beneficio' action="save.php" method='post'>
+                title: "Agregar Competencia",
+                html: ` <form id='crear_competencia' action="save.php" method='post'>
             <div class="row">
                 <div class="col-md-12">
 
                     <div class="row">
-
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type='text' name='nombre' class='form-control' required autocomplete="on">
                             </div>
                         </div>
-
-      
-
-                    </div>
-
-                    <div class="row">
-                  <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tipo_pago">Tipo de Pago</label>
-                                <select class="form-control" name="tipo_pago" id="tipo_pago">
-                                    <option value="Fijo">Fijo</option>
-                                    <option value="Ocasional">Ocasional</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                          <div class="col-md-6">
                             <div class="form-group">
                                 <label for="status">Status</label>
                                 <select class="form-control" name="status" id="status">
@@ -213,6 +198,12 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                 
+    <div class="form-group">
+    <label for="descripcion">Descripción</label>
+    <textarea name="descripcion" class="form-control" rows="3" required></textarea>
+</div>
                     <div class="col-md-12">
                         <br>
                         <button type="submit" class="btn btn-dark" name="add" id='add'>
@@ -229,10 +220,10 @@
             })
         };
 
-        function editar_beneficio(id, nombre, tipo_pago, status) {
+        function editar_competencia(id, nombre, descripcion, status) {
             Swal.fire({
-                title: "Editar Beneficio",
-                html: ` <form id='editar_beneficio' action="save.php" method='post' style="text-align: center !important;">
+                title: "Editar Competencia",
+                html: ` <form id='editar_competencia' action="save.php" method='post' style="text-align: center !important;">
             <div class="row">
                 <div class="col-md-12">
 
@@ -240,26 +231,13 @@
 
                     <div class="row">
 
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type='text' name='nombre' id='nombre' value="` + nombre + `" class='form-control' required autocomplete="on">
                             </div>
-
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tipo_pago">Tipo de Pago</label>
-                                <select class="form-control" name="tipo_pago" id="tipo_pago">
-                                    <option value="Fijo" ${tipo_pago==='Fijo' ? ' selected' : '' }>Fijo</option>
-                                    <option value="Ocasional" ${tipo_pago==='Ocasional' ? ' selected' : '' }>Ocasional</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-6">
+                                              <div class="col-6">
                             <div class="form-group">
                                 <label for="status">Status:</label>
                                 <select class="form-select" id="status" name="status">
@@ -268,6 +246,14 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+
+    <div class="form-group">
+    <label for="descripcion">Descripción</label>
+    <textarea name="descripcion" class="form-control" rows="3" required>` + descripcion + `</textarea>
+</div>
                     </div>
                     <div class="form-group">
                         <input type='hidden' name='id' class='form-control' value="` + id + `" required autocomplete="on">

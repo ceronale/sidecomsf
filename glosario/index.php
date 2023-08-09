@@ -4,15 +4,14 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
 
+
+    <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Glosario</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Glosario','Está diseñado para que el Usuario Administrador pueda crear o incorporar definiciones, conceptos, políticas u otros textos de interés laboral.')">Glosario</span>
             </div>
         </div>
-
     </section>
     <!-- Content Header (Page header) -->
 
@@ -103,7 +102,7 @@
         <div class="row row-col-8">
             <div class="col">
                 <a href='#' onclick="crear_glosario()" class='btn btn-large btn-dark'> &nbsp;
-                    + Nuevo Término</a>
+                    + Agregar texto</a>
             </div>
 
         </div>
@@ -169,7 +168,7 @@
     <script>
         function crear_glosario() {
             Swal.fire({
-                title: "Nuevo Término",
+                title: "Agregar texto",
                 html: ` <form id='crear_glosario' action="save.php" method='post'>
             <div class="row">
                 <div class="col-md-12">

@@ -218,7 +218,10 @@ ORDER BY tipo_empresa ASC;");
 		$nombrerh,
 		$puestorh,
 		$emailrh,
-		$telefonorh
+		$telefonorh,
+		$mision,
+		$vision,
+		$valores
 	) {
 
 		try {
@@ -248,7 +251,10 @@ ORDER BY tipo_empresa ASC;");
             nombrerh = :nombrerh,
             puestorh = :puestorh,
             emailrh = :emailrh,
-            telefonorh = :telefonorh
+            telefonorh = :telefonorh,
+			mision = :mision,
+            vision = :vision,
+            valores = :valores
             WHERE id = :id_empresa"
 			);
 
@@ -275,6 +281,9 @@ ORDER BY tipo_empresa ASC;");
 			$stmt->bindParam(':telefonorh', $telefonorh);
 			$stmt->bindParam(':id_empresa', $id_empresa);
 
+			$stmt->bindParam(':mision', $mision);
+			$stmt->bindParam(':vision', $vision);
+			$stmt->bindParam(':valores', $valores);
 			$stmt->execute();
 
 

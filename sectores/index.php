@@ -1,17 +1,17 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php";
-$sectores = "no tengo el texto"; ?>
+$sectores = "Los sectores productivos, o lo que es lo mismo, los sectores de la economía, se utilizan para establecer una clasificación de la actividad económica de una región en función del tipo Estos dos últimos, se consideran, por parte de algunos estudiosos, como parte del sector terciario."; ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+
     <section class="content-header">
 
         <div class="card text-left">
             <div class="card-header">
-            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
-                    onclick="info_tabla('Sectores:','<?php echo $sectores; ?>')">Sectores</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Sectores Económicos:','<?php echo $sectores; ?>')">Sectores Económicos</span>
             </div>
         </div>
 

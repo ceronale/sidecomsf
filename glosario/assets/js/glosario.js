@@ -19,3 +19,18 @@ function eliminar_glosario(id, glosario) {
     })
 }
 
+
+function info_tabla(title, info) {
+    Swal.fire({
+        title: title,
+        width: '500px',
+        html: `         <div class="card card-body" style="text-align: justify; font-size: 20px">
+                                <p>
+                                ` + info + `
+                                </p>
+                            </div>
+                        `,
+        showConfirmButton: true,
+    })
+
+}

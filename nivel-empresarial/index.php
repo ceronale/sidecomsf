@@ -1,21 +1,21 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
-
+<link rel="stylesheet" href="assets/css/style.css">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+
+
     <section class="content-header">
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Nivel empresarial</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Nivel de aplicación de beneficios','A modo ilustrativo, en esta sección puede registrar el área, departamento, unidad o persona que recibe el beneficio, a los efectos de calculo solo registrara el total de trabajadores que reciben el beneficio.')">Nivel de aplicación de beneficios</span>
             </div>
         </div>
 
     </section>
-    <!-- Content Header (Page header) -->
-
     <?php
 
     include_once 'class.crud.php';
@@ -27,7 +27,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'El nivel empresarial se ha registrado con exito!',
+                title: 'El Nivel de aplicación de beneficios se ha registrado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -52,7 +52,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al registrar el nivel empresarial!',
+                title: 'Error al registrar el Nivel de aplicación de beneficios!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -66,7 +66,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'El nivel empresarial se ha editado con exito!',
+                title: 'El Nivel de aplicación de beneficios se ha editado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -78,7 +78,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al editar el nivel empresarial!',
+                title: 'Error al editar el Nivel de aplicación de beneficios!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -112,17 +112,16 @@
     <div class='container' style="overflow: auto; max-height: 600px;">
         <div class="row">
             <div class="col-sm">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href='#' onclick="crear_nivelempresarial()" class='btn btn-large btn-dark'> &nbsp;
-                        + Nuevo nivel empresarial</a>
-                    <a href="/sidecoms/matriz-beneficios/" class="btn btn-large btn-dark">Matriz Beneficios</a>
-                </div>
+                <a href="#" onclick="crear_nivelempresarial()" class="btn btn-primary btn3d"> + Agregar registro/nivel</a>
+                <a href="/sidecoms/matriz-beneficios/" class="btn btn-primary btn3d">Matriz Beneficios</a>
             </div>
 
             <div class="col-sm">
 
             </div>
         </div>
+
+
 
 
         <div class='clearfix'></div><br />
@@ -179,7 +178,7 @@
                 <?php } ?>
 
             </tbody>
-            
+
         </table>
     </div>
     <?php include_once('../layouts/footer.php'); ?>
@@ -189,7 +188,7 @@
     <script>
         function crear_nivelempresarial() {
             Swal.fire({
-                title: "Nuevo Nivel empresarial",
+                title: "Nuevo Nivel de aplicación de beneficios",
                 html: ` <form id='crear_nivelempresarial' action="save.php" method='post'>
             <div class="row">
                 <div class="col-md-12">

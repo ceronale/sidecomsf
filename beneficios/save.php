@@ -3,23 +3,32 @@ include('../layouts/session.php');
 include_once 'class.crud.php';
 $crud = new crud();
 
+
+
 if (isset($_POST['add'])) {
-    if ($crud->crear_beneficio()) {
+    $aux = $crud->crear_beneficio();
+    if ($aux == 2) {
         header("Location: ../beneficios/?inserted");
+    } elseif ($aux == 1) {
+        header("Location: ../beneficios/?same");
     } else {
         header("Location: ../beneficios/?failure");
     }
 }
 
-if (isset($_POST['update'])) {
 
-    if ($crud->editar_beneficio()) {
+if (isset($_POST['update'])) {
+    $aux = $crud->editar_beneficio();
+    if ($aux == 2) {
         header("Location: ../beneficios/?edited");
+    } elseif ($aux == 1) {
+        header("Location: ../beneficios/?same");
     } else {
-        echo "ano";
         header("Location: ../beneficios/?failureedited");
     }
 }
+
+
 
 if (isset($_GET['deleteid'])) {
     $id = $_GET['deleteid'];

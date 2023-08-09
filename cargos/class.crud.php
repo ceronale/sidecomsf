@@ -139,12 +139,9 @@ class crud
 				$stmt3->execute();
 
 				return 2;
-			}
-			else
-			{
+			} else {
 				return 1;
 			}
-			
 		} catch (PDOException $e) {
 			throw new Exception('Error al crear el cargo: ' . $e->getMessage());
 			return 0;
@@ -332,9 +329,9 @@ class crud
 		try {
 
 			$puntaje = isset($_POST['puntajevalorado']) ? $_POST['puntajevalorado'] : "";
-			$grado = isset($_POST['gradovalorado']) ? $_POST['gradovalorado'] : "";	
+			$grado = isset($_POST['gradovalorado']) ? $_POST['gradovalorado'] : "";
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
-			
+
 			$stmt = $this->conn->prepare("UPDATE cargos SET
 			puntaje = :puntaje,
 			grado = :grado,
@@ -439,9 +436,9 @@ class crud
 		try {
 
 			$puntaje = isset($_POST['puntajevalorado']) ? $_POST['puntajevalorado'] : "";
-			$grado = isset($_POST['gradovalorado']) ? $_POST['gradovalorado'] : "";	
+			$grado = isset($_POST['gradovalorado']) ? $_POST['gradovalorado'] : "";
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
-			
+
 			$stmt = $this->conn->prepare("UPDATE cargos SET
 			puntaje = :puntaje,
 			grado = :grado,
@@ -985,17 +982,17 @@ class crud
 		}
 	}
 
-//BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
-public function get_formato_cargo($id_cargo)
-{
-	$stmt = $this->conn->prepare("SELECT formatodetallado
+	//BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
+	public function get_formato_cargo($id_cargo)
+	{
+		$stmt = $this->conn->prepare("SELECT formatodetallado
 	FROM cargos 
 	WHERE id=:id_cargo");
-	$stmt->execute(array(":id_cargo" => $id_cargo));
-	$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
-	return $editRow;
-}
-//FIN BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
+		$stmt->execute(array(":id_cargo" => $id_cargo));
+		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
 
 
 	//BUSCAR VALORACION DE CARGO ADM POR ID DE CARGO
@@ -1024,7 +1021,7 @@ public function get_formato_cargo($id_cargo)
 		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $editRow;
 	}
-	//FIN BUSCAR VALORACION DE CARGO TALLER POR ID DE CARGO
+
 
 	public function get_relaciones_externas()
 	{
@@ -1041,7 +1038,7 @@ public function get_formato_cargo($id_cargo)
 	public function get_competencias()
 	{
 		try {
-			$stmt = $this->conn->prepare("SELECT * FROM competencias");
+			$stmt = $this->conn->prepare("SELECT * FROM competencias ORDER BY nombre ASC");
 			$stmt->execute();
 			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			return $results;
@@ -1051,8 +1048,7 @@ public function get_formato_cargo($id_cargo)
 		}
 	}
 
-	//BUSCAR GRADO ADM POR PUNTAJE
-    public function get_grado_x_puntaje_adm($puntaje)
+	public function get_grado_x_puntaje_adm($puntaje)
 	{
 		$user = $_SESSION['user'];
 		$id_escala = "";
@@ -1061,19 +1057,17 @@ public function get_formato_cargo($id_cargo)
 		$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
 
 		if ($stmt2->rowCount() == 1) {
-		$id_escala = $userRow['id_escala_administrativo'];
+			$id_escala = $userRow['id_escala_administrativo'];
 
-		$stmt = $this->conn->prepare("SELECT grado FROM tipo_escala_empresarial WHERE tipo_empresa = :id_escala AND minimo <= :puntaje 
+			$stmt = $this->conn->prepare("SELECT grado FROM tipo_escala_empresarial WHERE tipo_empresa = :id_escala AND minimo <= :puntaje 
 		AND maximo >= :puntaje AND categoria = 1");
-		$stmt->execute(array(":id_escala"=>$id_escala,":puntaje"=>$puntaje));
-		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
-		return $editRow;
+			$stmt->execute(array(":id_escala" => $id_escala, ":puntaje" => $puntaje));
+			$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+			return $editRow;
 		}
 	}
-	//FIN GRADO ADM POR PUNTAJE
 
-	//BUSCAR GRADO TALLER POR PUNTAJE
-    public function get_grado_x_puntaje_taller($puntaje)
+	public function get_grado_x_puntaje_taller($puntaje)
 	{
 		$user = $_SESSION['user'];
 		$id_escala = "";
@@ -1082,14 +1076,34 @@ public function get_formato_cargo($id_cargo)
 		$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
 
 		if ($stmt2->rowCount() == 1) {
-		$id_escala = $userRow['id_escala_planta'];
+			$id_escala = $userRow['id_escala_planta'];
 
-		$stmt = $this->conn->prepare("SELECT grado FROM tipo_escala_empresarial WHERE tipo_empresa = :id_escala AND minimo <= :puntaje 
+			$stmt = $this->conn->prepare("SELECT grado FROM tipo_escala_empresarial WHERE tipo_empresa = :id_escala AND minimo <= :puntaje 
 		AND maximo >= :puntaje AND categoria = 2");
-		$stmt->execute(array(":id_escala"=>$id_escala,":puntaje"=>$puntaje));
-		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
-		return $editRow;
+			$stmt->execute(array(":id_escala" => $id_escala, ":puntaje" => $puntaje));
+			$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+			return $editRow;
 		}
 	}
-	//FIN GRADO TALLER POR PUNTAJE
+
+	public function get_empresa()
+	{
+		try {
+			$user = $_SESSION['user'];
+			$stmt = $this->conn->prepare("SELECT empresas.*
+				FROM empresas WHERE empresas.id = :id_empresa");
+			$stmt->bindParam(':id_empresa', $user['id_empresa']);
+			$stmt->execute();
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if ($result) {
+				return $result;
+			} else {
+				return false;
+			}
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			return false;
+		}
+	}
 }

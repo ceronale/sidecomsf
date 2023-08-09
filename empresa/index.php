@@ -55,6 +55,9 @@ $emailrh = $getEmpresa['emailrh'];
 $telefonorh = $getEmpresa['telefonorh'];
 $moneda_pais = $getEmpresa['moneda_pais'];
 
+$mision = $getEmpresa['mision'];
+$vision = $getEmpresa['vision'];
+$valores = $getEmpresa['valores'];
 
 $opciones = array('EUR', 'USD');
 
@@ -100,6 +103,11 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
         $puestorh = strip_tags($_POST['puestorh']);
         $emailrh = strip_tags($_POST['emailrh']);
         $telefonorh = strip_tags($_POST['telefonorh']);
+
+
+        $mision = strip_tags($_POST['mision']);
+        $vision = strip_tags($_POST['vision']);
+        $valores = strip_tags($_POST['valores']);
         if (isset($_POST['valor_activos'])) {
             $valor_activos = strip_tags($_POST['valor_activos']);
         } else {
@@ -161,7 +169,10 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                 $nombrerh,
                 $puestorh,
                 $emailrh,
-                $telefonorh
+                $telefonorh,
+                $mision,
+                $vision,
+                $valores
             );
         } catch (Exception $e) {
             // código de manejo de error
@@ -722,6 +733,20 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                 </div>
             </div>
             <label class="mt-3">Datos suministrados por:</label>
+            <div class="form-row mt-3">
+                <div class="col-4 ">
+                    <label for="mision">Misión</label>
+                    <textarea class="multisteps-form__input form-control" id="mision" name="mision" placeholder="Misión"><?php echo $mision; ?></textarea>
+                </div>
+                <div class="col-4 ">
+                    <label for="vision">Visión</label>
+                    <textarea class="multisteps-form__input form-control" id="vision" name="vision" placeholder="Visión"><?php echo $vision; ?></textarea>
+                </div>
+                <div class="col-4  ">
+                    <label for="valores">Valores</label>
+                    <textarea class="multisteps-form__input form-control" id="valores" name="valores" placeholder="Valores"><?php echo $valores; ?></textarea>
+                </div>
+            </div>
             <div class="form-row mt-3">
                 <div class="col-12 col-sm-3">
                     <label for="escala_administrativo">Nombre</label>

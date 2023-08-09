@@ -16,6 +16,12 @@ $moneda = strip_tags($_POST['moneda-seleccionada']);
 $nombrerh = strip_tags($_POST['nombrerh']);
 $puestorh = strip_tags($_POST['puestorh']);
 $emailrh = strip_tags($_POST['emailrh']);
+
+
+$mision = strip_tags($_POST['mision']);
+$vision = strip_tags($_POST['vision']);
+$valores = strip_tags($_POST['valores']);
+
 $telefonorh = strip_tags($_POST['telefonorh']);
 if (isset($_POST['valor_activos'])) {
     $valor_activos = strip_tags($_POST['valor_activos']);
@@ -80,7 +86,11 @@ try {
         $nombrerh,
         $puestorh,
         $emailrh,
-        $telefonorh
+        $telefonorh,
+        $mision,
+        $vision,
+        $valores
+
     )) {
         header("Location: ../dashboard/?inserted");
     } else {

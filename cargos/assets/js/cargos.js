@@ -79,7 +79,7 @@ function crear_cargo(departamentos, categoria) {
            <p>
                <em><strong>Cargo/Puesto:</strong></em><br> 
                Un <strong>Cargo</strong> es un conjunto de funciones, tareas y operaciones específicas representativas, relacionadas con la actividad laboral, cuyo ejercicio conlleva responsabilidades, conocimientos y habilidades para su desempeño.<br><br>
-               Un <strong>Puesto</strong> Se refiere a la ubicación física de un determinado Cargo dentro de la jerarquía y dentro del espacio físico donde se desempeña la persona. Con el avance de la tecnología, los puestos de trabajo no tienen en muchos casos, espacio físico, el trabajo es realizado en forma virtual, en cualquier espacio físico, a cualquier hora y en cualquier lugar o ciudad. En la práctica, hemos observado que empresas privadas consideran el Puesto como sinónimo de Cargo, aunque técnicamente no es lo mismo.`;   
+               Un <strong>Puesto</strong> Se refiere a la ubicación física de un determinado Cargo dentro de la jerarquía y dentro del espacio físico donde se desempeña la persona. Con el avance de la tecnología, los puestos de trabajo no tienen en muchos casos, espacio físico, el trabajo es realizado en forma virtual, en cualquier espacio físico, a cualquier hora y en cualquier lugar o ciudad. En la práctica, hemos observado que empresas privadas consideran el Puesto como sinónimo de Cargo, aunque técnicamente no es lo mismo.`;
 
    if (categoria == 2) {
       html += `<br><br><strong>Cargos Planta - Taller - Fábrica: <br> No incluyen supervisores o cualquier otra actividad
@@ -258,14 +258,14 @@ function editar_cargo(id, nombre, id_departamento, categoria, status, descripcio
       <label for="departamento">Departamento:</label>
       <select class="form-select" name="departamento" id="departamento" required>
          <option disabled selected value="">Selecciona una opción</option>`;
-departamentos.forEach(function (departamento) {
-let selected = "";
-if (departamento["id"] == id_departamento) {
-   selected = "selected";
-}
-html += `<option value="${departamento["id"]}" ${selected}>${departamento["nombre"]}</option>`;
-});
-html += `</select>
+   departamentos.forEach(function (departamento) {
+      let selected = "";
+      if (departamento["id"] == id_departamento) {
+         selected = "selected";
+      }
+      html += `<option value="${departamento["id"]}" ${selected}>${departamento["nombre"]}</option>`;
+   });
+   html += `</select>
    </div>
  
          
@@ -404,18 +404,17 @@ function show_info_descripcion() {
 
 }
 
-function info_tabla(title,info) 
-{
-    Swal.fire({
-        title: title,
-        width: '500px',
-            html: `         <div class="card card-body" style="text-align: left; font-size: 20px">
+function info_tabla(title, info) {
+   Swal.fire({
+      title: title,
+      width: '500px',
+      html: `         <div class="card card-body" style="text-align: justify; font-size: 20px">
                                 <p>
-                                ` + info.replace(/;/g, '<br>') + `
+                                ` + info + `
                                 </p>
                             </div>
                         `,
-    showConfirmButton: true,
-    })
-   
+      showConfirmButton: true,
+   })
+
 }

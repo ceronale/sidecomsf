@@ -77,6 +77,11 @@
     $emailrh = isset($_POST['emailrh']) ? $_POST['emailrh'] : '';
     $telefonorh = isset($_POST['telefonorh']) ? $_POST['telefonorh'] : '';
 
+
+    $mision = isset($_POST['mision']) ? $_POST['mision'] : '';
+    $vision = isset($_POST['vision']) ? $_POST['vision'] : '';
+    $valores = isset($_POST['valores']) ? $_POST['valores'] : '';
+
     ?>
 
     <div id="alert-container"></div>
@@ -94,7 +99,10 @@
                         <div class="multisteps-form__progress">
                             <button class="multisteps-form__progress-btn js-active" type="button" title="Registro de información">Registro de información de Empresa</button>
                             <button class="multisteps-form__progress-btn" type="button" title="Registro de información">Registro de información de Empresa</button>
+                            <button class="multisteps-form__progress-btn" type="button" title="Misión Visión Valores">Misión Visión Valores</button>
                             <button class="multisteps-form__progress-btn" type="button" title="Registro de información">Registro de información de Empresa</button>
+
+
 
                         </div>
                     </div>
@@ -500,14 +508,9 @@
                                         }
                                     </script>
 
-
-
-
-
                                 </div>
                                 <div class="form-row mt-3">
                                     <div class="col-12">
-
                                         <div class="form-row mt-3">
                                             <div class="col-12">
                                                 <label for="actividad">Actividad</label>
@@ -596,6 +599,29 @@
                                 </div>
                             </div>
 
+                            <!-- single form panel -->
+                            <div class="multisteps-form__panel" data-animation="scaleIn">
+                                <h4 class="multisteps-form__title">Misión Visión Valores</h4>
+
+                                <div class="form-row mt-3">
+                                    <div class="col-12 ">
+                                        <label for="mision">Misión</label>
+                                        <textarea class="multisteps-form__input form-control" id="mision" name="mision" placeholder="Misión"><?php echo $mision; ?></textarea>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <label for="vision">Visión</label>
+                                        <textarea class="multisteps-form__input form-control" id="vision" name="vision" placeholder="Visión"><?php echo $vision; ?></textarea>
+                                    </div>
+                                    <div class="col-12 mt-4 ">
+                                        <label for="valores">Valores</label>
+                                        <textarea class="multisteps-form__input form-control" id="valores" name="valores" placeholder="Valores"><?php echo $valores; ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="button-row d-flex mt-4 mb-5">
+                                    <button class="btn btn-primary js-btn-prev" type="button" title="Prev">Anterior</button>
+                                    <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Siguiente</button>
+                                </div>
+                            </div>
                             <!-- single form panel -->
                             <div class="multisteps-form__panel" data-animation="scaleIn">
                                 <h4 class="multisteps-form__title">Persona que suministra la información</h4>

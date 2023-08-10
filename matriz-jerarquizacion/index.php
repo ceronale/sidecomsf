@@ -254,11 +254,35 @@ if($categoria == 1){
 
                             <td><?= number_format($jerarquizacion['promediopaqueteanual'],2,',','.'); ?></td>
                             <td><?= number_format($jerarquizacion['promediofactor'],2,',','.'); ?></td>
-                            <td style="border-left: solid 2px #A8A8A8"><?= number_format($minimo,2,',','.'); ?></td>
-                            <td><?= number_format($medio,2,',','.');  ?></td>
-                            <td><?= number_format($maximo,2,',','.');  ?></td>
+                           <?php if($minimo < 0)
+                            { ?>
+                              <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;"> <?= number_format($minimo,2,',','.'); ?> </span>  </td>
+                           <?php } 
+                            else
+                            { ?>
+                            <td style="border-left: solid 2px #A8A8A8"> <?= number_format($minimo,2,',','.'); ?>  </td>
+                            <?php }
+                            ?>
 
+                            <?php if($medio < 0)
+                            { ?>
+                              <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;"> <?= number_format($medio,2,',','.'); ?> </span>  </td>
+                           <?php } 
+                            else
+                            { ?>
+                            <td style="border-left: solid 2px #A8A8A8"> <?= number_format($medio,2,',','.'); ?>  </td>
+                            <?php }
+                            ?>
 
+                            <?php if($maximo < 0)
+                            { ?>
+                              <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;"> <?= number_format($maximo,2,',','.'); ?> </span>  </td>
+                           <?php } 
+                            else
+                            { ?>
+                            <td style="border-left: solid 2px #A8A8A8"> <?= number_format($maximo,2,',','.'); ?>  </td>
+                            <?php }
+                            ?>
                         </tr>
 
                         <?php }
@@ -313,6 +337,7 @@ if($categoria == 1){
 
     });
 
+
     function mostrar_ocultar_grafica() {
 
         const toggleButton = document.getElementById('toggle-grafica');
@@ -329,8 +354,6 @@ if($categoria == 1){
             graficaContainer.style.display = 'none';
             // Destruir la instancia de la gráfica
         }
-
-
 
     }
 

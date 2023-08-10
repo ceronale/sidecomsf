@@ -56,7 +56,7 @@ function crear_nomina(fecha_act,fecha_act2) {
                                          data-toggle="collapse" href="#" role="button"
                                          aria-expanded="false" data-toggle="tooltip" data-html="true"  aria-controls="collapsePlanta"
                                          title="Mostrar descripción" onclick="show_info_cargos_planta()">
-                                         <span style="font-size: 15px;"> Cargos Planta - Taller - Obrero </span></a>   
+                                         <span style="font-size: 15px;"> Cargos Planta - Taller - Fábrica </span></a>   
                                         </div>
                                     </div>
                                 </div>

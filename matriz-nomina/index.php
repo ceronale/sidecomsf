@@ -2,11 +2,12 @@
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
-
 /* Adjust the width of the buttons */
- .dt-buttons {
-    flex: 2; /* Occupy two-thirds of the available space */
-    text-align: right; /* Align the buttons to the right */
+.dt-buttons {
+    flex: 2;
+    /* Occupy two-thirds of the available space */
+    text-align: right;
+    /* Align the buttons to the right */
 }
 </style>
 <?php include_once "../layouts/menu.php"; 
@@ -69,7 +70,9 @@ if ($categoria == 1) {
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina <?= $cat; ?> </span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
+                    onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina
+                    <?= $cat; ?> </span>
             </div>
         </div>
 
@@ -81,58 +84,58 @@ if ($categoria == 1) {
 
     if (isset($_GET['inserted'])) {
     ?>
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Éxito!',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        </script>
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Éxito!',
+        showConfirmButton: false,
+        timer: 3000
+    })
+    </script>
     <?php
     }
     if (isset($_GET['failure'])) { ?>
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'Error al registrar la Nómina Nueva!',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        </script>
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Error al registrar la Nómina Nueva!',
+        showConfirmButton: false,
+        timer: 3000
+    })
+    </script>
     <?php
     }
 
     if (isset($_GET['edited'])) {
     ?>
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Éxito!',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        </script>
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Éxito!',
+        showConfirmButton: false,
+        timer: 3000
+    })
+    </script>
     <?php
     }
     if (isset($_GET['failureedited'])) { ?>
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: 'Error al editar La Nómina!',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        </script>
+    <script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Error al editar La Nómina!',
+        showConfirmButton: false,
+        timer: 3000
+    })
+    </script>
     <?php
     }
     ?>
     <?php
-
+ $grados = $crud->dataview_escalas($_GET['ca']); 
     $info_sueldo_base_mensual = "Es la porción del sueldo o salario mensual que sirve de base para el cálculos de los aumentos por meritos ó desempeño.";
     $info_ingreso_mensual = "Incluye todos los sueldos o salarios, bonos, gratificaciones, fondo de ahorro, ayuda despensa, bono alimentación, transporte, comisión sobre ventas y otros pagos (ingresos bruto), que perciba el trabajador en forma regular y permanente.";
     $info_paquete_anual = "Incluye toda remuneración que percibe el trabajador anualmente tales como: Doce meses del ingreso mensual, bono vacacional, utilidades, bono de fin de año, aguinaldos, bonos especiales, bonos por desempeño o productividad, entre otros pagos.";
@@ -142,22 +145,30 @@ if ($categoria == 1) {
     $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre uno o más trabajadores para realizar tareas y actividades de producción, es responsable de la productividad de sus subalternos. Según el nivel, la denominación del cargo varía como: Capataz, Jefe, Supervisor, Gerente, Coordinador o Encargado de una unidad, departamento o gerencia de nivel medio o alto.";
     ?>
     <script>
-         $(document).ready(function() {
-            $('#example').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+    $(document).ready(function() {
+        $('#example').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+            },
+            dom: "<'row'<'col-sm-12 col-md-3'l><'col-sm-12 col-md-5'f><'col-sm-12 col-md-4'B>>" +
+                "<'row'<'col-sm-12't>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            buttons: [{
+                    extend: 'excel',
+                    className: 'btn btn-primary btn3d'
                 },
-                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
-        "<'row'<'col-sm-12't>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        buttons: [
-            { extend: 'excel', className: 'btn btn-primary btn3d' },
-            { extend: 'pdf', className: 'btn btn-primary btn3d' },
-            { extend: 'print', className: 'btn btn-primary btn3d' }
-        ],
-                'iDisplayLength': 50,
-            });
+                {
+                    extend: 'pdf',
+                    className: 'btn btn-primary btn3d'
+                },
+                {
+                    extend: 'print',
+                    className: 'btn btn-primary btn3d'
+                }
+            ],
+            'iDisplayLength': 50,
         });
+    });
     </script>
 
     <div class='container'>
@@ -169,7 +180,8 @@ if ($categoria == 1) {
             <h4>Mostrar Gráfica</h4>
             <div class="row">
                 <div class="col-sm-3 form-group">
-                    <select name="cboCategoria" id="cboCategoria" class="form-control input-sm" onchange="redirectcategoria(this.value)">
+                    <select name="cboCategoria" id="cboCategoria" class="form-control input-sm"
+                        onchange="redirectcategoria(this.value)">
                         <option value="1" <?php if ($categoria == 1) {
                                                 echo "selected";
                                             } ?>>Administrativo</option>
@@ -188,11 +200,13 @@ if ($categoria == 1) {
                     </select>
                 </div>
                 <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-primary btn3d" title="Generar gráfica" id="btn-gengraph" onclick="showGraph()">Generar Gráfica</button>
+                    <button type="button" class="btn btn-primary btn3d" title="Generar gráfica" id="btn-gengraph"
+                        onclick="showGraph()">Generar Gráfica</button>
                 </div>
 
                 <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica" id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar</button>
+                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica"
+                        id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar</button>
                 </div>
 
                 <?php /*
@@ -215,14 +229,14 @@ if ($categoria == 1) {
             <div class="row">
                 <div class="col-md-5"> </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica" id="fs-doc-button">Pantalla Completa</button>
+                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica"
+                        id="fs-doc-button">Pantalla Completa</button>
                 </div>
             </div>
             <canvas id="graphCanvas"></canvas>
         </div>
 
 
-        <div class='clearfix'></div><br />
 
         <?php
 
@@ -238,40 +252,57 @@ if ($categoria == 1) {
 
         <div class="row">
             <div class="col-sm-2 form-group">
-                <a href='#' onclick="crear_nomina('<?php echo date('d/m/Y', strtotime('now')); ?>','<?php echo date('Y-m-d', strtotime('now')); ?>')" class='btn btn-primary btn3d'> &nbsp;
-                    <img src="../assets/img/icons/nuevo-blanco.png" style="color: white !important;" height="20" width="20" alt="Nuevo"> Nuevo</a>
+                <a href='#'
+                    onclick="crear_nomina('<?php echo date('d/m/Y', strtotime('now')); ?>','<?php echo date('Y-m-d', strtotime('now')); ?>')"
+                    class='btn btn-primary btn3d'> &nbsp;
+                    <img src="../assets/img/icons/nuevo-blanco.png" style="color: white !important;" height="20"
+                        width="20" alt="Nuevo"> Nuevo</a>
 
             </div>
 
             <div class="col-sm-2 form-group">
-                <a href='#' onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')" class='btn btn-primary btn3d'> Ver Escala</a>
+                <a href='#'
+                    onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')"
+                    class='btn btn-primary btn3d'> Ver Escala</a>
 
 
             </div>
 
-            <div class="col-sm-8 form-group" style="text-align: right;">
+            <div class=" col-md-4 form-group">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right !important;">
+                        <label for="id_grado">Grados</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="id_grado" name="id_grado"
+                            onchange="redirectgrados(this.value, <?= $_GET['ca']; ?>)">
+                            <option value="">Todos</option>
+                            <?php
+                    if ($grados != null){
+                    foreach ($grados as $grado) { ?>
+                            <option value="<?= $grado['grado']?>"
+                                <?php 
+                                if(isset($_GET['g'])){if($grado['grado'] == $_GET['g']){echo "Selected";}} ?>>
+                                <?= $grado['grado'];?>
+                            </option>
+                            <?php }
+                    }
+                    ?>
+                        </select>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-3 form-group" style="text-align: right;">
                 <span style="font-size: 12px; color:red">(MONTOS EXPRESADOS EN <?= strtoupper($nombre_moneda) ?>)</span>
             </div>
         </div>
-        <br>
 
-      <?php  $grados = $crud->dataview_escalas($_GET['ca']); ?>
-        <div class="form-group">
-            <label for="id_grado">Grados</label>
-            <select class="form-select" id="id_grado"
-                name="id_grado" onchange="redirectgrados(this.value, <?= $_GET['ca']; ?>)">
-                <option value="">Seleccione..</option>
-                <?php
-                if ($grados != null){
-                foreach ($grados as $grado) { ?>
-                        <option value="<?= $grado['grado']?>">
-                            <?= $grado['grado'];?>
-                        </option>
-                        <?php }
-                }
-                ?>
-            </select>
-        </div>
+
+
 
 
         <div class='container' style="overflow: auto; max-height: 600px;">
@@ -282,20 +313,34 @@ if ($categoria == 1) {
                         <th>Grado</th>
                         <th>Puntaje</th>
                         <th>Puesto/Cargo</th>
-                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Cargo Crítico:','<?php echo $cargo_critico; ?>')">Cargo <br> Crítico </span></th>
-                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Cargo Supervisor:','<?php echo $cargo_supervisor; ?>')">Cargo <br> Supervisor </span></th>
-                        <th >Departamento</th>
+                        <th style="color: #3c8dbc;"> <span
+                                onclick="info_tabla('Cargo Crítico:','<?php echo $cargo_critico; ?>')">Cargo <br>
+                                Crítico </span></th>
+                        <th style="color: #3c8dbc;"> <span
+                                onclick="info_tabla('Cargo Supervisor:','<?php echo $cargo_supervisor; ?>')">Cargo <br>
+                                Supervisor </span></th>
+                        <th>Departamento</th>
                         <th style="border-left: solid 2px #A8A8A8">Trabajador</th>
                         <th>Género</th>
                         <th>Nro de Identificación</th>
                         <th>Fecha Ingreso</th>
                         <th>Tiempo de Servicio</th>
                         <th>Modalidad de <br> Trabajo</th>
-                        <th style="color: #3c8dbc; border-left: solid 2px #A8A8A8;"><span onclick="info_tabla('Sueldo Base Mensual:','<?php echo $info_sueldo_base_mensual; ?>')">Sueldo Base <br> Mensual </span></th>
-                        <th style="color: #3c8dbc;"><span onclick="info_tabla('Ingreso Mensual:','<?php echo $info_ingreso_mensual; ?>')">Ingreso <br> Mensual</span></th>
-                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Paquete Anual:','<?php echo $info_paquete_anual; ?>')">Paquete <br> Anual</span></th>
-                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Factor:','<?php echo $info_factor_meses; ?>')">Factor <br> Meses</span></th>
-                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Otra Divisa:','<?php echo $info_otras_divisas; ?>')">Otra <br> Divisa</span></th>
+                        <th style="color: #3c8dbc; border-left: solid 2px #A8A8A8;"><span
+                                onclick="info_tabla('Sueldo Base Mensual:','<?php echo $info_sueldo_base_mensual; ?>')">Sueldo
+                                Base <br> Mensual </span></th>
+                        <th style="color: #3c8dbc;"><span
+                                onclick="info_tabla('Ingreso Mensual:','<?php echo $info_ingreso_mensual; ?>')">Ingreso
+                                <br> Mensual</span></th>
+                        <th style="color: #3c8dbc;"> <span
+                                onclick="info_tabla('Paquete Anual:','<?php echo $info_paquete_anual; ?>')">Paquete <br>
+                                Anual</span></th>
+                        <th style="color: #3c8dbc;"> <span
+                                onclick="info_tabla('Factor:','<?php echo $info_factor_meses; ?>')">Factor <br>
+                                Meses</span></th>
+                        <th style="color: #3c8dbc;"> <span
+                                onclick="info_tabla('Otra Divisa:','<?php echo $info_otras_divisas; ?>')">Otra <br>
+                                Divisa</span></th>
                         <th style="border-left: solid 2px #A8A8A8">Acción</th>
                     </tr>
                 </thead>
@@ -307,70 +352,72 @@ if ($categoria == 1) {
                     }
                     else
                     {
-                        $nominas = $crud->dataview_nomina($categoria);
+                        $nominas = $crud->dataview_nomina($categoria,"");
                     }
                    
                     if ($nominas != null) {
                         foreach ($nominas as $nomina) {
                             $tiempotrans = "<script>" . "tiempotranscurrido(" . $nomina['fechaingreso'] . ")" . "</script>";
                     ?>
-                            <tr>
-                                <td></td>
-                                <td style="text-align: center;"><?php print($nomina['grado']); ?></td>
-                                <td><?php print($nomina['mnpuntaje']); ?></td>
-                                <td><?php print($nomina['nombrecargo']); ?></td>
-                                <td style="text-align: center;"><?php if ($nomina['critico'] == "1") {
+                    <tr>
+                        <td></td>
+                        <td style="text-align: center;"><?php print($nomina['grado']); ?></td>
+                        <td><?php print($nomina['mnpuntaje']); ?></td>
+                        <td><?php print($nomina['nombrecargo']); ?></td>
+                        <td style="text-align: center;"><?php if ($nomina['critico'] == "1") {
                                                                     print "Si";
                                                                 } else {
                                                                     print "No";
                                                                 }
                                                                 ?></td>
-                                <td style="text-align: center;"><?php if ($nomina['supervisor'] == "1") {
+                        <td style="text-align: center;"><?php if ($nomina['supervisor'] == "1") {
                                                                     print "Si";
                                                                 } else {
                                                                     print "No";
                                                                 }
                                                                 ?></td>
-                                <td><?php print($nomina['nombredepartamento']); ?></td>
-                                <td style="border-left: solid 2px #A8A8A8"> <?php print($nomina['nombretrabajador']); ?></td>
-                                <td><?php if ($nomina['mngenero'] == "M") {
+                        <td><?php print($nomina['nombredepartamento']); ?></td>
+                        <td style="border-left: solid 2px #A8A8A8"> <?php print($nomina['nombretrabajador']); ?></td>
+                        <td><?php if ($nomina['mngenero'] == "M") {
                                         print "Masculino";
                                     } else {
                                         print "Femenino";
                                     }
                                     ?>
-                                </td>
-                                <td><?php print($nomina['mndocumento']); ?></td>
-                                <td><?php print(date("d/m/Y", strtotime($nomina['fechaingreso']))); ?></td>
-                                <td><?php echo tiempoTranscurridoFechas($nomina['fechaingreso']); ?> </td>
-                                <td><?php if ($nomina['modelotrabajo'] == "R") {
+                        </td>
+                        <td><?php print($nomina['mndocumento']); ?></td>
+                        <td><?php print(date("d/m/Y", strtotime($nomina['fechaingreso']))); ?></td>
+                        <td><?php echo tiempoTranscurridoFechas($nomina['fechaingreso']); ?> </td>
+                        <td><?php if ($nomina['modelotrabajo'] == "R") {
                                         print "Remoto (Home Office)";
                                     }
                                     if ($nomina['modelotrabajo'] == "P") {
                                         print "Presencial";
                                     }
                                     if ($nomina['modelotrabajo'] == "M") { ?>
-                                        <span style="font-weight: bold;  color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Modalidad Mixto:','Presencial: <?= $nomina['porcentajepresencial']; ?>% ;; Remoto (Home Office): <?= $nomina['porcentajeremoto']; ?>%')">Mixto</span>
-                                    <?php }
+                            <span style="font-weight: bold;  color: #3c8dbc; cursor: pointer;"
+                                onclick="info_tabla('Modalidad Mixto:','Presencial: <?= $nomina['porcentajepresencial']; ?>% ;; Remoto (Home Office): <?= $nomina['porcentajeremoto']; ?>%')">Mixto</span>
+                            <?php }
                                     ?>
-                                </td>
-                                <td style="border-left: solid 2px #A8A8A8"><?= number_format($nomina['sueldobase'], 2, ',', '.'); ?></td>
-                                <td><?= number_format($nomina['sueldo_mensual'], 2, ',', '.'); ?></td>
-                                <td><?= number_format($nomina['paquete_anual'], 2, ',', '.'); ?></td>
-                                <td><?php print($nomina['factormeses']); ?></td>
-                                <td><?php if ($nomina['idtipodivisa'] == 233) { ?>
-                                        <i class="fas fa-dollar-sign"></i>
-                                    <?php }
+                        </td>
+                        <td style="border-left: solid 2px #A8A8A8">
+                            <?= number_format($nomina['sueldobase'], 2, ',', '.'); ?></td>
+                        <td><?= number_format($nomina['sueldo_mensual'], 2, ',', '.'); ?></td>
+                        <td><?= number_format($nomina['paquete_anual'], 2, ',', '.'); ?></td>
+                        <td><?php print($nomina['factormeses']); ?></td>
+                        <td><?php if ($nomina['idtipodivisa'] == 233) { ?>
+                            <i class="fas fa-dollar-sign"></i>
+                            <?php }
                                     if ($nomina['idtipodivisa'] == 68) { ?>
-                                        <i class="fas fa-euro-sign"></i>
-                                    <?php }
+                            <i class="fas fa-euro-sign"></i>
+                            <?php }
 
                                     print($nomina['monto_divisa']); ?>
-                                </td>
+                        </td>
 
-                                <?php $funcioncargo = str_replace("\n", " ", $nomina['funcioncargo']);   ?>
-                                <td style="text-align: center; border-left: solid 2px #A8A8A8">
-                                    <a onclick="editar_nomina('<?php print($nomina['id_nomina']); ?>',
+                        <?php $funcioncargo = str_replace("\n", " ", $nomina['funcioncargo']);   ?>
+                        <td style="text-align: center; border-left: solid 2px #A8A8A8">
+                            <a onclick="editar_nomina('<?php print($nomina['id_nomina']); ?>',
                                 '<?php print($nomina['categoriadepartamento']); ?>',
                                 '<?php print($nomina['iddepartamento']); ?>',
                                 '<?php print($nomina['nombredepartamento']); ?>',
@@ -397,39 +444,40 @@ if ($categoria == 1) {
                                 '<?php print($nomina['idtipodivisa']); ?>',
                                 '<?php echo date('d/m/Y', strtotime('now')); ?>',
                                 '<?php echo date('Y-m-d', strtotime('now')); ?>')">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <a onclick="eliminar_nomina('<?php print($nomina['id_nomina']); ?>','<?php print($nomina['nombretrabajador']); ?>')">
-                                        <i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a
+                                onclick="eliminar_nomina('<?php print($nomina['id_nomina']); ?>','<?php print($nomina['nombretrabajador']); ?>')">
+                                <i class="fa fa-trash" aria-hidden="true"></i></a>
 
-                                </td>
-                            </tr>
+                        </td>
+                    </tr>
 
-                        <?php }
+                    <?php }
                     } else {  ?>
 
-                        <tr>
-                            <td>No hay registros</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    <tr>
+                        <td>No hay registros</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
                     <?php } ?>
 
@@ -446,28 +494,28 @@ if ($categoria == 1) {
     <script src="assets/js/nomina.js"></script>
 
     <script>
-        function redirectcategoria(categoria) {
-            window.location.href = "../matriz-nomina/?ca=" + categoria;
+    function redirectcategoria(categoria) {
+        window.location.href = "../matriz-nomina/?ca=" + categoria;
+    }
+
+    function redirectgrados(grado, categoria) {
+        window.location.href = "../matriz-nomina/?ca=" + categoria + "&g=" + grado;
+    }
+
+    $(document).ready(function() {
+        $(".hidden").hide();
+
+    });
+
+    function ver_escala(escalas, nombre_empresa, categoria, conteo, nombre_nivel, minimo_nivel, maximo_nivel) {
+        var catego = "";
+        if (categoria == 1) {
+            catego = "Administrativo";
         }
-
-        function redirectgrados(grado,categoria) {
-            window.location.href = "../matriz-nomina/?ca=" + categoria + "&g=" + grado;
+        if (categoria == 2) {
+            catego = "Planta - Taller - Fábrica";
         }
-
-        $(document).ready(function() {
-            $(".hidden").hide();
-
-        });
-
-        function ver_escala(escalas, nombre_empresa, categoria, conteo, nombre_nivel, minimo_nivel, maximo_nivel) {
-            var catego = "";
-            if (categoria == 1) {
-                catego = "Administrativo";
-            }
-            if (categoria == 2) {
-                catego = "Planta - Taller - Fábrica";
-            }
-            var html = `   <span class="text-center"><span class="glyphicon glyphicon-check"></span> Clasificación de Empresas en base al N° de trabajadores</span><br>
+        var html = `   <span class="text-center"><span class="glyphicon glyphicon-check"></span> Clasificación de Empresas en base al N° de trabajadores</span><br>
                     <span class="text-center">(cifras aproximadas) </span><br>
                     
                     <br>
@@ -486,9 +534,9 @@ if ($categoria == 1) {
     `;
 
 
-            console.log(escalas);
+        console.log(escalas);
 
-            html += `<table id="escalas" class="table table-striped dt-responsive nowrap" style="width:100%">
+        html += `<table id="escalas" class="table table-striped dt-responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>Grado</th>
@@ -498,15 +546,15 @@ if ($categoria == 1) {
                     </thead>
                     <tbody> 
                         `;
-            escalas.forEach(function(escalas) {
-                html += `<tr>
+        escalas.forEach(function(escalas) {
+            html += `<tr>
             <td style="text-align: center;"> ${escalas["grado"]} </td>
             <td> ${escalas["minimo"]} </td>
             <td> ${escalas["maximo"]} </td>
             </tr>`;
-            });
+        });
 
-            html += `            
+        html += `            
                        
                     </tbody>
                    
@@ -514,602 +562,606 @@ if ($categoria == 1) {
                 <br>
                 <br>`;
 
-            Swal.fire({
-                title: "Escala - Sistema de Puntos",
-                html: html,
-                width: '800px',
-                showConfirmButton: false,
+        Swal.fire({
+            title: "Escala - Sistema de Puntos",
+            html: html,
+            width: '800px',
+            showConfirmButton: false,
+        });
+        $(document).ready(function() {
+            $('#escalas').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                order: [
+                    [1, 'asc']
+                ],
             });
-            $(document).ready(function() {
-                $('#escalas').DataTable({
-                    language: {
-                        url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-                    },
-                    order: [
-                        [1, 'asc']
-                    ],
-                });
-            });
+        });
 
 
+    }
+
+    function mostrar_ocultar_grafica() {
+
+        const toggleButton = document.getElementById('toggle-grafica');
+        const graficaContainer = document.getElementById('chart-container');
+
+
+        // Verificar si la gráfica está visible
+        if (graficaContainer.style.display === 'none') {
+            // Mostrar la gráfica
+            graficaContainer.style.display = 'block';
+            // Crear la instancia de la gráfica
+        } else {
+            // Ocultar la gráfica
+            graficaContainer.style.display = 'none';
+            // Destruir la instancia de la gráfica
         }
 
-        function mostrar_ocultar_grafica() {
-
-            const toggleButton = document.getElementById('toggle-grafica');
-            const graficaContainer = document.getElementById('chart-container');
 
 
-            // Verificar si la gráfica está visible
-            if (graficaContainer.style.display === 'none') {
-                // Mostrar la gráfica
-                graficaContainer.style.display = 'block';
-                // Crear la instancia de la gráfica
-            } else {
-                // Ocultar la gráfica
-                graficaContainer.style.display = 'none';
-                // Destruir la instancia de la gráfica
-            }
+    }
+
+    function showGraph() {
 
 
-
+        const toggleButton = document.getElementById('toggle-grafica');
+        const graficaContainer = document.getElementById('chart-container');
+        if (graficaContainer.style.display === 'none') {
+            // Mostrar la gráfica
+            graficaContainer.style.display = 'block';
+            // Crear la instancia de la gráfica
         }
 
-        function showGraph() {
+
+        let categoria = $("#cboCategoria").val();
+        let asignacion = $("#cboAsignaciones").val(); //
+        var categ = "";
+        var titulo = "";
+        var tipo_asign = "";
+
+        if (($("#cboAsignaciones").val()) === '1') {
+            tipo_asign = "INGRESO MENSUAL"
+        }
+        if (($("#cboAsignaciones").val()) === '2') {
+            tipo_asign = "INGRESO TOTAL MENSUAL"
+        }
+        if (($("#cboAsignaciones").val()) === '3') {
+            tipo_asign = "PAQUETE ANUAL"
+        }
 
 
-            const toggleButton = document.getElementById('toggle-grafica');
-            const graficaContainer = document.getElementById('chart-container');
-            if (graficaContainer.style.display === 'none') {
-                // Mostrar la gráfica
-                graficaContainer.style.display = 'block';
-                // Crear la instancia de la gráfica
-            }
+        if (($("#cboCategoria").val()) === '1') {
+            var min = 214;
+            var max = 1000;
+            categ = "ADMINISTRATIVO";
+        } else {
+            var min = 299;
+            var max = 1000;
+            categ = "PLANTA - TALLER - FÁBRICA";
+        }
+
+        titulo = "RECTA DE REGRESIÓN LINEAL - " + categ + " - " + tipo_asign;
+
+        $.post("datos_grafica.php", {
+            categoria: categoria,
+            asignacion: asignacion
+        }, function(data) {
+            console.log(data);
+            var tipoempresa = 0;
+            var puntajegrado2 = 0;
+            var conteogradoI = 0;
+            var sueldogradoI = 0;
+
+            var puntajegradoII = 0;
+            var conteogradoII = 0;
+            var sueldogradoII = 0;
+
+            var puntajegradoIII = 0;
+            var conteogradoIII = 0;
+            var sueldogradoIII = 0;
+
+            var puntajegradoIV = 0;
+            var conteogradoIV = 0;
+            var sueldogradoIV = 0;
+
+            var puntajegradoV = 0;
+            var conteogradoV = 0;
+            var sueldogradoV = 0;
+
+            var puntajegradoVI = 0;
+            var conteogradoVI = 0;
+            var sueldogradoVI = 0;
+
+            var puntajegradoVII = 0;
+            var conteogradoVII = 0;
+            var sueldogradoVII = 0;
+
+            var puntajegradoVIII = 0;
+            var conteogradoVIII = 0;
+            var sueldogradoVIII = 0;
+
+            var puntajegradoIX = 0;
+            var conteogradoIX = 0;
+            var sueldogradoIX = 0;
+
+            var puntajegradoX = 0;
+            var conteogradoX = 0;
+            var sueldogradoX = 0;
+
+            var puntajegradoXI = 0;
+            var conteogradoXI = 0;
+            var sueldogradoXI = 0;
+
+            var puntajegradoXII = 0;
+            var conteogradoXII = 0;
+            var sueldogradoXII = 0;
+
+            var puntajegradoXIII = 0;
+            var conteogradoXIII = 0;
+            var sueldogradoXIII = 0;
+
+            var puntajegradoXIV = 0;
+            var conteogradoXIV = 0;
+            var sueldogradoXIV = 0;
+
+            var puntajegradoXV = 0;
+            var conteogradoXV = 0;
+            var sueldogradoXV = 0;
+
+            var maximosueldo = 0;
+
+            const sueldosxy = [];
 
 
-            let categoria = $("#cboCategoria").val();
-            let asignacion = $("#cboAsignaciones").val(); //
-            var categ = "";
-            var titulo = "";
-            var tipo_asign = "";
+            var contador = 1;
+            for (var i in data) {
 
-            if (($("#cboAsignaciones").val()) === '1') {
-                tipo_asign = "INGRESO MENSUAL"
-            }
-            if (($("#cboAsignaciones").val()) === '2') {
-                tipo_asign = "INGRESO TOTAL MENSUAL"
-            }
-            if (($("#cboAsignaciones").val()) === '3') {
-                tipo_asign = "PAQUETE ANUAL"
-            }
-
-
-            if (($("#cboCategoria").val()) === '1') {
-                var min = 214;
-                var max = 1000;
-                categ = "ADMINISTRATIVO";
-            } else {
-                var min = 299;
-                var max = 1000;
-                categ = "PLANTA - TALLER - FÁBRICA";
-            }
-
-            titulo = "RECTA DE REGRESIÓN LINEAL - " + categ + " - " + tipo_asign;
-
-            $.post("datos_grafica.php", {
-                categoria: categoria,
-                asignacion: asignacion
-            }, function(data) {
-                console.log(data);
-                var tipoempresa = 0;
-                var puntajegrado2 = 0;
-                var conteogradoI = 0;
-                var sueldogradoI = 0;
-
-                var puntajegradoII = 0;
-                var conteogradoII = 0;
-                var sueldogradoII = 0;
-
-                var puntajegradoIII = 0;
-                var conteogradoIII = 0;
-                var sueldogradoIII = 0;
-
-                var puntajegradoIV = 0;
-                var conteogradoIV = 0;
-                var sueldogradoIV = 0;
-
-                var puntajegradoV = 0;
-                var conteogradoV = 0;
-                var sueldogradoV = 0;
-
-                var puntajegradoVI = 0;
-                var conteogradoVI = 0;
-                var sueldogradoVI = 0;
-
-                var puntajegradoVII = 0;
-                var conteogradoVII = 0;
-                var sueldogradoVII = 0;
-
-                var puntajegradoVIII = 0;
-                var conteogradoVIII = 0;
-                var sueldogradoVIII = 0;
-
-                var puntajegradoIX = 0;
-                var conteogradoIX = 0;
-                var sueldogradoIX = 0;
-
-                var puntajegradoX = 0;
-                var conteogradoX = 0;
-                var sueldogradoX = 0;
-
-                var puntajegradoXI = 0;
-                var conteogradoXI = 0;
-                var sueldogradoXI = 0;
-
-                var puntajegradoXII = 0;
-                var conteogradoXII = 0;
-                var sueldogradoXII = 0;
-
-                var puntajegradoXIII = 0;
-                var conteogradoXIII = 0;
-                var sueldogradoXIII = 0;
-
-                var puntajegradoXIV = 0;
-                var conteogradoXIV = 0;
-                var sueldogradoXIV = 0;
-
-                var puntajegradoXV = 0;
-                var conteogradoXV = 0;
-                var sueldogradoXV = 0;
-
-                var maximosueldo = 0;
-
-                const sueldosxy = [];
-
-
-                var contador = 1;
-                for (var i in data) {
-
-                    sueldosxy.push({
-                        x: data[i].puntajenomina,
-                        y: data[i].sueldonomina,
-                        nombre: data[i].nombres,
-                        cargo: data[i].nombrecargo,
-                    });
-
-
-                    if (contador == 1) {
-                        tipoempresa = data[i].tipoempresa;
-                        puntajegradoI = data[i].puntajegradoI;
-                        conteogradoI = data[i].conteogradoI;
-                        sueldogradoI = data[i].sueldogradoI;
-
-
-                        puntajegradoII = data[i].puntajegradoII;
-                        conteogradoII = data[i].conteogradoII;
-                        sueldogradoII = data[i].sueldogradoII;
-
-                        puntajegradoIII = data[i].puntajegradoIII;
-                        conteogradoIII = data[i].conteogradoIII;
-                        sueldogradoIII = data[i].sueldogradoIII;
-
-                        puntajegradoIV = data[i].puntajegradoIV;
-                        conteogradoIV = data[i].conteogradoIV;
-                        sueldogradoIV = data[i].sueldogradoIV;
-
-                        puntajegradoV = data[i].puntajegradoV;
-                        conteogradoV = data[i].conteogradoV;
-                        sueldogradoV = data[i].sueldogradoV;
-
-                        puntajegradoVI = data[i].puntajegradoVI;
-                        conteogradoVI = data[i].conteogradoVI;
-                        sueldogradoVI = data[i].sueldogradoVI;
-
-                        puntajegradoVII = data[i].puntajegradoVII;
-                        conteogradoVII = data[i].conteogradoVII;
-                        sueldogradoVII = data[i].sueldogradoVII;
-
-                        puntajegradoVIII = data[i].puntajegradoVIII;
-                        conteogradoVIII = data[i].conteogradoVIII;
-                        sueldogradoVIII = data[i].sueldogradoVIII;
-
-                        puntajegradoIX = data[i].puntajegradoIX;
-                        conteogradoIX = data[i].conteogradoIX;
-                        sueldogradoIX = data[i].sueldogradoIX;
-
-                        puntajegradoX = data[i].puntajegradoX;
-                        conteogradoX = data[i].conteogradoX;
-                        sueldogradoX = data[i].sueldogradoX;
-
-                        puntajegradoXI = data[i].puntajegradoXI;
-                        conteogradoXI = data[i].conteogradoXI;
-                        sueldogradoXI = data[i].sueldogradoXI;
-
-                        puntajegradoXII = data[i].puntajegradoXII;
-                        conteogradoXII = data[i].conteogradoXII;
-                        sueldogradoXII = data[i].sueldogradoXII;
-
-                        puntajegradoXIII = data[i].puntajegradoXIII;
-                        conteogradoXIII = data[i].conteogradoXIII;
-                        sueldogradoXIII = data[i].sueldogradoXIII;
-
-                        puntajegradoXIV = data[i].puntajegradoXIV;
-                        conteogradoXIV = data[i].conteogradoXIV;
-                        sueldogradoXIV = data[i].sueldogradoXIV;
-
-                        puntajegradoXV = data[i].puntajegradoXV;
-                        conteogradoXV = data[i].conteogradoXV;
-                        sueldogradoXV = data[i].sueldogradoXV;
-
-                        maximosueldo = data[i].maximosueldo;
-                        contador++
-                    }
-                }
-
-                var promediosueldomaximo = 0;
-                var promediopuntajemaximo = 0;
-
-                var promediopuntajegradoI = 0;
-                var promediosueldogradoI = 0;
-                const xygradoI = [];
-
-                promediopuntajegradoI = puntajegradoI / conteogradoI;
-                promediosueldogradoI = sueldogradoI / conteogradoI;
-
-                promediosueldomaximo = promediosueldogradoI;
-                promediopuntajemaximo = promediopuntajegradoI;
-
-                grados = [];
-                grados.push({
-                    x: 0,
-                    y: 0
-                });
-                grados.push({
-                    x: promediopuntajegradoI,
-                    y: promediosueldogradoI
+                sueldosxy.push({
+                    x: data[i].puntajenomina,
+                    y: data[i].sueldonomina,
+                    nombre: data[i].nombres,
+                    cargo: data[i].nombrecargo,
                 });
 
-                if (tipoempresa >= 2) {
-                    var promediopuntajegradoII = 0;
-                    var promediosueldogradoII = 0;
-                    const xygradoII = [];
 
-                    promediopuntajegradoII = puntajegradoII / conteogradoII;
-                    promediosueldogradoII = sueldogradoII / conteogradoII;
+                if (contador == 1) {
+                    tipoempresa = data[i].tipoempresa;
+                    puntajegradoI = data[i].puntajegradoI;
+                    conteogradoI = data[i].conteogradoI;
+                    sueldogradoI = data[i].sueldogradoI;
 
-                    promediosueldomaximo = promediosueldogradoII;
-                    promediopuntajemaximo = promediopuntajegradoII;
 
-                    grados.push({
-                        x: promediopuntajegradoII,
-                        y: promediosueldogradoII
-                    });
+                    puntajegradoII = data[i].puntajegradoII;
+                    conteogradoII = data[i].conteogradoII;
+                    sueldogradoII = data[i].sueldogradoII;
+
+                    puntajegradoIII = data[i].puntajegradoIII;
+                    conteogradoIII = data[i].conteogradoIII;
+                    sueldogradoIII = data[i].sueldogradoIII;
+
+                    puntajegradoIV = data[i].puntajegradoIV;
+                    conteogradoIV = data[i].conteogradoIV;
+                    sueldogradoIV = data[i].sueldogradoIV;
+
+                    puntajegradoV = data[i].puntajegradoV;
+                    conteogradoV = data[i].conteogradoV;
+                    sueldogradoV = data[i].sueldogradoV;
+
+                    puntajegradoVI = data[i].puntajegradoVI;
+                    conteogradoVI = data[i].conteogradoVI;
+                    sueldogradoVI = data[i].sueldogradoVI;
+
+                    puntajegradoVII = data[i].puntajegradoVII;
+                    conteogradoVII = data[i].conteogradoVII;
+                    sueldogradoVII = data[i].sueldogradoVII;
+
+                    puntajegradoVIII = data[i].puntajegradoVIII;
+                    conteogradoVIII = data[i].conteogradoVIII;
+                    sueldogradoVIII = data[i].sueldogradoVIII;
+
+                    puntajegradoIX = data[i].puntajegradoIX;
+                    conteogradoIX = data[i].conteogradoIX;
+                    sueldogradoIX = data[i].sueldogradoIX;
+
+                    puntajegradoX = data[i].puntajegradoX;
+                    conteogradoX = data[i].conteogradoX;
+                    sueldogradoX = data[i].sueldogradoX;
+
+                    puntajegradoXI = data[i].puntajegradoXI;
+                    conteogradoXI = data[i].conteogradoXI;
+                    sueldogradoXI = data[i].sueldogradoXI;
+
+                    puntajegradoXII = data[i].puntajegradoXII;
+                    conteogradoXII = data[i].conteogradoXII;
+                    sueldogradoXII = data[i].sueldogradoXII;
+
+                    puntajegradoXIII = data[i].puntajegradoXIII;
+                    conteogradoXIII = data[i].conteogradoXIII;
+                    sueldogradoXIII = data[i].sueldogradoXIII;
+
+                    puntajegradoXIV = data[i].puntajegradoXIV;
+                    conteogradoXIV = data[i].conteogradoXIV;
+                    sueldogradoXIV = data[i].sueldogradoXIV;
+
+                    puntajegradoXV = data[i].puntajegradoXV;
+                    conteogradoXV = data[i].conteogradoXV;
+                    sueldogradoXV = data[i].sueldogradoXV;
+
+                    maximosueldo = data[i].maximosueldo;
+                    contador++
                 }
-
-                if (tipoempresa >= 3) {
-
-                    var promediopuntajegradoIII = 0;
-                    var promediosueldogradoIII = 0;
-                    const xygradoIII = [];
-
-                    promediopuntajegradoIII = puntajegradoIII / conteogradoIII;
-                    promediosueldogradoIII = sueldogradoIII / conteogradoIII;
-
-                    promediosueldomaximo = promediosueldogradoIII;
-                    promediopuntajemaximo = promediopuntajegradoIII;
-
-                    grados.push({
-                        x: promediopuntajegradoIII,
-                        y: promediosueldogradoIII
-                    });
-                }
-
-                if (tipoempresa >= 4) {
-                    var promediopuntajegradoIV = 0;
-                    var promediosueldogradoIV = 0;
-                    const xygradoIV = [];
-
-                    promediopuntajegradoIV = puntajegradoIV / conteogradoIV;
-                    promediosueldogradoIV = sueldogradoIV / conteogradoIV;
-
-                    promediosueldomaximo = promediosueldogradoIV;
-                    promediopuntajemaximo = promediopuntajegradoIV;
-
-                    grados.push({
-                        x: promediopuntajegradoIV,
-                        y: promediosueldogradoIV
-                    });
-                }
-
-                if (tipoempresa >= 5) {
-                    var promediopuntajegradoV = 0;
-                    var promediosueldogradoV = 0;
-                    const xygradoV = [];
-
-                    promediopuntajegradoV = puntajegradoV / conteogradoV;
-                    promediosueldogradoV = sueldogradoV / conteogradoV;
-
-                    promediosueldomaximo = promediosueldogradoV;
-                    promediopuntajemaximo = promediopuntajegradoV;
-
-                    grados.push({
-                        x: promediopuntajegradoV,
-                        y: promediosueldogradoV
-                    });
-                }
-
-                if (tipoempresa >= 6) {
-                    var promediopuntajegradoVI = 0;
-                    var promediosueldogradoVI = 0;
-                    const xygradoVI = [];
-
-                    promediopuntajegradoVI = puntajegradoVI / conteogradoVI;
-                    promediosueldogradoVI = sueldogradoVI / conteogradoVI;
-
-                    promediosueldomaximo = promediosueldogradoVI;
-                    promediopuntajemaximo = promediopuntajegradoVI;
-
-                    grados.push({
-                        x: promediopuntajegradoVI,
-                        y: promediosueldogradoVI
-                    });
-                }
-
-                if (tipoempresa >= 7) {
-                    var promediopuntajegradoVII = 0;
-                    var promediosueldogradoVII = 0;
-                    const xygradoVII = [];
-
-                    promediopuntajegradoVII = puntajegradoVII / conteogradoVII;
-                    promediosueldogradoVII = sueldogradoVII / conteogradoVII;
-
-                    promediosueldomaximo = promediosueldogradoVII;
-                    promediopuntajemaximo = promediopuntajegradoVII;
-
-                    grados.push({
-                        x: promediopuntajegradoVII,
-                        y: promediosueldogradoVII
-                    });
-                }
-
-                if (tipoempresa >= 8) {
-                    var promediopuntajegradoVIII = 0;
-                    var promediosueldogradoVIII = 0;
-                    const xygradoVIII = [];
-
-                    promediopuntajegradoVIII = puntajegradoVIII / conteogradoVIII;
-                    promediosueldogradoVIII = sueldogradoVIII / conteogradoVIII;
-
-                    promediosueldomaximo = promediosueldogradoVIII;
-                    promediopuntajemaximo = promediopuntajegradoVIII;
-
-                    grados.push({
-                        x: promediopuntajegradoVIII,
-                        y: promediosueldogradoVIII
-                    });
-                }
-
-                if (tipoempresa >= 9) {
-                    var promediopuntajegradoIX = 0;
-                    var promediosueldogradoIX = 0;
-                    const xygradoIX = [];
-
-                    promediopuntajegradoIX = puntajegradoIX / conteogradoIX;
-                    promediosueldogradoIX = sueldogradoIX / conteogradoIX;
-
-                    promediosueldomaximo = promediosueldogradoIX;
-                    promediopuntajemaximo = promediopuntajegradoIX;
-
-                    grados.push({
-                        x: promediopuntajegradoIX,
-                        y: promediosueldogradoIX
-                    });
-                }
-
-                if (tipoempresa >= 10) {
-                    var promediopuntajegradoX = 0;
-                    var promediosueldogradoX = 0;
-                    const xygradoX = [];
-
-                    promediopuntajegradoX = puntajegradoX / conteogradoX;
-                    promediosueldogradoX = sueldogradoX / conteogradoX;
-
-                    promediosueldomaximo = promediosueldogradoX;
-                    promediopuntajemaximo = promediopuntajegradoX;
-
-                    grados.push({
-                        x: promediopuntajegradoX,
-                        y: promediosueldogradoX
-                    });
-                }
-
-                if (tipoempresa >= 11) {
-                    var promediopuntajegradoXI = 0;
-                    var promediosueldogradoXI = 0;
-                    const xygradoXI = [];
-
-                    promediopuntajegradoXI = puntajegradoXI / conteogradoXI;
-                    promediosueldogradoXI = sueldogradoXI / conteogradoXI;
-
-                    promediosueldomaximo = promediosueldogradoXI;
-                    promediopuntajemaximo = promediopuntajegradoXI;
-
-                    grados.push({
-                        x: promediopuntajegradoXI,
-                        y: promediosueldogradoXI
-                    });
-                }
-
-                if (tipoempresa >= 12) {
-                    var promediopuntajegradoXII = 0;
-                    var promediosueldogradoXII = 0;
-                    const xygradoXII = [];
-
-                    promediopuntajegradoXII = puntajegradoXII / conteogradoXII;
-                    promediosueldogradoXII = sueldogradoXII / conteogradoXII;
-
-                    promediosueldomaximo = promediosueldogradoXII;
-                    promediopuntajemaximo = promediopuntajegradoXII;
-
-                    grados.push({
-                        x: promediopuntajegradoXII,
-                        y: promediosueldogradoXII
-                    });
-                }
-
-                if (tipoempresa >= 13) {
-                    var promediopuntajegradoXIII = 0;
-                    var promediosueldogradoXIII = 0;
-                    const xygradoXIII = [];
-
-                    promediopuntajegradoXIII = puntajegradoXIII / conteogradoXIII;
-                    promediosueldogradoXIII = sueldogradoXIII / conteogradoXIII;
-
-                    promediosueldomaximo = promediosueldogradoXIII;
-                    promediopuntajemaximo = promediopuntajegradoXIII;
-
-                    grados.push({
-                        x: promediopuntajegradoXIII,
-                        y: promediosueldogradoXII
-                    });
-                }
-
-                if (tipoempresa >= 14) {
-                    var promediopuntajegradoXIV = 0;
-                    var promediosueldogradoXIV = 0;
-                    const xygradoXIV = [];
-
-                    promediopuntajegradoXIV = puntajegradoXIV / conteogradoXIV;
-                    promediosueldogradoXIV = sueldogradoXIV / conteogradoXIV;
-
-                    promediosueldomaximo = promediosueldogradoXIV;
-                    promediopuntajemaximo = promediopuntajegradoXIV;
-
-                    grados.push({
-                        x: promediopuntajegradoXIV,
-                        y: promediosueldogradoXIV
-                    });
-                }
-
-                if (tipoempresa >= 15) {
-                    var promediopuntajegradoXV = 0;
-                    var promediosueldogradoXV = 0;
-                    const xygradoXV = [];
-
-                    promediopuntajegradoXV = puntajegradoXV / conteogradoXV;
-                    promediosueldogradoXV = sueldogradoXV / conteogradoXV;
-
-                    promediosueldomaximo = promediosueldogradoXV;
-                    promediopuntajemaximo = promediopuntajegradoXV;
-
-                    grados.push({
-                        x: promediopuntajegradoXV,
-                        y: promediosueldogradoXV
-                    });
-                }
-
-
-                // Calcular la media de x e y
-                const x_mean = sueldosxy.reduce((total, value) => total + parseFloat(value.x), 0) / sueldosxy.length;
-                const y_mean = sueldosxy.reduce((total, value) => total + parseFloat(value.y), 0) / sueldosxy.length;
-
-                // Calcular la pendiente (m) y la intersección en el eje y (b)
-                const numerator = sueldosxy.reduce((total, value) => total + ((parseFloat(value.x) - x_mean) * (parseFloat(value.y) - y_mean)), 0);
-                const denominator = sueldosxy.reduce((total, value) => total + ((parseFloat(value.x) - x_mean) ** 2), 0);
-                const m = numerator / denominator;
-                const b = y_mean - (m * x_mean);
-
-                // Crear un arreglo con los valores de la recta de regresión
-                const regressionLine = [];
-                for (let i = 0; i < sueldosxy.length; i++) {
-                    const x = parseFloat(sueldosxy[i].x);
-                    const y = m * x + b;
-                    regressionLine.push({
-                        x,
-                        y
-                    });
-                }
-
-                var graphTarget = document.getElementById('graphCanvas').getContext('2d');
-
-
-
-                if (window.grafica) {
-                    window.grafica.clear();
-                    window.grafica.destroy();
-                }
-
-
-
-        window.grafica = new Chart(graphTarget, {
-            data: {
-                datasets: [{
-                        label: "Ingreso",
-                        data: sueldosxy,
-                        borderColor: '#0C00FF',
-                        backgroundColor: '#0C00FF',
-                        type: 'bubble',
-                        pointRadius: 6,
-                        pointStyle: 'rectRot',
-                        order: 1,
+            }
+
+            var promediosueldomaximo = 0;
+            var promediopuntajemaximo = 0;
+
+            var promediopuntajegradoI = 0;
+            var promediosueldogradoI = 0;
+            const xygradoI = [];
+
+            promediopuntajegradoI = puntajegradoI / conteogradoI;
+            promediosueldogradoI = sueldogradoI / conteogradoI;
+
+            promediosueldomaximo = promediosueldogradoI;
+            promediopuntajemaximo = promediopuntajegradoI;
+
+            grados = [];
+            grados.push({
+                x: 0,
+                y: 0
+            });
+            grados.push({
+                x: promediopuntajegradoI,
+                y: promediosueldogradoI
+            });
+
+            if (tipoempresa >= 2) {
+                var promediopuntajegradoII = 0;
+                var promediosueldogradoII = 0;
+                const xygradoII = [];
+
+                promediopuntajegradoII = puntajegradoII / conteogradoII;
+                promediosueldogradoII = sueldogradoII / conteogradoII;
+
+                promediosueldomaximo = promediosueldogradoII;
+                promediopuntajemaximo = promediopuntajegradoII;
+
+                grados.push({
+                    x: promediopuntajegradoII,
+                    y: promediosueldogradoII
+                });
+            }
+
+            if (tipoempresa >= 3) {
+
+                var promediopuntajegradoIII = 0;
+                var promediosueldogradoIII = 0;
+                const xygradoIII = [];
+
+                promediopuntajegradoIII = puntajegradoIII / conteogradoIII;
+                promediosueldogradoIII = sueldogradoIII / conteogradoIII;
+
+                promediosueldomaximo = promediosueldogradoIII;
+                promediopuntajemaximo = promediopuntajegradoIII;
+
+                grados.push({
+                    x: promediopuntajegradoIII,
+                    y: promediosueldogradoIII
+                });
+            }
+
+            if (tipoempresa >= 4) {
+                var promediopuntajegradoIV = 0;
+                var promediosueldogradoIV = 0;
+                const xygradoIV = [];
+
+                promediopuntajegradoIV = puntajegradoIV / conteogradoIV;
+                promediosueldogradoIV = sueldogradoIV / conteogradoIV;
+
+                promediosueldomaximo = promediosueldogradoIV;
+                promediopuntajemaximo = promediopuntajegradoIV;
+
+                grados.push({
+                    x: promediopuntajegradoIV,
+                    y: promediosueldogradoIV
+                });
+            }
+
+            if (tipoempresa >= 5) {
+                var promediopuntajegradoV = 0;
+                var promediosueldogradoV = 0;
+                const xygradoV = [];
+
+                promediopuntajegradoV = puntajegradoV / conteogradoV;
+                promediosueldogradoV = sueldogradoV / conteogradoV;
+
+                promediosueldomaximo = promediosueldogradoV;
+                promediopuntajemaximo = promediopuntajegradoV;
+
+                grados.push({
+                    x: promediopuntajegradoV,
+                    y: promediosueldogradoV
+                });
+            }
+
+            if (tipoempresa >= 6) {
+                var promediopuntajegradoVI = 0;
+                var promediosueldogradoVI = 0;
+                const xygradoVI = [];
+
+                promediopuntajegradoVI = puntajegradoVI / conteogradoVI;
+                promediosueldogradoVI = sueldogradoVI / conteogradoVI;
+
+                promediosueldomaximo = promediosueldogradoVI;
+                promediopuntajemaximo = promediopuntajegradoVI;
+
+                grados.push({
+                    x: promediopuntajegradoVI,
+                    y: promediosueldogradoVI
+                });
+            }
+
+            if (tipoempresa >= 7) {
+                var promediopuntajegradoVII = 0;
+                var promediosueldogradoVII = 0;
+                const xygradoVII = [];
+
+                promediopuntajegradoVII = puntajegradoVII / conteogradoVII;
+                promediosueldogradoVII = sueldogradoVII / conteogradoVII;
+
+                promediosueldomaximo = promediosueldogradoVII;
+                promediopuntajemaximo = promediopuntajegradoVII;
+
+                grados.push({
+                    x: promediopuntajegradoVII,
+                    y: promediosueldogradoVII
+                });
+            }
+
+            if (tipoempresa >= 8) {
+                var promediopuntajegradoVIII = 0;
+                var promediosueldogradoVIII = 0;
+                const xygradoVIII = [];
+
+                promediopuntajegradoVIII = puntajegradoVIII / conteogradoVIII;
+                promediosueldogradoVIII = sueldogradoVIII / conteogradoVIII;
+
+                promediosueldomaximo = promediosueldogradoVIII;
+                promediopuntajemaximo = promediopuntajegradoVIII;
+
+                grados.push({
+                    x: promediopuntajegradoVIII,
+                    y: promediosueldogradoVIII
+                });
+            }
+
+            if (tipoempresa >= 9) {
+                var promediopuntajegradoIX = 0;
+                var promediosueldogradoIX = 0;
+                const xygradoIX = [];
+
+                promediopuntajegradoIX = puntajegradoIX / conteogradoIX;
+                promediosueldogradoIX = sueldogradoIX / conteogradoIX;
+
+                promediosueldomaximo = promediosueldogradoIX;
+                promediopuntajemaximo = promediopuntajegradoIX;
+
+                grados.push({
+                    x: promediopuntajegradoIX,
+                    y: promediosueldogradoIX
+                });
+            }
+
+            if (tipoempresa >= 10) {
+                var promediopuntajegradoX = 0;
+                var promediosueldogradoX = 0;
+                const xygradoX = [];
+
+                promediopuntajegradoX = puntajegradoX / conteogradoX;
+                promediosueldogradoX = sueldogradoX / conteogradoX;
+
+                promediosueldomaximo = promediosueldogradoX;
+                promediopuntajemaximo = promediopuntajegradoX;
+
+                grados.push({
+                    x: promediopuntajegradoX,
+                    y: promediosueldogradoX
+                });
+            }
+
+            if (tipoempresa >= 11) {
+                var promediopuntajegradoXI = 0;
+                var promediosueldogradoXI = 0;
+                const xygradoXI = [];
+
+                promediopuntajegradoXI = puntajegradoXI / conteogradoXI;
+                promediosueldogradoXI = sueldogradoXI / conteogradoXI;
+
+                promediosueldomaximo = promediosueldogradoXI;
+                promediopuntajemaximo = promediopuntajegradoXI;
+
+                grados.push({
+                    x: promediopuntajegradoXI,
+                    y: promediosueldogradoXI
+                });
+            }
+
+            if (tipoempresa >= 12) {
+                var promediopuntajegradoXII = 0;
+                var promediosueldogradoXII = 0;
+                const xygradoXII = [];
+
+                promediopuntajegradoXII = puntajegradoXII / conteogradoXII;
+                promediosueldogradoXII = sueldogradoXII / conteogradoXII;
+
+                promediosueldomaximo = promediosueldogradoXII;
+                promediopuntajemaximo = promediopuntajegradoXII;
+
+                grados.push({
+                    x: promediopuntajegradoXII,
+                    y: promediosueldogradoXII
+                });
+            }
+
+            if (tipoempresa >= 13) {
+                var promediopuntajegradoXIII = 0;
+                var promediosueldogradoXIII = 0;
+                const xygradoXIII = [];
+
+                promediopuntajegradoXIII = puntajegradoXIII / conteogradoXIII;
+                promediosueldogradoXIII = sueldogradoXIII / conteogradoXIII;
+
+                promediosueldomaximo = promediosueldogradoXIII;
+                promediopuntajemaximo = promediopuntajegradoXIII;
+
+                grados.push({
+                    x: promediopuntajegradoXIII,
+                    y: promediosueldogradoXII
+                });
+            }
+
+            if (tipoempresa >= 14) {
+                var promediopuntajegradoXIV = 0;
+                var promediosueldogradoXIV = 0;
+                const xygradoXIV = [];
+
+                promediopuntajegradoXIV = puntajegradoXIV / conteogradoXIV;
+                promediosueldogradoXIV = sueldogradoXIV / conteogradoXIV;
+
+                promediosueldomaximo = promediosueldogradoXIV;
+                promediopuntajemaximo = promediopuntajegradoXIV;
+
+                grados.push({
+                    x: promediopuntajegradoXIV,
+                    y: promediosueldogradoXIV
+                });
+            }
+
+            if (tipoempresa >= 15) {
+                var promediopuntajegradoXV = 0;
+                var promediosueldogradoXV = 0;
+                const xygradoXV = [];
+
+                promediopuntajegradoXV = puntajegradoXV / conteogradoXV;
+                promediosueldogradoXV = sueldogradoXV / conteogradoXV;
+
+                promediosueldomaximo = promediosueldogradoXV;
+                promediopuntajemaximo = promediopuntajegradoXV;
+
+                grados.push({
+                    x: promediopuntajegradoXV,
+                    y: promediosueldogradoXV
+                });
+            }
+
+
+            // Calcular la media de x e y
+            const x_mean = sueldosxy.reduce((total, value) => total + parseFloat(value.x), 0) / sueldosxy
+                .length;
+            const y_mean = sueldosxy.reduce((total, value) => total + parseFloat(value.y), 0) / sueldosxy
+                .length;
+
+            // Calcular la pendiente (m) y la intersección en el eje y (b)
+            const numerator = sueldosxy.reduce((total, value) => total + ((parseFloat(value.x) - x_mean) * (
+                parseFloat(value.y) - y_mean)), 0);
+            const denominator = sueldosxy.reduce((total, value) => total + ((parseFloat(value.x) - x_mean) **
+                2), 0);
+            const m = numerator / denominator;
+            const b = y_mean - (m * x_mean);
+
+            // Crear un arreglo con los valores de la recta de regresión
+            const regressionLine = [];
+            for (let i = 0; i < sueldosxy.length; i++) {
+                const x = parseFloat(sueldosxy[i].x);
+                const y = m * x + b;
+                regressionLine.push({
+                    x,
+                    y
+                });
+            }
+
+            var graphTarget = document.getElementById('graphCanvas').getContext('2d');
+
+
+
+            if (window.grafica) {
+                window.grafica.clear();
+                window.grafica.destroy();
+            }
+
+
+
+            window.grafica = new Chart(graphTarget, {
+                data: {
+                    datasets: [{
+                            label: "Ingreso",
+                            data: sueldosxy,
+                            borderColor: '#0C00FF',
+                            backgroundColor: '#0C00FF',
+                            type: 'bubble',
+                            pointRadius: 6,
+                            pointStyle: 'rectRot',
+                            order: 1,
+                        },
+                        {
+                            label: "Recta de Regresión",
+                            data: regressionLine,
+                            borderColor: '#1CB00B',
+                            backgroundColor: '#1CB00B',
+                            pointRadius: 1,
+                            type: 'line',
+                            order: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            align: 'start',
+                            display: true,
+                            text: titulo
+
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: ((tooltipItem, data) => {
+                                    var nombre = tooltipItem.raw.nombre
+                                    var cargo = tooltipItem.raw.cargo
+                                    var puntos = "Puntaje: " + tooltipItem.raw.x
+                                    var sueldo = "Sueldo: " + tooltipItem.raw.y
+                                    return [nombre, cargo, puntos, sueldo]
+                                })
+                            }
+                        }
                     },
-                    {
-                        label: "Recta de Regresión",
-                        data: regressionLine,
-                        borderColor: '#1CB00B',
-                        backgroundColor: '#1CB00B',
-                        pointRadius: 1,
-                        type: 'line',
-                        order: 0
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        align: 'start',
-                        display: true,
-                        text: titulo
-
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: ((tooltipItem, data) => {
-                                        var nombre = tooltipItem.raw.nombre
-                                        var cargo = tooltipItem.raw.cargo
-                                        var puntos = "Puntaje: " + tooltipItem.raw.x
-                                        var sueldo = "Sueldo: " + tooltipItem.raw.y
-                                        return [nombre, cargo, puntos, sueldo]
-                                    })
-                                }
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Puntaje'
                             }
                         },
-                        scales: {
-                            x: {
+                        y: {
+                            display: true,
+                            title: {
                                 display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Puntaje'
-                                }
-                            },
-                            y: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Sueldos'
-                                }
+                                text: 'Sueldos'
                             }
                         }
                     }
-                });
-
-
-
-
-
+                }
             });
 
-        }
+
+
+
+
+        });
+
+    }
     </script>
     <script src="https://momentjs.com/downloads/moment.js"></script>

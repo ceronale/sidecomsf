@@ -1,11 +1,13 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
-
 /* Adjust the width of the buttons */
- .dt-buttons {
-    flex: 2; /* Occupy two-thirds of the available space */
-    text-align: right; /* Align the buttons to the right */
+.dt-buttons {
+    flex: 2;
+    /* Occupy two-thirds of the available space */
+    text-align: right;
+    /* Align the buttons to the right */
 }
 </style>
 <?php include_once "../layouts/menu.php"; 
@@ -49,22 +51,30 @@ $info_factor_meses = "Es un indicador que señala los meses (y fracción) conten
 $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos trabajadores en moneda extranjera. (PAGO MENSUAL)";
 ?>
     <script>
-      $(document).ready(function() {
-            $('#example').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+    $(document).ready(function() {
+        $('#example').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+            },
+            dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
+                "<'row'<'col-sm-12't>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            buttons: [{
+                    extend: 'excel',
+                    className: 'btn btn-primary btn3d'
                 },
-                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
-        "<'row'<'col-sm-12't>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        buttons: [
-            { extend: 'excel', className: 'btn btn-primary btn3d' },
-            { extend: 'pdf', className: 'btn btn-primary btn3d' },
-            { extend: 'print', className: 'btn btn-primary btn3d' }
-        ],
-                'iDisplayLength': 50,
-            });
+                {
+                    extend: 'pdf',
+                    className: 'btn btn-primary btn3d'
+                },
+                {
+                    extend: 'print',
+                    className: 'btn btn-primary btn3d'
+                }
+            ],
+            'iDisplayLength': 50,
         });
+    });
     </script>
 
     <div class="container">
@@ -100,7 +110,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button"
-                                        class="btn btn-success btn-block btn-smbtn btn-success btn-block btn-sm"
+                                        class="btn btn-primary btn3d"
                                         data-bs-toggle="collapse" data-bs-target="#collapseindicadores"
                                         aria-expanded="false" aria-controls="collapseindicadores"
                                         title="Generar resultados" id="btn-genResultados"
@@ -446,10 +456,6 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
     </div>
 
 
-    <br>
-
-
-    <div class='clearfix'></div><br />
     <?php
                 extract($crud->get_nombre_moneda());
                 $user = $_SESSION['user'];
@@ -457,21 +463,50 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                 extract($crud->get_datos_empresa($user['id_empresa']));	
                 extract($crud->get_sum_empleados($categoria));	
                 extract($crud->get_nivel_empresarial($nivel_empresarial));	
-                
+                $grados = $crud->dataview_escalas($_GET['ca']); 
         ?>
 
+<div class="col-md-12">
     <div class="row">
-        <div class="col-sm-1 form-group">
-            <button type="button" class="btn btn-info btn-block btn-sm" title="Ver Escala Empresarial" id="ver_escala"
+    <div class="col-md-1"></div>
+        <div class="col-sm-2 form-group">
+            <button type="button" class="btn btn-primary btn3d" title="Ver Escala Empresarial" id="ver_escala"
                 onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')">Ver
                 Escala</button>
         </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-3 form-group">
+            <div class="row">
+                <div class="col-md-2" style="text-align: right !important;">
+                    <label for="id_grado">Grados</label>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="id_grado" name="id_grado"
+                        onchange="redirectgrados(this.value, <?= $_GET['ca']; ?>)">
+                        <option value="">Todos</option>
+                        <?php
+                    if ($grados != null){
+                    foreach ($grados as $grado) { ?>
+                        <option value="<?= $grado['grado']?>"
+                            <?php
+                            if(isset($_GET['g'])){ if($grado['grado'] == $_GET['g']){echo "Selected";} }?>>
+                            <?= $grado['grado'];?>
+                        </option>
+                        <?php }
+                    }
+                    ?>
+                    </select>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-        <div class="col-sm-10 form-group" style="text-align: right;">
+        <div class="col-sm-3 form-group" style="text-align: right;">
             <span style="font-size: 12px; color:red">(MONTOS EXPRESADOS EN <?=strtoupper($nombre_moneda)?>)</span>
         </div>
     </div>
-    <br>
+    </div>
+
     <div class='container' style="overflow: auto; max-height: 600px;">
         <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
             <thead style="position: sticky; top: 0; background-color: white;">
@@ -493,7 +528,18 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
             </thead>
             <tbody>
                 <?php
-                $resultados = $crud->dataview_resultados($categoria);
+
+if(isset($_GET['g']))
+{
+    $resultados = $crud->dataview_resultados($categoria,$_GET['g']);
+  
+}
+else
+{
+    $resultados = $crud->dataview_resultados($categoria,"");
+}
+
+             
                 if ($resultados != null) {
                     foreach ($resultados as $resultado) {
                        
@@ -597,6 +643,11 @@ function redirectcategoria(categoria) {
     window.location.href = "../matriz-resultados/?ca=" + categoria;
 }
 
+function redirectgrados(grado, categoria) {
+        window.location.href = "../matriz-resultados/?ca=" + categoria + "&g=" + grado;
+    }
+
+
 function indicadores() {
     let categoria = $("#cboCategoria").val();
 
@@ -608,7 +659,7 @@ function indicadores() {
     var total_ingreso_mensual = document.getElementById("total_ingreso_mensual");
     var presupuesto_ingreso_mensual = document.getElementById("presupuesto_ingreso_mensual");
     var diferencia_ingreso_mensual = document.getElementById("diferencia_ingreso_mensual");
-   // var factor_ingreso_mensual = document.getElementById("factor_ingreso_mensual");
+    // var factor_ingreso_mensual = document.getElementById("factor_ingreso_mensual");
 
 
     var total_paquete_anual = document.getElementById("total_paquete_anual");

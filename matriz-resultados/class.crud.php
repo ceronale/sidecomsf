@@ -21,9 +21,20 @@ class crud
 	}
 
 	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
-    public function dataview_resultados($categoria)
+    public function dataview_resultados($categoria,$grado)
     {
 		$user = $_SESSION['user'];
+		if($grado != "")
+		{
+			$filtro = "WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = '" .$grado. "'";
+		}
+		else
+		{
+			$filtro = "WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria;
+		}
+
+
+
 		$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
 		mn.sueldo_base as sueldobase,  
 		ROUND((mn.sueldo_base) - (SELECT MIN(mn.sueldo_base) FROM matriz_nomina mn
@@ -61,9 +72,9 @@ class crud
 		
 		FROM matriz_nomina mn
 		INNER JOIN cargos c 
-		ON c.id = mn.id_cargo
-		WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria."
-		GROUP BY c.grado ,mn.id, c.categoria
+		ON c.id = mn.id_cargo ".
+		$filtro ." 
+		 GROUP BY c.grado ,mn.id, c.categoria
 		order by c.grado";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

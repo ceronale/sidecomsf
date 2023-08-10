@@ -23,17 +23,18 @@ class crud
 	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
     public function dataview_nomina($categoria,$grado)
     {
+		$user = $_SESSION['user'];
 		if($grado != "")
 		{
 			$filtro = "WHERE mn.id_empresa = ". $user['id_empresa'] . "
-			AND c.categoria = " .$categoria . "AND ";
+			AND c.categoria = " .$categoria . " AND c.grado = '" .$grado. "'";
 		}
 		else
 		{
 			$filtro = "WHERE mn.id_empresa = ". $user['id_empresa'] . "
 			AND c.categoria = " .$categoria;
 		}
-		$user = $_SESSION['user'];
+		
 		$query = "SELECT mn.id as id_nomina,
 		c.grado as grado,
 		c.puntaje as mnpuntaje,
@@ -60,9 +61,8 @@ class crud
 		mn.id_tipodivisa as idtipodivisa
 		FROM matriz_nomina mn
 		INNER JOIN cargos c ON mn.id_cargo = c.id
-		INNER JOIN departamentos d ON mn.id_departamento = d.id
-		WHERE mn.id_empresa = ". $user['id_empresa'] . "
-		AND c.categoria = " .$categoria . "
+		INNER JOIN departamentos d ON mn.id_departamento = d.id " 
+		. $filtro . "
 		ORDER BY c.grado";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

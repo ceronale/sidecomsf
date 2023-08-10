@@ -1,5 +1,6 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php"; 
 $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios de INGRESOS MENSUALES Y PAQUETE ANUAL, que usted registró en la MATRIZ DE NÓMINA. ;; 2.- Usted podrá CREAR UNA BANDA SALARIAL, anotando en el grado I el SUELDO o SALARIO MÍNIMO NACIONAL OFICIAL o SALARIO MÍNIMO según la política de su Organización. ;; 3.- Para los grados sucesivos, asigne un porcentaje para incrementar el salario en cada grado (hasta cubrir el mayor salario de su empresa) y otro porcentaje para los niveles Mínimo, Medio y Máximo. ;; 4.- A través del gráfico que se genere, podrá apreciar cuán distante esta el promedio de los salarios reales por grado, con respecto a la BANDA SALARIAL REFERENCIAL.";
 
@@ -72,9 +73,16 @@ if($categoria == 1){
         $('#example').DataTable({
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                
             },
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print'
+            ],
             'iDisplayLength': 50,
-        });
+           
+        }
+        );
 
 
     });

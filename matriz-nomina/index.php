@@ -1,5 +1,6 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php"; 
 
 
@@ -173,13 +174,13 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                     </select>
                 </div>
                 <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-success btn-block btn-sm" title="Generar gráfica"
+                    <button type="button" class="btn btn-primary btn3d" title="Generar gráfica"
                         id="btn-gengraph" onclick="showGraph()">Generar Gráfica</button>
                 </div>
 
                 <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-danger btn-block btn-sm" title="Mostrar/Ocultar gráfica"
-                        id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar/Ocultar Gráfica</button>
+                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica"
+                        id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar</button>
                 </div>
 
                 <?php /*
@@ -202,7 +203,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
             <div class="row">
             <div class="col-md-5">  </div>
             <div class="col-md-3">
-            <button type="button" class="btn btn-success btn-block btn-sm" title="Mostrar/Ocultar gráfica"
+            <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica"
                         id="fs-doc-button">Pantalla Completa</button>
                         </div>
                         </div>
@@ -227,7 +228,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
         <div class="row">
             <div class="col-sm-2 form-group">
             <a href='#' onclick="crear_nomina('<?php echo date('d/m/Y', strtotime('now')); ?>','<?php echo date('Y-m-d', strtotime('now')); ?>')"
-                    class='btn btn-large btn-dark'> &nbsp;
+                    class='btn btn-primary btn3d'> &nbsp;
                     <img src="../assets/img/icons/nuevo-blanco.png" style="color: white !important;" height="20"
                         width="20" alt="Nuevo"> Nuevo</a>
                           
@@ -235,7 +236,7 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
 
             <div class="col-sm-2 form-group">
             <a href='#' onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')"
-                    class='btn btn-large btn-info'> Ver Escala</a>
+                    class='btn btn-primary btn3d'> Ver Escala</a>
 
                        
             </div>

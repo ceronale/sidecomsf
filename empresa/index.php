@@ -280,6 +280,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                             span3.textContent = countryMoneda;
                             var monedaInput = document.getElementById("moneda-seleccionada");
                             monedaInput.value = countryMoneda;
+                            selectMoneda.options[2].selected = true;
                         } else {
                             // Seleccionar EUR o USD automáticamente
                             if (countryMoneda === "EUR") {

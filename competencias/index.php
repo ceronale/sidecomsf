@@ -3,6 +3,8 @@
 <?php include_once "../layouts/menu.php";
 $sectores = ""; ?>
 
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->

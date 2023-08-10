@@ -1,8 +1,19 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; 
-$matriz_resultados = "1.- Combina ambas Matrices (de Nómina y Jerarquización). ;; 2.- Compara cada uno de los datos de la matriz de nómina (Ingreso mensual y Paquete anual), con Mínimo, Medio y Máximo. ;; 3.- Se totalizan los ingresos mensual y paquete, para luego compararlo con el Presupuesto, debe arrojar un saldo igual, positivo o negativo.";
+$matriz_resultados = "1.- Combina ambas Matrices (de Nómina y Jerarquización). ;; 2.- Compara cada uno de los datos de la matriz de nómina (Ingreso mensual y Paquete anual), con Mínimo, Medio y Máximo. ;; 3.- Se totalizan los ingresos mensual y paquete, para luego compararlo con el Presupuesto y Ventas, debe arrojar un saldo igual, positivo o negativo.";
 $indicadores = "Característica específica, observable y medible que permite ser usada para mostrar los cambios y progresos de la información hacia el logro de los resultados previstos o planificados.";
+
+include_once 'class.crud.php';
+$crud = new crud();
+$categoria = $_GET['ca'];
+
+if($categoria == 1){
+    $cat = "Administrativo";
+}else
+{
+    $cat = "Planta - Taller - Fábrica";
+}
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -13,7 +24,7 @@ $indicadores = "Característica específica, observable y medible que permite se
             <div class="card-header">
                 <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
                     onclick="info_tabla('Matriz de Resultados:','<?php echo $matriz_resultados; ?>')">Matriz de
-                    Resultados</span>
+                    Resultados <?= $cat; ?> </span>
             </div>
         </div>
 
@@ -22,11 +33,7 @@ $indicadores = "Característica específica, observable y medible que permite se
 
     <?php
 
-    include_once 'class.crud.php';
-    $crud = new crud();
 
-    
- $categoria = $_GET['ca'];
 $info_sueldo_base_mensual = "Es la porción del sueldo o salario mensual que sirve de base para el cálculos de los aumentos por meritos ó desempeño.";
 $info_ingreso_mensual = "Incluye todos los sueldos o salarios, bonos, gratificaciones, fondo de ahorro, ayuda despensa, bono alimentación, transporte y otros pagos (ingresos bruto), que perciba el trabajador en forma regular y permanente.";
 $info_paquete_anual = "Incluye toda remuneración que percibe el trabajador anualmente tales como: Doce meses del ingreso mensual, bono vacacional, utilidades, bono de fin de año, aguinaldos, bonos especiales, bonos por desempeño o productividad, entre otros pagos.";

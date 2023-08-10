@@ -1,5 +1,6 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php";
 
 
@@ -42,6 +43,15 @@ function tiempoTranscurridoFechas($fecha1)
 }
 
 $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisar la estructura de los puestos/cargos valorados e Ingresos reales (Sueldos o Salarios mensuales y paquete anual) además visualizar en un gráfico, el orden o jerarquía tal como se presentan en la valoración.";
+include_once 'class.crud.php';
+$crud = new crud();
+$categoria = $_GET['ca'];
+
+if ($categoria == 1) {
+    $cat = "Administrativo";
+} else {
+    $cat = "Planta - Taller - Fábrica";
+}
 ?>
 
 
@@ -52,7 +62,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Matriz de Nómina:','<?php echo $matriz_nomina; ?>')">Matriz de Nómina <?= $cat; ?> </span>
             </div>
         </div>
 
@@ -61,9 +71,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
 
     <?php
 
-    include_once 'class.crud.php';
-    $crud = new crud();
-    $categoria = $_GET['ca'];
+
     if (isset($_GET['inserted'])) {
     ?>
         <script>
@@ -165,11 +173,11 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
                     </select>
                 </div>
                 <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-success btn-block btn-sm" title="Generar gráfica" id="btn-gengraph" onclick="showGraph()">Generar Gráfica</button>
+                    <button type="button" class="btn btn-primary btn3d" title="Generar gráfica" id="btn-gengraph" onclick="showGraph()">Generar Gráfica</button>
                 </div>
 
                 <div class="col-sm-2 form-group">
-                    <button type="button" class="btn btn-danger btn-block btn-sm" title="Mostrar/Ocultar gráfica" id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar/Ocultar Gráfica</button>
+                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica" id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar</button>
                 </div>
 
                 <?php /*
@@ -192,7 +200,7 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
             <div class="row">
                 <div class="col-md-5"> </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-success btn-block btn-sm" title="Mostrar/Ocultar gráfica" id="fs-doc-button">Pantalla Completa</button>
+                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica" id="fs-doc-button">Pantalla Completa</button>
                 </div>
             </div>
             <canvas id="graphCanvas"></canvas>
@@ -215,13 +223,13 @@ $matriz_nomina = "Cargar los datos requeridos en la Matriz, le permitirá revisa
 
         <div class="row">
             <div class="col-sm-2 form-group">
-                <a href='#' onclick="crear_nomina('<?php echo date('d/m/Y', strtotime('now')); ?>','<?php echo date('Y-m-d', strtotime('now')); ?>')" class='btn btn-large btn-dark'> &nbsp;
+                <a href='#' onclick="crear_nomina('<?php echo date('d/m/Y', strtotime('now')); ?>','<?php echo date('Y-m-d', strtotime('now')); ?>')" class='btn btn-primary btn3d'> &nbsp;
                     <img src="../assets/img/icons/nuevo-blanco.png" style="color: white !important;" height="20" width="20" alt="Nuevo"> Nuevo</a>
 
             </div>
 
             <div class="col-sm-2 form-group">
-                <a href='#' onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')" class='btn btn-large btn-info'> Ver Escala</a>
+                <a href='#' onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')" class='btn btn-primary btn3d'> Ver Escala</a>
 
 
             </div>

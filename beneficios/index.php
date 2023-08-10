@@ -2,6 +2,7 @@
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->

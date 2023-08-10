@@ -1,8 +1,38 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php"; 
 $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios de INGRESOS MENSUALES Y PAQUETE ANUAL, que usted registró en la MATRIZ DE NÓMINA. ;; 2.- Usted podrá CREAR UNA BANDA SALARIAL, anotando en el grado I el SUELDO o SALARIO MÍNIMO NACIONAL OFICIAL o SALARIO MÍNIMO según la política de su Organización. ;; 3.- Para los grados sucesivos, asigne un porcentaje para incrementar el salario en cada grado (hasta cubrir el mayor salario de su empresa) y otro porcentaje para los niveles Mínimo, Medio y Máximo. ;; 4.- A través del gráfico que se genere, podrá apreciar cuán distante esta el promedio de los salarios reales por grado, con respecto a la BANDA SALARIAL REFERENCIAL.";
 
+
+include_once 'class.crud.php';
+$crud = new crud();  
+$user = $_SESSION['user'];
+
+extract($crud->get_calculosminperpasos($user['id_empresa']));	
+
+if($sueldomin < 1)
+{
+ extract($crud->get_sueldomin($user['id_empresa'],$categoria,$asignacion));	
+ $ingreso_minimo = floatval($minasignacion);
+ $incremento_grados = 0.50;
+ $incremento_min_med_max = 0.90;
+ 
+}
+else
+{
+ $ingreso_minimo = $sueldomin;
+ $incremento_grados = (floatval($porcentaje_grados) / 100);
+ $incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
+}
+
+
+if($categoria == 1){
+    $cat = "Administrativo";
+}else
+{
+    $cat = "Planta - Taller - Fábrica";
+}
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -14,7 +44,7 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
             <div class="card-header">
                 <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
                     onclick="info_tabla('Matriz de Jerarquización:','<?php echo $matriz_jerarquizacion; ?>')">Matriz de
-                    Jerarquización</span>
+                    Jerarquización <?= $cat; ?> </span>
             </div>
         </div>
 
@@ -23,26 +53,6 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
 
     <?php
 
-    include_once 'class.crud.php';
-    $crud = new crud();  
-    $user = $_SESSION['user'];
-    
- extract($crud->get_calculosminperpasos($user['id_empresa']));	
-
- if($sueldomin < 1)
- {
-     extract($crud->get_sueldomin($user['id_empresa'],$categoria,$asignacion));	
-     $ingreso_minimo = floatval($minasignacion);
-     $incremento_grados = 0.50;
-     $incremento_min_med_max = 0.90;
-     
- }
- else
- {
-     $ingreso_minimo = $sueldomin;
-     $incremento_grados = (floatval($porcentaje_grados) / 100);
-     $incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
- }
 
  if (isset($_GET['ban'])) {
     ?>
@@ -63,9 +73,16 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
         $('#example').DataTable({
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                
             },
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print'
+            ],
             'iDisplayLength': 50,
-        });
+           
+        }
+        );
 
 
     });
@@ -125,7 +142,7 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
 
             <div class="row" id="formcss">
                 <div class="col-sm-3 form-group">
-                    <label for="ingreso_minimo">Ingreso Minimo</label>
+                    <label for="ingreso_minimo">Ingreso Mínimo</label>
                     <input type="text" class="form-control input-sm number" id="ingreso_minimo" name="ingreso_minimo"
                         placeholder="Indique el Ingreso Minimo" value="<?=  $ingreso_minimo;  ?>" required title="Indique el Ingreso Minimo" />
                 </div>
@@ -188,10 +205,10 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                             <th>Grado</th>
                             <th>Mín</th>
                             <th>Máx</th>
-                            <th>Promedio Puntaje</th>
-                            <th style="border-left: solid 2px #A8A8A8">Promedio Ingreso Mensual</th>
-                            <th>Promedio Paquete Anual</th>
-                            <th>Promedio Factor Anual</th>
+                            <th>Promedio <br> Puntaje</th>
+                            <th style="border-left: solid 2px #A8A8A8">Promedio Ingreso <br> Mensual</th>
+                            <th>Promedio Paquete <br> Anual</th>
+                            <th>Promedio Factor <br> Anual</th>
                             <th style="border-left: solid 2px #A8A8A8">Mínimo</th>
                             <th>Medio</th>
                             <th>Máximo</th>
@@ -245,11 +262,35 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
 
                             <td><?= number_format($jerarquizacion['promediopaqueteanual'],2,',','.'); ?></td>
                             <td><?= number_format($jerarquizacion['promediofactor'],2,',','.'); ?></td>
-                            <td style="border-left: solid 2px #A8A8A8"><?= number_format($minimo,2,',','.'); ?></td>
-                            <td><?= number_format($medio,2,',','.');  ?></td>
-                            <td><?= number_format($maximo,2,',','.');  ?></td>
+                           <?php if($minimo < 0)
+                            { ?>
+                              <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;"> <?= number_format($minimo,2,',','.'); ?> </span>  </td>
+                           <?php } 
+                            else
+                            { ?>
+                            <td style="border-left: solid 2px #A8A8A8"> <?= number_format($minimo,2,',','.'); ?>  </td>
+                            <?php }
+                            ?>
 
+                            <?php if($medio < 0)
+                            { ?>
+                              <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;"> <?= number_format($medio,2,',','.'); ?> </span>  </td>
+                           <?php } 
+                            else
+                            { ?>
+                            <td style="border-left: solid 2px #A8A8A8"> <?= number_format($medio,2,',','.'); ?>  </td>
+                            <?php }
+                            ?>
 
+                            <?php if($maximo < 0)
+                            { ?>
+                              <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;"> <?= number_format($maximo,2,',','.'); ?> </span>  </td>
+                           <?php } 
+                            else
+                            { ?>
+                            <td style="border-left: solid 2px #A8A8A8"> <?= number_format($maximo,2,',','.'); ?>  </td>
+                            <?php }
+                            ?>
                         </tr>
 
                         <?php }
@@ -304,6 +345,7 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
 
     });
 
+
     function mostrar_ocultar_grafica() {
 
         const toggleButton = document.getElementById('toggle-grafica');
@@ -320,8 +362,6 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
             graficaContainer.style.display = 'none';
             // Destruir la instancia de la gráfica
         }
-
-
 
     }
 
@@ -996,8 +1036,8 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                     datasets: [{
                             label: "Minimo",
                             data: minimo,
-                            borderColor: '#FF9700',
-                            backgroundColor: '#FF9700',
+                            borderColor: '#1CB00B',
+                            backgroundColor: '#1CB00B',
                             type: 'line',
                             pointRadius: 3,
                             order: 1,
@@ -1005,8 +1045,8 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                         {
                             label: "Medio",
                             data: medio,
-                            borderColor: '#FBFF00',
-                            backgroundColor: '#FBFF00',
+                            borderColor: '#00A2FF',
+                            backgroundColor: '#00A2FF',
                             pointRadius: 3,
                             type: 'line',
                             order: 2
@@ -1014,8 +1054,8 @@ $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios 
                         {
                             label: "Máximo",
                             data: maximo,
-                            borderColor: '#00A2FF',
-                            backgroundColor: '#00A2FF',
+                            borderColor: '#DD0000',
+                            backgroundColor: '#DD0000',
                             pointRadius: 3,
                             type: 'line',
                             order: 3

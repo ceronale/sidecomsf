@@ -1,5 +1,6 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php";
 $sectores = "Los sectores productivos, o lo que es lo mismo, los sectores de la economía, se utilizan para establecer una clasificación de la actividad económica de una región en función del tipo Estos dos últimos, se consideran, por parte de algunos estudiosos, como parte del sector terciario."; ?>
 

@@ -21,8 +21,18 @@ class crud
 	}
 
 	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
-    public function dataview_nomina($categoria)
+    public function dataview_nomina($categoria,$grado)
     {
+		if($grado != "")
+		{
+			$filtro = "WHERE mn.id_empresa = ". $user['id_empresa'] . "
+			AND c.categoria = " .$categoria . "AND ";
+		}
+		else
+		{
+			$filtro = "WHERE mn.id_empresa = ". $user['id_empresa'] . "
+			AND c.categoria = " .$categoria;
+		}
 		$user = $_SESSION['user'];
 		$query = "SELECT mn.id as id_nomina,
 		c.grado as grado,

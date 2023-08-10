@@ -11,9 +11,6 @@
 </style>
 <?php include_once "../layouts/menu.php"; 
 
-
-
-
 function tiempoTranscurridoFechas($fecha1)
 {
     $fechaInicio = date("Y-m-d", strtotime($fecha1));
@@ -262,7 +259,7 @@ if ($categoria == 1) {
         <div class="form-group">
             <label for="id_grado">Grados</label>
             <select class="form-select" id="id_grado"
-                name="id_grado" onchange="redirectcategoria(this.value)">
+                name="id_grado" onchange="redirectgrados(this.value, <?= $_GET['ca']; ?>)">
                 <option value="">Seleccione..</option>
                 <?php
                 if ($grados != null){
@@ -304,7 +301,15 @@ if ($categoria == 1) {
                 </thead>
                 <tbody>
                     <?php
-                    $nominas = $crud->dataview_nomina($categoria);
+                    if(isset($_GET['g']))
+                    {
+                        $nominas = $crud->dataview_nomina($categoria,$_GET['g']); 
+                    }
+                    else
+                    {
+                        $nominas = $crud->dataview_nomina($categoria);
+                    }
+                   
                     if ($nominas != null) {
                         foreach ($nominas as $nomina) {
                             $tiempotrans = "<script>" . "tiempotranscurrido(" . $nomina['fechaingreso'] . ")" . "</script>";
@@ -443,6 +448,10 @@ if ($categoria == 1) {
     <script>
         function redirectcategoria(categoria) {
             window.location.href = "../matriz-nomina/?ca=" + categoria;
+        }
+
+        function redirectgrados(grado,categoria) {
+            window.location.href = "../matriz-nomina/?ca=" + categoria + "&g=" + grado;
         }
 
         $(document).ready(function() {

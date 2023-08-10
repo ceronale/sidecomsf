@@ -173,6 +173,7 @@
 
         </div>
         <div class='clearfix'></div><br />
+
         <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#tab1" style="font-weight: bold; font-size: 1.2em;">Asignación de Beneficios</a>

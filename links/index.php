@@ -112,16 +112,18 @@
                 ?>
                         <tr>
                             <td><?php print($link['titulo']); ?></td>
-                            <td><a href="<?php echo $link['website']; ?>" target="_blank"><?php echo $link['website']; ?></a></td>
-                            <td><?php if ($link['status'] == "1") {
-                                    print "Activo";
-                                } else {
-                                    print "Inactivo";
-                                }
-                                ?></td>
+                            <td style="width:5%"><a href="<?php echo $link['website']; ?>" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> <!-- Icono de enlace externo -->
+                                </a></td>
+                            <td style="width:5%"><?php if ($link['status'] == "1") {
+                                                        print "Activo";
+                                                    } else {
+                                                        print "Inactivo";
+                                                    }
+                                                    ?></td>
 
 
-                            <td style="text-align: center">
+                            <td style=" width:10%; text-align: center">
                                 <a onclick="editar_link('<?php print($link['id']) ?>','<?php print($link['titulo']) ?>','<?php print($link['website']) ?>','<?php print($link['status']) ?>')">
                                     <i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;

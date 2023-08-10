@@ -96,8 +96,6 @@
                 <tr>
                     <th>Título</th>
                     <th>Website</th>
-                    <th>Status</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -108,14 +106,10 @@
                 ?>
                         <tr>
                             <td><?php print($link['titulo']); ?></td>
-                            <td><a href="<?php echo $link['website']; ?>" target="_blank"><?php echo $link['website']; ?></a></td>
-                            <td><?php if ($link['status'] == "1") {
-                                    print "Activo";
-                                } else {
-                                    print "Inactivo";
-                                }
-                                ?>
-                            </td>
+                            <td style="width:10%"><a href="<?php echo $link['website']; ?>" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> <!-- Icono de enlace externo -->
+                                </a></td>
+
                         </tr>
 
                     <?php }
@@ -124,7 +118,7 @@
                         <td>No hay registros</td>
                         <td></td>
                         <td></td>
-                        <td></td>
+
                     </tr>
                 <?php } ?>
             </tbody>

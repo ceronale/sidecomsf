@@ -1,7 +1,17 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
+<style>
+
+/* Adjust the width of the buttons */
+ .dt-buttons {
+    flex: 2; /* Occupy two-thirds of the available space */
+    text-align: right; /* Align the buttons to the right */
+}
+</style>
 <?php include_once "../layouts/menu.php"; 
+
+
 
 
 function tiempoTranscurridoFechas($fecha1)
@@ -139,14 +149,22 @@ $cargo_critico = "Lo podemos definir como aquellas funciones, actividades y tare
 $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre uno o más trabajadores para realizar tareas y actividades de producción, es responsable de la productividad de sus subalternos. Según el nivel, la denominación del cargo varía como: Capataz, Jefe, Supervisor, Gerente, Coordinador o Encargado de una unidad, departamento o gerencia de nivel medio o alto."; 
 ?>
     <script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-            },
-            'iDisplayLength': 50,
+         $(document).ready(function() {
+            $('#example').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
+        "<'row'<'col-sm-12't>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        buttons: [
+            { extend: 'excel', className: 'btn btn-primary btn3d' },
+            { extend: 'pdf', className: 'btn btn-primary btn3d' },
+            { extend: 'print', className: 'btn btn-primary btn3d' }
+        ],
+                'iDisplayLength': 50,
+            });
         });
-    });
     </script>
 
     <div class='container'>
@@ -246,6 +264,26 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
             </div>
         </div>
         <br>
+
+      <?php  $grados = $crud->dataview_escalas($_GET['ca']); ?>
+        <div class="form-group">
+            <label for="id_grado">Grados</label>
+            <select class="form-select" id="id_grado"
+                name="id_grado" onchange="redirectcategoria(this.value)">
+                <option value="">Seleccione..</option>
+                <?php
+                if ($grados != null){
+                foreach ($grados as $grado) { ?>
+                        <option value="<?= $grado['grado']?>">
+                            <?= $grado['grado'];?>
+                        </option>
+                        <?php }
+                }
+                ?>
+            </select>
+        </div>
+
+
         <div class='container' style="overflow: auto; max-height: 600px;">
             <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
                 <thead style="position: sticky; top: 0; background-color: white;">
@@ -254,8 +292,8 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                         <th>Grado</th>
                         <th>Puntaje</th>
                         <th>Puesto/Cargo</th>
-                        <th style="color: #3c8dbc;" onclick="info_tabla('Cargo Crítico:','<?php echo $cargo_critico; ?>')">Cargo <br> Crítico</th>
-                        <th style="color: #3c8dbc;" onclick="info_tabla('Cargo Supervisor:','<?php echo $cargo_supervisor; ?>')">Cargo <br> Supervisor</th>
+                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Cargo Crítico:','<?php echo $cargo_critico; ?>')">Cargo <br> Crítico </span></th>
+                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Cargo Supervisor:','<?php echo $cargo_supervisor; ?>')">Cargo <br> Supervisor </span></th>
                         <th >Departamento</th>
                         <th style="border-left: solid 2px #A8A8A8">Trabajador</th>
                         <th>Género</th>
@@ -263,11 +301,11 @@ $cargo_supervisor = "Cualquier persona que tenga el poder y la autoridad sobre u
                         <th>Fecha Ingreso</th>
                         <th>Tiempo de Servicio</th>
                         <th>Modalidad de <br> Trabajo</th>
-                        <th style="color: #3c8dbc; border-left: solid 2px #A8A8A8;" onclick="info_tabla('Sueldo Base Mensual:','<?php echo $info_sueldo_base_mensual; ?>')">Sueldo Base <br> Mensual</th>
-                        <th style="color: #3c8dbc;" onclick="info_tabla('Ingreso Mensual:','<?php echo $info_ingreso_mensual; ?>')">Ingreso <br> Mensual</th>
-                        <th style="color: #3c8dbc;" onclick="info_tabla('Paquete Anual:','<?php echo $info_paquete_anual; ?>')">Paquete <br> Anual</th>
-                        <th style="color: #3c8dbc;" onclick="info_tabla('Factor:','<?php echo $info_factor_meses; ?>')">Factor <br> Meses</th>
-                        <th style="color: #3c8dbc;" onclick="info_tabla('Otra Divisa:','<?php echo $info_otras_divisas; ?>')">Otra <br> Divisa</th>
+                        <th style="color: #3c8dbc; border-left: solid 2px #A8A8A8;"><span onclick="info_tabla('Sueldo Base Mensual:','<?php echo $info_sueldo_base_mensual; ?>')">Sueldo Base <br> Mensual </span></th>
+                        <th style="color: #3c8dbc;"><span onclick="info_tabla('Ingreso Mensual:','<?php echo $info_ingreso_mensual; ?>')">Ingreso <br> Mensual</span></th>
+                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Paquete Anual:','<?php echo $info_paquete_anual; ?>')">Paquete <br> Anual</span></th>
+                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Factor:','<?php echo $info_factor_meses; ?>')">Factor <br> Meses</span></th>
+                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Otra Divisa:','<?php echo $info_otras_divisas; ?>')">Otra <br> Divisa</span></th>
                         <th style="border-left: solid 2px #A8A8A8">Acción</th>
                     </tr>
                 </thead>
@@ -1022,8 +1060,8 @@ for (let i = 0; i < sueldosxy.length; i++) {
                 datasets: [{
                         label: "Ingreso",
                         data: sueldosxy,
-                        borderColor: '#46d5f1',
-                        backgroundColor: '#49e2ff',
+                        borderColor: '#0C00FF',
+                        backgroundColor: '#0C00FF',
                         type: 'bubble',
                         pointRadius: 6,
                         pointStyle: 'rectRot',
@@ -1032,8 +1070,8 @@ for (let i = 0; i < sueldosxy.length; i++) {
                     {
                         label: "Recta de Regresión",
                         data: regressionLine,
-                        borderColor: '#44FF16',
-                        backgroundColor: '#44FF16',
+                        borderColor: '#1CB00B',
+                        backgroundColor: '#1CB00B',
                         pointRadius: 1,
                         type: 'line',
                         order: 0

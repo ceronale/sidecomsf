@@ -1486,10 +1486,10 @@ function toggleFullscreen(elem) {
 
     const add = document.getElementById('add');
 
-    if(parseFloat(sueldobase) > parseFloat(sueldomensual) || parseFloat(sueldobase) > parseFloat(paqueteanual))
+    if(parseFloat(sueldobase) > parseFloat(sueldomensual) || parseFloat(sueldobase) > parseFloat(paqueteanual) || parseFloat(sueldomensual) > parseFloat(paqueteanual))
     {
         var errorDiv = document.getElementById('errorsueldos');
-        errorDiv.innerHTML = 'El sueldo base no puede ser mayor al sueldo mensual o al paquete anual.';
+        errorDiv.innerHTML = 'El sueldo base no puede ser mayor al ingreso mensual, ni este mayor al paquete anual.';
         errorDiv.style.display = 'block';
         add.disabled = true;
     }
@@ -1500,6 +1500,7 @@ function toggleFullscreen(elem) {
         errorDiv.innerHTML = '';
         errorDiv.style.display = 'none';
     }
+
 
     if(parseFloat(sueldomensual) == 0 || sueldomensual.toString() == "")
     {
@@ -1516,6 +1517,8 @@ function toggleFullscreen(elem) {
         errorDiv.innerHTML = '';
         errorDiv.style.display = 'none';
     }
+
+
 
 
   }
@@ -1537,12 +1540,12 @@ function toggleFullscreen(elem) {
 
     const update = document.getElementById('update');
 
-    if(parseFloat(sueldobase) > parseFloat(sueldomensual) || parseFloat(sueldobase) > parseFloat(paqueteanual))
+    if(parseFloat(sueldobase) > parseFloat(sueldomensual) || parseFloat(sueldobase) > parseFloat(paqueteanual) || parseFloat(sueldomensual) > parseFloat(paqueteanual))
     {
         var errorDiv = document.getElementById('errorsueldos');
-        errorDiv.innerHTML = 'El sueldo base no puede ser mayor al sueldo mensual o al paquete anual.';
+        errorDiv.innerHTML = 'El sueldo base no puede ser mayor al ingreso mensual, ni este mayor al paquete anual.';
         errorDiv.style.display = 'block';
-        update.disabled = true;
+        add.disabled = true;
     }
     else
     {

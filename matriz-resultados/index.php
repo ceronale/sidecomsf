@@ -1,5 +1,13 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<style>
+
+/* Adjust the width of the buttons */
+ .dt-buttons {
+    flex: 2; /* Occupy two-thirds of the available space */
+    text-align: right; /* Align the buttons to the right */
+}
+</style>
 <?php include_once "../layouts/menu.php"; 
 $matriz_resultados = "1.- Combina ambas Matrices (de Nómina y Jerarquización). ;; 2.- Compara cada uno de los datos de la matriz de nómina (Ingreso mensual y Paquete anual), con Mínimo, Medio y Máximo. ;; 3.- Se totalizan los ingresos mensual y paquete, para luego compararlo con el Presupuesto y Ventas, debe arrojar un saldo igual, positivo o negativo.";
 $indicadores = "Característica específica, observable y medible que permite ser usada para mostrar los cambios y progresos de la información hacia el logro de los resultados previstos o planificados.";
@@ -41,16 +49,22 @@ $info_factor_meses = "Es un indicador que señala los meses (y fracción) conten
 $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos trabajadores en moneda extranjera. (PAGO MENSUAL)";
 ?>
     <script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-            },
-            'iDisplayLength': 50,
+      $(document).ready(function() {
+            $('#example').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
+        "<'row'<'col-sm-12't>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        buttons: [
+            { extend: 'excel', className: 'btn btn-primary btn3d' },
+            { extend: 'pdf', className: 'btn btn-primary btn3d' },
+            { extend: 'print', className: 'btn btn-primary btn3d' }
+        ],
+                'iDisplayLength': 50,
+            });
         });
-
-
-    });
     </script>
 
     <div class="container">

@@ -15,6 +15,15 @@
     </section>
     <!-- Content Header (Page header) -->
 
+    <style>
+
+/* Adjust the width of the buttons */
+ .dt-buttons {
+    flex: 2; /* Occupy two-thirds of the available space */
+    text-align: right; /* Align the buttons to the right */
+}
+</style>
+
     <?php
 
     include_once 'class.crud.php';
@@ -86,11 +95,19 @@
     ?>
 
     <script>
-        $(document).ready(function() {
+  $(document).ready(function() {
             $('#example').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },
+                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
+        "<'row'<'col-sm-12't>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        buttons: [
+            { extend: 'excel', className: 'btn btn-primary btn3d' },
+            { extend: 'pdf', className: 'btn btn-primary btn3d' },
+            { extend: 'print', className: 'btn btn-primary btn3d' }
+        ],
                 'iDisplayLength': 50,
             });
         });

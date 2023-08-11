@@ -313,7 +313,59 @@ if($categoria == 1){
                 ?>
                         <tr>
 
-                            <td style="text-align: center;"><?php print($jerarquizacion['grado']); ?></td>
+                        <td style="text-align: center;">
+                        <span style="opacity: .0;">
+                        <?php                        
+                        switch ($jerarquizacion['grado']) {
+                            case 'I':
+                                echo "a";
+                                break;
+                            case 'II':
+                                echo "b";
+                                break;
+                            case 'III':
+                                echo "c";
+                                break;
+                            case 'IV':
+                                echo "d";
+                                break;    
+                            case 'V':
+                                echo "e";
+                                break;
+                            case 'VI':
+                                echo "f";
+                                break;
+                            case 'VII':
+                                echo "g";
+                                break;
+                            case 'VIII':
+                                echo "h";
+                                break;
+                            case 'IX':
+                                echo "i";
+                                break;    
+                            case 'X':
+                                echo "j";
+                                break;
+                            case 'XI':
+                                echo "k";
+                                break;
+                            case 'XII':
+                                echo "l";
+                                break;
+                            case 'XIII':
+                                echo "m";
+                                break;
+                            case 'XIV':
+                                echo "n";
+                                break;   
+                            case 'XV':
+                                echo "o";
+                                break;                                                                  
+                        }?>
+                        </span>             
+                            
+                            <?php print($jerarquizacion['grado']); ?></td>
                             <td><?php print($jerarquizacion['minimo']); ?></td>
                             <td><?php print($jerarquizacion['maximo']); ?></td>
 

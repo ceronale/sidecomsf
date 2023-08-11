@@ -3,7 +3,7 @@
 <?php include_once "../layouts/menu.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php
-
+$info = "La valoración permite establecer una jerarquía, si comparamos cada puesto/cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. <strong> A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
 include_once 'class.crud.php';
 $crud = new crud();
 $id_cargo = $_GET['idc'];
@@ -24,8 +24,7 @@ $formatodirect = "";
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Valoración de Puestos/Cargos: Planta - Taller -
-                    Fábrica</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Valoración de Puestos/Cargos: Planta - Taller - Fábrica','<?php echo $info; ?>')">Valoración de Puestos/Cargos: Planta - Taller - Fábrica</span>
             </div>
         </div>
     </section>
@@ -111,7 +110,7 @@ $formatodirect = "";
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <button type="submit" class="btn btn-dark" name="btn btn-primary btn3d"
+                                    <button type="submit" class="btn btn-primary btn3d" name="btn-save-val-direct"
                                         id='btn-save-val-direct'>
                                         Guardar
                                     </button>

@@ -63,7 +63,7 @@ class crud
 		INNER JOIN cargos c ON mn.id_cargo = c.id
 		INNER JOIN departamentos d ON mn.id_departamento = d.id " 
 		. $filtro . "
-		ORDER BY c.grado";
+		ORDER BY c.puntaje ASC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         

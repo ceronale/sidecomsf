@@ -2,6 +2,7 @@
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php"; 
+$info = "La valoración permite establecer una jerarquía, si comparamos cada puesto/cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. <strong> A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
 $experiencia_laboral = "La Experiencia laboral no solo se refiere al trabajo que se ha realizado, sino también a todo lo aprendido a partir de esta. ;; - Personas que no han finalizado sus estudios académicos y que se han incorporado al mundo laboral aprendiendo su profesión trabajando. ;; - Han Desarrollado competencias profesionales a través de una actividad laboral, pero no poseen una acreditación oficial.";
 $puntaje_valorado = " Si posee los cargos valorados en escala de uno (1) a mil (1000) puntos, puede agregarlo (el grado aparecerá automáticamente), de lo contrario, valore sus cargos en el formato.";
 
@@ -25,7 +26,7 @@ $formatodirect = "";
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Valoración de Puestos/Cargos: Administrativos</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Valoración de Puestos/Cargos: Administrativos','<?php echo $info; ?>')">Valoración de Puestos/Cargos: Administrativos</span>
             </div>
         </div>
     </section>

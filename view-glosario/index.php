@@ -1,6 +1,8 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php"; 
+$glosario_texto = "Es una recopilación de palabras con sus definiciones que versan sobre un tema, ordenada alfabéticamente."
+?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
 
@@ -17,7 +19,7 @@
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Glosario</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Glosario:','<?php echo $glosario_texto; ?>')">Glosario</span>
             </div>
         </div>
 
@@ -112,7 +114,6 @@
                 <tr>
                     <th>Término</th>
                     <th>Descripción</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,12 +125,6 @@
                         <tr>
                             <td><?php print($glosario['termino']); ?></td>
                             <td style="white-space: normal;"><?php print($glosario['descripcion']); ?></td>
-                            <td><?php if ($glosario['status'] == "1") {
-                                    print "Activo";
-                                } else {
-                                    print "Inactivo";
-                                }
-                                ?></td>
 
 
                         </tr>

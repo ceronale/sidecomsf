@@ -22,8 +22,7 @@ window.onload = function () {
 function updateTotal() {
     var empleados = parseInt(document.getElementById("empleados").value) || 0;
     var obreros = parseInt(document.getElementById("obreros").value) || 0;
-    var ejecutivos = parseInt(document.getElementById("ejecutivos").value) || 0;
-    var total = empleados + obreros + ejecutivos;
+    var total = empleados + obreros;
     document.getElementById("totalTrab").value = total;
 }
 
@@ -31,7 +30,7 @@ function info_tabla(title, info) {
     Swal.fire({
         title: title,
         width: '500px',
-        html: `         <div class="card card-body" style="text-align: left; font-size: 20px">
+        html: `         <div class="card card-body" style="text-align: justify; font-size: 20px">
                                 <p>
                                 ` + info + `
                                 </p>

@@ -7,12 +7,13 @@ Ejemplo: Fábrica de uniformes de seguridad;
 Venta de cosméticos para damas; Siembra y ventas de hortalizas al detal;
 Elaboración de tortas pra bodas."?>
 <style>
-
-/* Adjust the width of the buttons */
- .dt-buttons {
-    flex: 2; /* Occupy two-thirds of the available space */
-    text-align: right; /* Align the buttons to the right */
-}
+    /* Adjust the width of the buttons */
+    .dt-buttons {
+        flex: 2;
+        /* Occupy two-thirds of the available space */
+        text-align: right;
+        /* Align the buttons to the right */
+    }
 </style>
  
 <!-- Content Wrapper. Contains page content -->
@@ -22,8 +23,7 @@ Elaboración de tortas pra bodas."?>
 
         <div class="card text-left">
             <div class="card-header">
-            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
-                    onclick="info_tabla('Productos/Servicios:','<?php echo $producto; ?>')">Productos/Servicios</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Productos/Servicios:','<?php echo $producto; ?>')">Productos/Servicios</span>
             </div>
         </div>
 
@@ -101,19 +101,27 @@ Elaboración de tortas pra bodas."?>
     ?>
 
     <script>
-          $(document).ready(function() {
+        $(document).ready(function() {
             $('#example').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },
                 dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
-        "<'row'<'col-sm-12't>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        buttons: [
-            { extend: 'excel', className: 'btn btn-primary btn3d' },
-            { extend: 'pdf', className: 'btn btn-primary btn3d' },
-            { extend: 'print', className: 'btn btn-primary btn3d' }
-        ],
+                    "<'row'<'col-sm-12't>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [{
+                        extend: 'excel',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-primary btn3d'
+                    }
+                ],
                 'iDisplayLength': 50,
             });
         });

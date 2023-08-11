@@ -326,7 +326,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Presupuesto de Ingresos Mensuales" readonly />
                                 </div>
 
-                                <div class="col-md-2" style="text-align: center !important;">
+                                <div class="col-md-1" style="text-align: center !important;">
                                   <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
                                 </div>
 
@@ -336,14 +336,21 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Total Ingreso Mensual" readonly />
                                 </div>
 
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                                </div>
+
                                 <div class="col-md-2">
                                 <label for="diferencia_ventas_mensuales">Diferencia</label>
                                     <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
                                         placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
                                 </div>
 
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                               </div>
 
-                                <div class="col-md-2">
+                               <div class="col-md-2" style="text-align: center;">
                                 <label for="proporcionmensual9">%</label>
                                     <input type="text" class="form-control input-sm" id="proporcionmensual9"
                                         placeholder="Proporcion % Mensual" required title="Proporcion % Mensual" />
@@ -362,7 +369,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Presupuesto de Paquete Mensuales" readonly />
                                 </div>
 
-                                <div class="col-md-2" style="text-align: center !important;">
+                                <div class="col-md-1" style="text-align: center !important;">
                                   <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
                                 </div>
 
@@ -372,13 +379,21 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Total Paquete año" readonly />
                                 </div>
 
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                                </div>
+
                                 <div class="col-md-2">
                                 <label for="diferencia_ventas_mensuales">Diferencia</label>
                                     <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
                                         placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                                </div>
+
+                                <div class="col-md-2" style="text-align: center;">
                                 <label for="proporcionanual9">%</label>
                                     <input type="text" class="form-control input-sm" id="proporcionanual9"
                                         placeholder="Proporcion % Anual" required title="Proporcion % Anual" />
@@ -409,7 +424,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Ventas Mensuales" readonly />
                                 </div>
                   
-                                <div class="col-md-2" style="text-align: center !important;">
+                                <div class="col-md-1" style="text-align: center !important;">
                                   <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
                                 </div>
                                 <div class="col-md-2">
@@ -418,13 +433,21 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
                                 </div>
 
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                                </div>
+
                                 <div class="col-md-2">
                                 <label for="diferencia_ventas_mensuales">Diferencia</label>
                                     <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
                                         placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
                                 </div>
+
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                                </div>
                        
-                                <div class="col-md-2">
+                              <div class="col-md-2" style="text-align: center;">
                                 <label for="proporcionmensual9">%</label>
                                     <input type="text" class="form-control input-sm" id="proporcionmensual9"
                                         placeholder="Proporcion % Mensual" required title="Proporcion % Mensual" />
@@ -443,7 +466,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Ventas Anuales" readonly />
                                 </div>
 
-                                <div class="col-md-2" style="text-align: center !important;">
+                                <div class="col-md-1" style="text-align: center !important;">
                                   <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
                                 </div>
 
@@ -453,13 +476,21 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                                         placeholder="...." title="Diferencia Presupuesto Anual" readonly />
                                 </div>
 
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                                </div>
+
                                 <div class="col-md-2">
                                 <label for="diferencia_ventas_mensuales">Diferencia</label>
                                     <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
                                         placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-1" style="text-align: center !important;">
+                               
+                                </div>
+
+                                <div class="col-md-2" style="text-align: center;">
                                 <label for="proporcionanual9">%</label>
                                     <input type="text" class="form-control input-sm" id="proporcionanual9"
                                         placeholder="Proporcion % Anual" required title="Proporcion % Anual" />

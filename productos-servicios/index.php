@@ -4,6 +4,16 @@
 <?php include_once "../layouts/menu.php";
 $producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u Organización. Ejemplo: Fábrica de uniformes de seguridad; Venta de cosméticos para damas; Siembra y ventas de hortalizas al detal; Elaboración de tortas para bodas………….." ?>
 
+<style>
+    /* Adjust the width of the buttons */
+    .dt-buttons {
+        flex: 2;
+        /* Occupy two-thirds of the available space */
+        text-align: right;
+        /* Align the buttons to the right */
+    }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -94,6 +104,22 @@ $producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u O
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },
+                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
+                    "<'row'<'col-sm-12't>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [{
+                        extend: 'excel',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-primary btn3d'
+                    }
+                ],
                 'iDisplayLength': 50,
             });
         });

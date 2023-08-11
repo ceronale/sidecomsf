@@ -254,10 +254,20 @@ class crud
 
 
 	//FUNCION PARA MOSTRAR GRAFICO ADMIN
-    public function dataview_admin()
+    public function dataview_admin($grado)
     {
-
 		$user = $_SESSION['user'];
+
+		if($grado != "")
+		{
+			$filtro = "e.id = ". $user['id_empresa'] ."
+			and c.categoria = 1 AND c.grado = '" . $grado . "'";
+		}
+		else
+		{
+			$filtro = "e.id = ". $user['id_empresa'] ."
+			and c.categoria = 1";
+		}
 
 		$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
 		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
@@ -282,8 +292,7 @@ class crud
 				WHERE tipo_empresa = ". $id_escala_administrativo ."
 				GROUP BY tee.grado
 			) min_max ON c.grado COLLATE utf8_general_ci  = min_max.grado COLLATE utf8_general_ci
-			where e.id = ". $user['id_empresa'] ."
-			and c.categoria = 1
+			where " .$filtro. " 
 			GROUP BY c.grado, min_max.min, min_max.max
 			order by c.grado asc";
 			
@@ -307,10 +316,21 @@ class crud
 	//FIN FUNCION PARA MOSTRAR GRAFICO ADMIN
 
 	//FUNCION PARA MOSTRAR GRAFICO TALLER
-    public function dataview_taller()
+    public function dataview_taller($grado)
     {
 
 		$user = $_SESSION['user'];
+
+		if($grado != "")
+		{
+			$filtro = "e.id = ". $user['id_empresa'] ."
+			and c.categoria = 2 AND c.grado = '" . $grado . "'";
+		}
+		else
+		{
+			$filtro = "e.id = ". $user['id_empresa'] ."
+			and c.categoria = 2";
+		}
 
 		$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
 		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
@@ -335,8 +355,7 @@ class crud
 				WHERE tipo_empresa = ". $id_escala_planta ."
 				GROUP BY tee.grado
 			) min_max ON c.grado COLLATE utf8_general_ci  = min_max.grado COLLATE utf8_general_ci
-			where e.id = ". $user['id_empresa'] ."
-			and c.categoria = 2
+			where " .$filtro. " 
 			GROUP BY c.grado, min_max.min, min_max.max
 			order by c.grado asc";
 			

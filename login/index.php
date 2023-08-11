@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php
 session_start();
 require_once("class.crud.php");

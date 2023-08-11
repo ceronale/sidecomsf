@@ -1,6 +1,14 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
+<style>
+
+/* Adjust the width of the buttons */
+ .dt-buttons {
+    flex: 2; /* Occupy two-thirds of the available space */
+    text-align: right; /* Align the buttons to the right */
+}
+</style>
 <?php include_once "../layouts/menu.php"; 
 $matriz_jerarquizacion = "1.- Toma automáticamente de cada Grado los promedios de INGRESOS MENSUALES Y PAQUETE ANUAL, que usted registró en la MATRIZ DE NÓMINA. ;; 2.- Usted podrá CREAR UNA BANDA SALARIAL, anotando en el grado I el SUELDO o SALARIO MÍNIMO NACIONAL OFICIAL o SALARIO MÍNIMO según la política de su Organización. ;; 3.- Para los grados sucesivos, asigne un porcentaje para incrementar el salario en cada grado (hasta cubrir el mayor salario de su empresa) y otro porcentaje para los niveles Mínimo, Medio y Máximo. ;; 4.- A través del gráfico que se genere, podrá apreciar cuán distante esta el promedio de los salarios reales por grado, con respecto a la BANDA SALARIAL REFERENCIAL.";
 
@@ -69,23 +77,22 @@ if($categoria == 1){
     }
 ?>
     <script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
-                
-            },
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf', 'print'
-            ],
-            'iDisplayLength': 50,
-           
-        }
-        );
-
-
-    });
+     $(document).ready(function() {
+            $('#example').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
+        "<'row'<'col-sm-12't>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        buttons: [
+            { extend: 'excel', className: 'btn btn-primary btn3d' },
+            { extend: 'pdf', className: 'btn btn-primary btn3d' },
+            { extend: 'print', className: 'btn btn-primary btn3d' }
+        ],
+                'iDisplayLength': 50,
+            });
+        });
     </script>
 
     <div class="container">
@@ -109,15 +116,15 @@ if($categoria == 1){
                         </select>
                     </div>
                     <div class="col-sm-2 form-group">
-                        <button type="button" class="btn btn-success btn-block btn-sm" title="Generar gráfica"
+                        <button type="button" class="btn btn-primary btn3d" title="Generar gráfica"
                             id="btn-gengraph" onclick="showGraph('<?= $sueldomin; ?>',
                         '<?= floatval('0.'.$porcentaje_grados); ?>',
                         '<?= floatval('0.'.$porcentaje_pasos); ?>')">Generar
                             Gráfica</button>
                     </div>
                     <div class="col-sm-2 form-group">
-                        <button type="button" class="btn btn-danger btn-block btn-sm" title="Mostrar/Ocultar gráfica"
-                            id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar/Ocultar Gráfica</button>
+                        <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica"
+                            id="toggle-grafica" onclick="mostrar_ocultar_grafica()">Mostrar</button>
                     </div>
 
                 </div>
@@ -161,8 +168,8 @@ if($categoria == 1){
 
                         <div class="col-md-4 ">
 
-                            <button type="submit" class="btn btn-success btn-block btn-sm" title="Generar Banda"
-                                id="btn-banda" name="btn-banda">Generar Banda</button>
+                            <button type="submit" class="btn btn-primary btn3d" title="Generar Banda"
+                                id="btn-banda" name="btn-banda">Generar</button>
                         </div>
 
                     </div>
@@ -178,25 +185,54 @@ if($categoria == 1){
                 extract($crud->get_sum_empleados($categoria));	
                 extract($crud->get_nivel_empresarial($nivel_empresarial));	
                 
-                
+                $grados = $crud->dataview_escalas($categoria);   
         ?>
 
+
+
+
             <div class="row">
-                <div class="col-sm-1 form-group">
-                    <button type="button" class="btn btn-info btn-block btn-sm" title="Ver Escala Empresarial"
+                <div class="col-sm-2 form-group">
+                    <button type="button" class="btn btn-primary btn3d" title="Ver Escala Empresarial"
                         id="ver_escala"
                         onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')">Ver
                         Escala</button>
                 </div>
 
-                <div class="col-sm-10 form-group" style="text-align: right;">
+                <div class=" col-md-3 form-group">
+                </div>  
+                <div class=" col-md-4 form-group">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right !important;">
+                        <label for="id_grado">Grados</label>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="id_grado" name="id_grado"
+                            onchange="redirectgrados(this.value, <?= $categoria; ?>)">
+                            <option value="">Todos</option>
+                            <?php
+                    if ($grados != null){
+                    foreach ($grados as $grado) { ?>
+                            <option value="<?= $grado['grado']?>"
+                                <?php
+                                if(isset($_GET['g'])){ if($grado['grado'] == $_GET['g']){echo "Selected";}} ?>>
+                                <?= $grado['grado'];?>
+                            </option>
+                            <?php }
+                    }
+                    ?>
+                        </select>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+                <div class="col-sm-3 form-group" style="text-align: right;">
                     <span style="font-size: 12px; color:red">(MONTOS EXPRESADOS EN
                         <?=strtoupper($nombre_moneda)?>)</span>
                 </div>
             </div>
-            <br>
-
-            <br>
+         
             <div class='container' style="overflow: auto; max-height: 600px;">
                 <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
                     <thead style="position: sticky; top: 0; background-color: white;">
@@ -220,11 +256,27 @@ if($categoria == 1){
                         <?php
                 if ($categoria == 1)
                 {
-                    $jerarquizacions = $crud->dataview_admin();
+                    if(isset($_GET['g']))
+                    {
+                        $jerarquizacions = $crud->dataview_admin($_GET['g']);
+                    }
+                    else
+                    {
+                        $jerarquizacions = $crud->dataview_admin("");
+                    }
+                  
                 }
                 if ($categoria == 2)
                 {
-                    $jerarquizacions = $crud->dataview_taller(); 
+                    if(isset($_GET['g']))
+                    {
+                        $jerarquizacions = $crud->dataview_taller($_GET['g']); 
+                    }
+                    else
+                    {
+                        $jerarquizacions = $crud->dataview_taller(""); 
+                    }
+                   
                 }
                
       
@@ -367,6 +419,10 @@ if($categoria == 1){
 
     function redirectcategoria(categoria) {
         window.location.href = "../matriz-jerarquizacion/save?gca&ca=" + categoria;
+    }
+
+    function redirectgrados(grado, categoria) {
+        window.location.href = "../matriz-jerarquizacion/?g=" + grado;
     }
 
     function generar_banda(categoria) {

@@ -4,12 +4,13 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
-
-/* Adjust the width of the buttons */
- .dt-buttons {
-    flex: 2; /* Occupy two-thirds of the available space */
-    text-align: right; /* Align the buttons to the right */
-}
+    /* Adjust the width of the buttons */
+    .dt-buttons {
+        flex: 2;
+        /* Occupy two-thirds of the available space */
+        text-align: right;
+        /* Align the buttons to the right */
+    }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -120,13 +121,21 @@
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
                 },
                 dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
-        "<'row'<'col-sm-12't>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        buttons: [
-            { extend: 'excel', className: 'btn btn-primary btn3d' },
-            { extend: 'pdf', className: 'btn btn-primary btn3d' },
-            { extend: 'print', className: 'btn btn-primary btn3d' }
-        ],
+                    "<'row'<'col-sm-12't>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [{
+                        extend: 'excel',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-primary btn3d'
+                    }
+                ],
                 'iDisplayLength': 50,
             });
         });
@@ -139,13 +148,21 @@
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
                 },
                 dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
-        "<'row'<'col-sm-12't>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        buttons: [
-            { extend: 'excel', className: 'btn btn-primary btn3d' },
-            { extend: 'pdf', className: 'btn btn-primary btn3d' },
-            { extend: 'print', className: 'btn btn-primary btn3d' }
-        ],
+                    "<'row'<'col-sm-12't>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [{
+                        extend: 'excel',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-primary btn3d'
+                    }
+                ],
                 'iDisplayLength': 50,
             });
         });
@@ -431,6 +448,7 @@
                                         $styleClass = ($diferencia >= 0) ? 'blue-text' : 'red-text';
                                         $total_presupuesto += $presupuesto;
                                         $total_diferencia += $diferencia;
+                                        $styleClassFijo = ($total_diferencia >= 0) ? 'blue-text' : 'red-text';
                             ?>
                                         <tr>
                                             <td><?php echo $beneficio['tipo_pago']; ?></td>
@@ -487,7 +505,7 @@
                                     <td colspan="6" style="text-align: right;"><strong>S U B - T O T A L E S: </strong></td>
                                     <td><strong><?php echo number_format($total_fijos, 2, ',', '.'); ?></strong></td>
                                     <td><strong><?php echo number_format($total_presupuesto, 2, ',', '.'); ?></strong></td>
-                                    <td><strong><?php echo number_format($total_diferencia, 2, ',', '.'); ?></strong></td>
+                                    <td class="<?php echo $styleClassFijo; ?>"><strong><?php echo number_format($total_diferencia, 2, ',', '.'); ?></strong></td>
                                 </tr>
                                 <?php
                             }
@@ -498,6 +516,7 @@
                             $total_ocasionales = 0;
                             $total_presupuesto_ocasionales = 0;
                             $total_diferencia_ocasionales = 0;
+                            $f = 0;
 
                             if (!empty($beneficios_ocasionales)) {
                                 foreach ($beneficios_ocasionales as $beneficio) {
@@ -524,6 +543,10 @@
                                         $styleClass = ($diferencia >= 0) ? 'blue-text' : 'red-text';
                                         $total_presupuesto_ocasionales += $presupuesto;
                                         $total_diferencia_ocasionales += $diferencia;
+                                        $styleClassOcasional = ($total_diferencia_ocasionales >= 0) ? 'blue-text' : 'red-text';
+                                        $f = $total_diferencia_ocasionales + $total_diferencia;
+                                        $styleClassOcasional2 = ($f >= 0) ? 'blue-text' : 'red-text';
+
                                 ?>
                                         <tr>
                                             <td><?php echo $beneficio['tipo_pago']; ?></td>
@@ -585,7 +608,7 @@
                                     <td colspan="6" style="text-align: right;"><strong>S U B - T O T A L E S: </strong></td>
                                     <td><strong><?php echo number_format($total_ocasionales, 2, ',', '.'); ?></strong></td>
                                     <td><strong><?php echo number_format($total_presupuesto_ocasionales, 2, ',', '.'); ?></strong></td>
-                                    <td><strong><?php echo number_format($total_diferencia_ocasionales, 2, ',', '.'); ?></strong></td>
+                                    <td class="<?php echo $styleClassOcasional; ?>"><strong><?php echo number_format($total_diferencia_ocasionales, 2, ',', '.'); ?></strong></td>
                                 </tr>
                             <?php
                             }
@@ -595,7 +618,7 @@
                                     <td colspan="6" style="text-align: right;"><strong> T O T A L - G E N E R A L: </strong></td>
                                     <td><strong><?php echo number_format($total_ocasionales + $total_fijos, 2, ',', '.'); ?></strong></td>
                                     <td><strong><?php echo number_format($total_presupuesto_ocasionales + $total_presupuesto, 2, ',', '.'); ?></strong></td>
-                                    <td><strong><?php echo number_format($total_diferencia_ocasionales + $total_diferencia, 2, ',', '.'); ?></strong></td>
+                                    <td class="<?php echo $styleClassOcasional2; ?>"><strong><?php echo number_format($f, 2, ',', '.'); ?></strong></td>
                                 </tr>
                             <?php
                             }
@@ -719,13 +742,18 @@
 
             // Multiply the values and set the result in the total input field
             totalInput.value = formatNumber(monto * cantidad * frecuencia);
+            console.log(formatNumber(monto * cantidad * frecuencia));
             updateDiferencia();
         }
 
         function updateDiferencia() {
             const presupuesto = parseFloat(document.querySelector('input[name="presupuesto"]').value) || 0;
-            const total = parseFloat(totalInput.value) || 0;
-            const diferencia = presupuesto - total;
+
+            const monto = parseFloat(montoInput.value) || 0;
+            const cantidad = parseFloat(cantidadInput.value) || 0;
+            const frecuencia = parseFloat(frecuenciaInput.value) || 0;
+
+            const diferencia = presupuesto - (monto * cantidad * frecuencia);
 
             // Set the result in the diferencia input field
             document.querySelector('input[name="diferencia"]').value = formatNumber(diferencia);
@@ -802,14 +830,16 @@
             <div class="card card-body" style="text-align: justify; font-size: 14px">
                 <p>
                  <em>Se indica el número de veces en que se efectúa el pago.</em><br>
-<ul>
-    <li>Si el pago es diario: 365</li>
-    <li>Si el pago es mensual: 12</li>
-    <li>Si el pago es bimestral: 06</li>
-    <li>Si el pago es trimestral: 04</li>
-    <li>Si el pago es cuatrimestral: 03</li>
-    <li>Si el pago es semestral: 02</li>
-</ul>
+                <ul>
+                    <li>Si el pago es diario: 365</li>
+                    <li>Si el pago es mensual: 12</li>
+                    <li>Si el pago es quincenal: 24</li>
+                    <li>Si el pago es bimestral: 6</li>
+                    <li>Si el pago es trimestral: 4</li>
+                    <li>Si el pago es cuatrimestral: 3</li>
+                    <li>Si el pago es semestral: 2</li>
+                    <li>Si el pago es anual: 1</li>
+                </ul>
 
                 </p>
             </div>
@@ -822,7 +852,6 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label style="color: #3c8dbc;"  onclick="show_info_monto()"  for="monto">Monto del Pago</label>
-                              
                             </div>
                         </div>
                     </div>

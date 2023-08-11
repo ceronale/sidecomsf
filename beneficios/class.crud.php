@@ -51,8 +51,9 @@ class crud
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
 
 
-			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM beneficios WHERE nombre = :nombre");
+			$stmt_check = $this->conn->prepare("SELECT COUNT(*) FROM beneficios WHERE nombre = :nombre AND id_empresa = :id_empresa");
 			$stmt_check->bindparam(":nombre", $nombre);
+			$stmt_check->bindparam(":id_empresa", $user['id_empresa']);
 			$stmt_check->execute();
 			$count = $stmt_check->fetchColumn();
 

@@ -733,7 +733,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                     </div>
                 </div>
             </div>
-            <label class="mt-3">Datos suministrados por:</label>
+
             <div class="form-row mt-3">
                 <div class="col-4 ">
                     <label for="mision">Misión</label>
@@ -748,6 +748,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                     <textarea class="multisteps-form__input form-control" id="valores" name="valores" placeholder="Valores"><?php echo $valores; ?></textarea>
                 </div>
             </div>
+            <label class="mt-3">Datos suministrados por:</label>
             <div class="form-row mt-3">
                 <div class="col-12 col-sm-3">
                     <label for="escala_administrativo">Nombre</label>

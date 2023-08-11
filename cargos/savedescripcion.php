@@ -109,6 +109,7 @@ $ingreso = isset($_POST['radio_Ingr']) ? $_POST['radio_Ingr'] : '';
 $gasto = isset($_POST['radio_Gasto']) ? $_POST['radio_Gasto'] : '';
 $empleados = isset($_POST['empleados']) ? $_POST['empleados'] : '';
 $obreros = isset($_POST['obreros']) ? $_POST['obreros'] : '';
+$ejecutivos = isset($_POST['ejecutivos']) ? $_POST['ejecutivos'] : '';
 $conocimiento = isset($_POST['radio_Con']) ? $_POST['radio_Con'] : '';
 $experiencia = isset($_POST['radio_Exp']) ? $_POST['radio_Exp'] : '';
 $especialidad = isset($_POST['especialidad']) ? $_POST['especialidad'] : '';
@@ -250,6 +251,7 @@ try {
         $gasto[0],
         $empleados,
         $obreros,
+        $ejecutivos,
         $especialidad,
         $adicional,
         $relacionesInternasString,

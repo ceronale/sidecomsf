@@ -3,12 +3,13 @@
 <?php include_once "../layouts/menu.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
-
-/* Adjust the width of the buttons */
- .dt-buttons {
-    flex: 2; /* Occupy two-thirds of the available space */
-    text-align: right; /* Align the buttons to the right */
-}
+    /* Adjust the width of the buttons */
+    .dt-buttons {
+        flex: 2;
+        /* Occupy two-thirds of the available space */
+        text-align: right;
+        /* Align the buttons to the right */
+    }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -81,19 +82,27 @@
     ?>
 
     <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
             $('#example').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },
                 dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
-        "<'row'<'col-sm-12't>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        buttons: [
-            { extend: 'excel', className: 'btn btn-primary btn3d' },
-            { extend: 'pdf', className: 'btn btn-primary btn3d' },
-            { extend: 'print', className: 'btn btn-primary btn3d' }
-        ],
+                    "<'row'<'col-sm-12't>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [{
+                        extend: 'excel',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-primary btn3d'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-primary btn3d'
+                    }
+                ],
                 'iDisplayLength': 50,
             });
         });
@@ -127,10 +136,11 @@
                     foreach ($links as $link) {
                 ?>
                         <tr>
-                            <td><?php print($link['titulo']); ?></td>
                             <td style="width:5%"><a href="<?php echo $link['website']; ?>" target="_blank">
                                     <i class="fas fa-external-link-alt"></i> <!-- Icono de enlace externo -->
                                 </a></td>
+                            <td><?php print($link['titulo']); ?></td>
+
                             <td style="width:5%"><?php if ($link['status'] == "1") {
                                                         print "Activo";
                                                     } else {

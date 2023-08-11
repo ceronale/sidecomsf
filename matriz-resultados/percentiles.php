@@ -12,7 +12,7 @@
 </style>
 
 <?php include_once "../layouts/menu.php"; 
-$percentiles = "";
+$percentiles_info = "Es una medida estadística de posición, que divide la distribución ordenada de los datos en cien partes iguales.";
 
 
 include_once 'class.crud.php';
@@ -84,7 +84,7 @@ function tiempoTranscurridoFechas($fecha1)
         <div class="card text-left">
             <div class="card-header">
                 <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
-                    onclick="info_tabla('Matriz de Resultados:','<?php echo $matriz_resultados; ?>')">Percentiles
+                    onclick="info_tabla('Percentil:','<?php echo $percentiles_info; ?>')">Percentiles
                     <?= $cat; ?> </span>
             </div>
         </div>
@@ -220,7 +220,6 @@ else
 
 
 
-
             <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
                 <thead style="position: sticky; top: 0; background-color: white;">
                     <tr>
@@ -229,9 +228,7 @@ else
                         <th>Cargo</th>
                         <th>Trabajador</th>
                         <th>Tiempo de Servicio</th>
-                        <th>Sueldo Base</th>
-                        <th>Ingreso Mensual</th>
-                        <th>Paquete Anual</th>
+                        <th style="color: #3c8dbc;"> <span onclick="info_tabla('Paquete Anual:','<?php echo $info_paquete_anual; ?>')">Paquete Anual</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -246,8 +243,6 @@ else
                         <td><?php print($percentil['nombrecargo']); ?></td>
                         <td><?php print($percentil['nombretrabajador']); ?></td>
                         <td><?php echo tiempoTranscurridoFechas($percentil['fechaingreso']); ?> </td>
-                        <td><?php print($percentil['sueldobase']); ?></td>
-                        <td><?php print($percentil['sueldo_mensual']); ?></td>
                         <td><?php print($percentil['paquete_anual']); ?></td>
 
                     </tr>
@@ -262,15 +257,13 @@ else
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
 
                     <?php } ?>
 
                 </tbody>
             </table>
-
+            </div>
 
 
             <br>
@@ -281,7 +274,6 @@ else
 
 
 
-    </div>
 </div>
 <?php include_once('../layouts/footer.php'); ?>
 

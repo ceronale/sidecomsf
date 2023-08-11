@@ -389,9 +389,9 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
 
                                             <div class="col-md-2" style="text-align: center;">
                                                 <label for="proporcionventasmensual">%</label>
-                                                <input type="text" class="form-control input-sm" id="proporcionventasmensual"
-                                                    placeholder="Proporcion % Mensual" readonly
-                                                    title="Proporcion % Mensual" />
+                                                <input type="text" class="form-control input-sm"
+                                                    id="proporcionventasmensual" placeholder="Proporcion % Mensual"
+                                                    readonly title="Proporcion % Mensual" />
                                             </div>
 
                                         </div>
@@ -435,8 +435,8 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
 
                                             <div class="col-md-2" style="text-align: center;">
                                                 <label for="proporcionventasanual">%</label>
-                                                <input type="text" class="form-control input-sm" id="proporcionventasanual"
-                                                    placeholder="Proporcion % Anual" readonly
+                                                <input type="text" class="form-control input-sm"
+                                                    id="proporcionventasanual" placeholder="Proporcion % Anual" readonly
                                                     title="Proporcion % Anual" />
                                             </div>
 
@@ -558,7 +558,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                 $grados = $crud->dataview_escalas($_GET['ca']); 
         ?>
 
-<br>
+    <br>
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-1"></div>
@@ -576,7 +576,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     </div>
                 </div>
             </div>
-       
+
             <div class="col-md-3 form-group">
                 <div class="row">
                     <div class="col-md-2" style="text-align: right !important;">
@@ -608,162 +608,180 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
         </div>
     </div>
 
-    <div class='container' style="overflow: auto; max-height: 600px;">
-        <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <thead style="position: sticky; top: 0; background-color: white;">
-                <tr>
 
-                    <th>Grado</th>
-                    <th>Puesto/Cargo</th>
-                    <th>Trabajador</th>
-                    <th style="border-left: solid 2px #A8A8A8">Ingreso Mensual</th>
-                    <th style="text-align: center">Real <br> vs <br> Minimo</th>
-                    <th style="text-align: center">Real <br> vs <br> Medio</th>
-                    <th style="text-align: center">Real <br> vs <br> Máximo</th>
-                    <th style="border-left: solid 2px #A8A8A8">Paquete Anual</th>
-                    <th style="text-align: center">Real <br> vs <br> Minimo</th>
-                    <th style="text-align: center">Real <br> vs <br> Medio</th>
-                    <th style="text-align: center">Real <br> vs <br> Máximo</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                <?php
+    <div id="chart-container2" style="background-color: white;">
 
-if(isset($_GET['g']))
-{
-    $resultados = $crud->dataview_resultados($categoria,$_GET['g']);
-  
-}
-else
-{
-    $resultados = $crud->dataview_resultados($categoria,"");
-}
+<div class="col-md-3">
+    <button type="button" class="btn btn-primary btn3d" title="Pantalla Completa"
+        id="fs-doc-button2">Pantalla
+        Completa</button>
+</div>
+    <div class='container' id="container99" name="container99" style="overflow: auto; max-height: 600px;">
+       
+
+            <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
+                <thead style="position: sticky; top: 0; background-color: white;">
+                    <tr>
+
+                        <th>Grado</th>
+                        <th>Puesto/Cargo</th>
+                        <th>Trabajador</th>
+                        <th style="border-left: solid 2px #A8A8A8">Ingreso Mensual</th>
+                        <th style="text-align: center">Real <br> vs <br> Minimo</th>
+                        <th style="text-align: center">Real <br> vs <br> Medio</th>
+                        <th style="text-align: center">Real <br> vs <br> Máximo</th>
+                        <th style="border-left: solid 2px #A8A8A8">Paquete Anual</th>
+                        <th style="text-align: center">Real <br> vs <br> Minimo</th>
+                        <th style="text-align: center">Real <br> vs <br> Medio</th>
+                        <th style="text-align: center">Real <br> vs <br> Máximo</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+
+                    if(isset($_GET['g']))
+                    {
+                        $resultados = $crud->dataview_resultados($categoria,$_GET['g']);
+                    
+                    }
+                    else
+                    {
+                        $resultados = $crud->dataview_resultados($categoria,"");
+                    }
 
              
                 if ($resultados != null) {
                     foreach ($resultados as $resultado) {
                        
                 ?>
-                <tr>
+                    <tr>
 
-                    <td style="text-align: center;"><?php print($resultado['grado']); ?></td>
-                    <td><?php print($resultado['nombrecargo']); ?></td>
-                    <td><?php print($resultado['nombretrabajador']); ?></td>
+                        <td style="text-align: center;"><?php print($resultado['grado']); ?></td>
+                        <td><?php print($resultado['nombrecargo']); ?></td>
+                        <td><?php print($resultado['nombretrabajador']); ?></td>
 
-                    <?php if($resultado['sueldobase'] < 0)
+                        <?php if($resultado['sueldobase'] < 0)
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
-                            <?= number_format($resultado['sueldobase'],2,',','.');  ?></span></td>
-                    <?php }
+                        <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
+                                <?= number_format($resultado['sueldobase'],2,',','.');  ?></span></td>
+                        <?php }
                 else
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8">
-                        <?= number_format($resultado['sueldobase'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td style="border-left: solid 2px #A8A8A8">
+                            <?= number_format($resultado['sueldobase'],2,',','.');  ?></td>
+                        <?php } ?>
 
-                    <?php if($resultado['realvsminimo'] < 0)
+                        <?php if($resultado['realvsminimo'] < 0)
                 { ?>
-                    <td> <span style="color: red;"> <?= number_format($resultado['realvsminimo'],2,',','.');  ?> </span>
-                    </td>
-                    <?php }
+                        <td> <span style="color: red;"> <?= number_format($resultado['realvsminimo'],2,',','.');  ?>
+                            </span>
+                        </td>
+                        <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsminimo'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td><?= number_format($resultado['realvsminimo'],2,',','.');  ?></td>
+                        <?php } ?>
 
-                    <?php if($resultado['realvsmedio'] < 0)
+                        <?php if($resultado['realvsmedio'] < 0)
                 { ?>
-                    <td> <span style="color: red;"> <?= number_format($resultado['realvsmedio'],2,',','.');  ?> </span>
-                    </td>
-                    <?php }
+                        <td> <span style="color: red;"> <?= number_format($resultado['realvsmedio'],2,',','.');  ?>
+                            </span>
+                        </td>
+                        <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmedio'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td><?= number_format($resultado['realvsmedio'],2,',','.');  ?></td>
+                        <?php } ?>
 
-                    <?php if($resultado['realvsmaximo'] < 0)
+                        <?php if($resultado['realvsmaximo'] < 0)
                 { ?>
-                    <td> <span style="color: red;"> <?= number_format($resultado['realvsmaximo'],2,',','.');  ?> </span>
-                    </td>
-                    <?php }
+                        <td> <span style="color: red;"> <?= number_format($resultado['realvsmaximo'],2,',','.');  ?>
+                            </span>
+                        </td>
+                        <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmaximo'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td><?= number_format($resultado['realvsmaximo'],2,',','.');  ?></td>
+                        <?php } ?>
 
-                    <?php if($resultado['paqueteanual'] < 0)
+                        <?php if($resultado['paqueteanual'] < 0)
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
-                            <?= number_format($resultado['paqueteanual'],2,',','.');  ?></span></td>
-                    <?php }
+                        <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
+                                <?= number_format($resultado['paqueteanual'],2,',','.');  ?></span></td>
+                        <?php }
                 else
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8">
-                        <?= number_format($resultado['paqueteanual'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td style="border-left: solid 2px #A8A8A8">
+                            <?= number_format($resultado['paqueteanual'],2,',','.');  ?></td>
+                        <?php } ?>
 
-                    <?php if($resultado['realvsminimoanual'] < 0)
+                        <?php if($resultado['realvsminimoanual'] < 0)
                 { ?>
-                    <td> <span style="color: red;"> <?= number_format($resultado['realvsminimoanual'],2,',','.');  ?>
-                        </span></td>
-                    <?php }
+                        <td> <span style="color: red;">
+                                <?= number_format($resultado['realvsminimoanual'],2,',','.');  ?>
+                            </span></td>
+                        <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsminimoanual'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td><?= number_format($resultado['realvsminimoanual'],2,',','.');  ?></td>
+                        <?php } ?>
 
-                    <?php if($resultado['realvsmedioanual'] < 0)
+                        <?php if($resultado['realvsmedioanual'] < 0)
                 { ?>
-                    <td> <span style="color: red;"> <?= number_format($resultado['realvsmedioanual'],2,',','.');  ?>
-                        </span></td>
-                    <?php }
+                        <td> <span style="color: red;"> <?= number_format($resultado['realvsmedioanual'],2,',','.');  ?>
+                            </span></td>
+                        <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmedioanual'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td><?= number_format($resultado['realvsmedioanual'],2,',','.');  ?></td>
+                        <?php } ?>
 
-                    <?php if($resultado['realvsmaximoanual'] < 0)
+                        <?php if($resultado['realvsmaximoanual'] < 0)
                 { ?>
-                    <td> <span style="color: red;"> <?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?>
-                        </span></td>
-                    <?php }
+                        <td> <span style="color: red;">
+                                <?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?>
+                            </span></td>
+                        <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?></td>
-                    <?php } ?>
+                        <td><?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?></td>
+                        <?php } ?>
 
 
-                </tr>
+                    </tr>
 
-                <?php }
+                    <?php }
                 } else {  ?>
 
-                <tr>
-                    <td>No hay registros</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <tr>
+                        <td>No hay registros</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
 
-                </tr>
+                    </tr>
 
-                <?php } ?>
+                    <?php } ?>
 
-            </tbody>
-        </table>
-
-
+                </tbody>
+            </table>
 
 
+
+
+        </div>
     </div>
 </div>
+
 <?php include_once('../layouts/footer.php'); ?>
 
 <script src="assets/js/resultados.js"></script>
@@ -884,7 +902,7 @@ function indicadores() {
             if (contador == 1) {
                 totalingresomensual = data[i].totalingresomensual;
                 totalpaqueteanual = data[i].totalpaqueteanual;
-                total_ingreso_mensual_ventas.value =  data[i].totalingresomensual;
+                total_ingreso_mensual_ventas.value = data[i].totalingresomensual;
                 total_paquete_anual_ventas.value = data[i].totalpaqueteanual;
                 promediomensual = data[i].promediomensual;
 
@@ -966,13 +984,14 @@ function indicadores() {
                     total_euros.value = 0;
                 }
 
-                diferencia_ingreso_mensual.value = (totalingresomensual - presupuesto_ingreso_mensual.value);
-                diferencia_paquete_anual.value = (totalpaqueteanual - presupuesto_paquete_anual.value);
-                diferencia_ventas_mensuales.value = (total_ingreso_mensual_ventas.value - ventas_mensuales.value);
-                diferencia_ventas_anuales.value = (total_paquete_anual.value - ventas_anuales.value);
+                diferencia_ingreso_mensual.value = (presupuesto_ingreso_mensual.value  - totalingresomensual);
+                diferencia_paquete_anual.value = (presupuesto_paquete_anual.value - totalpaqueteanual);
+                diferencia_ventas_mensuales.value = (ventas_mensuales.value - total_ingreso_mensual_ventas.value);
+                diferencia_ventas_anuales.value = (ventas_anuales.value - total_paquete_anual.value);
 
                 porcentaje_mensual.value = ((diferencia_ingreso_mensual.value / presupuesto_ingreso_mensual.value) * 100).toFixed(2);
-                porcentaje_anual.value = ((diferencia_paquete_anual.value / presupuesto_paquete_anual.value) * 100).toFixed(2);
+                porcentaje_anual.value = ((diferencia_paquete_anual.value / presupuesto_paquete_anual.value) *
+                    100).toFixed(2);
 
                 porcentaje_ventas_mensual.value = ((diferencia_ventas_mensuales.value / presupuesto_ingreso_mensual.value) * 100).toFixed(2);
                 porcentaje_ventas_anual.value = ((diferencia_ventas_anuales.value / presupuesto_paquete_anual.value) * 100).toFixed(2);

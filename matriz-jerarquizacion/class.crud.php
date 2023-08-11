@@ -412,6 +412,11 @@ class crud
 				$query = $query . ",
 				(SELECT AVG(".$campo.") FROM matriz_nomina mn 
 				INNER JOIN cargos c ON mn.id_cargo = c.id
+				WHERE mn.id_empresa = ".$user['id_empresa']." AND c.grado = 'I' AND c.categoria = 1) as promediosueldogradoI";
+
+				$query = $query . ",
+				(SELECT AVG(".$campo.") FROM matriz_nomina mn 
+				INNER JOIN cargos c ON mn.id_cargo = c.id
 				WHERE mn.id_empresa = ".$user['id_empresa']." AND c.grado = 'II' AND c.categoria = 1) as promediosueldogradoII";
 			}
 
@@ -581,6 +586,11 @@ class crud
 
 			if($id_escala_planta >= 2)
 			{
+				$query = $query . ",
+				(SELECT AVG(".$campo.") FROM matriz_nomina mn 
+				INNER JOIN cargos c ON mn.id_cargo = c.id
+				WHERE mn.id_empresa = ".$user['id_empresa']." AND c.grado = 'I' AND c.categoria = 2) as promediosueldogradoI";
+
 				$query = $query . ",
 				(SELECT AVG(".$campo.") FROM matriz_nomina mn 
 				INNER JOIN cargos c ON mn.id_cargo = c.id

@@ -436,7 +436,27 @@ function checkRangos(num) {
         default:
           // code block
       }
-
+      educ = $("input[name='educacion']").val();
+      exp = $("input[name='experiencia']").val();
+      problem = $("input[name='problemas']").val();
+      supervi = $("input[name='supervision']").val();
+      financi = $("input[name='financiera']").val();
+      ries= $("input[name='riesgo']").val();
+      ambien= $("input[name='ambiental']").val();
+      senso = $("input[name='sensorial']").val();
+      ment= $("input[name='mental']").val();
+      esfuer= $("input[name='esfuerzo']").val();
+      infor= $("input[name='informacion']").val();
+      deci= $("input[name='decisiones']").val();
+      contac= $("input[name='contactos']").val();
+      maqui= $("input[name='maquinarias']").val();
+if(educ == "" || exp == "" || problem == "" || supervi == "" || financi == "" || ries == "" || ambien == "" || senso == "" || ment == "" || esfuer == "" || infor == "" || deci == "" || contac == "" || maqui == "")
+{
+    if(educ == 0 || exp == 0 || problem == 0 || supervi == 0 || financi == 0 || ries == 0 || ambien == 0 || senso == 0 || ment == 0 || esfuer == 0 || infor == 0 || deci == 0 || contac == 0 || maqui == 0)
+    {
+        $("#btn-save-val").prop("disabled", true);
+    }
+}
   }
 
   function info_tabla(title,info) 

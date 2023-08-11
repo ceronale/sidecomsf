@@ -133,6 +133,89 @@ class crud
     }
     //FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS 
 
+	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
+    public function dataview_percentiles($categoria,$percentil)
+    {
+		$user = $_SESSION['user'];
+		$percentilmayor = 0;
+		$percentilmenor =0;
+		$stmt2 = $this->conn->prepare("SELECT MAX(paqueteanual) as maxsueldo 
+		FROM matriz_nomina mn 
+		INNER JOIN cargos c ON c.id = mn.id_cargo
+		WHERE mn.id_empresa=:id_empresa AND categoria=:categoria");
+		$stmt2->execute(array(':id_empresa' => $user['id_empresa'],':categoria' => $categoria));
+		$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
+		if ($stmt2->rowCount() == 1) {		
+		
+		$max_sueldo = $userRow['maxsueldo'];
+	
+		if($percentil == 1)
+		{
+			$percentilmayor = $max_sueldo;
+			$percentilmenor = ($max_sueldo * 75 / 100);
+			$filtro = " WHERE paqueteanual >= " . $percentilmenor . " AND paqueteanual <= " .$percentilmayor;
+		}
+
+		if($percentil == 2)
+		{
+			$percentilmayor = ($max_sueldo * 75 / 100);
+			$percentilmenor = ($max_sueldo * 50 / 100);
+			$filtro = " WHERE paqueteanual >= " . $percentilmenor . " AND paqueteanual < " .$percentilmayor;
+		}
+		
+		
+		if($percentil == 3)
+		{
+			$percentilmayor = ($max_sueldo * 50 / 100);
+			$percentilmenor = ($max_sueldo * 25 / 100);
+			$filtro = " WHERE paqueteanual >= " . $percentilmenor . " AND paqueteanual < " .$percentilmayor;
+		}
+
+		if($percentil == 4)
+		{
+			$percentilmayor = ($max_sueldo * 25 / 100);
+			$filtro = " WHERE paqueteanual < " .$percentilmayor;
+		}
+		
+		
+
+		$query = "SELECT mn.id as id_nomina,
+		c.grado as grado,
+		c.nombre as nombrecargo,
+		d.nombre as nombredepartamento,
+		mn.nombre as nombretrabajador,
+		mn.fecha_ingreso as fechaingreso,
+		mn.sueldo_base as sueldobase,
+		mn.sueldomensual as sueldo_mensual,
+		mn.paqueteanual as paquete_anual,
+		d.categoria as categoriadepartamento,
+		mn.id_departamento as iddepartamento,
+		mn.id_cargo as idcargo
+		FROM matriz_nomina mn
+		INNER JOIN cargos c ON mn.id_cargo = c.id
+		INNER JOIN departamentos d ON mn.id_departamento = d.id " 
+		. $filtro . " AND c.categoria = " . $categoria . " AND
+		mn.id_empresa = ". $user['id_empresa'] . " 
+		ORDER BY c.grado";
+		
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+		
+		if($stmt->rowCount()>0)
+        {
+			$data = array();
+            while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+                {
+					$data[] = $row;
+
+                } 
+				return $data;
+        }
+	}
+    }
+    //FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS 
+
 	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS EN SELECT
     public function dataview_departamentos($id_categoria)
     {

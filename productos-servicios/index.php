@@ -1,8 +1,8 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
-<?php include_once "../layouts/menu.php"; 
-$producto = "no tengo el texto"?>
+<?php include_once "../layouts/menu.php";
+$producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u Organización. Ejemplo: Fábrica de uniformes de seguridad; Venta de cosméticos para damas; Siembra y ventas de hortalizas al detal; Elaboración de tortas para bodas………….." ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -11,8 +11,7 @@ $producto = "no tengo el texto"?>
 
         <div class="card text-left">
             <div class="card-header">
-            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
-                    onclick="info_tabla('Productos/Servicios:','<?php echo $producto; ?>')">Productos/Servicios</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Productos/Servicios:','<?php echo $producto; ?>')">Productos/Servicios</span>
             </div>
         </div>
 

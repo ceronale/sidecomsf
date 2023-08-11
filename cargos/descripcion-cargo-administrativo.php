@@ -2308,18 +2308,22 @@
                         </div>
 
                         <div class="col-12 mt-5">
+                            <label class="mt-3">Registre el numero de personas bajo su supervisión, en el nivel que corresponda:</label>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-3">
+                                        <label for="empleados">Nómina ejecutiva (Ejecutivos):</label>
+                                        <input type="text" class="form-control input-sm" name="ejecutivos" id="ejecutivos" title="Total Ejecutivos" value="<?php echo $cargoDescripcion["ejecutivos"]; ?>" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4); updateTotal();">
+                                    </div>
+                                    <div class="col-3">
                                         <label for="empleados">Nómina mensual (Empleados):</label>
                                         <input type="text" class="form-control input-sm" name="empleados" id="empleados" title="Total Empleados" value="<?php echo $cargoDescripcion["empleados"]; ?>" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4); updateTotal();">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label for="obreros">Nómina diaria (Obreros):</label>
                                         <input type="text" class="form-control input-sm" name="obreros" id="obreros" title="Total Obreros" value="<?php echo $cargoDescripcion["obreros"]; ?>" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4); updateTotal();">
-
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <label for="totalTrab">Total trabajadores:</label>
                                         <input type="text" class="form-control input-sm" name="totalTrab" id="totalTrab" title="Total Trabajadores." readonly />
                                     </div>
@@ -3105,7 +3109,7 @@
 
                 </article>
                 <article id="tab8">
-
+                    <label for="Riesgos" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Riesgos:','')"> Riesgos: </label>
                     <div class="row mt-2">
                         <div class="col-md-6 pr-3">
                             <label for="organigrama">Especificar ambiente de trabajo</label>
@@ -3134,7 +3138,7 @@
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Amb[]" id="radio_Amb4" value="Movil (motorizados o choferes)" <?php if ($radioAmbanigrama === 'radio_Amb4') echo 'checked'; ?> onclick="desbloquearCampo()">
                                 <label for="radio_Amb4">
-                                    <span class="frb-title">Movil (motorizados o choferes)</span>
+                                    <span class="frb-title">Móvil (motorizados o choferes)</span>
                                 </label>
                             </div>
 
@@ -3190,7 +3194,7 @@
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Ins[]" id="radio_Ins3" value="Vehiculo" <?php if ($radioInsanigrama === 'radio_Ins3') echo 'checked'; ?> onclick="desbloquearCampo2()">
                                 <label for="radio_Ins3">
-                                    <span class="frb-title">Vehiculo</span>
+                                    <span class="frb-title">Vehículo</span>
                                 </label>
                             </div>
 
@@ -3237,7 +3241,7 @@
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Man[]" id="radio_Man1" value="Quimicos" <?php if ($radioMananigrama === 'radio_Man1') echo 'checked'; ?> onclick="desbloquearCampo3()">
                                 <label for="radio_Man1">
-                                    <span class="frb-title">Quimicos</span>
+                                    <span class="frb-title">Químicos</span>
                                 </label>
                             </div>
 
@@ -3245,7 +3249,7 @@
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Man[]" id="radio_Man2" value="Biologicos" <?php if ($radioMananigrama === 'radio_Man2') echo 'checked'; ?> onclick="desbloquearCampo3()">
                                 <label for="radio_Man2">
-                                    <span class="frb-title">Biologicos</span>
+                                    <span class="frb-title">Biológicos</span>
                                 </label>
                             </div>
 
@@ -3290,36 +3294,30 @@
 
                         <div class="col-md-6">
                             <label for="organigrama">Describa si para desmpeñar su trabajo requiere la realización de traslados:</label>
-
-
                             <div class="frb frb-primary pr-3">
-                                <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras1" value="Areos" <?php if ($radioTrasanigrama === 'radio_Tras1') echo 'checked'; ?> onclick="desbloquearCampo4()">
+                                <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras1" value="Aereos" <?php if ($radioTrasanigrama === 'radio_Tras1') echo 'checked'; ?> onclick="desbloquearCampo4()">
                                 <label for="radio_Tras1">
-                                    <span class="frb-title">Areos</span>
+                                    <span class="frb-title">Aéreos</span>
                                 </label>
                             </div>
-
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras2" value="Terrestres" <?php if ($radioTrasanigrama === 'radio_Tras2') echo 'checked'; ?> onclick="desbloquearCampo4()">
                                 <label for="radio_Tras2">
                                     <span class="frb-title">Terrestres</span>
                                 </label>
                             </div>
-
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras3" value="Maritimo" <?php if ($radioTrasanigrama === 'radio_Tras3') echo 'checked'; ?> onclick="desbloquearCampo4()">
                                 <label for="radio_Tras3">
-                                    <span class="frb-title">Maritimo</span>
+                                    <span class="frb-title">Marítimo</span>
                                 </label>
                             </div>
-
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras4" value="Ninguno" <?php if ($radioTrasanigrama === 'radio_Tras4') echo 'checked'; ?> onclick="desbloquearCampo4()">
                                 <label for="radio_Tras4">
                                     <span class="frb-title">Ninguno</span>
                                 </label>
                             </div>
-
                             <div class="frb frb-primary pr-3">
                                 <input type="radio" class="form-check-input" name="radio_Tras[]" id="radio_Tras5" value="Otro" <?php if ($radioTrasanigrama === 'radio_Tras5') echo 'checked'; ?> onclick="desbloquearCampo4()">
 
@@ -3328,8 +3326,6 @@
                                 </label>
                             </div>
                             <input type="text" value="<?php echo $cargoDescripcion["otrotraslado"]; ?>" id="otrotraslado" name="otrotraslado" class="form-control" disabled>
-
-
 
                             <script>
                                 function desbloquearCampo4() {

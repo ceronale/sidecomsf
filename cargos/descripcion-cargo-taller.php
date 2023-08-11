@@ -509,10 +509,11 @@
 
     ?>
     <!-- Content Header (Page header) -->
+
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Descripción Puesto/Cargo (Planta - Taller - Fábrica)</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Descripción de Puestos/Cargos: Planta - Taller - Fábrica','Es un documento donde se registra formalmente el propósito, las funciones, tareas y requisitos de cada puesto/cargo en una empresa u organización, es además fuente de información para la selección, capacitación, incentivos, seguridad ocupacional y administración de los sueldos.')">Descripción Puesto/Cargo (Planta - Taller - Fábrica)</span>
                 <br>
                 <span style="font-weight: bold; font-size: 25px">Cargo: <?php echo $nombre; ?> - Departamento: <?php echo $departamento; ?> </span>
             </div>
@@ -530,9 +531,10 @@
         <li><a href="#tab2"><span class="fa fa-group"></span><span class="tab-text">Descripción</span></a></li>
         <li><a href="#tab3"><span class="fa fa-briefcase"></span><span class="tab-text">Ambiente e Instrumentos</span></a></li>
         <li><a href="#tab4"><span class="fa fa-bookmark"></span><span class="tab-text">Conocimientos</span></a></li>
+        <li><a href="#tab7"><span class="fa fa-arrows-h"></span><span class="tab-text">Competencias</span></a></li>
         <li><a href="#tab5"><span class="fa fa-superpowers"></span><span class="tab-text">Relaciones</span></a></li>
         <li><a href="#tab6"><span class="fa fa-window-restore "></span><span class="tab-text">Condiciones de trabajo</span></a></li>
-        <li><a href="#tab7"><span class="fa fa-arrows-h"></span><span class="tab-text">Competencias</span></a></li>
+
     </ul>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/descripcion-cargo.js"></script>

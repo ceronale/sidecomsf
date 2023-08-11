@@ -614,6 +614,7 @@ class crud
 		$gasto,
 		$empleados,
 		$obreros,
+		$ejecutivos,
 		$conocimiento,
 		$adicional,
 		$relacionesInternas,
@@ -711,6 +712,7 @@ class crud
             gasto = :gasto,
             empleados = :empleados,
             obreros = :obreros,
+			ejecutivos = :ejecutivos,
             conocimiento = :conocimiento,
             especialidad_adicional = :adicional,
             ambiental = :ambientales,
@@ -807,6 +809,7 @@ class crud
 			$stmt->bindParam(':gasto', $gasto);
 			$stmt->bindParam(':empleados', $empleados);
 			$stmt->bindParam(':obreros', $obreros);
+			$stmt->bindParam(':ejecutivos', $ejecutivos);
 			$stmt->bindParam(':conocimiento', $conocimiento);
 			$stmt->bindParam(':adicional', $adicional);
 			$stmt->bindParam(':ambientales', $ambientales);

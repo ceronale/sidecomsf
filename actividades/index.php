@@ -120,8 +120,8 @@ $actividad = "Es la declaración del empresario sobre los productos y servicios 
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_actividad()" class='btn btn-large btn-dark'> &nbsp;
-                    Agregar Activdad</a>
+                <a href='#' onclick="crear_actividad()" class='btn btn-primary btn3d'> &nbsp;
+                    Agregar Actividad</a>
             </div>
 
         </div>

@@ -36,7 +36,7 @@ if (isset($_GET['val'])) {
     } else {
         $categ = "Valoración de Puestos/Cargos: Planta - Taller - Fábrica";
     }
-    $info = "La valoración permite establecer una jerarquía, si comparamos cada cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. <strong> A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
+    $info = "La valoración permite establecer una jerarquía, si comparamos cada puesto/cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. <strong> A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
 }
 
 ?>
@@ -186,7 +186,7 @@ if (isset($_GET['val'])) {
         <div class="row row-col-8">
             <?php if (isset($_GET['new'])) { ?>
                 <div class="col">
-                    <a href='#' onclick="crear_cargo(<?php echo htmlspecialchars(json_encode($departamentos)); ?>,<?php echo ($categoriax); ?>)" class='btn btn-large btn-dark'> &nbsp;
+                    <a href='#' onclick="crear_cargo(<?php echo htmlspecialchars(json_encode($departamentos)); ?>,<?php echo ($categoriax); ?>)" class='btn btn-primary btn3d'> &nbsp;
                         + Agregar Puesto/Cargo</a>
                 </div>
 

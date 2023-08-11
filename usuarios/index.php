@@ -123,8 +123,8 @@
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_usuario('<?php echo addslashes(htmlspecialchars(json_encode($cargos))); ?>')" class='btn btn-large btn-dark'> &nbsp;
-                    + Agregar usuario</a>
+                <a href='#' onclick="crear_usuario('<?php echo addslashes(htmlspecialchars(json_encode($cargos))); ?>')" class='btn btn-primary btn3d'> &nbsp;
+                Agregar usuario</a>
             </div>
 
         </div>

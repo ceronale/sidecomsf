@@ -135,10 +135,19 @@ if($categoria == 1){
 
     </div>
 
-    <div id="chart-container" style="display: none">
-        <canvas id="graphCanvas"></canvas>
-    </div>
+    <div id="chart-container" style="display: none; background-color: white;">
+            <br>
+            <div class="row">
+                <div class="col-md-5"> </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary btn3d" title="Mostrar/Ocultar gráfica"
+                        id="fs-doc-button">Pantalla Completa</button>
+                </div>
+            </div>
+            <canvas id="graphCanvas"></canvas>
+        </div>
 
+   
 
     <br>
 
@@ -578,6 +587,7 @@ if($categoria == 1){
                 tipoempresa = data[i].tipoempresa;
 
                 if (tipoempresa >= 2) {
+                    promediosueldogradoI = data[i].promediosueldogradoI;
                     promediosueldogradoII = data[i].promediosueldogradoII;
                 }
                 if (tipoempresa >= 3) {
@@ -662,6 +672,10 @@ if($categoria == 1){
 
 
             if (tipoempresa >= 2) {
+                promedio.push({
+                    x: 'I',
+                    y: promediosueldogradoI
+                });
                 promedio.push({
                     x: 'II',
                     y: promediosueldogradoII

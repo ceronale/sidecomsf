@@ -1,5 +1,6 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php"; 
 $experiencia_laboral = "La Experiencia laboral no solo se refiere al trabajo que se ha realizado, sino también a todo lo aprendido a partir de esta. ;; - Personas que no han finalizado sus estudios académicos y que se han incorporado al mundo laboral aprendiendo su profesión trabajando. ;; - Han Desarrollado competencias profesionales a través de una actividad laboral, pero no poseen una acreditación oficial.";
 $puntaje_valorado = " Si posee los cargos valorados en escala de uno (1) a mil (1000) puntos, puede agregarlo (el grado aparecerá automáticamente), de lo contrario, valore sus cargos en el formato.";
@@ -45,83 +46,93 @@ $formatodirect = "";
     }
     ?>
         <div class="hidden" id="formatodirecto" name="formatodirecto" style="<?= $formatodirect ?>">
-            <form id="form-valoracion-adm"
-                action="save.php?va&idc=<?php echo $_GET['idc']; ?>&ca=<?php echo $_GET['ca']; ?>" method="POST">
 
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-1">
-                            
-                        </div>   
-              
-                        <div class="col-md-5" >
-                            <h4>Puesto/Cargo: <?php echo $nombrecargo ?> </h4>
+            <div class="card card-body">
+
+                <div class="box-body">
+                    <form id="form-valoracion-adm"
+                        action="save.php?va&idc=<?php echo $_GET['idc']; ?>&ca=<?php echo $_GET['ca']; ?>"
+                        method="POST">
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-1">
+
+                                </div>
+
+                                <div class="col-md-5">
+                                    <h4>Puesto/Cargo: <?php echo $nombrecargo ?> </h4>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h4>Departamento: <?php echo $nombredepartamento ?></span> </h4>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div class="col-md-6">
-                             <h4>Departamento: <?php echo $nombredepartamento ?></span> </h4>
-                        </div>                 
+                        <br>
 
-                    </div>
+                        <span style=" font-size: 20px;"> Si posee los cargos valorados en escala de uno (1) a
+                            mil (1000) puntos, puede agregarlo (el grado
+                            aparecerá automáticamente), de lo contrario, valore sus cargos en el formato
+                            detallado.</span>
+
+                        <br><br>
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-md-6" style="text-align: left !important;">
+                                        <label for="puntajevalorado">Puntaje:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type='text' name="puntajevalorado" id="puntajevalorado"
+                                            onchange="validargrado(this.value)" value="<?= $puntaje; ?>"
+                                            class='form-control' required autocomplete="on">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-md-6" style="text-align: left !important;">
+                                        <label for="gradovalorado">Grado:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type='text' name="gradovalorado" id="gradovalorado"
+                                            value="<?= $gradocargo; ?>" class='form-control' readonly required
+                                            autocomplete="on">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-primary btn3d" name="btn-save-val-direct"
+                                        id='btn-save-val-direct'>
+                                        Guardar
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="../cargos/?ca=1&val" class="btn btn-primary btn3d">
+                                        Volver</a>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    <a href="#" class="btn btn-primary btn3d" onclick="usarformatodetallado()" name="btn-formato"
+                                        id='btn-formato'>
+                                        Usar Formato Detallado</a>
+                                </div>
+                            </div>
+                    </form>
                 </div>
-
-                                    <br>
-
-                <span style="font-weight: bold; font-size: 20px;"> Si posee los cargos valorados en escala de uno (1) a
-                    mil (1000) puntos, puede agregarlo (el grado
-                    aparecerá automáticamente), de lo contrario, valore sus cargos en el formato detallado.</span>
-
-                <br><br>
-
-                <div class="row">
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <div class="col-md-6" style="text-align: left !important;">
-                                <label for="puntajevalorado">Puntaje:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input type='text' name="puntajevalorado" id="puntajevalorado"
-                                    onchange="validargrado(this.value)" value="<?= $puntaje; ?>" class='form-control' required autocomplete="on">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <div class="col-md-6" style="text-align: left !important;">
-                                <label for="gradovalorado">Grado:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input type='text' name="gradovalorado" id="gradovalorado" value="<?= $gradocargo; ?>" class='form-control' readonly
-                                    required autocomplete="on">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-dark" name="btn-save-val-direct"
-                                id='btn-save-val-direct'>
-                                Guardar
-                            </button>
-                        </div>
-                        <div class="col-md-1">
-                            <a href="../cargos/?ca=1&val" class="btn btn-large btn-danger">
-                                Volver</a>
-                        </div>
-
-                        <div class="col-md-3">
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <a href="#" class="btn btn-dark" onclick="usarformatodetallado()" name="btn-formato"
-                                id='btn-formato'>
-                                Usar Formato Detallado</a>
-                        </div>
-                    </div>
-            </form>
+            </div>
         </div>
 </div>
 
@@ -2439,12 +2450,12 @@ $formatodirect = "";
                     <br></br>
                     <div class="row">
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-dark" name="btn-save-val" id='btn-save-val'>
+                            <button type="submit" class="btn btn-primary btn3d" name="btn-save-val" id='btn-save-val'>
                                 Guardar
                             </button>
                         </div>
                         <div class="col-md-1">
-                            <a href="../cargos/?ca=1&val" class="btn btn-large btn-danger">
+                            <a href="../cargos/?ca=1&val" class="btn btn-primary btn3d">
                                 Volver</a>
                         </div>
 
@@ -2456,7 +2467,7 @@ $formatodirect = "";
                     if($formatodetallado == 0)
                     { ?>
                         <div class="col-md-4">
-                            <a href="#" class="btn btn-dark" onclick="usarformatodirecto()" name="btn-formato"
+                            <a href="#" class="btn btn-primary btn3d" onclick="usarformatodirecto()" name="btn-formato"
                                 id='btn-formato'>
                                 Usar Formato Directo</a>
                         </div>

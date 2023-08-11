@@ -103,8 +103,8 @@
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_link()" class='btn btn-large btn-dark'> &nbsp;
-                    + Agregar Link</a>
+                <a href='#' onclick="crear_link()" class='btn btn-primary btn3d'> &nbsp;
+                    Agregar Link</a>
             </div>
 
         </div>

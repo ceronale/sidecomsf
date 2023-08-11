@@ -32,11 +32,11 @@ if (isset($_GET['des'])) {
 
 if (isset($_GET['val'])) {
     if ($_GET['ca'] == 1) {
-        $categ = "Valoración de Puestos/Cargos: Administrativos";
+        $categ = "Valoración de Puestos/Cargos Administrativos";
     } else {
-        $categ = "Valoración de Puestos/Cargos: Planta - Taller - Fábrica";
+        $categ = "Valoración de Puestos/Cargos Planta - Taller - Fábrica";
     }
-    $info = "La valoración permite establecer una jerarquía, si comparamos cada cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. <strong> A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
+    $info = "La valoración permite establecer una jerarquía, si comparamos cada puesto/cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. <strong> A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
 }
 
 ?>
@@ -46,7 +46,7 @@ if (isset($_GET['val'])) {
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('<?= $categ; ?>:','<?php echo $info; ?>')"><?= $categ; ?></span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('<?= $categ; ?>','<?php echo $info; ?>')"><?= $categ; ?></span>
 
             </div>
         </div>
@@ -160,6 +160,30 @@ if (isset($_GET['val'])) {
 
 
     ?>
+ <?php
+ if(isset($_GET['val']))
+ {
+    $categoria = $_GET['ca'];
+                extract($crud->get_nombre_moneda()); 
+ 
+                $escalas = $crud->dataview_escalas($categoria);
+                extract($crud->get_datos_empresa($user['id_empresa']));	
+                extract($crud->get_sum_empleados($categoria));	
+                extract($crud->get_nivel_empresarial($nivel_empresarial));	
+                
+                $grados = $crud->dataview_escalas($categoria); 
+
+        ?>
+
+                <div class="col-sm-2 form-group">
+                    <button type="button" class="btn btn-primary btn3d" title="Ver Escala Empresarial"
+                        id="ver_escala"
+                        onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')">Ver
+                        Escala</button>
+                </div>
+                <?php
+ }  
+?>
 
 
     <script>
@@ -186,8 +210,8 @@ if (isset($_GET['val'])) {
         <div class="row row-col-8">
             <?php if (isset($_GET['new'])) { ?>
                 <div class="col">
-                    <a href='#' onclick="crear_cargo(<?php echo htmlspecialchars(json_encode($departamentos)); ?>,<?php echo ($categoriax); ?>)" class='btn btn-large btn-dark'> &nbsp;
-                        + Agregar Puesto/Cargo</a>
+                    <a href='#' onclick="crear_cargo(<?php echo htmlspecialchars(json_encode($departamentos)); ?>,<?php echo ($categoriax); ?>)" class='btn btn-primary btn3d'> &nbsp;
+                        Agregar Puesto/Cargo</a>
                 </div>
 
             <?php  } ?>
@@ -230,8 +254,8 @@ if (isset($_GET['val'])) {
                     foreach ($cargos as $cargo) {
                 ?>
                         <tr>
-                            <td><?php print($cargo['nombre_departamento']); ?></td>
-                            <td><?php print($cargo['nombre']); ?></td>
+                            <td style="white-space: normal;"><?php print($cargo['nombre_departamento']); ?></td>
+                            <td style="white-space: normal;"><?php print($cargo['nombre']); ?></td>
                             <?php if (isset($_GET['val'])) { ?>
                                 <td><?php print($cargo['grado']); ?></td>
                                 <td><?php print($cargo['puntaje']); ?></td>
@@ -323,5 +347,77 @@ if (isset($_GET['val'])) {
     <script src="assets/js/cargos.js"></script>
 
     <script>
+function ver_escala(escalas, nombre_empresa, categoria, conteo, nombre_nivel, minimo_nivel, maximo_nivel) {
+        var catego = "";
+        if (categoria == 1) {
+            catego = "Administrativo";
+        }
+        if (categoria == 2) {
+            catego = "Planta - Taller - Fábrica";
+        }
+        var html = `   <span class="text-center"><span class="glyphicon glyphicon-check"></span> Clasificación de Empresas en base al N° de trabajadores</span><br>
+                    <span class="text-center">(cifras aproximadas)</span><br>
+                    <br>
+                    <br>
 
+                    <div class="text-left" style="font-size: 14px">
+                    <span style="color: 25B9FF">Empresa: ${nombre_empresa} </span><br>
+                    <span style="color: 25B9FF">Categoria: ${catego} </span><br>
+                    <span style="color: red">Total Trabajadores: ${conteo} </span>
+                    </div>
+                    <br>
+
+                    <span style="font-size: 30px"><strong> ${nombre_nivel.trim()}s Empresas </strong></span><br>
+                    <span class="text-center"> De ${minimo_nivel} a ${maximo_nivel} Trabajadores </span><br>
+                    <span class="text-center">Estructura de Grados y Puntos para la Valoración de Cargos: </span><br><br>
+    `;
+
+
+        console.log(escalas);
+
+        html += `<table id="escalas" class="table table-striped dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Grado</th>
+                            <th>Mínimo</th>
+                            <th>Máximo</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        `;
+        escalas.forEach(function(escalas) {
+            html += `<tr>
+            <td style="text-align: center;"> ${escalas["grado"]} </td>
+            <td> ${escalas["minimo"]} </td>
+            <td> ${escalas["maximo"]} </td>
+            </tr>`;
+        });
+
+        html += `            
+                       
+                    </tbody>
+                   
+                </table>
+                <br>
+                <br>`;
+
+        Swal.fire({
+            title: "Escala - Sistema de Puntos",
+            html: html,
+            width: '800px',
+            showConfirmButton: false,
+        });
+        $(document).ready(function() {
+            $('#escalas').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
+                },
+                order: [
+                    [1, 'asc']
+                ],
+            });
+        });
+
+
+    }
     </script>

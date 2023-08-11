@@ -1109,4 +1109,97 @@ class crud
 			return false;
 		}
 	}
+
+//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
+public function dataview_escalas($categoria)
+{
+	$user = $_SESSION['user'];
+	$id_escala = "";
+	$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
+	$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
+	$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+	if ($stmt2->rowCount() == 1) {
+
+	
+		if($categoria == 1)
+		{
+			$id_escala = $userRow['id_escala_administrativo'];
+		}
+		if($categoria == 2)
+		{
+			$id_escala = $userRow['id_escala_planta'];
+		}
+
+	$query = "SELECT grado, minimo, maximo FROM tipo_escala_empresarial 
+	WHERE categoria = ". $categoria. "
+	AND tipo_empresa = " . $id_escala;
+	$stmt = $this->conn->prepare($query);
+	$stmt->execute();
+
+	if($stmt->rowCount()>0)
+	{
+		$data = array();
+		while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+			{
+				$data[] = $row;
+
+			} 
+			return $data;
+	}
+}
+}
+//FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS  
+
+//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+public function get_nombre_moneda()
+{
+	$user = $_SESSION['user'];
+	extract($this->get_datos_empresa($user['id_empresa']));	
+
+	$stmt = $this->conn->prepare("SELECT * FROM paises WHERE id=:id_pais");
+	$stmt->execute(array(":id_pais"=>$id_pais));
+	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+	return $editRow;
+}
+//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+public function get_datos_empresa($id_empresa)
+{
+	$stmt = $this->conn->prepare("SELECT *, nombre as nombre_empresa FROM empresas WHERE id=:id_empresa");
+	$stmt->execute(array(":id_empresa"=>$id_empresa));
+	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+	return $editRow;
+}
+//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+public function get_sum_empleados($categoria)
+{
+	$user = $_SESSION['user'];
+	$stmt = $this->conn->prepare("SELECT COUNT(*) as conteo
+	FROM matriz_nomina mn 
+	INNER JOIN cargos c ON c.id = mn.id_cargo
+	WHERE categoria=:categoria
+	AND mn.id_empresa = " . $user['id_empresa']);
+	$stmt->execute(array(":categoria"=>$categoria));
+	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+	return $editRow;
+}
+//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+public function get_nivel_empresarial($nivel_empresarial)
+{
+	$stmt = $this->conn->prepare("SELECT nombre as nombre_nivel, minimo as minimo_nivel, maximo as maximo_nivel
+	FROM tipo_escala_trabajadores
+	WHERE id=:nivel_empresarial");
+	$stmt->execute(array(":nivel_empresarial"=>$nivel_empresarial));
+	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+	return $editRow;
+}
+//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+
+
+
 }

@@ -1,7 +1,9 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
+<link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php";
-$sectores = ""; ?>
+$frecuencias = "Agregue o edite la frecuencia/período según la política de la 
+empresa para realizar las evaluaciones del desempeño"; ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -11,7 +13,7 @@ $sectores = ""; ?>
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Frecuencias','<?php echo $sectores; ?>')">Frecuencias</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Frecuencias','<?php echo $frecuencias; ?>')">Frecuencia/Período de Aumento Salarial</span>
             </div>
         </div>
 
@@ -105,8 +107,8 @@ $sectores = ""; ?>
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_frecuencia()" class='btn btn-large btn-dark'> &nbsp;
-                    + Agregar frecuencia</a>
+                <a href='#' onclick="crear_frecuencia()" class='btn btn-primary btn3d'> &nbsp;
+                Agregar frecuencia</a>
             </div>
 
         </div>

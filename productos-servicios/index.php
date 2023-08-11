@@ -1,9 +1,11 @@
 <?php include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
-<?php include_once "../layouts/menu.php";
-$producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u Organización. Ejemplo: Fábrica de uniformes de seguridad; Venta de cosméticos para damas; Siembra y ventas de hortalizas al detal; Elaboración de tortas para bodas………….." ?>
-
+<?php include_once "../layouts/menu.php"; 
+$producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u Organización. 
+Ejemplo: Fábrica de uniformes de seguridad;
+Venta de cosméticos para damas; Siembra y ventas de hortalizas al detal;
+Elaboración de tortas pra bodas."?>
 <style>
     /* Adjust the width of the buttons */
     .dt-buttons {
@@ -13,7 +15,7 @@ $producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u O
         /* Align the buttons to the right */
     }
 </style>
-
+ 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -129,8 +131,8 @@ $producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u O
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_producto()" class='btn btn-large btn-dark'> &nbsp;
-                    + Agregar Producto/Servicio</a>
+                <a href='#' onclick="crear_producto()" class='btn btn-primary btn3d'> &nbsp;
+                    Agregar Producto/Servicio</a>
             </div>
 
         </div>

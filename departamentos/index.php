@@ -125,8 +125,8 @@
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_departamento(<?= $_GET['ca'] ?>)" class='btn btn-large btn-dark'> &nbsp;
-                    Nuevo Departamento</a>
+                <a href='#' onclick="crear_departamento(<?= $_GET['ca'] ?>)" class='btn btn-primary btn3d'> &nbsp;
+                    Agregar Departamento</a>
             </div>
 
         </div>

@@ -122,8 +122,8 @@ $sectores = "Los sectores productivos, o lo que es lo mismo, los sectores de la 
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_sector()" class='btn btn-large btn-dark'> &nbsp;
-                    + Agregar Sector</a>
+                <a href='#' onclick="crear_sector()" class='btn btn-primary btn3d'> &nbsp;
+                Agregar Sector</a>
             </div>
 
         </div>

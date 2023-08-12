@@ -30,20 +30,14 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
         <h1>
             <?php //echo mb_strtoupper($_SESSION['nomemp']); 
             ?>
             <!-- <small>Control panel</small> -->
         </h1>
-        <ol class="breadcrumb">
-            <li><a href=""><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-            <li class="active"><?php // echo $title; 
-                                ?></li>
-        </ol>
 
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
-            <div class="carousel-inner" style="background-image: url('../assets/img/carrousel2.jpg');">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"  data-interval="false" style="background-image: url('../assets/img/carrousel2.jpg');background-repeat:no-repeat; background-size: 100% 100%; padding: 30px 100px 100px 100px;">
+            <div class="carousel-inner" >
                 <div class="carousel-item active">
                     <h4 class="sector-title">La presente aplicación contiene</h4>
                     <p class="sector-text">
@@ -51,20 +45,20 @@
                     <ol><em>
                             <li>
                                 <p class="lead text-left"><strong>Formato de Descripción de
-                                        Cargos..</strong></p>
+                                        Puestos/Cargos.</strong></p>
                             </li>
                             <li>
                                 <p class="lead text-left"><strong>Acceso al sistema de Valoración de
-                                        Cargos por puntos.</strong></p>
+                                Puestos/Cargos por puntos.</strong></p>
                             </li>
                             <li>
                                 <p class="lead text-left"><strong>Matrices para registrar.</strong></p>
                                 <ul>
                                     <li>
                                         <p class="lead text-justify"><strong><u>Matriz de Nómina</u>:
-                                                Titulo del cargo, departamento, nombre del ocupante,
+                                                Título del Puestos/Cargos, departamento, nombre del ocupante,
                                                 ingreso mensual, paquete anual, fecha de ingreso, valor
-                                                del cargo (entre cero mil puntos) pagos en divisas,
+                                                del Puestos/Cargos (entre cero mil puntos) pagos en divisas,
                                                 etc., automáticamente se generará un gráfico donde podrá
                                                 visualizar su estructura con su recta de
                                                 regresión.</strong></p>
@@ -77,7 +71,7 @@
                                     <li>
                                         <p class="lead text-justify"><strong><u>Matriz de
                                                     resultados</u>: Comparación con presupuesto y
-                                                jerarquización de los cargos, comparada con la banda
+                                                jerarquización de los Puestos/Cargos, comparada con la banda
                                                 salarial.</strong></p>
                                     </li>
                                     <li>
@@ -105,26 +99,26 @@
                                         COLUMNA IZQUIERDA, INICIO – DEPARTAMENTOS.</strong></p>
                             </li>
                             <li>
-                                <p class="lead text-justify"><strong> ASIGNAR TODOS LOS CARGOS ADSCRITOS
+                                <p class="lead text-justify"><strong> ASIGNAR TODOS LOS PUESTOS/CARGOS ADSCRITOS
                                         A CADA DEPARTAMENTO, GERENCIA, ETC. En este formato puede anotar
-                                        las funciones de cada cargo y su valor o peso en escala de uno a
+                                        las funciones de cada puesto/cargo y su valor o peso en escala de uno a
                                         mil puntos, si las posee. VER EN LA COLUMNA IZQUIERDA, INICIO –
-                                        CARGOS; de lo contrario utilice los formatos correspondientes
+                                        PUESTOS/CARGOS; de lo contrario utilice los formatos correspondientes
                                         (Descripción y Valoración de Cargos).</strong></p>
                             </li>
                             <li>
                                 <p class="lead text-justify"><strong> EN MATRICES, la primera carga de
                                         información está en la MATRIZ DE NÓMINA; encontrara en el botón
                                         “NUEVO”, el REGISTRO DE INFORMACION, en ella aparecerán todos
-                                        los departamentos registrados y sus cargos adscritos
+                                        los departamentos registrados y sus puestos/cargos adscritos
                                         respectivamente. Si anoto las funciones y valoración de los
-                                        cargos, también aparecerán. Adicionalmente complete la
+                                        puestos/cargos, también aparecerán. Adicionalmente complete la
                                         información solicitada en dicho registro.</strong></p>
                             </li>
                             <p class="lead text-justify"><strong><u> NOTA IMPORTANTE</u>: Para
-                                    visualizar los gráficos correctamente, todos los cargos deben tener
+                                    visualizar los gráficos correctamente, todos los puestos/cargos deben tener
                                     su puntaje, ingreso mensual y paquete anual.</strong></p>
-                            <p class="lead text-justify"><strong> De la Matriz de datos se derivan las
+                            <p class="lead text-justify"><strong> De la Matriz de nómina se derivan las
                                     Matrices de JERARQUIZACION Y LA DE RESULTADOS.</strong></p>
                             <li>
                                 <p class="lead text-justify"><strong> MATRIZ DE BENEFICIOS. Esta permite

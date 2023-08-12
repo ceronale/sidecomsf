@@ -39,6 +39,7 @@ class crud
 		c.grado as grado,
 		c.puntaje as mnpuntaje,
 		c.nombre as nombrecargo,
+		c.descripcion as descripcioncargo,
 		mn.cargocritico as critico,
 		mn.cargosupervisor as supervisor,
 		mn.modelo_trabajo as modelotrabajo,

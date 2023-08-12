@@ -55,18 +55,20 @@ function crear_usuario(cargos) {
                         <label for="apellido">Apellido</label>
                         <input type='text' name='apellido' class='form-control' required autocomplete="on">
                     </div>
-                <div class="form-group">
+               
+
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type='text' name='password' class='form-control' required autocomplete="on">
+                    </div>
+
+                    <div class="form-group">
                     <label for="status">Status:</label>
                     <select class="form-select" id="status" name="status" required>
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                     </select>
                 </div>
-
-                                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type='text' name='password' class='form-control' required autocomplete="on">
-                    </div>
         </div>
             </div >
             <div class="col-md-12">
@@ -89,7 +91,7 @@ function crear_usuario(cargos) {
     })
 };
 
-function editar_usuario(id, nombre, apellido, cargo, email, status, cargos, lastemail) {
+function editar_usuario(id, nombre, apellido, cargo, email, status, cargos, lastemail,password) {
     var cargosArray = JSON.parse(cargos);
     let html = `
         <form id = 'editar_usuario' action = "save.php" method = 'post' style = "text-align: center !important;">
@@ -130,6 +132,12 @@ function editar_usuario(id, nombre, apellido, cargo, email, status, cargos, last
                                  <div class="form-group">
                         <label for="apellido">Apellido</label>
                         <input type='text' name='apellido' value="${apellido}" class='form-control' required autocomplete="on">
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type='text' name='password' class='form-control' value="${password}" required autocomplete="on">
                     </div>
 
       

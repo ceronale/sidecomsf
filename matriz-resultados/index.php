@@ -201,6 +201,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     </div>
                 </div> <!-- /.box-body danger-->
 
+                <br>
                 <!-- Indicadores -->
                 <div class="box box-default">
 
@@ -609,14 +610,6 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
     </div>
 
 
-
-    <div id="chart-container2" style="background-color: white;">
-
-<div class="col-md-3">
-    <button type="button" class="btn btn-primary btn3d" title="Pantalla Completa"
-        id="fs-doc-button2">Pantalla
-        Completa</button>
-</div>
     <div class='container' id="container99" name="container99" style="overflow: auto; max-height: 600px;">
        
 
@@ -778,7 +771,6 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
 
 
 
-        </div>
     </div>
 </div>
 

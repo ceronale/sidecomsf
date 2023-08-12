@@ -20,6 +20,14 @@ class crud
 		return $output;
 	}
 
+	public static function decryption($string)
+	{
+		$key = hash('sha256', SECRET_KEY);
+		$iv = substr(hash('sha256', SECRET_IV), 0, 16);
+		$output = openssl_decrypt(base64_decode($string), METHOD, $key, 0, $iv);
+		return $output;
+	}
+
 	public function __construct()
 	{
 		$database = new Database();
@@ -130,6 +138,8 @@ class crud
 			$apellido = isset($_POST['apellido']) ? $_POST['apellido'] : "";
 			$cargo = isset($_POST['cargo']) ? $_POST['cargo'] : "";
 			$status = isset($_POST['status']) ? $_POST['status'] : "";
+			$password = isset($_POST['password']) ? $_POST['password'] : "";
+			$pass2 = $this->encryption($password);
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
 
 			$stmt = $this->conn->prepare("UPDATE usuarios SET 
@@ -138,6 +148,7 @@ class crud
 				idcargo=:idcargo,
 				email=:email,
 				status=:status,
+				password=:password,
 				modificado=:updated_at
 				WHERE id=:id");
 
@@ -147,6 +158,7 @@ class crud
 			$stmt->bindParam(":idcargo", $cargo);
 			$stmt->bindParam(":email", $email);
 			$stmt->bindParam(":status", $status);
+			$stmt->bindParam(":password", $pass2);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->bindParam(":id", $id);
 			$stmt->execute();

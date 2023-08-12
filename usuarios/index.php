@@ -171,8 +171,10 @@
                                 ?></td>
 
 
+                            <?php $password = $crud->decryption($usuario['password']);
+                            ?>
                             <td style="text-align: center">
-                                <a onclick="editar_usuario('<?php echo htmlspecialchars($usuario['id']); ?>','<?php echo htmlspecialchars($usuario['nombre']); ?>', '<?php echo htmlspecialchars($usuario['apellido']); ?>', '<?php echo htmlspecialchars($usuario['idcargo']); ?>', '<?php echo htmlspecialchars($usuario['email']); ?>', '<?php echo htmlspecialchars($usuario['status']); ?>','<?php echo addslashes(htmlspecialchars(json_encode($cargos))); ?>','<?php echo htmlspecialchars($usuario['email']); ?>')">
+                                <a onclick="editar_usuario('<?php echo htmlspecialchars($usuario['id']); ?>','<?php echo htmlspecialchars($usuario['nombre']); ?>', '<?php echo htmlspecialchars($usuario['apellido']); ?>', '<?php echo htmlspecialchars($usuario['idcargo']); ?>', '<?php echo htmlspecialchars($usuario['email']); ?>', '<?php echo htmlspecialchars($usuario['status']); ?>','<?php echo addslashes(htmlspecialchars(json_encode($cargos))); ?>','<?php echo htmlspecialchars($usuario['email']); ?>','<?php echo htmlspecialchars($password); ?>')">
                                     <i class=" fa fa-pencil" aria-hidden="true"></i></a>
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;

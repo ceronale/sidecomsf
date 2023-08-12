@@ -652,7 +652,7 @@ $('input.number').keyup(function(event) {
                                     <label for="funcion_cargo">Funciones del Cargo:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" name="funcion_cargo" id="funcion_cargo" readonly rows="3">` + funcioncargo + `</textarea>
+                                    <textarea class="form-control" name="funcion_cargo" id="funcion_cargo" readonly rows="3">` +  funcioncargo.replace(/;/g, '\n')  + `</textarea>
                                 </div>
                             </div>
                         </div> 
@@ -1611,3 +1611,37 @@ function toggleFullscreen(elem) {
   }
 
 
+
+  document.getElementById('fs-doc-button2').addEventListener('click', function() {
+    toggleFullscreen();
+  });
+
+  // Fullscreen 
+
+function toggleFullscreen(elem) {
+elem = elem || document.getElementById("chart-container2");
+if (!document.fullscreenElement && !document.mozFullScreenElement &&
+  !document.webkitFullscreenElement && !document.msFullscreenElement) {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen();
+  } else if (elem.mozRequestFullScreen) {
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+  }
+  document.getElementById("container99").style.maxHeight = "840px";
+  $('#container99').css('max-height') = "10000px !important;";
+} else {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
+}

@@ -25,7 +25,7 @@ $('#tbleducacion input:radio').click(function() {
     $("input[name='educacion']").removeAttr("readonly");
     $("input[name='educacion']").focus();
     }
-    sumPuntaje();
+    sumPuntaje('educacion');
 });
 //Experiencia
 $('#tblexperiencia input:radio').click(function() {
@@ -37,7 +37,7 @@ $('#tblexperiencia input:radio').click(function() {
         $("input[name='experiencia']").removeAttr("readonly");
         $("input[name='experiencia']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('experiencia');
 });
 //Problemas
 $('#tblproblemas input:radio').click(function() {
@@ -49,7 +49,7 @@ $('#tblproblemas input:radio').click(function() {
         $("input[name='problemas']").removeAttr("readonly");
         $("input[name='problemas']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('problemas');
 });
 
 //Supervision
@@ -62,7 +62,7 @@ $('#tblsupervision input:radio').click(function() {
         $("input[name='supervision']").removeAttr("readonly");
         $("input[name='supervision']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('supervision');
 });
 //financiera
 $('#tblfinanciera input:radio').click(function() {
@@ -74,7 +74,7 @@ $('#tblfinanciera input:radio').click(function() {
         $("input[name='financiera']").removeAttr("readonly");
         $("input[name='financiera']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('financiera');
 });
 //Maquinarias
 $('#tblmaquinarias input:radio').click(function() {
@@ -86,7 +86,7 @@ $('#tblmaquinarias input:radio').click(function() {
         $("input[name='maquinarias']").removeAttr("readonly");
         $("input[name='maquinarias']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('maquinarias');
 });
 //Contactos
 $('#tblcontactos input:radio').click(function() {
@@ -98,7 +98,7 @@ $('#tblcontactos input:radio').click(function() {
         $("input[name='contactos']").removeAttr("readonly");
         $("input[name='contactos']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('contactos');
 });
 //Desiciones
 $('#tbldecisiones input:radio').click(function() {
@@ -110,7 +110,7 @@ $('#tbldecisiones input:radio').click(function() {
         $("input[name='decisiones']").removeAttr("readonly");
         $("input[name='decisiones']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('decisiones');
 });
 //Informacion
 $('#tblinformacion input:radio').click(function() {
@@ -122,7 +122,7 @@ $('#tblinformacion input:radio').click(function() {
         $("input[name='informacion']").removeAttr("readonly");
         $("input[name='informacion']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('informacion');
 });
 
 
@@ -136,7 +136,7 @@ $('#tblfisico input:radio').click(function() {
         $("input[name='esfuerzo']").removeAttr("readonly");
         $("input[name='esfuerzo']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('esfuerzo');
 });
 
 //Esfuerzo Mental
@@ -149,7 +149,7 @@ $('#tblmental input:radio').click(function() {
         $("input[name='mental']").removeAttr("readonly");
         $("input[name='mental']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('mental');
 });
 //Esfuerzo Sensorial
 $('#tblsensorial input:radio').click(function() {
@@ -161,7 +161,7 @@ $('#tblsensorial input:radio').click(function() {
         $("input[name='sensorial']").removeAttr("readonly");
         $("input[name='sensorial']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('sensorial');
 });
 
 
@@ -175,7 +175,7 @@ $('#tblambiente input:radio').click(function() {
         $("input[name='ambiental']").removeAttr("readonly");
         $("input[name='ambiental']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('ambiental');
 });
 // Riesgo
 $('#tblriesgo input:radio').click(function() {
@@ -187,10 +187,10 @@ $('#tblriesgo input:radio').click(function() {
         $("input[name='riesgo']").removeAttr("readonly");
         $("input[name='riesgo']").focus();
         }
-    sumPuntaje();
+    sumPuntaje('riesgo');
 });
 //
-function sumPuntaje(){
+function sumPuntaje(campo){
 
     //debugger;
 
@@ -226,6 +226,9 @@ function sumPuntaje(){
         $("#grado").val(data.dato);
         $("#gradototal").html(data.dato);
     })
+
+
+    checkRangos(campo);
 
 }
 //
@@ -450,12 +453,17 @@ function checkRangos(num) {
       deci= $("input[name='decisiones']").val();
       contac= $("input[name='contactos']").val();
       maqui= $("input[name='maquinarias']").val();
+
 if(educ == "" || exp == "" || problem == "" || supervi == "" || financi == "" || ries == "" || ambien == "" || senso == "" || ment == "" || esfuer == "" || infor == "" || deci == "" || contac == "" || maqui == "")
 {
-    if(educ == 0 || exp == 0 || problem == 0 || supervi == 0 || financi == 0 || ries == 0 || ambien == 0 || senso == 0 || ment == 0 || esfuer == 0 || infor == 0 || deci == 0 || contac == 0 || maqui == 0)
-    {
-        $("#btn-save-val").prop("disabled", true);
-    }
+    $("#btn-save-val").prop("disabled", true);
+} else if(educ == 0 || exp == 0 || problem == 0 || supervi == 0 || financi == 0 || ries == 0 || ambien == 0 || senso == 0 || ment == 0 || esfuer == 0 || infor == 0 || deci == 0 || contac == 0 || maqui == 0)
+{
+    $("#btn-save-val").prop("disabled", true);
+}
+else
+{
+    $("#btn-save-val").prop("disabled", false);
 }
   }
 

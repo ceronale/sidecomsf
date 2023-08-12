@@ -305,11 +305,12 @@ if ($categoria == 1) {
 
 
 
-        <div class='container' style="overflow: auto; max-height: 600px;">
+    <div class='container' id="container99" name="container99" style="overflow: auto; max-height: 600px;">
+
             <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
                 <thead style="position: sticky; top: 0; background-color: white;">
                     <tr>
-                        <th></th>
+                      
                         <th>Grado</th>
                         <th>Puntaje</th>
                         <th>Puesto/Cargo</th>
@@ -360,7 +361,7 @@ if ($categoria == 1) {
                             $tiempotrans = "<script>" . "tiempotranscurrido(" . $nomina['fechaingreso'] . ")" . "</script>";
                     ?>
                     <tr>
-                        <td></td>
+             
                         <td style="text-align: center;">
                         <span style="opacity: .0;">
                         <?php                        
@@ -414,7 +415,11 @@ if ($categoria == 1) {
                         </span>                                          
                         <?php print($nomina['grado']); ?></td>
                         <td><?php print($nomina['mnpuntaje']); ?></td>
-                        <td><?php print($nomina['nombrecargo']); ?></td>
+                        <?php
+                        $descripcargo =  str_replace(PHP_EOL, ';' ,$nomina['descripcioncargo']);
+                        ?>
+                        <td><span style="font-weight: bold;  color: #3c8dbc; cursor: pointer;"
+                                onclick="info_tabla('Funciones del Cargo:','<?= $descripcargo  ?>')"> <?php print($nomina['nombrecargo']); ?> </span></td>
                         <td style="text-align: center;"><?php if ($nomina['critico'] == "1") {
                                                                     print "Si";
                                                                 } else {
@@ -474,7 +479,7 @@ if ($categoria == 1) {
                                 '<?php print($nomina['nombredepartamento']); ?>',
                                 '<?php print($nomina['idcargo']); ?>',
                                 '<?php print($nomina['nombrecargo']); ?>',
-                                '<?php echo $funcioncargo ?>',
+                                '<?php echo $descripcargo ?>',
                                 '<?php print($nomina['mnpuntaje']); ?>',
                                 '<?php print($nomina['grado']); ?>',
                                 '<?php print($nomina['critico']); ?>',
@@ -537,7 +542,7 @@ if ($categoria == 1) {
 
 
 
-
+        
         </div>
     </div>
     <?php include_once('../layouts/footer.php'); ?>

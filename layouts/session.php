@@ -9,8 +9,16 @@ session_start();
 if(!isset($_SESSION['user_session'])){ 
   header("Location: ../login/"); 
  }
+ $permisos = $_SESSION['permisos'];
+if ($seccion <> '' && $seccion <> 'dashboard' ){
+if ($permisos[$seccion] <> 1){
+  header("Location: ../dashboard");
+}
+$seccion = '';
+};
 
 
+ /*
  switch(true)
  {
   case ($permiso == 'p_usuarios' and $p_usuarios == 0):
@@ -75,3 +83,4 @@ if(!isset($_SESSION['user_session'])){
     break; 
 
  }
+*/

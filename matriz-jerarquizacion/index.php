@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_jerarquizacion';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
@@ -160,7 +162,7 @@ if($categoria == 1){
                 <div class="col-sm-3 form-group">
                     <label for="ingreso_minimo">Ingreso Mínimo</label>
                     <input type="text" class="form-control input-sm number" id="ingreso_minimo" name="ingreso_minimo"
-                        placeholder="Indique el Ingreso Minimo" value="<?=  $ingreso_minimo;  ?>" required title="Indique el Ingreso Minimo" />
+                        placeholder="Indique el Ingreso Minimo" value="<?= str_replace('.', ',' ,$ingreso_minimo);  ?>" required title="Indique el Ingreso Minimo" />
                 </div>
                 <div class="col-sm-3 form-group">
                     <label for="incremento_grados">% Incremento en Grados</label>
@@ -308,7 +310,6 @@ if($categoria == 1){
                     $medio = round($minimo + ($minimo * $incremento_min_med_max),2);
                     $maximo = round($medio + ($medio * $incremento_min_med_max),2);
                    }
-                       
                        
                 ?>
                         <tr>

@@ -1282,9 +1282,7 @@ function crear_nomina(fecha_act) {
     }
 
 
-    document.getElementById('fs-doc-button2').addEventListener('click', function() {
-        toggleFullscreen();
-      });
+
 
       // Fullscreen 
 

@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_view_glosario';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; 
 $glosario_texto = "Es una recopilación de palabras con sus definiciones que versan sobre un tema, ordenada alfabéticamente."

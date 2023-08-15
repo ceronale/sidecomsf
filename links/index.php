@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_links';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
@@ -17,7 +19,7 @@
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Links de interes','Permite conectar videos (url) o grabaciones relacionadas con el campo laboral, para presentaciones, cursos, inducción u otros fines didácticos.')">Links de interes</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Links de interes','Permite conectar videos (url) o grabaciones relacionadas con el campo laboral, para presentaciones, cursos, inducción u otros fines didácticos.')">Links de interés</span>
             </div>
         </div>
     </section>
@@ -123,8 +125,8 @@
         <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
             <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
-                    <th>Título</th>
                     <th>Website</th>
+                    <th>Título</th>
                     <th>Status</th>
                     <th>Acción</th>
                 </tr>

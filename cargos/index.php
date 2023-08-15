@@ -1,4 +1,34 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+if ($_GET['ca'] == 1) {
+    if(isset($_GET['new']))
+    {
+        $seccion = 'p_cargos_adm';
+    }
+    if(isset($_GET['des']))
+    {
+        $seccion = 'p_descripcion_adm';
+    }
+    if(isset($_GET['val']))
+    {
+        $seccion = 'p_valoracion_adm';
+    }
+   
+    }
+if ($_GET['ca'] == 2) {
+    if(isset($_GET['new']))
+    {
+        $seccion = 'p_cargos_taller';
+    }
+    if(isset($_GET['des']))
+    {
+        $seccion = 'p_descripcion_taller';
+    }
+    if(isset($_GET['val']))
+    {
+        $seccion = 'p_valoracion_taller';
+    }
+}
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
@@ -246,15 +276,17 @@ if (isset($_GET['val'])) {
                 <br>
                 <h5>
                     <p class="text-center"><i class="fa fa-envelope"></i> Para consulta con nuestros Asesores
-                            escríbenos a: <a href="mailto:asesoresrrhh.eventos@gmail.com">asesoresrrhh.eventos@gmail.com
-                                </<i></a></p>
+                        escríbenos a: <a href="mailto:asesoresrrhh.eventos@gmail.com">asesoresrrhh.eventos@gmail.com
+                            </<i></a></p>
                 </h5>
             </div>
         </div>
     </div>
 
     <?php }; ?>
-    <div id="tabla-valoracion" style="">
+    <?php if (isset($_GET['val'])) { ?>
+    <div id="tabla-valoracion" style=" display:none;">
+    <?php } ?>
         <div class='container' style="overflow: auto; max-height: 600px;">
 
             <div class="row row-col-8">
@@ -270,8 +302,7 @@ if (isset($_GET['val'])) {
             </div>
 
             <div class='clearfix'></div><br />
-
-            <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
+                <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">   
                 <thead style="position: sticky; top: 0; background-color: white;">
                     <tr>
                         <th>Departamento</th>

@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_escalas';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; 
 $escala_texto = "Se presentan dos Escalas, una para el <b>personal Administrativo</b> operativo, Supervisores, Gerencias medias y altas, Vicepresidencias y Presidencia.<br><br>Otra Escala para <b>personal técnico operativo de Planta, Taller o Fábrica</b>, tales como: Electricista, Tornero, Mecánica, Albañil, Carpintero, entre otros. No incluya suopervisores, aunque laboren en Planta ya que sus funciones son Administrativas; estos son incluidos en el nivel Administrativo."

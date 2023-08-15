@@ -294,7 +294,7 @@ class crud
 			) min_max ON c.grado COLLATE utf8_general_ci  = min_max.grado COLLATE utf8_general_ci
 			where " .$filtro. " 
 			GROUP BY c.grado, min_max.min, min_max.max
-			order by c.grado asc";
+			order by c.puntaje asc";
 			
 			}
 

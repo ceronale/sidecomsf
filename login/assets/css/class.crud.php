@@ -49,56 +49,13 @@ class crud
 
 			if ($stmt2->rowCount() == 1) {
 
-				$stmt = $this->conn->prepare("SELECT A.*, B.* FROM usuarios A INNER JOIN permisos B on A.id= B.id_usuario WHERE A.email=:uname and A.password=:upass");
+				$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE email=:uname and password=:upass");
 				$stmt->execute(array(':uname' => $uname, ':upass' => $upass));
-				$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+				//$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
 				if ($stmt->rowCount() == 1) {
 					$_SESSION['user_session'] = $userRow['id'];
 					$_SESSION['user'] = $userRow;
-
-					$sql = "SELECT DISTINCT COLUMN_NAME as columna
-					FROM INFORMATION_SCHEMA.COLUMNS
-					WHERE TABLE_NAME = 'permisos' and COLUMN_NAME not in ('id_seccion_permiso', 'usuario_permiso', 'id_permisos', 'id_usuario', 'created_at', 'updated_at',
-					'permisos',
-					'seccion_usuarios',
-					'crear_cliente',
-					'crear_empleado',
-					'seccion_inventario',
-					'inventario_global',
-					'es_global',
-					'productos_global',
-					'almacenes',
-					'manejar_cliente',
-					'mensajeria_global',
-					'vehiculos',
-					'conductores',
-					'gps',
-					'envios',
-					'es_cliente',
-					'inventario_cliente',
-					'productos_cliente',
-					'mensajeria_cliente',
-					'presupuestos',
-					'clientes',
-					'productos',
-					'usuarios',
-					'id_permiso',
-					'notas_entregas',
-					'seccion_productos',
-					'tipos',
-					'marcas')";
-					$apermisos = array();
-					$stmt = $this->conn->prepare($sql);
-					$stmt->execute();
-					while($row=$stmt->fetch(PDO::FETCH_ASSOC))
-							{
-								foreach($row as $value)
-								{
-									$apermisos[$value]= $userRow[$value];	
-								}
-							}		
-					$_SESSION['permisos'] = $apermisos;
-
+					
 
 					// Usuario y contraseña válidossss
 					return 1;
@@ -132,6 +89,17 @@ class crud
 			return 0;
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
 
 	public function is_loggedin()
 	{

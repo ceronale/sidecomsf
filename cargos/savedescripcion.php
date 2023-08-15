@@ -1,7 +1,7 @@
 <?php
 
 ob_start(); // Start output buffering
-
+$seccion = 'p_descripcion';
 include('../layouts/session.php');
 include_once 'class.crud.php';
 $crud = new crud();

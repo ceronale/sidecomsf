@@ -647,7 +647,7 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                     }
                     else
                     {
-                        $resultados = $crud->dataview_resultados($categoria,"");
+                        $resultados = $crud->dataview_resultados2($categoria,"");
                     }
 
              

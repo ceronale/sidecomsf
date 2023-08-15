@@ -25,7 +25,7 @@ function info_tabla(title, info) {
         width: '500px',
         html: `         <div class="card card-body" style="text-align: left; font-size: 20px">
                                 <p>
-                                ` + info.replace(/;/g, '<br>') + `
+                                ` + info.replace(/{/g, '<br>') + `
                                 </p>
                             </div>
                         `,

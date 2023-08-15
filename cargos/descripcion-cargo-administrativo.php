@@ -2761,7 +2761,7 @@
                 <article id="tab5">
                     <div class="row mt-3">
                         <div class="col-xs-12 col-md-6  ">
-                            <label for="competencias" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Competencias:','“Es una característica propia de un individuo que está directamente relacionada a un estándar de efectividad y/o a un desempeño superior en un trabajo o situación. Son comportamientos observables en la realidad cotidiana del trabajo y en situaciones de evaluación; son un rasgo de unión entre las características individuales y las cualidades requeridas para el desempeño en una empresa”. (Martha Alicia Alles, 2001).')"> Competencias: </label>
+                            <label for="competencias" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Competencias:','“Es una característica propia de un individuo que está directamente relacionada a un estándar de efectividad y/o a un desempeño superior en un trabajo o situación.{ Son comportamientos observables en la realidad cotidiana del trabajo y en situaciones de evaluación; son un rasgo de unión entre las características individuales y las cualidades requeridas para el desempeño en una empresa”. (Martha Alicia Alles, 2001).')"> Competencias: </label>
                             <small>Seleccione de 5 a 10 competencias principales, requeridas por el puesto/cargo</small>
                             <small>Antes de iniciar la selección de las competencias requeridas por el Puesto/Cargo, es necesario tomar en cuenta la Misión, Visión y Valores de la Organización.</small>
                             <div class=" col-6 mt-3 mb-3">

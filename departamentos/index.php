@@ -1,4 +1,13 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+if ($_GET['ca'] == 1) {
+    $seccion = 'p_departamentos_adm';
+    }
+if ($_GET['ca'] == 2) {
+    $seccion = 'p_departamentos_taller';
+}
+
+
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">

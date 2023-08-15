@@ -1,9 +1,10 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_setup';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php";
-$frecuencias = "Agregue o edite la frecuencia/período según la política de la 
-empresa para realizar las evaluaciones del desempeño"; ?>
+$frecuencias = "Agregue o edite la frecuencia/período según la política de la empresa para realizar las evaluaciones del desempeño"; ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

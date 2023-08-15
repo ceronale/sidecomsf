@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_jerarquizacion';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
@@ -160,7 +162,7 @@ if($categoria == 1){
                 <div class="col-sm-3 form-group">
                     <label for="ingreso_minimo">Ingreso Mínimo</label>
                     <input type="text" class="form-control input-sm number" id="ingreso_minimo" name="ingreso_minimo"
-                        placeholder="Indique el Ingreso Minimo" value="<?=  $ingreso_minimo;  ?>" required title="Indique el Ingreso Minimo" />
+                        placeholder="Indique el Ingreso Minimo" value="<?= str_replace('.', ',' ,$ingreso_minimo);  ?>" required title="Indique el Ingreso Minimo" />
                 </div>
                 <div class="col-sm-3 form-group">
                     <label for="incremento_grados">% Incremento en Grados</label>
@@ -309,11 +311,62 @@ if($categoria == 1){
                     $maximo = round($medio + ($medio * $incremento_min_med_max),2);
                    }
                        
-                       
                 ?>
                         <tr>
 
-                            <td style="text-align: center;"><?php print($jerarquizacion['grado']); ?></td>
+                        <td style="text-align: center;">
+                        <span style="opacity: .0;">
+                        <?php                        
+                        switch ($jerarquizacion['grado']) {
+                            case 'I':
+                                echo "a";
+                                break;
+                            case 'II':
+                                echo "b";
+                                break;
+                            case 'III':
+                                echo "c";
+                                break;
+                            case 'IV':
+                                echo "d";
+                                break;    
+                            case 'V':
+                                echo "e";
+                                break;
+                            case 'VI':
+                                echo "f";
+                                break;
+                            case 'VII':
+                                echo "g";
+                                break;
+                            case 'VIII':
+                                echo "h";
+                                break;
+                            case 'IX':
+                                echo "i";
+                                break;    
+                            case 'X':
+                                echo "j";
+                                break;
+                            case 'XI':
+                                echo "k";
+                                break;
+                            case 'XII':
+                                echo "l";
+                                break;
+                            case 'XIII':
+                                echo "m";
+                                break;
+                            case 'XIV':
+                                echo "n";
+                                break;   
+                            case 'XV':
+                                echo "o";
+                                break;                                                                  
+                        }?>
+                        </span>             
+                            
+                            <?php print($jerarquizacion['grado']); ?></td>
                             <td><?php print($jerarquizacion['minimo']); ?></td>
                             <td><?php print($jerarquizacion['maximo']); ?></td>
 

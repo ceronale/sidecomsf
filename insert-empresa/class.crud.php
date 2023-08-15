@@ -266,6 +266,21 @@ ORDER BY tipo_empresa ASC;");
 			$stmt2->bindValue(':creacion', date("Y-m-d H:i:s", strtotime('now'))); // Establece un valor para la columna 'creacion'
 			$stmt2->execute();
 
+				//Realizar un insert a la tabla tipo_sector_empresa si $actividad en tipo_sector_empresa.nombre 
+			//no existe en la tabla tipo_sector_empresa
+			$stmt2 = $this->conn->prepare("
+				INSERT INTO matriz_resultados (id_empresa,categoria,presupuesto_mensual, presupuesto_anual, ventas_mensual,ventas_anual,created_at,updated_at)
+				 VALUES(:id_empresa,:categoria,:presupuesto_mensual,:presupuesto_anual,:ventas_mensual,:ventas_anual,:created_at,:updated_at) ");
+			$stmt2->bindParam(':id_empresa', $idEmpresa);
+			$stmt2->bindValue(':categoria', 1);
+			$stmt2->bindValue(':presupuesto_mensual', 0); // Establece un valor para la columna 'status'
+			$stmt2->bindValue(':presupuesto_anual', 0);
+			$stmt2->bindValue(':ventas_mensual', 0);
+			$stmt2->bindValue(':ventas_anual', 0);
+			$stmt2->bindValue(':created_at', date("Y-m-d H:i:s", strtotime('now'))); // Establece un valor para la columna 'creacion'
+			$stmt2->bindValue(':updated_at', date("Y-m-d H:i:s", strtotime('now')));
+			$stmt2->execute();
+
 			$stmt4 = $this->conn->prepare("
 				INSERT INTO productos_servicios (nombre, status, creacion)
 				SELECT :productos_servicios, :status, :creacion WHERE NOT EXISTS (SELECT * FROM productos_servicios WHERE nombre = :productos_servicios)");

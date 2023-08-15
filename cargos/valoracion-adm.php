@@ -2,6 +2,7 @@
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php"; 
+$info = "La valoración permite establecer una jerarquía, si comparamos cada puesto/cargo con un conjunto de factores que impactan de manera diferente. Como consecuencia de esta jerarquización se establece la remuneración, para cada posición. <strong> A MAYOR RESPONSABILIDAD Y RESULTADO, MAYOR REMUNERACIÓN</strong>";
 $experiencia_laboral = "La Experiencia laboral no solo se refiere al trabajo que se ha realizado, sino también a todo lo aprendido a partir de esta. ;; - Personas que no han finalizado sus estudios académicos y que se han incorporado al mundo laboral aprendiendo su profesión trabajando. ;; - Han Desarrollado competencias profesionales a través de una actividad laboral, pero no poseen una acreditación oficial.";
 $puntaje_valorado = " Si posee los cargos valorados en escala de uno (1) a mil (1000) puntos, puede agregarlo (el grado aparecerá automáticamente), de lo contrario, valore sus cargos en el formato.";
 
@@ -25,7 +26,7 @@ $formatodirect = "";
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px">Valoración de Puestos/Cargos: Administrativos</span>
+            <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Valoración de Puestos/Cargos: Administrativos','<?php echo $info; ?>')">Valoración de Puestos/Cargos: Administrativos</span>
             </div>
         </div>
     </section>
@@ -446,7 +447,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="educacion"
-                                            id="educacion" value="<?php echo $educacion; ?>" onchange="sumPuntaje()"
+                                            id="educacion" value="<?php echo $educacion; ?>" onchange="sumPuntaje('educacion')"
                                             readonly style="width:70px" onfocusout="checkRangos('educacion');">
                                     </div>
                                 </td>
@@ -578,7 +579,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="experiencia"
-                                            id="experiencia" value="<?php echo $experiencia; ?>" onchange="sumPuntaje()"
+                                            id="experiencia" value="<?php echo $experiencia; ?>" onchange="sumPuntaje('experiencia')"
                                             readonly style="width:70px" onfocusout="checkRangos('experiencia');">
                                     </div>
                                 </td>
@@ -721,7 +722,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="problemas"
-                                            id="problemas" value="<?php echo $problemas; ?>" onchange="sumPuntaje()"
+                                            id="problemas" value="<?php echo $problemas; ?>" onchange="sumPuntaje('problemas')"
                                             readonly style="width:70px" onfocusout="checkRangos('problemas');">
                                     </div>
                                 </td>
@@ -966,7 +967,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="supervision"
-                                            id="supervision" value="<?php echo $supervision; ?>" onchange="sumPuntaje()"
+                                            id="supervision" value="<?php echo $supervision; ?>" onchange="sumPuntaje('supervision')"
                                             readonly style="width:70px" onfocusout="checkRangos('supervision');">
                                     </div>
                                 </td>
@@ -1108,7 +1109,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="financiera"
-                                            id="financiera" value="<?php echo $financiera; ?>" onchange="sumPuntaje()"
+                                            id="financiera" value="<?php echo $financiera; ?>" onchange="sumPuntaje('financiera')"
                                             readonly style="width:70px" onfocusout="checkRangos('financiera');">
                                     </div>
                                 </td>
@@ -1234,7 +1235,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="maquinarias"
-                                            id="maquinarias" value="<?php echo $maquinarias; ?>" onchange="sumPuntaje()"
+                                            id="maquinarias" value="<?php echo $maquinarias; ?>" onchange="sumPuntaje('maquinarias')"
                                             readonly style="width:70px" onfocusout="checkRangos('maquinarias');">
                                     </div>
                                 </td>
@@ -1424,7 +1425,7 @@ $formatodirect = "";
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="contactos"
                                             id="contactos" value="<?php echo $contactos; ?>" readonly
-                                            onchange="sumPuntaje()" style="width:70px"
+                                            onchange="sumPuntaje('contactos')" style="width:70px"
                                             onfocusout="checkRangos('contactos');">
                                     </div>
                                 </td>
@@ -1584,7 +1585,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="decisiones"
-                                            id="decisiones" value="<?php echo $decisiones; ?>" onchange="sumPuntaje()"
+                                            id="decisiones" value="<?php echo $decisiones; ?>" onchange="sumPuntaje('decisiones')"
                                             readonly style="width:70px" onfocusout="checkRangos('decisiones');">
                                     </div>
                                 </td>
@@ -1736,7 +1737,7 @@ $formatodirect = "";
                                 <td class="text-center">
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="informacion"
-                                            id="informacion" value="<?php echo $informacion; ?>" onchange="sumPuntaje()"
+                                            id="informacion" value="<?php echo $informacion; ?>" onchange="sumPuntaje('informacion')"
                                             readonly style="width:70px" onfocusout="checkRangos('informacion');">
                                     </div>
                                 </td>
@@ -1886,7 +1887,7 @@ $formatodirect = "";
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="esfuerzo" id="esfuerzo"
                                             value="<?php echo $esfuerzo; ?>" readonly style="width:70px"
-                                            onchange="sumPuntaje()" onfocusout="checkRangos('esfuerzo');">
+                                            onchange="sumPuntaje('esfuerzo')" onfocusout="checkRangos('esfuerzo');">
                                     </div>
                                 </td>
                             </tr>
@@ -2022,7 +2023,7 @@ $formatodirect = "";
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="mental" id="mental"
                                             value="<?php echo $mental; ?>" readonly style="width:70px"
-                                            onchange="sumPuntaje()" onfocusout="checkRangos('mental');">
+                                            onchange="sumPuntaje('mental')" onfocusout="checkRangos('mental');">
                                     </div>
                                 </td>
                             </tr>
@@ -2166,7 +2167,7 @@ $formatodirect = "";
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="sensorial"
                                             id="sensorial" value="<?php echo $sensorial; ?>" readonly
-                                            onchange="sumPuntaje()" style="width:70px"
+                                            onchange="sumPuntaje('sensorial')" style="width:70px"
                                             onfocusout="checkRangos('sensorial');">
                                     </div>
                                 </td>
@@ -2314,7 +2315,7 @@ $formatodirect = "";
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="ambiental"
                                             id="ambiental" value="<?php echo $ambiental; ?>" readonly
-                                            onchange="sumPuntaje()" style="width:70px"
+                                            onchange="sumPuntaje('ambiental')" style="width:70px"
                                             onfocusout="checkRangos('ambiental');">
                                     </div>
                                 </td>
@@ -2427,7 +2428,7 @@ $formatodirect = "";
                                     <div class="form-check">
                                         <input type="number" class="form-control input-sm" name="riesgo" id="riesgo"
                                             value="<?php echo $riesgo; ?>" readonly style="width:70px"
-                                            onchange="sumPuntaje()" onfocusout="checkRangos('riesgo');">
+                                            onchange="sumPuntaje('riesgo')" onfocusout="checkRangos('riesgo');">
                                     </div>
                                 </td>
                             </tr>

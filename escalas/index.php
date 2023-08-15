@@ -1,6 +1,10 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_escalas';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php"; 
+$escala_texto = "Se presentan dos Escalas, una para el <b>personal Administrativo</b> operativo, Supervisores, Gerencias medias y altas, Vicepresidencias y Presidencia.<br><br>Otra Escala para <b>personal técnico operativo de Planta, Taller o Fábrica</b>, tales como: Electricista, Tornero, Mecánica, Albañil, Carpintero, entre otros. No incluya suopervisores, aunque laboren en Planta ya que sus funciones son Administrativas; estos son incluidos en el nivel Administrativo."
+?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php
 session_start();
@@ -102,7 +106,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Escala - Sistema de Puntos:','Sistema de Puntos: Seleccione la escala según los niveles del Organigrama. Administrativo: Solo para el personal como: Secretarias, Auxiliares, Asistentes, Analistas, Almacenistas, Supervisores, Jefes, Gerentes, Directores, Vicepresidentes Administrativos y Supervisores de Planta, Industria o Taller. Solo registrar Puestos/Cargos técnicos – operativos, artesanos, NO supervisorio o de Dirección (estos son registrados y valorados en el segmento Administrativo)')">Escala - Sistema de Puntos</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Escala - Sistema de Puntos:','<?php echo $escala_texto; ?>')">Escala - Sistema de Puntos</span>
             </div>
         </div>
     </section>

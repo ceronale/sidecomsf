@@ -1,11 +1,10 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_setup';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <?php include_once "../layouts/menu.php"; 
-$producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u Organización. 
-Ejemplo: Fábrica de uniformes de seguridad;
-Venta de cosméticos para damas; Siembra y ventas de hortalizas al detal;
-Elaboración de tortas pra bodas."?>
+$producto = "Se refiere al producto/servicio terminado que ofrece la Empresa u Organización. Ejemplo: Fábrica de uniformes de seguridad, Venta de cosméticos para damas, Siembra y ventas de hortalizas al detal, Elaboración de tortas para bodas."?>
 <style>
     /* Adjust the width of the buttons */
     .dt-buttons {

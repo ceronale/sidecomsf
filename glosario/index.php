@@ -1,6 +1,10 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_glosario';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; ?>
+<?php include_once "../layouts/menu.php"; 
+$glosario_texto = "Es una recopilación de palabras con sus definiciones que versan sobre un tema, ordenada alfabéticamente."
+?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
 
@@ -17,7 +21,7 @@
     <section class="content-header">
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Glosario','Está diseñado para que el Usuario Administrador pueda crear o incorporar definiciones, conceptos, políticas u otros textos de interés laboral.')">Glosario</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Glosario:','<?php echo $glosario_texto; ?>')">Glosario</span>
             </div>
         </div>
     </section>

@@ -70,6 +70,38 @@ class crud
 				$stmt3->bindParam(':id', $id);
 				$stmt3->execute();
 
+				// Actualizar el campo "idparent" con el ID generado
+				$stmt3 = $this->conn->prepare("INSERT INTO permisos(id_usuario,p_usuarios,
+				p_departamentos,
+				p_departamentos_adm,
+				p_departamentos_taller,
+				p_cargos,
+				p_cargos_adm,
+				p_cargos_taller,
+				p_descripcion,
+				p_descripcion_adm,
+				p_descripcion_taller,
+				p_escalas,
+				p_valoracion,
+				p_valoracion_adm,
+				p_valoracion_taller,
+				p_matrices,
+				p_nomina,
+				p_jerarquizacion,
+				p_resultados,
+				p_beneficios,
+				p_tablas,
+				p_links,
+				p_glosario,
+				p_perfiles,
+				p_perfil_organizacion,
+				p_perfil_usuario,
+				p_view_links,
+				p_view_glosario) 
+				VALUES('". $id . "','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
+				$stmt3->execute();
+
+
 
 				return 2; // Registro exitoso
 			}

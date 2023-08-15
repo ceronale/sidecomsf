@@ -274,7 +274,7 @@ function editar_cargo(id, nombre, id_departamento, categoria, status, descripcio
    </div>
 <div class="form-group">
   <label for="descripcion" style="color: #3c8dbc;"  onclick="show_info_descripcion()" >Breve descripción del Puesto/Cargo:</label>
-  <textarea name="descripcion" class="form-control" min="1" max="1000" required>${descripcion}</textarea>
+  <textarea name="descripcion" class="form-control" min="1" max="1000" required>${descripcion.replace(/;/g, '\n')}</textarea>
 </div>
 
 <input type='hidden' name='cargoold' class='form-control' maxlength="255" required autocomplete="on" value="${nombre}">

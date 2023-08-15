@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_resultados';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
 <style>
@@ -15,9 +17,14 @@
 $matriz_resultados = "1.- Combina ambas Matrices (de Nómina y Jerarquización). ;; 2.- Compara cada uno de los datos de la matriz de nómina (Ingreso mensual y Paquete anual), con Mínimo, Medio y Máximo. ;; 3.- Se totalizan los ingresos mensual y paquete, para luego compararlo con el Presupuesto y Ventas, debe arrojar un saldo igual, positivo o negativo.";
 $indicadores = "Característica específica, observable y medible que permite ser usada para mostrar los cambios y progresos de la información hacia el logro de los resultados previstos o planificados.";
 
+
+
 include_once 'class.crud.php';
 $crud = new crud();
 $categoria = $_GET['ca'];
+
+$user = $_SESSION['user'];
+extract($crud->get_matriz_resultados($user['id_empresa']));	
 
 if($categoria == 1){
     $cat = "Administrativo";
@@ -132,465 +139,414 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
         <!-- Main content -->
         <section class="content">
 
-    
-
-            <div class=" col-md-12 form-group" style="text-align: left !important;">
-              
-                    <div class="col-md-1" >
-                        <label for="percentil">Percentil</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select" id="percentil" name="percentil"
-                            onchange="redirectpercentil(this.value, <?= $_GET['ca']; ?>)">
-                            <option value="1" <?php if(isset($_GET['per'])){if($_GET['per']==1){echo "Selected";}} ?>>Remuneración por encima del percentil 75</option>
-                            <option value="2" <?php if(isset($_GET['per'])){if($_GET['per']==2){echo "Selected";}} ?>>Remuneración entre el percentil 50-75</option>
-                            <option value="3" <?php if(isset($_GET['per'])){if($_GET['per']==3){echo "Selected";}} ?>>Remuneración entre el percentil 25-50</option>
-                            <option value="4" <?php if(isset($_GET['per'])){if($_GET['per']==4){echo "Selected";}} ?>>Remuneración por debajo del percentil 25</option>
-                        </select>
-                        </select>
-               
-                </div>
-            </div>
- 
 
 
-    <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
-        <thead style="position: sticky; top: 0; background-color: white;">
-            <tr>
-                <th>Grado</th>
-                <th>Departamento</th>
-                <th>Cargo</th>
-                <th>Trabajador</th>
-                <th>Tiempo de Servicio</th>
-                <th>Sueldo Base</th>
-                <th>Ingreso Mensual</th>
-                <th>Paquete Anual</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                $percentiles = $crud->dataview_percentiles($categoria,$percent);
-                if ($percentiles != null) {
-                    foreach ($percentiles as $percentil) {
-                ?>
-            <tr>
-                <td><?php print($percentil['grado']); ?></td>
-                <td><?php print($percentil['nombredepartamento']); ?></td>
-                <td><?php print($percentil['nombrecargo']); ?></td>
-                <td><?php print($percentil['nombretrabajador']); ?></td>
-                <td><?php echo tiempoTranscurridoFechas($percentil['fechaingreso']); ?> </td>
-                <td><?php print($percentil['sueldobase']); ?></td>
-                <td><?php print($percentil['sueldo_mensual']); ?></td>
-                <td><?php print($percentil['paquete_anual']); ?></td>
+            <form id='create' action="save.php?ca=<?= $categoria; ?>" method='post'>
 
-            </tr>
-
-            <?php }
-                } else {  ?>
-
-            <tr>
-                <td>No hay registros</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <?php } ?>
-
-        </tbody>
-    </table>
-
-  
-
-<br>
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h4>Mostrar Resultados: <span id="loadergm"></span></h4>
+                        <div class="row" id="formcss">
+                            <div class="col-sm-2 form-group">
+                                <label for="cboCategoria">Categoria</label>
+                                <select name="cboCategoria" id="cboCategoria" class="form-control input-sm"
+                                    onchange="redirectcategoria(this.value)">
+                                    <option value="1" <?php if($categoria == 1){echo "selected";} ?>>Administrativo
+                                    </option>
+                                    <option value="2" <?php if($categoria == 2){echo "selected";} ?>>Plata - Taller -
+                                        Fábrica</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                                <label for="presupuesto_ingreso_mensual1">Presupuesto Mensual</label>
+                                <input type="text" class="form-control input-sm number"
+                                    id="presupuesto_ingreso_mensual1" name="presupuesto_ingreso_mensual1" value="<?= $presupuesto_mensual; ?>"
+                                    placeholder="Indique Presupuesto Mensual" required
+                                    title="Indique el Presupuesto Mensual" />
+                            </div>
+                            <div class="col-sm-5 form-group">
+                                <label for="presupuesto_ingreso_mensual1">Presupuesto Anual</label>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control input-sm number"
+                                            id="presupuesto_paquete_anual1" name="presupuesto_paquete_anual1" value="<?= $presupuesto_anual; ?>"
+                                            placeholder="Indique Presupuesto Paquete" required
+                                            title="Indique el Presupuesto del Paquete" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-primary btn3d" id="btn-genResultados"
+                                            name="btn-genResultados"></span> GENERAR</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label for="Guardar"></label>
+                                <br>
 
 
-<div class="box box-danger">
-    <div class="box-header with-border">
-        <h4>Mostrar Resultados: <span id="loadergm"></span></h4>
-        <div class="row" id="formcss">
-            <div class="col-sm-2 form-group">
-                <label for="cboCategoria">Categoria</label>
-                <select name="cboCategoria" id="cboCategoria" class="form-control input-sm"
-                    onchange="redirectcategoria(this.value)">
-                    <option value="1" <?php if($categoria == 1){echo "selected";} ?>>Administrativo</option>
-                    <option value="2" <?php if($categoria == 2){echo "selected";} ?>>Plata - Taller -
-                        Fábrica</option>
-                </select>
-            </div>
-            <div class="col-sm-3 form-group">
-                <label for="presupuesto_ingreso_mensual1">Presupuesto Mensual</label>
-                <input type="text" class="form-control input-sm" id="presupuesto_ingreso_mensual1"
-                    placeholder="Indique Presupuesto Mensual" required title="Indique el Presupuesto Mensual" />
-            </div>
-            <div class="col-sm-5 form-group">
-                <label for="presupuesto_ingreso_mensual1">Presupuesto Anual</label>
-                <div class="row">
-                    <div class="col-md-8">
-                        <input type="text" class="form-control input-sm" id="presupuesto_paquete_anual1"
-                            placeholder="Indique Presupuesto Paquete" required
-                            title="Indique el Presupuesto del Paquete" />
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-primary btn3d" data-bs-toggle="collapse"
-                            data-bs-target="#collapseindicadores" aria-expanded="false"
-                            aria-controls="collapseindicadores" title="Generar resultados" id="btn-genResultados"
-                            onclick="indicadores()"></span> GENERAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2 form-group">
-                <label for="Guardar"></label>
-                <br>
+                            </div>
 
+                        </div>
 
-            </div>
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="ventas_mensuales1">Ventas Mensuales</label>
+                                    <input type="text" class="form-control input-sm number" id="ventas_mensuales1" name="ventas_mensuales1"
+                                        value="<?= $ventas_mensual; ?>" placeholder="Indique Ventas Mensuales" required
+                                        title="Indique las Ventas Mensuales" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="ventas_anuales1">Ventas Anuales</label>
+                                    <input type="text" class="form-control input-sm number" id="ventas_anuales1" name="ventas_anuales1" 
+                                        value="<?= $ventas_anual; ?>" placeholder="Indique Ventas Anuales" required
+                                        title="Indique las Ventas Mensuales" />
+                                </div>
 
-        </div>
+                            </div>
 
-        <div class="row" id="formcss">
-            <div class="row">
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-3">
-                    <label for="ventas_mensuales1">Ventas Mensuales</label>
-                    <input type="text" class="form-control input-sm" id="ventas_mensuales1"
-                        placeholder="Indique Ventas Mensuales" required title="Indique las Ventas Mensuales" />
-                </div>
-                <div class="col-sm-3">
-                    <label for="ventas_anuales1">Ventas Anuales</label>
-                    <input type="text" class="form-control input-sm" id="ventas_anuales1"
-                        placeholder="Indique Ventas Anuales" required title="Indique las Ventas Mensuales" />
-                </div>
+                        </div>
+                    </div> <!-- /.box-body danger-->
 
-            </div>
+            </form>
 
-        </div>
-    </div> <!-- /.box-body danger-->
+            <br>
+            <!-- Indicadores -->
+            <div class="box box-default">
 
-    <!-- Indicadores -->
-    <div class="box box-default">
+                <div class="box-header with-border">
 
-        <div class="box-header with-border">
+                    <div class="row">
 
-            <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <h4><i class="fa fa-tachometer" aria-hidden="true"></i><a href="javascript:void"
+                                        onclick="myIndicador();" class="alert-link"><span
+                                            style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
+                                            onclick="info_tabla('Indicadores:','<?= $indicadores; ?>')">
+                                            Indicadores:</em><span id="loader2"></span></a>
+                                </h4>
+                            </div>
+                        </div>
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <h4><i class="fa fa-tachometer" aria-hidden="true"></i><a href="javascript:void"
-                                onclick="myIndicador();" class="alert-link"><span
-                                    style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;"
-                                    onclick="info_tabla('Indicadores:','<?= $indicadores; ?>')">
-                                    Indicadores:</em><span id="loader2"></span></a>
-                        </h4>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-bs-toggle="collapse"
-                                data-bs-target="#collapseindicadores" aria-expanded="false"
-                                aria-controls="collapseindicadores" title="Collapse"><i class="fa fa-plus"></i></button>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseindicadores" aria-expanded="false"
+                                        aria-controls="collapseindicadores" title="Collapse"><i
+                                            class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="collapse" id="collapseindicadores">
+                    <div class="collapse" id="collapseindicadores" name="collapseindicadores">
 
-                <div class="card card-body">
+                        <div class="card card-body">
 
-                    <div class="box-body">
+                            <div class="box-body">
 
-                        <div class="col-md-12" style="text-align: center !important;">
-                            <div class="row">
-                                <span style="font-weight: bold; font-size: 25px;">Presupuestos Vs
-                                    Salarios</span>
-                            </div>
-                        </div>
-
-                        <br>
-                        <br>
-
-                        <div class="col-md-12">
-                            <div class="row">
-                           
-                                <div class="col-md-2" style="text-align: left !important;">
-                                <label for="presupuesto_ingreso_mensual">Presupuesto / Mes</label>
-                                    <input type="text" class="form-control input-sm" id="presupuesto_ingreso_mensual"
-                                        placeholder="...." title="Presupuesto de Ingresos Mensuales" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                                  <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
-                                </div>
-
-                                <div class="col-md-2">
-                                <label for="total_ingreso_mensual">Ingreso / Mes</label>
-                                    <input type="text" class="form-control input-sm" id="total_ingreso_mensual"
-                                        placeholder="...." title="Total Ingreso Mensual" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                                </div>
-
-                                <div class="col-md-2">
-                                <label for="diferencia_ventas_mensuales">Diferencia</label>
-                                    <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
-                                        placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                               </div>
-
-                               <div class="col-md-2" style="text-align: center;">
-                                <label for="proporcionmensual9">%</label>
-                                    <input type="text" class="form-control input-sm" id="proporcionmensual9"
-                                        placeholder="Proporcion % Mensual" required title="Proporcion % Mensual" />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-2" style="text-align: left !important;">
-                                <label for="presupuesto_paquete_anual">Presupuesto / Anual</label>
-                                    <input type="text" class="form-control input-sm" id="presupuesto_paquete_anual"
-                                        placeholder="...." title="Presupuesto de Paquete Mensuales" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                                  <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
-                                </div>
-
-                                <div class="col-md-2">
-                                <label for="total_paquete_anual">Paquete / Anual</label>
-                                    <input type="text" class="form-control input-sm" id="total_paquete_anual"
-                                        placeholder="...." title="Total Paquete año" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                                </div>
-
-                                <div class="col-md-2">
-                                <label for="diferencia_ventas_mensuales">Diferencia</label>
-                                    <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
-                                        placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                                </div>
-
-                                <div class="col-md-2" style="text-align: center;">
-                                <label for="proporcionanual9">%</label>
-                                    <input type="text" class="form-control input-sm" id="proporcionanual9"
-                                        placeholder="Proporcion % Anual" required title="Proporcion % Anual" />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <br>
-                        <br>
-
-
-                        <div class="col-md-12" style="text-align: center !important;">
-                            <div class="row">
-                                <span style="font-weight: bold; font-size: 25px;">Ventas Vs Salarios</span>
-                            </div>
-                        </div>
-
-                        <br>
-                        <br>
-
-
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-2" style="text-align: left !important;">
-                                <label for="ventas_mensuales">Ventas / Mes</label>
-                                    <input type="text" class="form-control input-sm" id="ventas_mensuales"
-                                        placeholder="...." title="Ventas Mensuales" readonly />
-                                </div>
-                  
-                                <div class="col-md-1" style="text-align: center !important;">
-                                  <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
-                                </div>
-                                <div class="col-md-2">
-                                <label for="diferencia_ventas_mensuales">Ingreso / Mes</label>
-                                    <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
-                                        placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                                </div>
-
-                                <div class="col-md-2">
-                                <label for="diferencia_ventas_mensuales">Diferencia</label>
-                                    <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
-                                        placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                                </div>
-                       
-                              <div class="col-md-2" style="text-align: center;">
-                                <label for="proporcionmensual9">%</label>
-                                    <input type="text" class="form-control input-sm" id="proporcionmensual9"
-                                        placeholder="Proporcion % Mensual" required title="Proporcion % Mensual" />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-2" style="text-align: left !important;">
-                                <label for="ventas_anuales">Ventas / Año</label>
-                                    <input type="text" class="form-control input-sm" id="ventas_anuales"
-                                        placeholder="...." title="Ventas Anuales" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                                  <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
-                                </div>
-
-                                <div class="col-md-2">
-                                <label for="diferencia_ventas_anuales"> Ingreso / Año</label>
-                                    <input type="text" class="form-control input-sm" id="diferencia_ventas_anuales"
-                                        placeholder="...." title="Diferencia Presupuesto Anual" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                                </div>
-
-                                <div class="col-md-2">
-                                <label for="diferencia_ventas_mensuales">Diferencia</label>
-                                    <input type="text" class="form-control input-sm" id="diferencia_ventas_mensuales"
-                                        placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
-                                </div>
-
-                                <div class="col-md-1" style="text-align: center !important;">
-                               
-                                </div>
-
-                                <div class="col-md-2" style="text-align: center;">
-                                <label for="proporcionanual9">%</label>
-                                    <input type="text" class="form-control input-sm" id="proporcionanual9"
-                                        placeholder="Proporcion % Anual" required title="Proporcion % Anual" />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <br>
-                        <br>
-
-
-
-                        <div class="col-md-12" style="text-align: center !important;">
-                            <div class="row">
-                                <span style="font-weight: bold; font-size: 25px;">Información General</span>
-                            </div>
-                        </div>
-
-                        <br>
-                        <br>
-
-                        <div class="col-md-12">
-                            <div class="row">
-
-                                <div class="col-md-4" style="text-align: center !important;">
-                                    <div class="form-group">
-                                        <label for="promedio_ingreso_mensual">Promedio Ingreso
-                                            Mensual</label>
-                                        <input type="text" class="form-control input-sm" id="promedio_ingreso_mensual"
-                                            placeholder="...." title="Promedio Ingreso Mensual" readonly />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="total_trabajadores">Total Trabajadores</label>
-                                        <input type="text" class="form-control input-sm" id="total_trabajadores"
-                                            placeholder="...." title="Total trabajadores" readonly />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="total_dolares">Total Pago Dolares</label>
-                                        <input type="text" class="form-control input-sm" id="total_dolares"
-                                            placeholder="...." title="Total Dolares" readonly />
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-4">
-
-                                </div>
-
-                                <div class="col-md-4" style="text-align: center !important;">
-                                    <div class="form-group">
-                                        <label for="promedio_paquete_anual">Promedio Paquete Anual</label>
-                                        <input type="text" class="form-control input-sm" id="promedio_paquete_anual"
-                                            placeholder="...." title="Promedio Paquete año" readonly />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="promedio_antiguedad">Promedio Antiguedad</label>
-                                        <input type="text" class="form-control input-sm" id="promedio_antiguedad"
-                                            placeholder="...." title="Promedio Antiguedad" readonly />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="total_euros">Total Pago Euros</label>
-                                        <input type="text" class="form-control input-sm" id="total_euros"
-                                            placeholder="...." title="Total Euros" readonly />
+                                <div class="col-md-12" style="text-align: center !important;">
+                                    <div class="row">
+                                        <span style="font-weight: bold; font-size: 25px;">Presupuestos Vs
+                                            Salarios</span>
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
+                                <br>
+                                <br>
 
+                                <div class="col-md-12">
+                                    <div class="row">
+
+                                        <div class="col-md-2" style="text-align: left !important;">
+                                            <label for="presupuesto_ingreso_mensual">Presupuesto / Mes</label>
+                                            <input type="text" class="form-control input-sm number"
+                                                id="presupuesto_ingreso_mensual" placeholder="...."
+                                                title="Presupuesto de Ingresos Mensuales" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+                                            <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="total_ingreso_mensual">Ingreso / Mes</label>
+                                            <input type="text" class="form-control input-sm" id="total_ingreso_mensual"
+                                                placeholder="...." title="Total Ingreso Mensual" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="diferencia_ingreso_mensual">Diferencia</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="diferencia_ingreso_mensual" name="diferencia_ingreso_mensual"
+                                                placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2" style="text-align: center;">
+                                            <label for="proporcionmensual">%</label>
+                                            <input type="text" class="form-control input-sm" id="proporcionmensual"
+                                                name="proporcionmensual" placeholder="Proporcion % Mensual" readonly
+                                                title="Proporcion % Mensual" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2" style="text-align: left !important;">
+                                            <label for="presupuesto_paquete_anual">Presupuesto / Anual</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="presupuesto_paquete_anual" placeholder="...."
+                                                title="Presupuesto de Paquete Mensuales" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+                                            <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="total_paquete_anual">Paquete / Anual</label>
+                                            <input type="text" class="form-control input-sm" id="total_paquete_anual"
+                                                placeholder="...." title="Total Paquete año" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="diferencia_paquete_anual">Diferencia</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="diferencia_paquete_anual" name="diferencia_paquete_anual"
+                                                placeholder="...." title="Diferencia Presupuesto Mensual" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2" style="text-align: center;">
+                                            <label for="proporcionanual">%</label>
+                                            <input type="text" class="form-control input-sm" id="proporcionanual"
+                                                name="proporcionanual" placeholder="Proporcion % Anual" readonly
+                                                title="Proporcion % Anual" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+
+
+                                <div class="col-md-12" style="text-align: center !important;">
+                                    <div class="row">
+                                        <span style="font-weight: bold; font-size: 25px;">Ventas Vs Salarios</span>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2" style="text-align: left !important;">
+                                            <label for="ventas_mensuales">Ventas / Mes</label>
+                                            <input type="text" class="form-control input-sm" id="ventas_mensuales"
+                                                placeholder="...." title="Ventas Mensuales" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+                                            <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="total_ingreso_mensual_ventas">Ingreso / Mes</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="total_ingreso_mensual_ventas" placeholder="...."
+                                                title="Diferencia Presupuesto Mensual" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="diferencia_ventas_mensuales">Diferencia</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="diferencia_ventas_mensuales" placeholder="...."
+                                                title="Diferencia Presupuesto Mensual" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2" style="text-align: center;">
+                                            <label for="proporcionventasmensual">%</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="proporcionventasmensual" placeholder="Proporcion % Mensual" readonly
+                                                title="Proporcion % Mensual" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2" style="text-align: left !important;">
+                                            <label for="ventas_anuales">Ventas / Año</label>
+                                            <input type="text" class="form-control input-sm" id="ventas_anuales"
+                                                placeholder="...." title="Ventas Anuales" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+                                            <br> <span style="font-weight: bold; font-size: 25px;">VS</span>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="total_paquete_anual_ventas"> Ingreso / Año</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="total_paquete_anual_ventas" placeholder="...."
+                                                title="Diferencia Presupuesto Anual" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <label for="diferencia_ventas_anuales">Diferencia</label>
+                                            <input type="text" class="form-control input-sm"
+                                                id="diferencia_ventas_anuales" placeholder="...."
+                                                title="Diferencia Ventas Anuales" readonly />
+                                        </div>
+
+                                        <div class="col-md-1" style="text-align: center !important;">
+
+                                        </div>
+
+                                        <div class="col-md-2" style="text-align: center;">
+                                            <label for="proporcionventasanual">%</label>
+                                            <input type="text" class="form-control input-sm" id="proporcionventasanual"
+                                                placeholder="Proporcion % Anual" readonly title="Proporcion % Anual" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+
+
+
+                                <div class="col-md-12" style="text-align: center !important;">
+                                    <div class="row">
+                                        <span style="font-weight: bold; font-size: 25px;">Información General</span>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+
+                                <div class="col-md-12">
+                                    <div class="row">
+
+                                        <div class="col-md-4" style="text-align: center !important;">
+                                            <div class="form-group">
+                                                <label for="promedio_ingreso_mensual">Promedio Ingreso
+                                                    Mensual</label>
+                                                <input type="text" class="form-control input-sm"
+                                                    id="promedio_ingreso_mensual" placeholder="...."
+                                                    title="Promedio Ingreso Mensual" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="total_trabajadores">Total Trabajadores</label>
+                                                <input type="text" class="form-control input-sm" id="total_trabajadores"
+                                                    placeholder="...." title="Total trabajadores" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="total_dolares">Total Pago Dolares</label>
+                                                <input type="text" class="form-control input-sm" id="total_dolares"
+                                                    placeholder="...." title="Total Dolares" readonly />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                        </div>
+
+                                        <div class="col-md-4" style="text-align: center !important;">
+                                            <div class="form-group">
+                                                <label for="promedio_paquete_anual">Promedio Paquete Anual</label>
+                                                <input type="text" class="form-control input-sm"
+                                                    id="promedio_paquete_anual" placeholder="...."
+                                                    title="Promedio Paquete año" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="promedio_antiguedad">Promedio Antiguedad</label>
+                                                <input type="text" class="form-control input-sm"
+                                                    id="promedio_antiguedad" placeholder="...."
+                                                    title="Promedio Antiguedad" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="total_euros">Total Pago Euros</label>
+                                                <input type="text" class="form-control input-sm" id="total_euros"
+                                                    placeholder="...." title="Total Euros" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <br>
+                            <br>
+
+                        </div> <!-- /.box-body default -->
 
                     </div>
-
-                    <br>
-                    <br>
-
-                </div> <!-- /.box-body default -->
+                </div>
 
             </div>
-        </div>
 
+            <div class="col-sm-12">
+                <!-- Tips Indicadores-->
+                <div class="alert alert-default" id="indicador" style="display:none; font-size:16px;">
+                    <strong><i class="fa fa-warning"></i> INDICADORES:</strong><br />
+                    <em>
+                        <p>Característica específica, observable y medible que permite ser usada para mostrar
+                            los
+                            cambios y progresos de la información hacia el logro de los resultados previstos o
+                            planificados.</p>
+                    </em>
+                </div>
+            </div>
     </div>
-
-    <div class="col-sm-12">
-        <!-- Tips Indicadores-->
-        <div class="alert alert-default" id="indicador" style="display:none; font-size:16px;">
-            <strong><i class="fa fa-warning"></i> INDICADORES:</strong><br />
-            <em>
-                <p>Característica específica, observable y medible que permite ser usada para mostrar
-                    los
-                    cambios y progresos de la información hacia el logro de los resultados previstos o
-                    planificados.</p>
-            </em>
-        </div>
-    </div>
-</div>
 
 
 </div>
@@ -610,15 +566,24 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                 $grados = $crud->dataview_escalas($_GET['ca']); 
         ?>
 
+<br>
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-sm-2 form-group">
-            <button type="button" class="btn btn-primary btn3d" title="Ver Escala Empresarial" id="ver_escala"
-                onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')">Ver
-                Escala</button>
+        <div class="col-sm-4 form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-primary btn3d" title="Ver Escala Empresarial" id="ver_escala"
+                        onclick="ver_escala(<?php echo htmlspecialchars(json_encode($escalas)); ?>,'<?= $nombre_empresa ?>','<?= $categoria ?>','<?= $conteo ?>','<?= $nombre_nivel ?>','<?= $minimo_nivel ?>','<?= $maximo_nivel ?>')">Ver
+                        Escala</button>
+                </div>
+                <div class="col-md-6" style="text-align: left;">
+                    <button type="button" class="btn btn-primary btn3d" title="Ver Percentiles" id="percentiles"
+                        onclick="redirectpercentiles('<?= $categoria ?>')">Ver Percentiles</button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-2"></div>
+
         <div class="col-md-3 form-group">
             <div class="row">
                 <div class="col-md-2" style="text-align: right !important;">
@@ -650,7 +615,10 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
     </div>
 </div>
 
-<div class='container' style="overflow: auto; max-height: 600px;">
+
+<div class='container' id="container99" name="container99" style="overflow: auto; max-height: 600px;">
+
+
     <table id="example" class="table table-striped dt-responsive nowrap" style="width:100%">
         <thead style="position: sticky; top: 0; background-color: white;">
             <tr>
@@ -659,11 +627,11 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
                 <th>Puesto/Cargo</th>
                 <th>Trabajador</th>
                 <th style="border-left: solid 2px #A8A8A8">Ingreso Mensual</th>
-                <th style="text-align: center">Real <br> vs <br> Minimo</th>
+                <th style="text-align: center">Real <br> vs <br> Mínimo</th>
                 <th style="text-align: center">Real <br> vs <br> Medio</th>
                 <th style="text-align: center">Real <br> vs <br> Máximo</th>
                 <th style="border-left: solid 2px #A8A8A8">Paquete Anual</th>
-                <th style="text-align: center">Real <br> vs <br> Minimo</th>
+                <th style="text-align: center">Real <br> vs <br> Mínimo</th>
                 <th style="text-align: center">Real <br> vs <br> Medio</th>
                 <th style="text-align: center">Real <br> vs <br> Máximo</th>
 
@@ -672,15 +640,15 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
         <tbody>
             <?php
 
-if(isset($_GET['g']))
-{
-    $resultados = $crud->dataview_resultados($categoria,$_GET['g']);
-  
-}
-else
-{
-    $resultados = $crud->dataview_resultados($categoria,"");
-}
+                    if(isset($_GET['g']))
+                    {
+                        $resultados = $crud->dataview_resultados($categoria,$_GET['g']);
+                    
+                    }
+                    else
+                    {
+                        $resultados = $crud->dataview_resultados($categoria,"");
+                    }
 
              
                 if ($resultados != null) {
@@ -689,84 +657,148 @@ else
                 ?>
             <tr>
 
-                <td style="text-align: center;"><?php print($resultado['grado']); ?></td>
+                <td style="text-align: center;">
+                    <span style="opacity: .0;">
+                        <?php                        
+                        switch ($resultado['grado']) {
+                            case 'I':
+                                echo "a";
+                                break;
+                            case 'II':
+                                echo "b";
+                                break;
+                            case 'III':
+                                echo "c";
+                                break;
+                            case 'IV':
+                                echo "d";
+                                break;    
+                            case 'V':
+                                echo "e";
+                                break;
+                            case 'VI':
+                                echo "f";
+                                break;
+                            case 'VII':
+                                echo "g";
+                                break;
+                            case 'VIII':
+                                echo "h";
+                                break;
+                            case 'IX':
+                                echo "i";
+                                break;    
+                            case 'X':
+                                echo "j";
+                                break;
+                            case 'XI':
+                                echo "k";
+                                break;
+                            case 'XII':
+                                echo "l";
+                                break;
+                            case 'XIII':
+                                echo "m";
+                                break;
+                            case 'XIV':
+                                echo "n";
+                                break;   
+                            case 'XV':
+                                echo "o";
+                                break;                                                                  
+                        }?>
+                    </span>
+
+                    <?php print($resultado['grado']); ?>
+                </td>
                 <td><?php print($resultado['nombrecargo']); ?></td>
                 <td><?php print($resultado['nombretrabajador']); ?></td>
 
-                <?php if($resultado['sueldobase'] < 0)
+                <?php if($resultado['sueldomensual'] < 0)
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
-                    <?= number_format($resultado['sueldobase'],2,',','.');  ?></span></td>
+                <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
+                        <?= number_format($resultado['sueldomensual'],2,',','.');  ?></span></td>
                 <?php }
                 else
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8">
-                    <?= number_format($resultado['sueldobase'],2,',','.');  ?></td>
+                <td style="border-left: solid 2px #A8A8A8">
+                    <?= number_format($resultado['sueldomensual'],2,',','.');  ?></td>
                 <?php } ?>
 
                 <?php if($resultado['realvsminimo'] < 0)
                 { ?>
-                 <td>  <span style="color: red;"> <?= number_format($resultado['realvsminimo'],2,',','.');  ?> </span></td>
+                <td> <span style="color: red;"> <?= number_format($resultado['realvsminimo'],2,',','.');  ?>
+                    </span>
+                </td>
                 <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsminimo'],2,',','.');  ?></td>
+                <td><?= number_format($resultado['realvsminimo'],2,',','.');  ?></td>
                 <?php } ?>
 
                 <?php if($resultado['realvsmedio'] < 0)
                 { ?>
-                 <td>  <span style="color: red;"> <?= number_format($resultado['realvsmedio'],2,',','.');  ?> </span></td>
+                <td> <span style="color: red;"> <?= number_format($resultado['realvsmedio'],2,',','.');  ?>
+                    </span>
+                </td>
                 <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmedio'],2,',','.');  ?></td>
+                <td><?= number_format($resultado['realvsmedio'],2,',','.');  ?></td>
                 <?php } ?>
 
                 <?php if($resultado['realvsmaximo'] < 0)
                 { ?>
-                 <td>  <span style="color: red;"> <?= number_format($resultado['realvsmaximo'],2,',','.');  ?> </span></td>
+                <td> <span style="color: red;"> <?= number_format($resultado['realvsmaximo'],2,',','.');  ?>
+                    </span>
+                </td>
                 <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmaximo'],2,',','.');  ?></td>
+                <td><?= number_format($resultado['realvsmaximo'],2,',','.');  ?></td>
                 <?php } ?>
 
                 <?php if($resultado['paqueteanual'] < 0)
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
-                    <?= number_format($resultado['paqueteanual'],2,',','.');  ?></span></td>
+                <td style="border-left: solid 2px #A8A8A8"> <span style="color: red;">
+                        <?= number_format($resultado['paqueteanual'],2,',','.');  ?></span></td>
                 <?php }
                 else
                 { ?>
-                    <td style="border-left: solid 2px #A8A8A8">
+                <td style="border-left: solid 2px #A8A8A8">
                     <?= number_format($resultado['paqueteanual'],2,',','.');  ?></td>
                 <?php } ?>
 
                 <?php if($resultado['realvsminimoanual'] < 0)
                 { ?>
-                 <td>  <span style="color: red;"> <?= number_format($resultado['realvsminimoanual'],2,',','.');  ?> </span></td>
+                <td> <span style="color: red;">
+                        <?= number_format($resultado['realvsminimoanual'],2,',','.');  ?>
+                    </span></td>
                 <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsminimoanual'],2,',','.');  ?></td>
+                <td><?= number_format($resultado['realvsminimoanual'],2,',','.');  ?></td>
                 <?php } ?>
 
                 <?php if($resultado['realvsmedioanual'] < 0)
                 { ?>
-                 <td>  <span style="color: red;"> <?= number_format($resultado['realvsmedioanual'],2,',','.');  ?> </span></td>
+                <td> <span style="color: red;"> <?= number_format($resultado['realvsmedioanual'],2,',','.');  ?>
+                    </span></td>
                 <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmedioanual'],2,',','.');  ?></td>
+                <td><?= number_format($resultado['realvsmedioanual'],2,',','.');  ?></td>
                 <?php } ?>
 
                 <?php if($resultado['realvsmaximoanual'] < 0)
                 { ?>
-                 <td>  <span style="color: red;"> <?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?> </span></td>
+                <td> <span style="color: red;">
+                        <?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?>
+                    </span></td>
                 <?php }
                 else
                 { ?>
-                    <td><?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?></td>
+                <td><?= number_format($resultado['realvsmaximoanual'],2,',','.');  ?></td>
                 <?php } ?>
 
 
@@ -800,11 +832,15 @@ else
 
 </div>
 </div>
+
 <?php include_once('../layouts/footer.php'); ?>
 
 <script src="assets/js/resultados.js"></script>
 
 <script>
+function redirectpercentiles(categoria) {
+    window.location.href = "../matriz-resultados/percentiles?ca=" + categoria;
+}
 
 $('input.number').keyup(function(event) {
     // skip for arrow keys
@@ -859,6 +895,13 @@ function redirectpercentil(percentil, categoria) {
 }
 
 
+function result() {
+    var myCollapse = document.getElementById('collapseindicadores')
+    var bsCollapse = new bootstrap.Collapse(myCollapse, {
+  toggle: true
+})
+}
+
 function indicadores() {
     let categoria = $("#cboCategoria").val();
 
@@ -870,19 +913,26 @@ function indicadores() {
     var total_ingreso_mensual = document.getElementById("total_ingreso_mensual");
     var presupuesto_ingreso_mensual = document.getElementById("presupuesto_ingreso_mensual");
     var diferencia_ingreso_mensual = document.getElementById("diferencia_ingreso_mensual");
+    var porcentaje_mensual = document.getElementById("proporcionmensual");
     // var factor_ingreso_mensual = document.getElementById("factor_ingreso_mensual");
 
 
     var total_paquete_anual = document.getElementById("total_paquete_anual");
     var presupuesto_paquete_anual = document.getElementById("presupuesto_paquete_anual");
     var diferencia_paquete_anual = document.getElementById("diferencia_paquete_anual");
+    var porcentaje_anual = document.getElementById("proporcionanual");
+
     //var factor_paquete_anual = document.getElementById("factor_paquete_anual");
 
     var ventas_mensuales = document.getElementById("ventas_mensuales");
+    var total_ingreso_mensual_ventas = document.getElementById("total_ingreso_mensual_ventas");
     var diferencia_ventas_mensuales = document.getElementById("diferencia_ventas_mensuales");
-    var ventas_anuales = document.getElementById("ventas_anuales");
-    var diferencia_ventas_anuales = document.getElementById("diferencia_ventas_anuales");
+    var porcentaje_ventas_mensual = document.getElementById("proporcionventasmensual");
 
+    var ventas_anuales = document.getElementById("ventas_anuales");
+    var presupuesto_paquete_anual_ventas = document.getElementById("presupuesto_paquete_anual_ventas");
+    var diferencia_ventas_anuales = document.getElementById("diferencia_ventas_anuales");
+    var porcentaje_ventas_anuales = document.getElementById("proporcionventasanual");
 
     var promedio_ingreso_mensual = document.getElementById("promedio_ingreso_mensual");
     var promedio_paquete_anual = document.getElementById("promedio_paquete_anual");
@@ -911,6 +961,8 @@ function indicadores() {
             if (contador == 1) {
                 totalingresomensual = data[i].totalingresomensual;
                 totalpaqueteanual = data[i].totalpaqueteanual;
+                total_ingreso_mensual_ventas.value = data[i].totalingresomensual;
+                total_paquete_anual_ventas.value = data[i].totalpaqueteanual;
                 promediomensual = data[i].promediomensual;
 
                 promedioanual = data[i].promedioanual;
@@ -919,8 +971,6 @@ function indicadores() {
 
                 totaldolares = data[i].totaldolares;
                 totaleuros = data[i].totaleuros;
-
-
 
                 total_ingreso_mensual.value = totalingresomensual;
                 //diferencia_ingreso_mensual.value = (presupuesto_ingreso_mensual.value - totalingresomensual)
@@ -979,26 +1029,208 @@ function indicadores() {
                 promedio_antiguedad.value = promedioantiguedad;
                 total_trabajadores.value = totaltrabajadores;
 
-                if (totaldolares >= 1) {
-                    total_dolares.value = totaldolares;
+                if (parseFloat(totaldolares) >= 1) {
+
+                    total_dolares.value = parseFloat(totaldolares);
+                    if (total_dolares.value.charAt(total_dolares.value.length - 3) != ',' && total_dolares.value
+                        .charAt(total_dolares.value.length - 2) != ',') {
+                        total_dolares.value = total_dolares.value + ",00";
+                    }
                 } else {
                     total_dolares.value = 0;
                 }
 
-                if (totaleuros >= 1) {
-                    total_euros.value = totaleuros;
+                if (parseFloat(totaleuros) >= 1) {
+                    total_euros.value = parseFloat(totaleuros);
+                    if (total_euros.value.charAt(total_euros.value.length - 3) != ',' && total_euros.value
+                        .charAt(total_euros.value.length - 2) != ',') {
+                        total_euros.value = total_euros.value + ",00";
+                    }
                 } else {
                     total_euros.value = 0;
                 }
 
-                diferencia_ventas_mensuales.value = (total_ingreso_mensual.value - ventas_mensuales.value);
-                diferencia_ventas_anuales.value = (total_paquete_anual.value - ventas_anuales.value);
+                //DIFERENCIA MENSUAL  --------------------------------------------------------------------------------------------
+                presupuestomensual = presupuesto_ingreso_mensual.value.replaceAll('.', '');
+                presupuestomensual = presupuestomensual.replaceAll(',', '.');
+
+                totallingresomen = totalingresomensual.replaceAll('.', '');
+                totallingresomen = totallingresomen.replaceAll(',', '.');
+                diferenciaingresomensual = parseFloat(presupuestomensual - totallingresomen);
+                diferencia_ingreso_mensual.value = new Intl.NumberFormat('de-DE').format(
+                    diferenciaingresomensual);
+
+
+
+                if (diferencia_ingreso_mensual.value.charAt(diferencia_ingreso_mensual.value.length - 3) !=
+                    ',' && diferencia_ingreso_mensual.value.charAt(diferencia_ingreso_mensual.value.length -
+                    2) != ',') {
+                    diferencia_ingreso_mensual.value = diferencia_ingreso_mensual.value + ",00";
+                }
+
+                difnegativamensual = diferencia_ingreso_mensual.value.replaceAll('.', '');
+                difnegativamensual = difnegativamensual.replaceAll(',', '.');
+
+                if (parseFloat(difnegativamensual) < 0) {
+                    document.getElementById("diferencia_ingreso_mensual").style.color = "red";
+                } else {
+                    document.getElementById("diferencia_ingreso_mensual").style.color = "black";
+                }
+                // FIN DIFERENCIA MENSUAL  --------------------------------------------------------------------------------------------
+
+                //DIFERENCIA PAQUETE ANUAL   --------------------------------------------------------------------------------------------
+                presupuestopaqueteanu = presupuesto_paquete_anual.value.replaceAll('.', '');
+                presupuestopaqueteanu = presupuestopaqueteanu.replaceAll(',', '.');
+
+                totallpaqueteanu = totalpaqueteanual.replaceAll('.', '');
+                totallpaqueteanu = totallpaqueteanu.replaceAll(',', '.');
+                diferenciapaqueteanual = parseFloat(presupuestopaqueteanu - totallpaqueteanu).toFixed(2);
+                diferencia_paquete_anual.value = new Intl.NumberFormat('de-DE').format(diferenciapaqueteanual);
+
+                if (diferencia_paquete_anual.value.charAt(diferencia_paquete_anual.value.length - 3) != ',' &&
+                    diferencia_paquete_anual.value.charAt(diferencia_paquete_anual.value.length - 2) != ',') {
+                    diferencia_paquete_anual.value = diferencia_paquete_anual.value + ",00";
+                }
+
+                if (parseFloat(diferencia_paquete_anual.value) < 0) {
+                    document.getElementById("diferencia_paquete_anual").style.color = "red";
+                } else {
+                    document.getElementById("diferencia_paquete_anual").style.color = "black";
+                }
+
+                // FIN DIFERENCIA PAQUETE ANUAL  --------------------------------------------------------------------------------------------
+
+
+                //DIFERENCIA VENTA MENSUAL   --------------------------------------------------------------------------------------------
+                ventasmensua = ventas_mensuales.value.replaceAll('.', '');
+                ventasmensua = ventasmensua.replaceAll(',', '.');
+
+                total_mensualventas = total_ingreso_mensual_ventas.value.replaceAll('.', '');
+                total_mensualventas = total_mensualventas.replaceAll(',', '.');
+                diferenciaventasmensuales = parseFloat(ventasmensua - total_mensualventas).toFixed(2);
+                diferencia_ventas_mensuales.value = new Intl.NumberFormat('de-DE').format(
+                    diferenciaventasmensuales);
+
+                if (diferencia_ventas_mensuales.value.charAt(diferencia_ventas_mensuales.value.length - 3) !=
+                    ',' && diferencia_ventas_mensuales.value.charAt(diferencia_ventas_mensuales.value.length -
+                        2) != ',') {
+                    diferencia_ventas_mensuales.value = diferencia_ventas_mensuales.value + ",00";
+                }
+
+                if (parseFloat(diferencia_ventas_mensuales.value) < 0) {
+                    document.getElementById("diferencia_ventas_mensuales").style.color = "red";
+                } else {
+                    document.getElementById("diferencia_ventas_mensuales").style.color = "black";
+                }
+                // FIN DIFERENCIA VENTA MENSUAL  --------------------------------------------------------------------------------------------
+
+
+                //DIFERENCIA VENTAS ANUALES  --------------------------------------------------------------------------------------------
+                ventasanual = ventas_anuales.value.replaceAll('.', '');
+                ventasanual = ventasanual.replaceAll(',', '.');
+
+                totalpaqueteanua = total_paquete_anual.value.replaceAll('.', '');
+                totalpaqueteanua = totalpaqueteanua.replaceAll(',', '.');
+                diferenciaventasanuales = parseFloat(ventasanual - totalpaqueteanua).toFixed(2);
+                diferencia_ventas_anuales.value = new Intl.NumberFormat('de-DE').format(
+                diferenciaventasanuales);
+
+                if (diferencia_ventas_anuales.value.charAt(diferencia_ventas_anuales.value.length - 3) != ',' &&
+                    diferencia_ventas_anuales.value.charAt(diferencia_ventas_anuales.value.length - 2) != ',') {
+                    diferencia_ventas_anuales.value = diferencia_ventas_anuales.value + ",00";
+                }
+
+                if (parseFloat(diferencia_ventas_anuales.value) < 0) {
+                    document.getElementById("diferencia_ventas_anuales").style.color = "red";
+                } else {
+                    document.getElementById("diferencia_ventas_anuales").style.color = "black";
+                }
+                // FIN DIFERENCIA VENTAS ANUALES  --------------------------------------------------------------------------------------------
+
+
+
+
+
+
+                //PORCENTAJE DIFERENCIA INGRESO MENSUAL  --------------------------------------------------------------------------------------------
+                difingremen = diferencia_ingreso_mensual.value.replaceAll('.', '');
+                difingremen = difingremen.replaceAll(',', '.');
+
+                presuingrmensual = presupuesto_ingreso_mensual.value.replaceAll('.', '');
+                presuingrmensual = presuingrmensual.replaceAll(',', '.');
+                porceningremensual = parseFloat(parseFloat(difingremen / presuingrmensual) * 100).toFixed(2);
+
+
+                porcentaje_mensual.value = new Intl.NumberFormat('de-DE').format(porceningremensual);
+
+                if (parseFloat(porcentaje_mensual.value) < 0) {
+                    document.getElementById("proporcionmensual").style.color = "red";
+                } else {
+                    document.getElementById("proporcionmensual").style.color = "black";
+                }
+                // FIN PORCENTAJE DIFERENCIA INGRESO MENSUAL  --------------------------------------------------------------------------------------------
+
+
+                //PORCENTAJE DIFERENCIA PAQUETE ANUAL  --------------------------------------------------------------------------------------------
+                difpaqueanu = diferencia_paquete_anual.value.replaceAll('.', '');
+                difpaqueanu = difpaqueanu.replaceAll(',', '.');
+
+                presupaqanu = presupuesto_paquete_anual.value.replaceAll('.', '');
+                presupaqanu = presupaqanu.replaceAll(',', '.');
+                porcenanu = parseFloat((difpaqueanu / presupaqanu) * 100).toFixed(2);
+                porcentaje_anual.value = new Intl.NumberFormat('de-DE').format(porcenanu);
+
+                if (parseFloat(porcentaje_anual.value) < 0) {
+                    document.getElementById("proporcionanual").style.color = "red";
+                } else {
+                    document.getElementById("proporcionanual").style.color = "black";
+                }
+                // FIN PORCENTAJE DIFERENCIA PAQUETE ANUAL  --------------------------------------------------------------------------------------------
+
+
+                //PORCENTAJE DIFERENCIA VENTAS MENSUALES  --------------------------------------------------------------------------------------------
+                difventmensua = diferencia_ventas_mensuales.value.replaceAll('.', '');
+                difventmensua = difventmensua.replaceAll(',', '.');
+
+                venmensu = ventas_mensuales.value.replaceAll('.', '');
+                venmensu = venmensu.replaceAll(',', '.');
+                porventmens = parseFloat((difventmensua / venmensu) * 100).toFixed(2);
+                porcentaje_ventas_mensual.value = new Intl.NumberFormat('de-DE').format(porventmens);
+
+                if (parseFloat(porcentaje_ventas_mensual.value) < 0) {
+                    document.getElementById("proporcionventasmensual").style.color = "red";
+                } else {
+                    document.getElementById("proporcionventasmensual").style.color = "black";
+                }
+                // FIN PORCENTAJE DIFERENCIA VENTAS MENSUALES --------------------------------------------------------------------------------------------
+
+
+                //PORCENTAJE DIFERENCIA VENTAS ANUALES  --------------------------------------------------------------------------------------------
+                difvean = diferencia_ventas_anuales.value.replaceAll('.', '');
+                difvean = difvean.replaceAll(',', '.');
+
+                prepaan = ventas_anuales.value.replaceAll('.', '');
+                prepaan = prepaan.replaceAll(',', '.');
+                porvean = parseFloat((difvean / prepaan) * 100).toFixed(2);
+                porcentaje_ventas_anuales.value = new Intl.NumberFormat('de-DE').format(porvean);
+
+                if (parseFloat(porcentaje_ventas_anuales.value) < 0) {
+                    document.getElementById("proporcionventasanual").style.color = "red";
+                } else {
+                    document.getElementById("proporcionventasanual").style.color = "black";
+                }
+                // FIN PORCENTAJE DIFERENCIA VENTAS ANUALES --------------------------------------------------------------------------------------------
+
 
                 contador++;
             }
 
         }
     });
+
+
+
+
 
 }
 
@@ -1556,3 +1788,18 @@ function showGraph() {
 
 }
 </script>
+
+<?php 
+            echo "<script>";
+            echo "indicadores();";
+            echo "</script>";
+        
+
+            if(isset($_GET['result'])){
+                
+                echo "<script>";
+                echo "result();";
+                echo "</script>";
+            }
+            
+?>

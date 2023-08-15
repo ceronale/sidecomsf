@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_perfil_organizacion';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
@@ -777,7 +779,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
                 </div>
             </div>
             <div style="text-align: center;">
-                <button class="btn btn-primary btn3d" type="submit" name="btn-send" title="Next">Guardar</button>
+                <button class="btn btn-success ml-auto js-btn-next mb-3" type="submit" name="btn-send" title="Next">Guardar</button>
             </div>
         </form>
     </div>

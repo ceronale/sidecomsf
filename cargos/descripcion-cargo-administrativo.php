@@ -2788,8 +2788,6 @@
                                     <span class="input-group-text">1</span>
                                 </div>
                                 <select id="competencia1" name="competencia1" class="form-control">
-
-
                                     <?php
                                     $selectedDefault = "";
                                     if (empty($cargoDescripcion["competencia1"])) {
@@ -2939,6 +2937,33 @@
 
                             <div id="contenedor-inputs2">
                             </div>
+
+
+
+                            <script>
+                                var previousValues = {};
+                                $(document).ready(function() {
+                                    // Objeto para rastrear valores anteriores de los selects
+
+                                    // Manejar cambios en cualquiera de los selects
+                                    $(document).on("change", "select[id^='competencia']", function() {
+                                        var selectId = $(this).attr("id");
+                                        var selectedValue = $(this).val();
+
+                                        // Habilitar la opción previamente seleccionada en otros selects
+                                        if (previousValues[selectId]) {
+                                            $("select[id^='competencia']").not(this).find("option[value='" + previousValues[selectId] + "']").prop("disabled", false);
+                                        }
+
+                                        // Deshabilitar la opción seleccionada en otros selects
+                                        $("select[id^='competencia']").not(this).find("option[value='" + selectedValue + "']").prop("disabled", true);
+
+                                        // Registrar el valor actual del select
+                                        previousValues[selectId] = selectedValue;
+                                    });
+                                });
+                            </script>
+
                             <script>
                                 function addEventListeners() {
                                     for (let i = 1; i <= 10; i++) {
@@ -2961,6 +2986,23 @@
                                     }
                                 }
 
+                                function disableCompetencias(i) {
+                                    var selectedOption = document.getElementById("competencia" + i).options[0]; // Cambia el índice según tu necesidad
+                                    var selectedValue = selectedOption.value;
+                                    for (var key in previousValues) {
+                                        if (key !== "competencia" + i) {
+                                            var value = previousValues[key];
+                                            $("select[id^='competencia']").find("option[value='" + value + "']").prop("disabled", true);
+
+                                        }
+                                    }
+
+                                    previousValues["competencia" + i] = selectedValue;
+
+                                }
+
+
+
                                 function addEventListeners2(i) {
                                     document.getElementById("competencia" + i).addEventListener("change", function() {
                                         var selectedOption = this.options[this.selectedIndex];
@@ -2970,17 +3012,29 @@
 
                                         Swal.fire({
                                             title: nombre,
-
                                             html: '<h5>Descripción:</h5>' + tableHTML,
                                             icon: 'information',
                                             confirmButtonText: 'Aceptar',
                                             confirmButtonColor: '#3085d6'
                                         });
+
+                                        var selectedValue = selectedOption.value;
+                                        for (var key in previousValues) {
+                                            if (key !== "competencia" + i) {
+                                                var value = previousValues[key];
+                                                $("select[id^='competencia']").find("option[value='" + value + "']").prop("disabled", true);
+
+                                            }
+                                        }
+
+                                        // Registrar valor actual del select
+                                        previousValues["competencia" + i] = selectedValue;
                                     });
                                 }
                             </script>
                             <button id="agregamos" class="btn btn-primary btn-md" type="button" onclick="mostrarInputSiguientex()">+ Agregar Campo</button>
                             <button id="eliminar" class="btn btn-danger btn-md" type="button" onclick="eliminarUltimoInput()">- Cerrar campo</button>
+
                             <script>
                                 var contenedorInputs = document.getElementById("contenedor-inputs2");
 
@@ -3011,6 +3065,10 @@
                                         option0.disabled = true;
                                         option0.selected = true;
                                         select.appendChild(option0);
+
+
+
+
                                         // Agregar las opciones del array al select
                                         <?php foreach ($competencias as $country) { ?>
                                             var option = document.createElement("option");
@@ -3057,6 +3115,7 @@
 
                                         inputLabel.appendChild(select);
                                         contenedorInputs.appendChild(inputLabel);
+                                        disableCompetencias(indexInputMostradoz);
                                         select.focus();
                                         addEventListeners2(indexInputMostradoz);
                                         indexInputMostradoz++;
@@ -3078,8 +3137,22 @@
                                     if (indexInputMostradoz > 1) {
                                         var ultimoInput = document.getElementById("input-label-" + (indexInputMostradoz - 1));
                                         if (ultimoInput.parentNode === contenedorInputs) {
+                                            // Obtener el valor seleccionado del último select
+                                            var selectId = "competencia" + (indexInputMostradoz - 1);
+                                            var selectedValue = document.getElementById(selectId).value;
+
                                             contenedorInputs.removeChild(ultimoInput);
                                             indexInputMostradoz--;
+
+                                            // Volver a habilitar la opción en los demás selects
+                                            $("select[id^='competencia']").each(function() {
+                                                var currentSelectId = $(this).attr("id");
+                                                var optionToEnable = $(this).find("option[value='" + selectedValue + "']");
+                                                if (currentSelectId !== selectId && optionToEnable.length > 0) {
+                                                    optionToEnable.prop("disabled", false);
+                                                }
+                                            });
+
                                             document.getElementById("agregamos").disabled = false;
                                             if (indexInputMostradoz < 7) {
                                                 document.getElementById("eliminar").hidden = true;

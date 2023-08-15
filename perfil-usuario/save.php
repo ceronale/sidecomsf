@@ -1,4 +1,6 @@
 <?php
+$seccion = 'p_perfil_usuario';
+
 include('../layouts/session.php');
 include_once 'class.crud.php';
 $crud = new crud();

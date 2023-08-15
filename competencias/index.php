@@ -1,4 +1,6 @@
-<?php include_once "../layouts/session.php"; ?>
+<?php 
+$seccion = 'p_setup';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php";
 $sectores = "“Es una característica propia de un individuo que está directamente relacionada a un estándar de efectividad y/o a un desempeño superior en un trabajo o situación.{ Son comportamientos observables en la realidad cotidiana del trabajo y en situaciones de evaluación; son un rasgo de unión entre las características individuales y las cualidades requeridas para el desempeño en una empresa”. (Martha Alicia Alles, 2001).')"; ?>

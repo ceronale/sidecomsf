@@ -1,4 +1,5 @@
 <?php
+$seccion = 'p_usuarios';
 include_once( '../layouts/session.php' );
 
 include_once 'class.crud.php';

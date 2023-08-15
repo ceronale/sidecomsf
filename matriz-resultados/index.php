@@ -639,16 +639,33 @@ $info_otras_divisas = "Nos referimos al PAGO ADICIONAL que se realiza a ciertos 
         </thead>
         <tbody>
             <?php
+            if($categoria == 1){
+                if(isset($_GET['g']))
+                {
+                    $resultados = $crud->dataview_resultados_grado_adm($categoria,$_GET['g']);
+                
+                }
+                else
+                {
 
-                    if(isset($_GET['g']))
-                    {
-                        $resultados = $crud->dataview_resultados($categoria,$_GET['g']);
-                    
-                    }
-                    else
-                    {
-                        $resultados = $crud->dataview_resultados($categoria,"");
-                    }
+                    $resultados = $crud->dataview_resultados_adm($categoria,"");
+                }
+            }
+
+            if($categoria == 2){
+                if(isset($_GET['g']))
+                {
+                    $resultados = $crud->dataview_resultados_grado_taller($categoria,$_GET['g']);
+                
+                }
+                else
+                {
+
+                    $resultados = $crud->dataview_resultados_taller($categoria,"");
+                }
+            }
+
+                   
 
              
                 if ($resultados != null) {

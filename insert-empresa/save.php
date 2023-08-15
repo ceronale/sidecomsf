@@ -1,4 +1,5 @@
     <?php
+    $seccion = 'dashboard';
     require_once '../tools/functions.php';
     include('../layouts/session.php');
     include_once 'class.crud.php';

@@ -92,94 +92,1733 @@ class crud
     }
     //FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS  
 	
+	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
+    public function dataview_resultados_grado_taller($categoria,$grado)
+    {
+
+		$user = $_SESSION['user'];
+
+		
+		$stmt2 = $this->conn->prepare("SELECT * FROM matriz_jerarquizacion WHERE id_empresa=:id_empresa");
+		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
+		$userRow2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+		if ($stmt2->rowCount() == 1) {
+		
+			$sueldomin = $userRow2['sueldomin'];
+			$porcentaje_grados = $userRow2['porcentaje_grados'];
+			$porcentaje_pasos = $userRow2['porcentaje_pasos'];
+
+			$ingreso_minimo = $sueldomin;
+			$incremento_grados = (floatval($porcentaje_grados) / 100);
+			$incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
+
+			$minimo = round($ingreso_minimo,2);
+			$medio = round(($minimo + ($minimo * $incremento_min_med_max)),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			if($grado == "II")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			}
+
+			if($grado == "III")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+			}
+
+			if($grado == "IV")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+			}
+
+			if($grado == "V")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+			}
+
+			if($grado == "VI")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "VII")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = '" . $grado ."' 
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				$data = array();
+				while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						$data[] = $row;
+
+					} 
+					return $data;
+			}
+			
+		}
+		
+    }
+    //FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS  
+
 
 	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
-    public function dataview_resultados2($categoria,$grado)
+    public function dataview_resultados_grado_adm($categoria,$grado)
+    {
+
+		$user = $_SESSION['user'];
+
+		
+		$stmt2 = $this->conn->prepare("SELECT * FROM matriz_jerarquizacion WHERE id_empresa=:id_empresa");
+		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
+		$userRow2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+		if ($stmt2->rowCount() == 1) {
+		
+			$sueldomin = $userRow2['sueldomin'];
+			$porcentaje_grados = $userRow2['porcentaje_grados'];
+			$porcentaje_pasos = $userRow2['porcentaje_pasos'];
+
+			$ingreso_minimo = $sueldomin;
+			$incremento_grados = (floatval($porcentaje_grados) / 100);
+			$incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
+
+			$minimo = round($ingreso_minimo,2);
+			$medio = round(($minimo + ($minimo * $incremento_min_med_max)),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			if($grado == "II")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			}
+
+			if($grado == "III")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+			}
+
+			if($grado == "IV")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+			}
+
+			if($grado == "V")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+			}
+
+			if($grado == "VI")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "VII")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "VIII")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "IX")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "X")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "XI")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "XII")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "XIII")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "XIV")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+			if($grado == "XV")
+			{
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+				
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+				$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+				$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+				$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+			}
+
+
+			
+
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = '" . $grado ."' 
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				$data = array();
+				while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						$data[] = $row;
+
+					} 
+					return $data;
+			}
+			
+		}
+		
+    }
+    //FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS  
+
+
+	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
+    public function dataview_resultados_adm($categoria,$grado)
     {
 		$user = $_SESSION['user'];
 
-		if($asignacion == 1)
-		{
-			$campo = "mn.sueldo_base";
-		}
-		if($asignacion == 2)
-		{
-			$campo = "mn.sueldomensual";
-		}
-		if($asignacion == 3)
-		{
-			$campo = "mn.paqueteanual";
-		}
-
-		$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
+		
+		$stmt2 = $this->conn->prepare("SELECT * FROM matriz_jerarquizacion WHERE id_empresa=:id_empresa");
 		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
-		$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
-
+		$userRow2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 		if ($stmt2->rowCount() == 1) {
+			
+
+			$stmt = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
+			$stmt->execute(array(':id_empresa' => $user['id_empresa']));
+			$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			
+		if ($stmt2->rowCount() == 1) {
+			$sueldomin = $userRow2['sueldomin'];
+			$porcentaje_grados = $userRow2['porcentaje_grados'];
+			$porcentaje_pasos = $userRow2['porcentaje_pasos'];
+
+			$ingreso_minimo = $sueldomin;
+			$incremento_grados = (floatval($porcentaje_grados) / 100);
+			$incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
+
+			$minimo = round($ingreso_minimo,2);
+			$medio = round(($minimo + ($minimo * $incremento_min_med_max)),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
 			$id_escala_administrativo = $userRow['id_escala_administrativo'];
 
 
-		$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
-		mn.sueldomensual as sueldomensual,  
-		ROUND((mn.sueldomensual) - (SELECT MIN(mn.sueldomensual) FROM matriz_nomina mn
-							INNER JOIN cargos c 
-							ON c.id = mn.id_cargo
-							WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria."),2)  as realvsminimo,
-		
-		ROUND((mn.sueldomensual) - (SELECT AVG(mn.sueldomensual) FROM matriz_nomina mn
-							INNER JOIN cargos c 
-							ON c.id = mn.id_cargo
-							WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria."),2) as realvsmedio,
-		
-		ROUND((mn.sueldomensual) - (SELECT MAX(mn.sueldomensual) FROM matriz_nomina mn
-							INNER JOIN cargos c 
-							ON c.id = mn.id_cargo
-							WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria."),2) as realvsmaximo,
-		
-		mn.paqueteanual as paqueteanual, 
-		
-		ROUND((mn.sueldomensual) - (SELECT MIN(mn.sueldomensual) FROM matriz_nomina mn
-							INNER JOIN cargos c 
-							ON c.id = mn.id_cargo
-							WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria."),2) as realvsminimoanual,
-		
-		ROUND((mn.sueldomensual) - (SELECT AVG(mn.sueldomensual) FROM matriz_nomina mn
-							INNER JOIN cargos c 
-							ON c.id = mn.id_cargo
-							WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria."),2) as realvsmedioanual,
-		
-		ROUND((mn.sueldomensual) - (SELECT MAX(mn.sueldomensual) FROM matriz_nomina mn
-							INNER JOIN cargos c 
-							ON c.id = mn.id_cargo
-							WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria."),2) as realvsmaximoanual
-		
-		
-		FROM matriz_nomina mn
-		INNER JOIN cargos c 
-		ON c.id = mn.id_cargo ".
-		$filtro ." 
-		 GROUP BY c.grado ,mn.id, c.categoria
-		order by c.puntaje";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        
-		if($stmt->rowCount()>0)
-        {
-			$data = array();
-            while($row=$stmt->fetch(PDO::FETCH_ASSOC))
-                {
-					$data[] = $row;
-
-                } 
-
-
-			if($id_escala_administrativo >= '2')
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'I'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
 			{
+				$data = array();
+				while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						$data[] = $row;
+
+					} 
 				
 			}
+
+			if($id_escala_administrativo >= '2')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'II'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row2=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row2);
+
+					} 
+				
+			}
+				}
+
+				if($id_escala_administrativo >= '3')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'III'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row3=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row3);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '4')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'IV'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row4=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row4);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '5')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'V'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row5=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row5);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '6')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'VI'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row6=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row6);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '7')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'VII'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row7=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row7);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '8')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'VIII'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row8=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row8);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '9')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'IX'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row9=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row9);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '10')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'X'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row10=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row10);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '11')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'XI'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row11=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row11);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '12')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'XII'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row12=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row12);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '13')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'XIII'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row13=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row13);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '14')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'XIV'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row14=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row14);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_administrativo >= '15')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'XV'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row15=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row15);
+
+					} 
+				
+			}
+				}
+			
 		}
+				return $data;
+        }
+    }
+    //FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS  
+
+
+
+	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
+    public function dataview_resultados_taller($categoria,$grado)
+    {
+		$user = $_SESSION['user'];
 
 		
+		$stmt2 = $this->conn->prepare("SELECT * FROM matriz_jerarquizacion WHERE id_empresa=:id_empresa");
+		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
+		$userRow2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+		if ($stmt2->rowCount() == 1) {
+			
+
+			$stmt = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
+			$stmt->execute(array(':id_empresa' => $user['id_empresa']));
+			$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			
+		if ($stmt2->rowCount() == 1) {
+			$sueldomin = $userRow2['sueldomin'];
+			$porcentaje_grados = $userRow2['porcentaje_grados'];
+			$porcentaje_pasos = $userRow2['porcentaje_pasos'];
+
+			$ingreso_minimo = $sueldomin;
+			$incremento_grados = (floatval($porcentaje_grados) / 100);
+			$incremento_min_med_max = (floatval($porcentaje_pasos) / 100);
+
+			$minimo = round($ingreso_minimo,2);
+			$medio = round(($minimo + ($minimo * $incremento_min_med_max)),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$id_escala_planta = $userRow['id_escala_planta'];
+
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'I'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				$data = array();
+				while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						$data[] = $row;
+
+					} 
+				
+			}
+
+			if($id_escala_planta >= '2')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'II'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row2=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row2);
+
+					} 
+				
+			}
+				}
+
+				if($id_escala_planta >= '3')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'III'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row3=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row3);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_planta >= '4')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'IV'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row4=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row4);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_planta >= '5')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'V'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row5=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row5);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_planta >= '6')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'VI'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row6=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row6);
+
+					} 
+				
+			}
+				}
+
+
+				if($id_escala_planta >= '7')
+				{
+					
+			$minimo =  round(($minimo + ($minimo * $incremento_grados)),2);
+			$medio = round($minimo + ($minimo * $incremento_min_med_max),2);
+			$maximo = round($medio + ($medio * $incremento_min_med_max),2);
+
+			$query = "SELECT c.grado as grado, c.nombre as nombrecargo, mn.nombre as nombretrabajador,
+			mn.sueldomensual as sueldomensual,  
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2)  as realvsminimo,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedio,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximo,
+			
+			mn.paqueteanual as paqueteanual, 
+			
+			ROUND(((mn.sueldomensual) - (" . $minimo . ")),2) as realvsminimoanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $medio . ")),2) as realvsmedioanual,
+			
+			ROUND(((mn.sueldomensual) - (" . $maximo . ")),2) as realvsmaximoanual
+			
+			FROM matriz_nomina mn
+			INNER JOIN cargos c ON c.id = mn.id_cargo 
+			WHERE mn.id_empresa = ".$user['id_empresa'] . " and c.categoria = ".$categoria." AND c.grado = 'VII'
+			 GROUP BY c.grado ,mn.id, c.categoria
+			order by c.puntaje";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			
+			if($stmt->rowCount()>0)
+			{
+				
+				while($row7=$stmt->fetch(PDO::FETCH_ASSOC))
+					{
+						array_push($data, $row7);
+
+					} 
+				
+			}
+				}
+			
+		}
 				return $data;
         }
     }
@@ -480,14 +2119,6 @@ class crud
 			$ventas_mensuales = (isset($_POST['ventas_mensuales1']))?$_POST['ventas_mensuales1']:""; 
 			$ventas_anuales = (isset($_POST['ventas_anuales1']))?$_POST['ventas_anuales1']:"";  
             $updated_at = date("Y-m-d H:i:s", strtotime('now'));  
-
-			echo $presupuesto_ingreso_mensual;
-			echo $presupuesto_paquete_anual; 
-			echo $ventas_mensuales; 
-			echo $ventas_anuales;  
-			echo "HOLAAAA";
-			echo $updated_at;
-			echo $categoria;
 			
 			$stmt=$this->conn->prepare("UPDATE matriz_resultados SET 
 				categoria=:categoria,

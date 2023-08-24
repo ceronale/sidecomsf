@@ -2,11 +2,10 @@
 $seccion = 'p_setup';
 include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php";
-$sectores = 'Es una característica propia de un individuo que está directamente relacionada a un estándar de efectividad y/o a un desempeño superior en un trabajo o situación. Son comportamientos observables en la realidad cotidiana del trabajo y en situaciones de evaluación; son un rasgo de unión entre las características individuales y las cualidades requeridas para el desempeño en una empresa. (Martha Alicia Alles, 2001).';
-?>
-
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
+<?php include_once "../layouts/menu.php";
+$documento = "Se registran leyes, Decretos, Jurisprudencia, Contratos de trabajo individual, Convenciones Colectiva, entre otros"
+?>
 <style>
     /* Adjust the width of the buttons */
     .dt-buttons {
@@ -19,12 +18,11 @@ $sectores = 'Es una característica propia de un individuo que está directament
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-
     <section class="content-header">
 
         <div class="card text-left">
             <div class="card-header">
-                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Competencias','<?php echo $sectores; ?>')">Competencias</span>
+                <span style="font-weight: bold; font-size: 25px; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Leyes y Documentos:','<?php echo $documento; ?>')">Leyes y Documentos</span>
 
             </div>
         </div>
@@ -36,15 +34,26 @@ $sectores = 'Es una característica propia de un individuo que está directament
 
     include_once 'class.crud.php';
     $crud = new crud();
-
-
     if (isset($_GET['same'])) {
     ?>
         <script>
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'El nombre ya existe en la base de datos',
+                title: 'Nombre de documento repetido',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        </script>
+    <?php
+    }
+    if (isset($_GET['same2'])) {
+    ?>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'El documento esta repetido',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -57,7 +66,7 @@ $sectores = 'Es una característica propia de un individuo que está directament
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'La competencia se ha registrado con exito!',
+                title: 'El documento se ha registrado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -69,7 +78,7 @@ $sectores = 'Es una característica propia de un individuo que está directament
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al registrar la competencia!',
+                title: 'Error al registrar el documento!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -83,7 +92,7 @@ $sectores = 'Es una característica propia de un individuo que está directament
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'La competencia se ha editado con exito!',
+                title: 'El documento se ha editado con exito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -95,7 +104,7 @@ $sectores = 'Es una característica propia de un individuo que está directament
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Error al editar la competencia!',
+                title: 'Error al editar el documento!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -110,22 +119,7 @@ $sectores = 'Es una característica propia de un individuo que está directament
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
                 },
-                dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'f><'col-sm-12 col-md-4'B>>" +
-                    "<'row'<'col-sm-12't>>" +
-                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                buttons: [{
-                        extend: 'excel',
-                        className: 'btn btn-primary btn3d'
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'btn btn-primary btn3d'
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn btn-primary btn3d'
-                    }
-                ],
+
                 'iDisplayLength': 50,
             });
         });
@@ -135,8 +129,8 @@ $sectores = 'Es una característica propia de un individuo que está directament
 
         <div class="row row-col-8">
             <div class="col">
-                <a href='#' onclick="crear_competencia()" class='btn btn-large btn-dark'> &nbsp;
-                    + Agregar competencia</a>
+                <a href='#' onclick="crear_documento()" class='btn btn-primary btn3d'> &nbsp;
+                    Agregar Documento</a>
             </div>
 
         </div>
@@ -147,35 +141,32 @@ $sectores = 'Es una característica propia de un individuo que está directament
             <thead style="position: sticky; top: 0; background-color: white;">
                 <tr>
                     <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Status</th>
+                    <th>Archivo</th>
+                    <th>Registrado el</th>
                     <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $competencias = $crud->dataview_competencia();
-                if ($competencias != null) {
-                    foreach ($competencias as $competencia) {
+                $documentos = $crud->dataview_activdades();
+                if ($documentos != null) {
+                    foreach ($documentos as $documento) {
                 ?>
                         <tr>
-                            <td><?php print($competencia['nombre']); ?></td>
-                            <td style="white-space: normal;"><?php print($competencia['descripcion']); ?></td>
-                            <td><?php if ($competencia['status'] == "1") {
-                                    print "Activo";
-                                } else {
-                                    print "Inactivo";
-                                }
-                                ?></td>
-
-
+                            <td><?php print($documento['nombre']); ?></td>
+                            <td><?php print($documento['titulo']); ?></td>
+                            <td><?php print($documento['creacion']); ?></td>
                             <td style="text-align: center">
-                                <a onclick="editar_competencia('<?php print($competencia['id']) ?>','<?php print($competencia['nombre']) ?>','<?php print($competencia['descripcion']) ?>','<?php print($competencia['status']) ?>')">
+                                <a onclick="editar_documento('<?php print($documento['id']) ?>','<?php print($documento['nombre']) ?>')">
                                     <i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
 
-                                <a onclick="eliminar_competencia('<?php print($competencia['id']) ?>','<?php print($competencia['nombre']) ?>')">
+                                <a onclick="eliminar_documento('<?php print($documento['id']) ?>','<?php print($documento['nombre']) ?>','<?php print($documento['titulo']) ?>')">
                                     <i class="fa fa-trash" aria-hidden="true"></i></a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a onclick="descargar_documento('<?php echo $documento['id']; ?>', '<?php echo $documento['titulo']; ?>')">
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </a>
 
                             </td>
                         </tr>
@@ -188,52 +179,75 @@ $sectores = 'Es una característica propia de un individuo que está directament
                         <td></td>
                         <td></td>
                         <td></td>
-
-
                     </tr>
 
                 <?php } ?>
 
             </tbody>
-
+            <tfoot>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Archivo</th>
+                    <th>Registrado el</th>
+                    <th>Acción</th>
+                </tr>
+            </tfoot>
         </table>
+
+
+
+
     </div>
     <?php include_once('../layouts/footer.php'); ?>
 
-    <script src="assets/js/competencias.js"></script>
+    <script src="assets/js/documentos.js"></script>
+    <script>
+        function descargar_documento(id, titulo) {
+            var filePath = '../uploads/' + titulo;
+
+            // Comprobar si el archivo existe
+            var xhr = new XMLHttpRequest();
+            xhr.open('HEAD', filePath, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // El archivo existe, abrir el enlace de descarga en una nueva pestaña/ventana
+                        window.open(filePath, '_blank');
+                    } else {
+                        // El archivo no existe, mostrar un mensaje de error con SweetAlert2
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Archivo no encontrado',
+                            text: 'El archivo solicitado no existe.',
+                        });
+                    }
+                }
+            };
+            xhr.send();
+        }
+    </script>
+
 
     <script>
-        function crear_competencia() {
+        function crear_documento() {
             Swal.fire({
-                title: "Agregar Competencia",
-                html: ` <form id='crear_competencia' action="save.php" method='post'>
+                title: "+ Agregar Documento",
+                html: ` <form id='crear_actvidad' action="save.php" method='post'  enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12">
 
                     <div class="row">
-                        <div class="col-6">
+
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type='text' name='nombre' class='form-control' required autocomplete="on">
                             </div>
                         </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <select class="form-control" name="status" id="status">
-                                    <option value="1">Activo</option>
-                                    <option value="0">Inactivo</option>
-                                </select>
-                            </div>
+                        <div class="col-md-12">
+                             <input type="file" name="archivo" id="archivo" class="form-control" required>
                         </div>
                     </div>
-
-                    <div class="row">
-                 
-    <div class="form-group">
-    <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" class="form-control" rows="3" required></textarea>
-</div>
                     <div class="col-md-12">
                         <br>
                         <button type="submit" class="btn btn-dark" name="add" id='add'>
@@ -250,40 +264,20 @@ $sectores = 'Es una característica propia de un individuo que está directament
             })
         };
 
-        function editar_competencia(id, nombre, descripcion, status) {
+        function editar_documento(id, nombre, status) {
             Swal.fire({
-                title: "Editar Competencia",
-                html: ` <form id='editar_competencia' action="save.php" method='post' style="text-align: center !important;">
+                title: "Editar Actvidad",
+                html: ` <form id='editar_documento' action="save.php" method='post' style="text-align: center !important;">
             <div class="row">
                 <div class="col-md-12">
-
                     <br>
-
                     <div class="row">
-
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type='text' name='nombre' id='nombre' value="` + nombre + `" class='form-control' required autocomplete="on">
+                                <label for="nombre">Documento</label>
+                                <input type='text' name='nombre' value="` + nombre + `" class='form-control' required autocomplete="on">
                             </div>
                         </div>
-                                              <div class="col-6">
-                            <div class="form-group">
-                                <label for="status">Status:</label>
-                                <select class="form-select" id="status" name="status">
-                                    <option value="1" ${status==='1' ? ' selected' : '' }>Activo</option>
-                                    <option value="0" ${status==='0' ? ' selected' : '' }>Inactivo</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-    <div class="form-group">
-    <label for="descripcion">Descripción</label>
-    <textarea name="descripcion" class="form-control" rows="3" required>` + descripcion + `</textarea>
-</div>
                     </div>
                     <div class="form-group">
                         <input type='hidden' name='id' class='form-control' value="` + id + `" required autocomplete="on">
@@ -296,7 +290,6 @@ $sectores = 'Es una característica propia de un individuo que está directament
                     </div>
                     <br>
                 </div>
-
         </form>`,
                 showConfirmButton: false,
             })

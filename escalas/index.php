@@ -1,8 +1,8 @@
-<?php 
+<?php
 $seccion = 'p_escalas';
 include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
-<?php include_once "../layouts/menu.php"; 
+<?php include_once "../layouts/menu.php";
 $escala_texto = "Se presentan dos Escalas, una para el <b>personal Administrativo</b> operativo, Supervisores, Gerencias medias y altas, Vicepresidencias y Presidencia.<br><br>Otra Escala para <b>personal técnico operativo de Planta, Taller o Fábrica</b>, tales como: Electricista, Tornero, Mecánica, Albañil, Carpintero, entre otros. No incluya suopervisores, aunque laboren en Planta ya que sus funciones son Administrativas; estos son incluidos en el nivel Administrativo."
 ?>
 <link rel="stylesheet" href="../assets/css/stylebuttons.css">
@@ -299,7 +299,7 @@ $opcionPersonalizada2 = isset($_POST['opcionPersonalizada2']) ? $_POST['opcionPe
             </div>
 
             <div style="text-align: center;">
-                <button class="btn btn-primary btn3d" type="submit" name="btn-send" id="btn-send" title="Next">Guardar</button>
+                <button class="btn btn-primary btn3d mt-5" type="submit" name="btn-send" id="btn-send" title="Next">Guardar</button>
             </div>
             <script>
                 // Manejar el evento click del botón

@@ -38,6 +38,7 @@ $competencia8 = isset($_POST['competencia8']) ? $_POST['competencia8'] : '';
 $competencia9 = isset($_POST['competencia9']) ? $_POST['competencia9'] : '';
 $competencia10 = isset($_POST['competencia10']) ? $_POST['competencia10'] : '';
 
+
 $actividad1 = isset($_POST['actividad1']) ? $_POST['actividad1'] : '';
 $actividad2 = isset($_POST['actividad2']) ? $_POST['actividad2'] : '';
 $actividad3 = isset($_POST['actividad3']) ? $_POST['actividad3'] : '';

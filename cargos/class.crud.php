@@ -883,12 +883,119 @@ class crud
 		$habilidad6,
 		$habilidad7,
 		$habilidad8,
-		$destrezas
+		$destrezas,
+		$proposito,
+		$funcion2,
+		$funcion1,
+		$funcion3,
+		$funcion4,
+		$funcion5,
+		$funcion6,
+		$funcion7,
+		$funcion8,
+		$funcion9,
+		$funcion10,
+		$actividad1,
+		$actividad2,
+		$actividad3,
+		$actividad4,
+		$actividad5,
+		$actividad6,
+		$actividad7,
+		$actividad8,
+		$actividad9,
+		$actividad10,
+		$actividad11,
+		$actividad12,
+		$actividad13,
+		$actividad14,
+		$actividad15,
+		$selectactividad1,
+		$selectactividad2,
+		$selectactividad3,
+		$selectactividad4,
+		$selectactividad5,
+		$selectactividad6,
+		$selectactividad7,
+		$selectactividad8,
+		$selectactividad9,
+		$selectactividad10,
+		$selectactividad11,
+		$selectactividad12,
+		$selectactividad13,
+		$selectactividad14,
+		$selectactividad15,
+		$competencia1,
+		$competencia2,
+		$competencia3,
+		$competencia4,
+		$competencia5,
+		$competencia6,
+		$competencia7,
+		$competencia8,
+		$competencia9,
+		$competencia10,
+		$destrezainstrumento,
+		$destrezaequipo,
+		$destrezasistema,
+		$destrezacomputacion,
+		$destrezaotro
 	) {
 		try {
 			$updated_at = date("Y-m-d H:i:s", strtotime('now'));
 
-			$stmt = $this->conn->prepare("UPDATE descripcion_cargos_taller SET
+			$stmt = $this->conn->prepare("UPDATE descripcion_cargos_taller SET 
+			 proposito = :proposito,
+            funcion1 = :funcion1,
+            funcion2 = :funcion2,
+            funcion3 = :funcion3,
+            funcion4 = :funcion4,
+            funcion5 = :funcion5,
+            funcion6 = :funcion6,
+            funcion7 = :funcion7,
+            funcion8 = :funcion8,
+            funcion9 = :funcion9,
+            funcion10 = :funcion10,
+            actividad1 = :actividad1,
+            actividad2 = :actividad2,
+            actividad3 = :actividad3,
+            actividad4 = :actividad4,
+            actividad5 = :actividad5,
+            actividad6 = :actividad6,
+            actividad7 = :actividad7,
+            actividad8 = :actividad8,
+            actividad9 = :actividad9,
+            actividad10 = :actividad10,
+            actividad11 = :actividad11,
+            actividad12 = :actividad12,
+            actividad13 = :actividad13,
+            actividad14 = :actividad14,
+            actividad15 = :actividad15,
+            selectactividad1 = :selectactividad1,
+            selectactividad2 = :selectactividad2,
+            selectactividad3 = :selectactividad3,
+            selectactividad4 = :selectactividad4,
+            selectactividad5 = :selectactividad5,
+            selectactividad6 = :selectactividad6,
+            selectactividad7 = :selectactividad7,
+            selectactividad8 = :selectactividad8,
+            selectactividad9 = :selectactividad9,
+            selectactividad10 = :selectactividad10,
+            selectactividad11 = :selectactividad11,
+            selectactividad12 = :selectactividad12,
+            selectactividad13 = :selectactividad13,
+            selectactividad14 = :selectactividad14,
+            selectactividad15 = :selectactividad15,
+			competencia1 = :competencia1,
+            competencia2 = :competencia2,
+            competencia3 = :competencia3,
+            competencia4 = :competencia4,
+            competencia5 = :competencia5,
+            competencia6 = :competencia6,
+            competencia7 = :competencia7,
+            competencia8 = :competencia8,
+            competencia9 = :competencia9,
+            competencia10 = :competencia10,
             funciones = :funciones,
             actividades = :actividades,
             ambiente1 = :ambiente1,
@@ -929,7 +1036,12 @@ class crud
             habilidad7 = :habilidad7,
             habilidad8 = :habilidad8,
             destrezas = :destrezas,
-            modificado = :updated_at
+            modificado = :updated_at,
+			destrezainstrumento = :destrezainstrumento,
+			destrezaequipo = :destrezaequipo,
+			destrezasistema = :destrezacomputacion,
+			destrezacomputacion = :destrezacomputacion,
+			destrezaotro = :destrezaotro
             WHERE id_cargo = :id_cargo");
 
 			$stmt->bindParam(":funciones", $funciones);
@@ -974,6 +1086,62 @@ class crud
 			$stmt->bindParam(":destrezas", $destrezas);
 			$stmt->bindParam(":updated_at", $updated_at);
 			$stmt->bindParam(":id_cargo", $id_cargo);
+			$stmt->bindParam(':proposito', $proposito);
+			$stmt->bindParam(':funcion1', $funcion1);
+			$stmt->bindParam(':funcion2', $funcion2);
+			$stmt->bindParam(':funcion3', $funcion3);
+			$stmt->bindParam(':funcion4', $funcion4);
+			$stmt->bindParam(':funcion5', $funcion5);
+			$stmt->bindParam(':funcion6', $funcion6);
+			$stmt->bindParam(':funcion7', $funcion7);
+			$stmt->bindParam(':funcion8', $funcion8);
+			$stmt->bindParam(':funcion9', $funcion9);
+			$stmt->bindParam(':funcion10', $funcion10);
+			$stmt->bindParam(':actividad1', $actividad1);
+			$stmt->bindParam(':actividad2', $actividad2);
+			$stmt->bindParam(':actividad3', $actividad3);
+			$stmt->bindParam(':actividad4', $actividad4);
+			$stmt->bindParam(':actividad5', $actividad5);
+			$stmt->bindParam(':actividad6', $actividad6);
+			$stmt->bindParam(':actividad7', $actividad7);
+			$stmt->bindParam(':actividad8', $actividad8);
+			$stmt->bindParam(':actividad9', $actividad9);
+			$stmt->bindParam(':actividad10', $actividad10);
+			$stmt->bindParam(':actividad11', $actividad11);
+			$stmt->bindParam(':actividad12', $actividad12);
+			$stmt->bindParam(':actividad13', $actividad13);
+			$stmt->bindParam(':actividad14', $actividad14);
+			$stmt->bindParam(':actividad15', $actividad15);
+			$stmt->bindParam(':selectactividad1', $selectactividad1);
+			$stmt->bindParam(':selectactividad2', $selectactividad2);
+			$stmt->bindParam(':selectactividad3', $selectactividad3);
+			$stmt->bindParam(':selectactividad4', $selectactividad4);
+			$stmt->bindParam(':selectactividad5', $selectactividad5);
+			$stmt->bindParam(':selectactividad6', $selectactividad6);
+			$stmt->bindParam(':selectactividad7', $selectactividad7);
+			$stmt->bindParam(':selectactividad8', $selectactividad8);
+			$stmt->bindParam(':selectactividad9', $selectactividad9);
+			$stmt->bindParam(':selectactividad10', $selectactividad10);
+			$stmt->bindParam(':selectactividad11', $selectactividad11);
+			$stmt->bindParam(':selectactividad12', $selectactividad12);
+			$stmt->bindParam(':selectactividad13', $selectactividad13);
+			$stmt->bindParam(':selectactividad14', $selectactividad14);
+			$stmt->bindParam(':selectactividad15', $selectactividad15);
+			$stmt->bindParam(':competencia1', $competencia1);
+			$stmt->bindParam(':competencia2', $competencia2);
+			$stmt->bindParam(':competencia3', $competencia3);
+			$stmt->bindParam(':competencia4', $competencia4);
+			$stmt->bindParam(':competencia5', $competencia5);
+			$stmt->bindParam(':competencia6', $competencia6);
+			$stmt->bindParam(':competencia7', $competencia7);
+			$stmt->bindParam(':competencia8', $competencia8);
+			$stmt->bindParam(':competencia9', $competencia9);
+			$stmt->bindParam(':competencia10', $competencia10);
+			$stmt->bindParam(":destrezainstrumento", $destrezainstrumento);
+			$stmt->bindParam(":destrezaequipo", $destrezaequipo);
+			$stmt->bindParam(":destrezasistema", $destrezasistema);
+			$stmt->bindParam(":destrezacomputacion", $destrezacomputacion);
+			$stmt->bindParam(":destrezaotro", $destrezaotro);
 			$stmt->execute();
 
 
@@ -1110,95 +1278,90 @@ class crud
 		}
 	}
 
-//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
-public function dataview_escalas($categoria)
-{
-	$user = $_SESSION['user'];
-	$id_escala = "";
-	$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
-	$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
-	$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
-
-	if ($stmt2->rowCount() == 1) {
-
-	
-		if($categoria == 1)
-		{
-			$id_escala = $userRow['id_escala_administrativo'];
-		}
-		if($categoria == 2)
-		{
-			$id_escala = $userRow['id_escala_planta'];
-		}
-
-	$query = "SELECT grado, minimo, maximo FROM tipo_escala_empresarial 
-	WHERE categoria = ". $categoria. "
-	AND tipo_empresa = " . $id_escala;
-	$stmt = $this->conn->prepare($query);
-	$stmt->execute();
-
-	if($stmt->rowCount()>0)
+	//FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS
+	public function dataview_escalas($categoria)
 	{
-		$data = array();
-		while($row=$stmt->fetch(PDO::FETCH_ASSOC))
-			{
-				$data[] = $row;
+		$user = $_SESSION['user'];
+		$id_escala = "";
+		$stmt2 = $this->conn->prepare("SELECT * FROM empresas WHERE id=:id_empresa");
+		$stmt2->execute(array(':id_empresa' => $user['id_empresa']));
+		$userRow = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-			} 
-			return $data;
+		if ($stmt2->rowCount() == 1) {
+
+
+			if ($categoria == 1) {
+				$id_escala = $userRow['id_escala_administrativo'];
+			}
+			if ($categoria == 2) {
+				$id_escala = $userRow['id_escala_planta'];
+			}
+
+			$query = "SELECT grado, minimo, maximo FROM tipo_escala_empresarial 
+	WHERE categoria = " . $categoria . "
+	AND tipo_empresa = " . $id_escala;
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+
+			if ($stmt->rowCount() > 0) {
+				$data = array();
+				while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					$data[] = $row;
+				}
+				return $data;
+			}
+		}
 	}
-}
-}
-//FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS  
+	//FIN FUNCION PARA MOSTRAR LISTADO DE DEPARTAMENTOS  
 
-//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
-public function get_nombre_moneda()
-{
-	$user = $_SESSION['user'];
-	extract($this->get_datos_empresa($user['id_empresa']));	
+	//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+	public function get_nombre_moneda()
+	{
+		$user = $_SESSION['user'];
+		extract($this->get_datos_empresa($user['id_empresa']));
 
-	$stmt = $this->conn->prepare("SELECT * FROM paises WHERE id=:id_pais");
-	$stmt->execute(array(":id_pais"=>$id_pais));
-	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
-	return $editRow;
-}
-//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+		$stmt = $this->conn->prepare("SELECT * FROM paises WHERE id=:id_pais");
+		$stmt->execute(array(":id_pais" => $id_pais));
+		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
 
-//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
-public function get_datos_empresa($id_empresa)
-{
-	$stmt = $this->conn->prepare("SELECT *, nombre as nombre_empresa FROM empresas WHERE id=:id_empresa");
-	$stmt->execute(array(":id_empresa"=>$id_empresa));
-	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
-	return $editRow;
-}
-//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+	//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+	public function get_datos_empresa($id_empresa)
+	{
+		$stmt = $this->conn->prepare("SELECT *, nombre as nombre_empresa FROM empresas WHERE id=:id_empresa");
+		$stmt->execute(array(":id_empresa" => $id_empresa));
+		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
 
-//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
-public function get_sum_empleados($categoria)
-{
-	$user = $_SESSION['user'];
-	$stmt = $this->conn->prepare("SELECT COUNT(*) as conteo
+	//BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+	public function get_sum_empleados($categoria)
+	{
+		$user = $_SESSION['user'];
+		$stmt = $this->conn->prepare("SELECT COUNT(*) as conteo
 	FROM matriz_nomina mn 
 	INNER JOIN cargos c ON c.id = mn.id_cargo
 	WHERE categoria=:categoria
 	AND mn.id_empresa = " . $user['id_empresa']);
-	$stmt->execute(array(":categoria"=>$categoria));
-	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
-	return $editRow;
-}
-//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+		$stmt->execute(array(":categoria" => $categoria));
+		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
 
-public function get_nivel_empresarial($nivel_empresarial)
-{
-	$stmt = $this->conn->prepare("SELECT nombre as nombre_nivel, minimo as minimo_nivel, maximo as maximo_nivel
+	public function get_nivel_empresarial($nivel_empresarial)
+	{
+		$stmt = $this->conn->prepare("SELECT nombre as nombre_nivel, minimo as minimo_nivel, maximo as maximo_nivel
 	FROM tipo_escala_trabajadores
 	WHERE id=:nivel_empresarial");
-	$stmt->execute(array(":nivel_empresarial"=>$nivel_empresarial));
-	$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
-	return $editRow;
-}
-//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
+		$stmt->execute(array(":nivel_empresarial" => $nivel_empresarial));
+		$editRow = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
+	//FIN BUSCAR NOMBRE DE MONEDA POR ID DE PAIS
 
 
 

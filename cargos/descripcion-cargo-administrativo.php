@@ -1,6 +1,6 @@
-<?php 
- $seccion = 'p_descripcion_adm';
- include_once "../layouts/session.php"; ?>
+<?php
+$seccion = 'p_descripcion_adm';
+include_once "../layouts/session.php"; ?>
 <?php include_once "../layouts/header.php"; ?>
 <?php include_once "../layouts/menu.php"; ?>
 <!-- Content Wrapper. Contains page content -->
@@ -1260,8 +1260,9 @@
         <li><a href="#tab4"><span class="fa fa-bookmark"></span><span class="tab-text">Conocimientos</span></a></li>
         <li><a href="#tab5"><span class="fa fa-arrows-h"></span><span class="tab-text">Competencias</span></a></li>
         <li><a href="#tab6"><span class="fa fa-superpowers"></span><span class="tab-text">Relaciones</span></a></li>
-        <li><a href="#tab7"><span class="fa fa-window-restore "></span><span class="tab-text">Condiciones de trabajo</span></a></li>
         <li><a href="#tab8"><span class="fa fa-exclamation-circle"></span><span class="tab-text">Riesgos</span></a></li>
+        <li><a href="#tab7"><span class="fa fa-window-restore "></span><span class="tab-text">Condiciones de trabajo</span></a></li>
+
     </ul>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/descripcion-cargo.js"></script>
@@ -2338,6 +2339,8 @@
                 <article id="tab4">
 
                     <div class="row">
+                        <label for="riesgos" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Conocimientos:','Entendido como el raciocinio de cada persona para realizar el trabajo, se expresa a través de categorías o sub factores conocidos, tales como: Educación, Experiencia.')"> Conocimientos: </label>
+
                         <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
                             <div class="row">
                                 <div class="col-xs-12 col-md-6 mt-3 mt-md-0">
@@ -2693,7 +2696,7 @@
                 <article id="tab7">
                     <div class="row mt-3">
 
-                        <div class="col-xs-12 col-md-6">
+                        <div class="col-xs-12 col-md-6" hidden>
                             <label for="condicionesAmbientales">Ambientales:</label>
 
                             <div class="form-check">
@@ -2723,8 +2726,9 @@
                                 <div class="error" id="expertoErr"></div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6">
-                            <label for="riesgos">Riesgos:</label>
+                        <div class="col-xs-12 col-md-12">
+                            <label for="riesgos" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Riesgos:','Riesgo Laboral: Accidentes y enfermedades a que están expuestos los trabajadores en ejercicio o con motivo del trabajo.')"> Riesgos: </label>
+
                             <div class="form-check">
                                 <div class="frb-group">
                                     <div class="frb frb-primary">
@@ -2755,6 +2759,9 @@
                         <label for="comentarios">Comentarios u observaciones:</label>
                         <textarea class="form-control" id="comentarios" name="comentarios" rows="5"><?php echo $cargoDescripcion["comentarios_riesgo"]; ?></textarea>
                     </div>
+                    <div class="d-flex justify-content-center mt-5">
+                        <button id="btn-send" class="btn btn-success btn-lg" type="button" title="Next">Enviar</button>
+                    </div>
                 </article>
 
 
@@ -2762,6 +2769,7 @@
                     <div class="row mt-3">
                         <div class="col-xs-12 col-md-6  ">
                             <label for="competencias" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Competencias:','“Es una característica propia de un individuo que está directamente relacionada a un estándar de efectividad y/o a un desempeño superior en un trabajo o situación.{ Son comportamientos observables en la realidad cotidiana del trabajo y en situaciones de evaluación; son un rasgo de unión entre las características individuales y las cualidades requeridas para el desempeño en una empresa”. (Martha Alicia Alles, 2001).')"> Competencias: </label>
+
                             <small>Seleccione de 5 a 10 competencias principales, requeridas por el puesto/cargo</small>
                             <small>Antes de iniciar la selección de las competencias requeridas por el Puesto/Cargo, es necesario tomar en cuenta la Misión, Visión y Valores de la Organización.</small>
                             <div class=" col-6 mt-3 mb-3">
@@ -2944,6 +2952,16 @@
 
                             <script>
                                 var previousValues = {};
+                                $("select[id^='competencia']").each(function() {
+                                    var selectId = $(this).attr("id");
+                                    var selectedValue = $(this).val();
+
+                                    // Deshabilita la opción seleccionada en otros selects
+                                    $("select[id^='competencia']").not(this).find("option[value='" + selectedValue + "']").prop("disabled", true);
+
+                                    // Registra el valor actual del select
+                                    previousValues[selectId] = selectedValue;
+                                });
                                 $(document).ready(function() {
                                     // Objeto para rastrear valores anteriores de los selects
 
@@ -2995,12 +3013,9 @@
                                         if (key !== "competencia" + i) {
                                             var value = previousValues[key];
                                             $("select[id^='competencia']").find("option[value='" + value + "']").prop("disabled", true);
-
                                         }
                                     }
-
                                     previousValues["competencia" + i] = selectedValue;
-
                                 }
 
 
@@ -3183,8 +3198,9 @@
 
 
                 </article>
+
                 <article id="tab8">
-                    <label for="Riesgos" style="font-weight: bold; color: #3c8dbc; cursor: pointer;" onclick="info_tabla('Riesgos:','')"> Riesgos: </label>
+
                     <div class="row mt-2">
                         <div class="col-md-6 pr-3">
                             <label for="organigrama">Especificar ambiente de trabajo</label>
@@ -3436,9 +3452,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center mt-5">
-                        <button id="btn-send" class="btn btn-success btn-lg" type="button" title="Next">Enviar</button>
-                    </div>
+
                     <script>
                         // Manejar el evento click del botón
                         document.getElementById('btn-send').addEventListener('click', function(e) {
@@ -3501,6 +3515,10 @@
                             const revisado = document.getElementById('revisado');
                             const supervisor = document.getElementById('supervisor');
 
+
+
+
+
                             if (organigrama.length <= 0) {
                                 showSweetAlert('Error', 'El campo nivel organizativo es obligatorio.', 'error');
                             } else if (proposito.value === '') {
@@ -3550,6 +3568,7 @@
                             } else {
                                 // Si los campos son válidos, enviar el formulario
                                 const form = document.getElementById("formulario");
+                                $("select[id^='competencia'] option").prop("disabled", false);
                                 form.submit();
                             }
 
